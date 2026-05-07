@@ -1,0 +1,39 @@
+# ---------------- Core ----------------
+numpy
+pandas
+tqdm
+python-dotenv
+
+# ---------------- PDF Processing ----------------
+PyMuPDF
+pdfplumber
+
+# ---------------- Computer Vision ----------------
+opencv-python
+pytesseract
+ultralytics
+
+# ---------------- Deep Learning / Embeddings ----------------
+torch
+sentence-transformers
+
+# Hybrid sparse embeddings (BM25 / SPLADE-style)
+fastembed
+
+# ---------------- Vector Database ----------------
+qdrant-client
+
+# ---------------- LLM APIs ----------------
+groq
+
+# (optional if you later switch to OpenAI)
+openai
+
+# ---------------- NLP / Reranking ----------------
+scikit-learn
+transformers
+torchvision
+
+# ---------------- Utilities ----------------
+regex
+uuid
