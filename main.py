@@ -4,6 +4,7 @@ from rag import rerank, build_prompt, generate_response
 import json
 import pytesseract
 from qdrant_client import QdrantClient
+import os
 
 
 def get_schema_chunk(chunks):
@@ -72,7 +73,7 @@ def run_pipeline(pdf_path):
     ingestion_output = run_ingestion(
         pdf_path=pdf_path,
         output_base="data", 
-        model_path=r"D:\rag-project(cost estimator)\best.pt"
+        model_path=r"D:\AutoSpec RAG\best.pt"
     )
 
     ocr_data = ingestion_output["ocr_data"]
@@ -108,10 +109,21 @@ def run_pipeline(pdf_path):
 if __name__ == "__main__":
 
     print("Starting RAG Inference Pipeline...")
+    pdf_path=r"D:\AutoSpec RAG\Example Plans\CR-574_HousePlans.pdf"
 
     output = run_pipeline(
-        pdf_path=r"DD:\rag-project(cost estimator)\Example Plans\CR-574_HousePlans.pdf"
+        pdf_path=pdf_path
     )
 
     print("\nFINAL RESULT:")
     print(json.dumps(output, indent=2))
+
+    output_dir = "Results"
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    file_base_name = os.path.splitext(os.path.basename(pdf_path))[0]
+    output_file_path = os.path.join(output_dir, f"{file_base_name}.json")
+
+    with open(output_file_path, "w") as f:
+        json.dump(output, f, indent=2)

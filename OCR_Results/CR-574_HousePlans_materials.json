@@ -2,102 +2,102 @@
     "document": "CR-574_HousePlans.json",
     "materials_found": [
         {
-            "item": "Brick",
-            "specs": "as specified",
+            "item": "BRICK",
+            "specs": "AS SPECIFIED",
             "page": 2
         },
         {
-            "item": "Timber",
-            "specs": "header as specified",
+            "item": "TIMBER HEADER",
+            "specs": "AS SPECIFIED",
             "page": 2
         },
         {
-            "item": "Shingles",
-            "specs": "as specified",
+            "item": "COLUMN",
+            "specs": "AS SPECIFIED",
             "page": 2
         },
         {
-            "item": "Standing Seam Metal Roof",
+            "item": "STANDING SEAM METAL ROOF",
             "specs": "",
             "page": 2
         },
         {
-            "item": "Fascia",
+            "item": "SHINGLES",
+            "specs": "AS SPECIFIED",
+            "page": 2
+        },
+        {
+            "item": "FASCIA",
             "specs": "6\"",
             "page": 2
         },
         {
-            "item": "Stone",
-            "specs": "as specified",
+            "item": "STONE",
+            "specs": "",
             "page": 3
         },
         {
-            "item": "Siding",
-            "specs": "as specified",
+            "item": "SHINGLES",
+            "specs": "AS SPECIFIED",
             "page": 3
         },
         {
-            "item": "Windows",
+            "item": "SIDING",
+            "specs": "AS SPECIFIED",
+            "page": 3
+        },
+        {
+            "item": "WINDOWS",
             "specs": "EZ-BREEZE",
             "page": 3
         },
         {
-            "item": "Shingles",
-            "specs": "as specified",
-            "page": 3
-        },
-        {
-            "item": "Corner Board",
+            "item": "CORNER BOARD",
             "specs": "4\"",
             "page": 3
         },
         {
-            "item": "Brick Foundation",
+            "item": "BRICK FOUNDATION",
             "specs": "",
             "page": 3
         },
         {
-            "item": "Parge",
+            "item": "PARGE",
             "specs": "",
             "page": 3
         },
         {
-            "item": "Ridge Vent",
+            "item": "FRIEZE BOARD",
+            "specs": "OPTIONAL",
+            "page": 3
+        },
+        {
+            "item": "RIDGE VENT",
             "specs": "",
             "page": 3
         },
         {
-            "item": "Frieze Board",
-            "specs": "optional",
-            "page": 3
-        },
-        {
-            "item": "Shingles",
-            "specs": "as specified",
+            "item": "SHINGLES",
+            "specs": "AS SPECIFIED",
             "page": 4
         },
         {
-            "item": "Skylight",
+            "item": "SKYLIGHT",
             "specs": "",
             "page": 4
         },
         {
-            "item": "Windows",
+            "item": "WINDOWS",
             "specs": "EZ-BREEZE",
             "page": 4
         },
         {
-            "item": "Ridge Vent",
-            "specs": "",
-            "page": 4
-        },
-        {
-            "item": "Post",
+            "item": "POST",
             "specs": "4\"",
             "page": 4
         },
         {
-            "item": "Gypsum Board",
+            "item": "GYPSUM BOARD",
             "specs": "4\"",
             "page": 5
         }
