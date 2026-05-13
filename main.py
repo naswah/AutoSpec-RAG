@@ -123,7 +123,7 @@ if __name__ == "__main__":
     print("Starting RAG Inference Pipeline...")
 
     output = run_pipeline(
-        pdf_path=r"D:\AutoSpec RAG\Example Plans\CR-574_HousePlans.pdf"
+        pdf_path=r"D:\AutoSpec RAG\Example Plans\GAMEDAY COMPILED FINAL_12302024_SIGNED & SEALED_FLAT.pdf"
     )
 
     print("\nFINAL RESULT:")

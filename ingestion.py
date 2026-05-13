@@ -163,7 +163,7 @@ Return ONLY a valid JSON object. No markdown, no backticks, no explanation.
     "materials_found": [
         {{
             "item": "Material Name",
-            "specs": "Details like size, grade, or type if mentioned, provide full information. Do not miss any",
+            "specs": "Details like size, grade, or type if mentioned, provide full information. Provide the EXACT technical specifications including sizes, thickness, and ratings. DO NOT SUMMARIZE. Example: '5/8\" Type X Fire-Rated' instead of just 'Drywall'.",
             "page": <page number as integer>
         }}
     ],
