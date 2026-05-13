@@ -4,6 +4,7 @@ from rag import rerank, build_prompt, generate_response
 import json
 import pytesseract
 from qdrant_client import QdrantClient
+import os
 
 
 def get_schema_chunk(chunks):
@@ -14,15 +15,13 @@ def get_schema_chunk(chunks):
 
 
 def build_query_from_materials(materials_json):
+    if not materials_json or not isinstance(materials_json, dict):
+        return ""
 
-    if isinstance(materials_json, list):
-        if not materials_json:
-            return ""
-        data = materials_json[0]
-    else:
-        data= materials_json
-
-    items = data.get("materials_found", [])
+    # Access the 'materials_found' list directly from the dictionary
+    items = materials_json.get("materials_found", [])
+    # Also grab 'notes_found' to increase search context
+    notes = materials_json.get("notes_found", [])
 
     query_parts = []
 
@@ -31,8 +30,14 @@ def build_query_from_materials(materials_json):
             query_parts.append(m["item"])
         if m.get("specs"):
             query_parts.append(m["specs"])
+            
+    for n in notes:
+        if n.get("message"):
+            query_parts.append(n["message"])
 
     return " ".join(query_parts).strip()[:1000]
+
+
 
 def load_schema_chunk():
     return {
@@ -65,14 +70,12 @@ OUTPUT MUST FOLLOW THIS SCHEMA:
 def run_pipeline(pdf_path):
 
     print("\🚀 Running inference pipeline...")
-
-    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
     
     # 1. INGESTION
     ingestion_output = run_ingestion(
         pdf_path=pdf_path,
         output_base="data", 
-        model_path=r"D:\rag-project(cost estimator)\best.pt"
+        model_path=r"D:\AutoSpec RAG\best.pt"
     )
 
     ocr_data = ingestion_output["ocr_data"]
@@ -102,7 +105,17 @@ def run_pipeline(pdf_path):
     )
 
     result = generate_response(prompt)
+    plan_name = os.path.splitext(os.path.basename(pdf_path))[0]
+    results_folder = os.path.join(os.getcwd(), "Results")
+                                  
+    os.makedirs(results_folder, exist_ok=True)
 
+    save_path = os.path.join(results_folder, f"{plan_name}.json")
+    
+    with open(save_path, "w", encoding="utf-8") as f:
+        json.dump(result, f, indent=4, ensure_ascii=False)
+
+    print(f"\n✅ Final Spec saved to: {save_path}")
     return result
 
 if __name__ == "__main__":
@@ -110,7 +123,7 @@ if __name__ == "__main__":
     print("Starting RAG Inference Pipeline...")
 
     output = run_pipeline(
-        pdf_path=r"DD:\rag-project(cost estimator)\Example Plans\CR-574_HousePlans.pdf"
+        pdf_path=r"D:\AutoSpec RAG\Example Plans\CR-574_HousePlans.pdf"
     )
 
     print("\nFINAL RESULT:")

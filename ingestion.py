@@ -8,6 +8,9 @@ from ultralytics import YOLO
 from dotenv import load_dotenv
 from groq import Groq
 import time
+import pytesseract
+
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 load_dotenv(override=True)
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
@@ -60,16 +63,40 @@ def run_ocr(results, model):
         page = {"page_no": i + 1, "detections": []}
 
         for box in result.boxes:
+            # Get the class name and make it lowercase to handle case-insensitivity
             cls = model.names[int(box.cls[0])].lower()
 
-            if cls in ["text", "textbox", "text-box"]:
-                x1, y1, x2, y2 = map(int, box.xyxy[0].tolist())
-                crop = image[y1:y2, x1:x2]
-                gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
+            #If the title block is detected, ignore it.
+            if cls == "title_block":
+                continue
+
+            x1, y1, x2, y2 = map(int, box.xyxy[0].tolist())
+            crop = image[y1:y2, x1:x2]
+            
+            # Prevent crashes if bounding box is extremely small or out of bounds
+            if crop.size == 0:
+                continue
+
+            gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
+            text = ""
+
+            #If vertical text, rotate 90 degrees clockwise before OCR
+            if cls == "vertical_text":
+                rotated = cv2.rotate(gray, cv2.ROTATE_90_CLOCKWISE)
+                text = pytesseract.image_to_string(rotated).strip()
+
+            #If text block, extract everything and merge into a single line
+            elif cls == "text_block":
+                raw_text = pytesseract.image_to_string(gray).strip()
+                # Split by any newline and join with a space to keep it strictly on one line
+                text = " ".join(raw_text.splitlines())
+
+            #If horizontal text, process normally
+            elif cls in ["horizantal_text"]:
                 text = pytesseract.image_to_string(gray).strip()
 
-                if text:
-                    page["detections"].append(text)
+            if text:
+                page["detections"].append(text)
 
         all_pages.append(page)
 
@@ -105,9 +132,9 @@ You are a professional construction material estimator.
 Analyze the following OCR data extracted from an architectural house plan.
 
 TASK:
-Filter the text to extract ONLY building materials.
-Examples: lumber, shingles, concrete, insulation, drywall, windows, doors, fixtures, steel, plywood.
-Ignore: dimensions alone, room labels, drawing titles, revision notes, architect stamps.
+Filter the text to extract ONLY building materials. Remember to also add the notes section along with the materials in the filtered json. The "Notes" or "Genral Notes" or "Special Notes" section for context. If anny impotant details is provided i the note, add it in the specs. 
+Examples: lumber, shingles, concrete, insulation, drywall, windows, doors, fixtures, steel, plywood. 
+Provide each and every detail available. Do not skip any.
 
 OUTPUT FORMAT:
 Return ONLY a valid JSON object. No markdown, no backticks, no explanation.
@@ -116,7 +143,14 @@ Return ONLY a valid JSON object. No markdown, no backticks, no explanation.
     "materials_found": [
         {{
             "item": "Material Name",
-            "specs": "Details like size, grade, or type if mentioned",
+            "specs": "Details like size, grade, or type if mentioned, provide full information. Do not miss any",
+            "page": <page number as integer>
+        }}
+    ],
+    "notes_found": [
+        {{
+            "note_name": "Note Name",
+            "message": "Details provided in the note",
             "page": <page number as integer>
         }}
     ]
