@@ -7,7 +7,7 @@ import pytesseract
 from ultralytics import YOLO
 from dotenv import load_dotenv
 from groq import Groq
-import time
+import pandas as pd
 import pytesseract
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
@@ -52,6 +52,23 @@ def yolo_detection(model_path, image_folder):
     print(f"✅ Annotated images saved to: {detections_path}")
     return results, model
 
+def extract_table_structured(crop_gray):
+    
+    data = pytesseract.image_to_data(crop_gray, output_type=pytesseract.Output.DICT)
+    df = pd.DataFrame(data)
+    
+    df = df[df['text'].str.strip() != ""]
+    if df.empty:
+        return ""
+    
+    df['row'] = (df['top'] / 15).round() 
+    
+    rows = []
+    for _, row_df in df.groupby('row'):
+        row_text = " | ".join(row_df.sort_values('left')['text'].tolist())
+        rows.append(row_text)
+    
+    return f"[TABLE DATA START]\n" + "\n".join(rows) + "\n[TABLE DATA END]"
 
 
 # Extract the text from detected regions from yolo using ocr
@@ -94,6 +111,9 @@ def run_ocr(results, model):
             #If horizontal text, process normally
             elif cls in ["horizantal_text"]:
                 text = pytesseract.image_to_string(gray).strip()
+
+            elif cls in ["border_table"]:
+                text = extract_table_structured(gray)
 
             if text:
                 page["detections"].append(text)

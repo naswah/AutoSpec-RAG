@@ -73,6 +73,8 @@ RULES:
 - **CSI Code Format:** Use the full 6-digit code with spaces (XX XX XX). Do NOT provide 2-digit codes.
 - **Accuracy:** If the knowledge base mentions "06 10 00 Rough Carpentry" for Lumber, use that full code. If the item lies in subcategory, then provide the CSI Division for the sub category.
 - **Notes Field Preservation:** Ensure ALL numerical measurements and sizes (e.g., 4", 3000 PSI) present in the original "specs" are exactly preserved and placed into the "notes" field along with the necessady detailed information mentioned.
+- **Table Integration:** Cross-reference any item tags (e.g., Door Marks, Window Tags) found in the OCR context with the provided Table/Schedule data to provide the most accurate CSI division and specs.
+- **Data Integrity:** If a table provides a PSI rating for concrete and a general note provides a different one, prioritize the specific schedule data.
 - Return ONLY the JSON object.
 """
 
