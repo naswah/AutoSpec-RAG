@@ -77,7 +77,6 @@ def run_pipeline(pdf_path):
         pdf_path=pdf_path,
         output_base="data", 
         model_path=r"D:\AutoSpec RAG\best.pt"
-        model_path=r"D:\AutoSpec RAG\best.pt"
     )
 
     ocr_data = ingestion_output["ocr_data"]
@@ -126,7 +125,7 @@ if __name__ == "__main__":
     pdf_path=r"D:\AutoSpec RAG\Example Plans\CR-574_HousePlans.pdf"
 
     output = run_pipeline(
-        pdf_path=r"D:\AutoSpec RAG\Example Plans\GAMEDAY COMPILED FINAL_12302024_SIGNED & SEALED_FLAT.pdf"
+        pdf_path=pdf_path
     )
 
     print("\nFINAL RESULT:")
