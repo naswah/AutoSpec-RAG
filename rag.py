@@ -12,38 +12,51 @@ HF_TOKEN = os.getenv("HF_TOKEN")
 
 reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 
+def mappings(materials_list):
+    code_lookup= {}
+
+    for page in materials_list:
+        for view in page.get("views", []):
+            materials= view.get("materials", [])
+            for mat_key, mat_value in materials.items():
+                if mat_value != "Mapping Required" and mat_value != "none":
+                    code_lookup[mat_key] = mat_value
+
+    for page in materials_list:
+        for view in page.get("views", []):
+            materials= view.get("materials", {})
+            for mat_name in list(materials.keys()):
+                if materials[mat_name] == "Mapping Required":
+                    code_to_find = mat_name
+
+                    if code_to_find in code_lookup:
+                        materials[mat_name] = code_lookup[code_to_find]
+                        print(f"Mapped {code_to_find} to its definition.")
+    output_folder = os.path.join(os.getcwd(), "Result 2")
+    os.makedirs(output_folder, exist_ok=True)
+
+    save_path = os.path.join(output_folder, "pdf_final.json")
+    with open(save_path, "w", encoding="utf-8") as f:
+        json.dump(materials_list, f, indent=4, ensure_ascii=False)
+        
+    print(f"Resolved JSON saved to: {save_path}")
+
+    return materials_list
 
 # Numerical data le rag search ma affect garna sakcha so we do not send the numerical data to search in RAG, we jus send the material details. We get the context from the vector database. Tyo context ra original filtered json file LLM lai pathaune in order to give nice and correct output
 
 
-def clean_query_text(text):
-    """
-    Removes numerical measurements (e.g., 4", 1/2', 3000 PSI) from the query string.
-    This ensures semantic search focuses strictly on the material classification.
-    """
-    if not text:
-        return ""
-    # Matches numbers (with optional decimals/fractions) and common units or quotes following them
-    cleaned = re.sub(r'\b\d+(?:[\.,/]\d+)?\s*(?:"|\'|mm|cm|in|inch|ft|lbs|psi)?\b', '', text, flags=re.IGNORECASE)
-    
-    cleaned = cleaned.replace('"', '').replace("'", "")
-    return re.sub(r'\s+', ' ', cleaned).strip()
-
-
-
 def rerank(query, docs):
-    cleaned_query = clean_query_text(query)
-    
-    pairs = [[cleaned_query, d["content"]] for d in docs]
+    if not docs: return []
+        
+    pairs = [[query, d.get("content", "")] for d in docs]
     scores = reranker.predict(pairs)
-
     ranked = sorted(zip(docs, scores), key=lambda x: x[1], reverse=True)
-
     return [r[0] for r in ranked[:5]]
 
 
 
-def build_prompt(materials_json, ocr_data, retrieved_chunks, schema_chunk):
+def build_prompt(raw_json_string, retrieved_chunks):
 
     context = "\n\n".join([c["content"] for c in retrieved_chunks])
 
@@ -51,32 +64,14 @@ def build_prompt(materials_json, ocr_data, retrieved_chunks, schema_chunk):
 You are an expert construction cost & CSI classification system.
 
 TASK:
-1. Take filtered building materials
-2. Map them to correct CSI MasterFormat codes (pattern: XX XX XX or XX XX XX.XX e.g., '03 30 00' do not just output 03)
-3. Populate the "notes" field with specific material details (sizes, PSI, thickness) from the "specs" field.
-4. Check the "Notes" or "Genral Notes" or "Special Notes" section for context. If anny impotant details is provided in the note, try to relate it in oder to provide the CSI division.
-5. Produce structured JSON output strictly following schema 
+- Take the provided JSON data. For every material item, find the matching 6-digit CSI code from the context. Not just for 1 material. DProvide CSI codes for all the ,materials that are detected.
+- Update the "csi_division" field in the JSON with that code.Add correct CSI divisdion MasterFormat codes (pattern: XX XX XX or XX XX XX.XX e.g., '03 30 00' do not just output 03) in the provided json.
+- DO NOT change any other values (dimensions, notes, or names).
+- Return the EXACT same JSON structure, fully populated.
 
---- FILTERED MATERIALS (GEMINI OUTPUT) ---
-{json.dumps(materials_json, indent=2)}
+{raw_json_string}
 
---- RAW OCR CONTEXT (SUPPORT ONLY) ---
-{json.dumps(ocr_data, indent=2)}
-
---- MASTERFORMAT KNOWLEDGE (VECTOR DB CONTEXT) ---
 {context}
-
---- OUTPUT SCHEMA ---
-{schema_chunk["content"]}
-
-RULES:
-- **CSI Code Format:** Use the full 6-digit code with spaces (XX XX XX). Do NOT provide 2-digit codes.
-- **Accuracy:** If the knowledge base mentions "06 10 00 Rough Carpentry" for Lumber, use that full code. If the item lies in subcategory, then provide the CSI Division for the sub category.
-- **Notes Field Preservation:** Ensure ALL numerical measurements and sizes *Example*: If spec is '4" thick 3000 PSI', the final notes should be 'Concrete: 4" thick, 3000 PSI'.
-- **Table Integration:** Cross-reference any item tags (e.g., Door Marks, Window Tags) found in the OCR context with the provided Table/Schedule data to provide the most accurate CSI division and specs.
-- **MANDATORY Detail Preservation:** You MUST extract every numerical value, dimension (e.g., 4", 1/2'), and technical spec (e.g., 3000 PSI, Grade 60) from the "specs" field of the Filtered Materials and the "message" field of the Notes. *Example*: If spec is '4" thick 3000 PSI', the final notes should be 'Concrete: 4" thick, 3000 PSI'.
-- **Zero Loss:** Do not summarize or omit measurements to make the JSON "cleaner."
-- Return ONLY the JSON object.
 """
 
 

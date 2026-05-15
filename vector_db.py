@@ -13,7 +13,8 @@ HF_TOKEN = os.getenv("HF_TOKEN")
 dense_model = SentenceTransformer('all-MiniLM-L6-v2')
 sparse_model = SparseTextEmbedding('Qdrant/bm25')
 
-COLLECTION = 'Master_Format'
+COLLECTION = 'MasterFormat'
+
 
 def create_collection(client):
     client.create_collection(
@@ -25,10 +26,12 @@ def create_collection(client):
             "sparse": SparseVectorParams()
         }
     )
+    print(f"Collection {COLLECTION} created.")
+
 
 def build_vectordb(client, chunks):
     texts = [c["content"] for c in chunks]
-
+    print(f"Generating embeddings for {len(texts)} chunks...")
     dense_vectors = dense_model.encode(texts, normalize_embeddings=True)
     sparse_vectors = list(sparse_model.embed(texts))
 
@@ -48,7 +51,11 @@ def build_vectordb(client, chunks):
         )
         points.append(point)
 
-    client.upsert(collection_name=COLLECTION, points=points)
+    batch_size = 50 
+    for i in range(0, len(points), batch_size):
+        batch = points[i : i + batch_size]
+        client.upsert(collection_name=COLLECTION, points=batch)
+
 
 def hybrid_search(client, query, top_k=5):
     d = dense_model.encode(query, normalize_embeddings=True).tolist()
@@ -74,5 +81,5 @@ def hybrid_search(client, query, top_k=5):
         query=models.FusionQuery(fusion=models.Fusion.RRF),
         limit=top_k
     )
-
+    
     return [r.payload for r in results.points]

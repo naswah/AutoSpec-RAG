@@ -1,12 +1,16 @@
 from ingestion import run_ingestion
 from vector_db import hybrid_search
-from rag import rerank, build_prompt, generate_response
+from rag import rerank, build_prompt, generate_response, mappings
 import json
-import pytesseract
 from qdrant_client import QdrantClient
 import os
-import os
+import re
+from groq import Groq
+from dotenv import load_dotenv
 
+qdrant_client = QdrantClient(url="http://localhost:6333")
+load_dotenv(override=True)
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 def get_schema_chunk(chunks):
     for c in chunks:
@@ -15,128 +19,56 @@ def get_schema_chunk(chunks):
     return None
 
 
-def build_query_from_materials(materials_json):
-    if not materials_json or not isinstance(materials_json, dict):
-        return ""
-
-    # Access the 'materials_found' list directly from the dictionary
-    items = materials_json.get("materials_found", [])
-    # Also grab 'notes_found' to increase search context
-    notes = materials_json.get("notes_found", [])
-
+def build_query_from_materials(materials_list):
     query_parts = []
 
-    for m in items:
-        if m.get("item"):
-            query_parts.append(m["item"])
-        if m.get("specs"):
-            query_parts.append(m["specs"])
-            
-    for n in notes:
-        if n.get("message"):
-            query_parts.append(n["message"])
-
+    for page in materials_list:
+        for view in page.get("views", []):
+            materials = view.get("materials", {})
+            for mat_name, mat_info in materials.items():
+                query_parts.append(mat_name)
+                if isinstance(mat_info, str):
+                    query_parts.append(mat_info)
+    
     return " ".join(query_parts).strip()[:1000]
 
 
+def run_pipeline(pdf_path, output_base):
 
-def load_schema_chunk():
-    return {
-        "code": "OUTPUT_SCHEMA",
-        "content": """
-You are a construction specification extraction assistant.
-
-OUTPUT MUST FOLLOW THIS SCHEMA:
-
-{
-  "pages": [
-    {
-      "pg_no": integer,
-      "views": [
-        {
-          "required_info": {
-            "csi_division": "string (Format: XX XX XX, e.g., '03 30 00')",
-            "description": "string",
-            "notes": "string (Include dimensions, sizes, and PSI here)"
-          }
-        }
-      ]
-    }
-  ]
-}
-"""
-    }
-
-
-def run_pipeline(pdf_path):
-
-    print("\🚀 Running inference pipeline...")
+    print(f"\n--- Starting Ingestion for: {os.path.basename(pdf_path)} ---")
+    ingestion_results = run_ingestion(pdf_path, output_base)
     
-    # 1. INGESTION
-    ingestion_output = run_ingestion(
-        pdf_path=pdf_path,
-        output_base="data", 
-        model_path=r"D:\AutoSpec RAG\best.pt"
-    )
-
-    ocr_data = ingestion_output["ocr_data"]
-    materials = ingestion_output["materials"]
-
-    if not materials:
-        raise Exception("No materials extracted from Gemini")
-
-    # 2. QUERY BUILDING
-    query = build_query_from_materials(materials)
-
-    print("\nQuery:")
-    print(query)
-
-    client = QdrantClient(url="http://localhost:6333")
-    retrieved = hybrid_search(client, query)
-
-    ranked = rerank(query, retrieved)
-
-    schema_chunk = load_schema_chunk()
-
-    prompt = build_prompt(
-        materials,
-        ocr_data,
-        ranked,
-        schema_chunk
-    )
-
-    result = generate_response(prompt)
     plan_name = os.path.splitext(os.path.basename(pdf_path))[0]
-    results_folder = os.path.join(os.getcwd(), "Results")
-                                  
-    os.makedirs(results_folder, exist_ok=True)
+    json_path = ingestion_results["json_path"]
+    
+    with open(json_path, 'r', encoding="utf-8") as f:
+        materials_list = json.load(f)
 
-    save_path = os.path.join(results_folder, f"{plan_name}.json")
+    mapped_materials = mappings(materials_list)
+    
+    json_string = json.dumps(mapped_materials, indent=2)
+
+    search_query = build_query_from_materials(mapped_materials)
+    print(f"--- Searching MasterFormat for: {search_query[:100]}... ---")
+    
+    initial_chunks = hybrid_search(qdrant_client, search_query)
+    
+    ranked_chunks = rerank(search_query, initial_chunks)
+
+    final_prompt = build_prompt(json_string, ranked_chunks)
+    
+    final_result = generate_response(final_prompt)
+
+    save_path = os.path.join(os.getcwd(), "Results", f"{plan_name}_Final.json")
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
     
     with open(save_path, "w", encoding="utf-8") as f:
-        json.dump(result, f, indent=4, ensure_ascii=False)
+        json.dump(final_result, f, indent=4, ensure_ascii=False)
 
-    print(f"\n✅ Final Spec saved to: {save_path}")
-    return result
+    print(f"✅ Final Specification saved to: {save_path}")
+    return final_result
 
 if __name__ == "__main__":
-
-    print("Starting RAG Inference Pipeline...")
-    pdf_path=r"D:\AutoSpec RAG\Example Plans\CR-574_HousePlans.pdf"
-
-    output = run_pipeline(
-        pdf_path=pdf_path
-    )
-
-    print("\nFINAL RESULT:")
-    print(json.dumps(output, indent=2))
-
-    output_dir = "Results"
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-
-    file_base_name = os.path.splitext(os.path.basename(pdf_path))[0]
-    output_file_path = os.path.join(output_dir, f"{file_base_name}.json")
-
-    with open(output_file_path, "w") as f:
-        json.dump(output, f, indent=2)
+    pdf_path = r"D:\AutoSpec RAG\Example Plans\American Farmhouse 201225 full.pdf"
+    output_base = r"D:\AutoSpec RAG\output"
+    run_pipeline(pdf_path, output_base)
