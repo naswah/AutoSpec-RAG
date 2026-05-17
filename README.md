@@ -44,3 +44,5 @@ python main.py
 
 ## Output📊
 A structurted JSON with the CSI division, Notes and Descrption of the materials present in the user architectural plan.
+
+## NOTE: Please check the 'dev' branch for recent updates
