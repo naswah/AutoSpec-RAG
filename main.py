@@ -1,74 +1,105 @@
-from ingestion import run_ingestion
-from vector_db import hybrid_search
-from rag import rerank, build_prompt, generate_response, mappings
-import json
-from qdrant_client import QdrantClient
+# main_workflow.py
 import os
+import json
 import re
-from groq import Groq
+from typing import Literal
 from dotenv import load_dotenv
+from langgraph.graph import StateGraph, END
 
-qdrant_client = QdrantClient(url="http://localhost:6333")
+from state.graph_state import AgenticState
+from agents.ingestion_agent import ingestion_agent_node
+from agents.blueprint_mapper import blueprint_mapper_node
+from agents.csi_classifier import csi_classifier_node
+from agents.validator_agent import validator_agent_node
+
 load_dotenv(override=True)
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
-
-def get_schema_chunk(chunks):
-    for c in chunks:
-        if c.get("code") == "OUTPUT_SCHEMA":
-            return c
-    return None
 
 
-def build_query_from_materials(materials_list):
-    query_parts = []
+def check_for_blueprint_codes(state: AgenticState) -> Literal["run_mapper", "skip_mapper"]:
 
-    for page in materials_list:
-        for view in page.get("views", []):
-            materials = view.get("materials", {})
-            for mat_name, mat_info in materials.items():
-                query_parts.append(mat_name)
-                if isinstance(mat_info, str):
-                    query_parts.append(mat_info)
+    print("\nDecision Hub: Scanning extracted JSON for structural codes (e.g., X-30, F-78)...")
+    extracted_data = state.get("extracted_materials", [])
+    json_str = json.dumps(extracted_data)
     
-    return " ".join(query_parts).strip()[:1000]
-
-
-def run_pipeline(pdf_path, output_base):
-
-    print(f"\n--- Starting Ingestion for: {os.path.basename(pdf_path)} ---")
-    ingestion_results = run_ingestion(pdf_path, output_base)
+    code_pattern = re.compile(r"\b[A-Za-z]-\d+\b")
     
-    plan_name = os.path.splitext(os.path.basename(pdf_path))[0]
-    json_path = ingestion_results["json_path"]
+    if code_pattern.search(json_str) or "Mapping Required" in json_str:
+        print("Structural codes found! Routing to Agent 2 (Blueprint Mapper).")
+        return "run_mapper"
     
-    with open(json_path, 'r', encoding="utf-8") as f:
-        materials_list = json.load(f)
+    print("No blueprint codes detected. Skipping Agent 2 step entirely.")
+    return "skip_mapper"
 
-    mapped_materials = mappings(materials_list)
-    
-    json_string = json.dumps(mapped_materials, indent=2)
 
-    search_query = build_query_from_materials(mapped_materials)
-    print(f"--- Searching MasterFormat for: {search_query[:100]}... ---")
-    
-    initial_chunks = hybrid_search(qdrant_client, search_query)
-    
-    ranked_chunks = rerank(search_query, initial_chunks)
+def evaluation_router(state: AgenticState) -> Literal["back_to_classifier", "save_and_exit"]:
+    if state.get("error_log") and state.get("retry_count", 0) < 3:
+        print(f"Routing back to Agent 3 (CSI Classifier) for correction attempt #{state.get('retry_count', 0)}")
+        return "back_to_classifier"
+    return "save_and_exit"
 
-    final_prompt = build_prompt(json_string, ranked_chunks)
-    
-    final_result = generate_response(final_prompt)
 
+def save_results_node(state: AgenticState):
+    plan_name = os.path.splitext(os.path.basename(state["pdf_path"]))[0]
     save_path = os.path.join(os.getcwd(), "Results", f"{plan_name}_Final.json")
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
     
+    final_output = state.get("final_specifications")
+    
     with open(save_path, "w", encoding="utf-8") as f:
-        json.dump(final_result, f, indent=4, ensure_ascii=False)
+        json.dump(final_output, f, indent=4, ensure_ascii=False)
+        
+    print(f"\nFinal output successfully saved to: {save_path}")
+    return {}
 
-    print(f"✅ Final Specification saved to: {save_path}")
-    return final_result
+
+workflow = StateGraph(AgenticState)
+
+workflow.add_node("agent_ingestion", ingestion_agent_node)
+workflow.add_node("agent_mapper", blueprint_mapper_node)
+workflow.add_node("agent_classifier", csi_classifier_node)
+workflow.add_node("agent_validator", validator_agent_node)
+workflow.add_node("node_save", save_results_node)
+
+workflow.set_entry_point("agent_ingestion")
+
+workflow.add_conditional_edges(
+    "agent_ingestion",
+    check_for_blueprint_codes,
+    {
+        "run_mapper": "agent_mapper",      # Code found -> map it
+        "skip_mapper": "agent_classifier"  # Code missing -> bypass mapper node completely
+    }
+)
+
+workflow.add_edge("agent_mapper", "agent_classifier")
+workflow.add_edge("agent_classifier", "agent_validator")
+
+workflow.add_conditional_edges(
+    "agent_validator",
+    evaluation_router,
+    {
+        "back_to_classifier": "agent_classifier",
+        "save_and_exit": "node_save"
+    }
+)
+workflow.add_edge("node_save", END)
+
+app = workflow.compile()
+
+try:
+    graph_image_bytes = app.get_graph().draw_mermaid_png()
+    
+    with open("workflow_graph.png", "wb") as f:
+        f.write(graph_image_bytes)
+except Exception as e:
+    print(f"Could not generate graph image: {e}")
 
 if __name__ == "__main__":
-    pdf_path = r"D:\AutoSpec RAG\Example Plans\American Farmhouse 201225 full.pdf"
-    output_base = r"D:\AutoSpec RAG\output"
-    run_pipeline(pdf_path, output_base)
+    inputs = {
+        "pdf_path": r"D:\AutoSpec RAG\Example Plans\CR-574_HousePlans.pdf",
+        "output_base": r"D:\AutoSpec RAG\output",
+        "retry_count": 0,
+        "error_log": []
+    }
+    print("Launching agentic AutoSpec RAG...")
+    app.invoke(inputs)

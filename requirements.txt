@@ -25,6 +25,7 @@ qdrant-client
 
 # ---------------- LLM APIs ----------------
 groq
+langgraph
 
 # (optional if you later switch to OpenAI)
 openai
