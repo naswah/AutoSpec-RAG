@@ -11,112 +11,106 @@ def ingestion_agent_node(state: AgenticState):
     valid_pages = pdf_to_image(state["pdf_path"], state["output_base"])
     results = []
     
-    prompt = """Your role is a professional construction material estimator. Analyze this architectural drawing and extract ONLY building materials used in civil engineering and technical specs.
-    Include: Material Name, exact dimensions/sizes, thickness, and any specific notes (PSI) in the 'notes' section. If nothing is specified, write 'none'.   
-    - 'Material 1' and 'Material 2' are the index of material names.
-     **CRITICAL** There may be codes in the image.(Eg X-20, F-76) If you see the codes just add it to JSON and write "Mapping Required" in notes. Do not add the "code" section for nomal materials.
-        Return the result as a JSON object with this structure:
+    prompt = """Your role is a professional construction material estimator. Analyze this architectural drawing and extract building materials used in CIVIL ENGINEERING and technical specs.
 
-        [
-            {
-                "page": "String",
-                "views": [
-                {
-                    "view_name": "String (Eg: Front Elevation, Bathrrom Elevation, Exterior Wall etc)",
-                    "materials": {
-                    "Material 1": "String"{
-                        "notes": "String (Provide dimension/sizes/thickness or PSI if given, else none)",
-                    }
-                    "Material 2": "X-02" {
-                        "notes": "Mapping Required",
-                    }
-                    "Material 3": "String" {
-                        "notes": "String (Provide dimension/sizes/thickness or PSI if given, else none)",
-                    }
-                .....
-                    }
-                {
-                "view_name": "String"
-                    ........
-                }
-                }
-                ]
+   🚨 REGEX RULE FOR CODES (CRITICAL)
+    For codes (e.g., X-02, F-60, F-62, F-64, F-76, W-01), go automatically to category B.
+   
+   🚨CRITICAL🚨: LEGEND EXCLUSION RULE:
+   - IF YOU SEE STANDALONE KEY NOTES, GENERAL LEGENDS, OR INDEX KEYS LOCATED ON THE SAME PAGE AS PLAN VIEWS, YOU MUST IGNORE THEM. Do not parse these static master legends as views or schedules.
 
-                "page" : "String",
-                .....
+    ### CATEGORY CLASSIFICATION RULES
 
-                "page": "String",
-                "views":[
-                {
-                  "view_name" : "Schedules",
-                  "materials":
-                  {
-                     "Material 1": "X02"{    (If code detail arises) 
-                        "prpperties": {
-                        "Table_column1_name": "String"
-                        "Table_column2_name": "String",
-                        "Table_column3_name":"String"
-                        .....
-                        }
-                     }
-                  }
-                 }]
+    #### CATEGORY A: STANDARD MATERIALS (No Codes Present)
+    Use this formatting ONLY if there is absolutely no schedule code (like F-60 or X-02) associated with the material.
+    - Format: Provide "name" and "notes". Do NOT include a "code" key.
+    - Example:
+      "Material 1": {
+         "name": "Fiberglass Batt Insulation",
+         "notes": "R-19 thermal rating, unfaced"
+      }
+
+    #### CATEGORY B: CODED MATERIALS & SCHEDULES (Codes Present)
+    Use this formatting if a code (e.g., F-60, X-02) is detected anywhere on the drawing or inside a schedule layout.
+    
+    1. If it's on a plan view/detail pointing to a layout area:
+       - You MUST strip out the "name" key completely. 
+       - Provide ONLY the "code" key and set "notes" strictly to "Mapping Required".
+       - Example (If you see "Hardwood Floor F-60" or just "F-60"):
+         "Material 2": {
+            "code": "F-60",
+            "notes": "Mapping Required"
+         }
+
+    2. DETECTING FULL SCHEDULES & TABLES (e.g., MATERIALS SCHEDULE, FIXTURE & EQUIPMENT SCHEDULE):
+       - If the page contains large master index tables (such as Sheet A5.0 containing "MATERIALS SCHEDULE" or "FIXTURE & EQUIPMENT SCHEDULE"), you MUST extract EVERY single row systematically.
+       - Do NOT ignore tables just because columns are empty or contain dashes ("-"). Empty values or dashes are structurally valid data points!
+       - Capture the columns exactly as keys inside a dynamic "properties" block. Use the column headers as your JSON keys.
+       - Example:
+         "Material 1": {
+            "code": "F-20",
+            "properties": {
+               "MARK": "F-20",
+               "ITEM": "FLOOR DECKING",
+               "SIZE": "1x4",
+               "MATERIAL": "PAINTED WOOD",
+               "NOTES": "TONGUE & GROOVE, UNPAINTED CEDAR PREFERRED",
+               "MANUFACTURER / MODEL": "none"
             }
-        ] 
-        !!! CRITICAL !!! : Collect all layout table columns dynamically inside the "properties" object.
+         }
+        Here, the "properties" block must be dynamically generated i.e. the table columns must be the keys and their respective values are the values in the table.
 
-        Example json:
-        [
-    {
-        "page": "A1.1",
+    ### FILTERING & EXTRACTION RULES:
+    
+    - If a note row or cell is blank or contains a dash ("-"), represent its value as "none" inside the properties object. Do NOT skip the row!
+    - If the image is crossed out, ignore it entirely.
+    - Collect all layout table columns dynamically inside the "properties" object for schedules.
+
+    ### EXPECTED OUTPUT STRUCTURE
+    Strictly match this JSON format:
+    [
+      {
+        "page": "String",
         "views": [
-            {
-                "view_name": "Exterior Wall Section",
-                "materials": {
-                    "Concrete Foundation Wall": {
-                        "notes": "8 inches thick, 4000 PSI continuous pour structural grade"
-                    },
-                    "X-02": {
-                        "notes": "Mapping Required"
-                    },
-                    "Fiberglass Batt Insulation": {
-                        "notes": "R-19 thermal rating, unfaced, fits tight between 2x6 framing studs"
-                    }
-                }
+          {
+            "view_name": "String (e.g., Kitchen / Water Closet - Floor Plan Detail)",
+            "materials": {
+              "Material 1": {
+                "name": "Concrete Foundation Wall",
+                "notes": "8', 4000 PSI"
+              },
+              "Material 2": {
+                "code": "F-60",
+                "notes": "Mapping Required"
+              },
+              "Material 3": {
+                "code": "X-02",
+                "notes": "Mapping Required"
+              }
             }
-        ],
-        "page_no": 3
-    },
-    {
-        "page": "A5.0",
-        "views": [
-            {
-                "view_name": "Schedules",
-                "materials": {
-                    "X-02": {
-                        "properties": {
-                            "ITEM": "KITCHEN SINK",
-                            "SIZE": "24\"x18\"",
-                            "MATERIAL": "Vitreous China",
-                            "NOTES": "Single bowl style, wall-hung installation config"
-                        }
-                    },
-                    "F-20": {
-                        "properties": {
-                            "ITEM": "FLOOR DECKING",
-                            "SIZE": "1\"x4\"",
-                            "MATERIAL": "Painted Wood",
-                            "NOTES": "Tongue & groove joinery pattern, unpainted cedar preferred"
-                        }
-                    }
+          },
+          {
+            "view_name": "Schedules",
+            "materials": {
+              "Material 1": {
+                "code": "F-60",
+                "properties": {
+                  "MARK": "F-20",
+                  "ITEM": "HARDWOOD FLOORING",
+                  "SIZE": "1x4",
+                  "MATERIAL": "Select Red Oak",
+                  "NOTES": "TONGUE & GROOVE",
+                  "MANUFACTURER / MODEL": "none"
                 }
+              }
             }
-        ],
-        "page_no": 12
-    }
-]
+          }
+        ]
+      }
+    ]
 
-        """
+    Do not output any introductory or concluding text. Return ONLY the valid JSON object.
+    """
 
     for page in valid_pages:
         try:

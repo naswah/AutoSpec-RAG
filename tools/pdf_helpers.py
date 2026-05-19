@@ -5,9 +5,8 @@ import pdfplumber
 import re
 
 EXCLUDE_KEYWORDS = [
-    "accessibility", "project summary", "site plan", "electrical", "project information", "plumbing", "mechanical", "fire", "lighting", "power", "life safety", "water piping", "sanitary", "vent piping", "cover sheet", "cover page"
+    "accessibility", "cover", "title sheet", "delta sheet", "cover sheet", "project summary", "site plan", "elctric", "electrical", "project information", "plumbing", "mechanical", "fire", "lighting", "power", "life safety", "water piping", "sanitary", "specifications", "vent piping", "cover page", "building data sheet"
 ]
-
 
 def is_page_excluded(page):
     rect=- page.rect
@@ -33,6 +32,7 @@ def pdf_to_image(pdf_path, output_base):
     print(f"Saving filtered images to: {extraction_folder}")
     for i in range(len(doc)):
         page = doc[i]
+        
         if is_page_excluded(page):
             print(f"🚫 Page {i+1}: Excluded due to keyword boundary match.")
             continue
