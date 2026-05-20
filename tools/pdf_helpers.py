@@ -5,22 +5,27 @@ import pdfplumber
 import re
 
 EXCLUDE_KEYWORDS = [
-    "accessibility", "cover", "title sheet", "delta sheet", "cover sheet", "project summary", "site plan", "elctric", "electrical", "project information", "plumbing", "mechanical", "fire", "lighting", "power", "life safety", "water piping", "sanitary", "specifications", "vent piping", "cover page", "building data sheet"
+    "accessibility", "cover page","cover sheet", "title sheet", "delta", "project summary", "site plan", "plot plan", "electrical plan", "project information", "plumbing plan", "mechanical notes", "mechanical plan", "fire protection", "lighting plan", "power plan", "life safety plan", "water piping", "sanitary", "specifications", "vent piping", "cover page", "building data sheet", "building code summary", "abbreviations and symbols", "construction notes", "waste", "water supply"
 ]
 
 def is_page_excluded(page):
-    rect=- page.rect
+    rect= page.rect
     width, height = rect.width, rect.height
     zones = [
         fitz.Rect(0, height * 0.85, width, height),   
         fitz.Rect(width * 0.85, 0, width, height)
     ]
     for zone in zones:
-        text = page.get_text("text", clip=zone).lower()
-        if any(keyword in text for keyword in EXCLUDE_KEYWORDS):
-            return True
+        raw_text = page.get_text("text", clip=zone).lower()
+        clean_text = " ".join(raw_text.split())
+        for keyword in EXCLUDE_KEYWORDS:
+           
+            pattern = rf"\b{re.escape(keyword)}\b"
+            if re.search(pattern, clean_text):
+                print(f"DEBUG: Page flagged because keyword '{keyword}' matched in zone text: '{clean_text[:50]}...'")
+                return True
+                
     return False
-
 
 def pdf_to_image(pdf_path, output_base):
     doc = fitz.open(pdf_path)
@@ -69,13 +74,15 @@ def clean_masterformat(pdf_path):
 
 
 def chunk_masterformat(text):
-    pattern = r"(\d{2} \d{2} \d{2})\s+([^\n]+)(.*?)(?=\n\d{2} \d{2} \d{2}|$)"
+    pattern = r"(\d{2}\s\d{2}\s\d{2})\s+([^\n\d]+)(.*?)(?=\s\d{2}\s\d{2}\s\d{2}|\Z)"
     chunks = []
+    
     for m in re.finditer(pattern, text, re.DOTALL):
+        content_body = m.group(0).strip()
         chunks.append({
-            "code": m.group(1),
-            "title": m.group(2),
-            "content": m.group(0),
+            "code": m.group(1).strip(),
+            "title": m.group(2).strip(),
+            "content": content_body,
             "type": "content"
         })
     return chunks
