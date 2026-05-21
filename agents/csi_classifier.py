@@ -59,63 +59,80 @@ def rerank_chunks(query, docs):
 
 
 def csi_classifier_node(state: AgenticState):
-    print("\nMatching MasterFormat Subdivisions...")
+    print("\n=== [Agent 3: CSI Classifier] Computing MasterFormat Classifications (Optimized) ===")
     client = Groq(api_key=os.getenv("GROQ_API_KEY"))
     
-    target_materials = state.get("mapped_materials") or state.get("extracted_materials", [])
+    # Safely retrieve active graph state array elements
+    target_materials = state.get("mapped_materials")
+    if not target_materials:
+        target_materials = state.get("extracted_materials", [])
+        
+    full_retrieved_contexts = []
     
-    all_retrieved_contexts = []
-    
+    # Process each isolated item step-by-step 
     for page in target_materials:
         for view in page.get("views", []):
             materials = view.get("materials", {})
             for mat_name, mat_info in materials.items():
                 
                 search_query = extract_keywords_from_material(mat_info)
-                
                 if not search_query:
                     continue
                 
-                initial_chunks = hybrid_search(qdrant_client, search_query, top_k=5)
+                # Slashes retrieval workload down to minimal targets per item
+                initial_chunks = hybrid_search(qdrant_client, search_query, top_k=3)
                 ranked_chunks = rerank_chunks(search_query, initial_chunks)
                 
+                item_chunks = []
                 for chunk in ranked_chunks:
                     if isinstance(chunk, dict) and "content" in chunk:
-                        all_retrieved_contexts.append(chunk["content"])
+                        item_chunks.append(chunk["content"])
+                        full_retrieved_contexts.append(chunk["content"])
+                
+                if not item_chunks:
+                    continue
+                
+                item_context = "\n\n".join(item_chunks)
+                item_json_string = json.dumps({mat_name: mat_info}, indent=2)
+                
+                feedback = ""
+                if state.get("retry_count", 0) > 0 and state.get("error_log"):
+                    feedback = f"\nCRITICAL CORRECTIONS REQUIRED FROM PREVIOUS ATTEMPT:\n" + "\n".join(state["error_log"])
 
-    unique_contexts = list(set(all_retrieved_contexts))
-    context = "\n\n".join(unique_contexts)
-
-    json_string = json.dumps(target_materials, indent=2)
-    
-    feedback = ""
-    if state.get("retry_count", 0) > 0 and state.get("error_log"):
-        feedback = f"\nCRITICAL CORRECTIONS REQUIRED FROM PREVIOUS ATTEMPT:\n" + "\n".join(state["error_log"])
-
-    prompt = f"""You are an expert construction cost & CSI classification system.
-🚨CRITICAL: Do not change the JSON format. Jsut add "csi_division" at the end of each material. Everything else remains the same.
+                prompt = f"""You are an expert construction specification cost & CSI classification engine.
 TASK:
-- Take the provided JSON data. For every material item, find the matching 6-digit CSI code from the context. Provide CSI codes for all materials that are detected.
-- Update the "csi_division" field in the JSON with that code. Add correct CSI division MasterFormat codes (pattern: XX XX XX or XX XX XX.XX e.g., '09 30 13') in the provided json.
-- Return the EXACT same JSON structure with csi codes, fully populated.
+- Analyze the single material detailed below and select its matching 6-digit MasterFormat classification from the context records.
+- Focus on material specific details: if it is ceramic tile, select the exact specific code (e.g., '09 30 13') rather than general level-3 parent headings (like '09 30 00').
+- Return a JSON schema containing exactly the mapped code assigned to a "csi_division" property field matching the template pattern 'XX XX XX'.
 {feedback}
 
-JSON DATA:
-{json_string}
+MATERIAL IDENTIFIER DETAILS:
+{item_json_string}
 
-MASTERFORMAT CONTEXT:
-{context}"""
+MASTERFORMAT SYSTEM CONTEXT:
+{item_context}"""
 
-    response = client.chat.completions.create(
-        messages=[{"role": "user", "content": prompt}],
-        model="llama-3.3-70b-versatile",
-        temperature=0.1,
-        response_format={"type": "json_object"}
-    )
-    
-    classified_data = json.loads(response.choices[0].message.content)
+                try:
+                    response = client.chat.completions.create(
+                        messages=[{"role": "user", "content": prompt}],
+                        model="llama-3.3-70b-versatile",
+                        temperature=0.2, 
+                        response_format={"type": "json_object"}
+                    )
+                    
+                    result_json = json.loads(response.choices[0].message.content)
+                    
+                    if isinstance(mat_info, dict):
+                        mat_info["csi_division"] = result_json.get("csi_division", "00 00 00").strip()
+                except Exception as e:
+                    print(f"Failed parsing item loop matching logic for {mat_name}: {e}")
+                    if isinstance(mat_info, dict):
+                        mat_info["csi_division"] = "00 00 00"
+
+    unique_contexts = list(set(full_retrieved_contexts))
+    final_context_log = "\n\n".join(unique_contexts)
     
     return {
-        "classified_materials": classified_data.get("extracted_materials", classified_data),
-        "retrieved_context": context
+        "final_specifications": target_materials, 
+        "retrieved_context": final_context_log
     }

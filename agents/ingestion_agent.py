@@ -64,7 +64,7 @@ def ingestion_agent_node(state: AgenticState):
     
     - If a note row or cell is blank or contains a dash ("-"), represent its value as "none" inside the properties object. Do NOT skip the row!
     - If the image is crossed out, ignore it entirely.
-    - Collect all layout table columns dynamically inside the "properties" object for schedules.
+    - Collect all layout table columns dynamically inside the "properties" object for schedules. Do not ignore ab=ny tables.
 
     ### EXPECTED OUTPUT STRUCTURE
     Strictly match this JSON format:

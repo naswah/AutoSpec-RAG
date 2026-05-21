@@ -3,29 +3,50 @@ import fitz
 import base64
 import pdfplumber
 import re
+from PIL import Image
+import pytesseract
 
 EXCLUDE_KEYWORDS = [
-    "accessibility", "cover page","cover sheet", "title sheet", "delta", "project summary", "site plan", "plot plan", "electrical plan", "project information", "plumbing plan", "mechanical notes", "mechanical plan", "fire protection", "lighting plan", "power plan", "life safety plan", "water piping", "sanitary", "specifications", "vent piping", "cover page", "building data sheet", "building code summary", "abbreviations and symbols", "construction notes", "waste", "water supply"
+    "accessibility", "cover page","cover sheet", "title sheet", "delta", "project summary", "site plan", "plot plan", "mechanical", "electrical plan", "project information", "plumbing plan", "mechanical notes", "mechanical plan", "fire protection", "lighting plan", "power plan", "life safety plan", "water piping", "sanitary", "specifications", "vent piping", "cover page", "building data sheet", "building code summary", "abbreviations", "symbols", "construction notes", "waste", "water supply", "plumbing calculations", "mechanical equiptments specifications", "mechanical details","electical roof plan", "plumbing general notes and sheet index", "water supply", "plumbing", "gas floor plan", "cover sheet and index of drawings"
 ]
 
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
 def is_page_excluded(page):
-    rect= page.rect
+    rect = page.rect
     width, height = rect.width, rect.height
+    
     zones = [
-        fitz.Rect(0, height * 0.85, width, height),   
-        fitz.Rect(width * 0.85, 0, width, height)
+        # fitz.Rect(0, height * 0.90, width, height),   #bottom title block
+        fitz.Rect(width * 0.80, 0, width, height)  #right title block
     ]
-    for zone in zones:
-        raw_text = page.get_text("text", clip=zone).lower()
-        clean_text = " ".join(raw_text.split())
+    
+    for i, zone in enumerate(zones):
+        pix = page.get_pixmap(matrix=fitz.Matrix(2, 2), clip=zone)
+        
+        img_data = pix.tobytes("png")
+        from io import BytesIO
+        img = Image.open(BytesIO(img_data))
+        
+        raw_text = pytesseract.image_to_string(img).lower()
+        
+        zone_clean = " ".join(raw_text.split())
+        dense_zone_text = zone_clean.replace(" ", "")
+        
+        if not zone_clean.strip():
+            continue
+
         for keyword in EXCLUDE_KEYWORDS:
-           
-            pattern = rf"\b{re.escape(keyword)}\b"
-            if re.search(pattern, clean_text):
-                print(f"DEBUG: Page flagged because keyword '{keyword}' matched in zone text: '{clean_text[:50]}...'")
+            kw_clean = keyword.lower()
+            kw_dense = kw_clean.replace(" ", "")
+            
+            if kw_clean in zone_clean or kw_dense in dense_zone_text:
+                zone_name = "Bottom 20%" if i == 0 else "Right 20%"
+                print(f"[OCR MATCH] Page flagged! Keyword '{keyword}' visually found in {zone_name}.")
                 return True
                 
     return False
+
 
 def pdf_to_image(pdf_path, output_base):
     doc = fitz.open(pdf_path)
