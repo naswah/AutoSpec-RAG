@@ -1,31 +1,25 @@
 import os
+import re
 import json
-from groq import Groq
+from anthropic import Anthropic
 from qdrant_client import QdrantClient
 from sentence_transformers import CrossEncoder
 from state.graph_state import AgenticState
-from tools.helpers import hybrid_search
+from tools.helpers import hybrid_search, safe_parse_json
 
 reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 qdrant_client = QdrantClient(url="http://localhost:6333")
 
-
 def extract_keywords_from_material(mat_info):
-    """
-    Extracts descriptive keywords for a single material item,
-    properly handling Case 1 (Standard) and Case 2 (Mapped from schedules).
-    """
     keywords = []
     
     if isinstance(mat_info, str):
         keywords.append(mat_info)
         
     elif isinstance(mat_info, dict):
-        # Case 1: Standard Material - Extract the core 'name' field
         if "name" in mat_info and mat_info["name"]:
             keywords.append(str(mat_info["name"]))
         
-        # Case 2: Mapped Material - Extract descriptive features from properties
         if "properties" in mat_info and isinstance(mat_info["properties"], dict):
             props = mat_info["properties"]
             for prop_key, prop_val in props.items():
@@ -39,7 +33,6 @@ def extract_keywords_from_material(mat_info):
             
     return " ".join(keywords).strip()
 
-
 def rerank_chunks(query, docs):
     if not docs: 
         return []
@@ -48,7 +41,7 @@ def rerank_chunks(query, docs):
     ranked = sorted(zip(docs, scores), key=lambda x: x[1], reverse=True)
     
     cleaned_chunks = []
-    for r in ranked[:5]:
+    for r in ranked[:3]:
         doc = r[0]
         if hasattr(doc, 'payload') and doc.payload:
             cleaned_chunks.append(doc.payload)
@@ -57,19 +50,16 @@ def rerank_chunks(query, docs):
             
     return cleaned_chunks
 
-
 def csi_classifier_node(state: AgenticState):
-    print("\n=== [Agent 3: CSI Classifier] Computing MasterFormat Classifications (Optimized) ===")
-    client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+    print("\n=== [Agent 3: CSI Classifier]MasterFormat Classifications ===")
+    client = Anthropic(api_key=os.getenv("CLAUDE_API_KEY"))
     
-    # Safely retrieve active graph state array elements
     target_materials = state.get("mapped_materials")
     if not target_materials:
         target_materials = state.get("extracted_materials", [])
         
     full_retrieved_contexts = []
     
-    # Process each isolated item step-by-step 
     for page in target_materials:
         for view in page.get("views", []):
             materials = view.get("materials", {})
@@ -79,7 +69,6 @@ def csi_classifier_node(state: AgenticState):
                 if not search_query:
                     continue
                 
-                # Slashes retrieval workload down to minimal targets per item
                 initial_chunks = hybrid_search(qdrant_client, search_query, top_k=3)
                 ranked_chunks = rerank_chunks(search_query, initial_chunks)
                 
@@ -103,7 +92,11 @@ def csi_classifier_node(state: AgenticState):
 TASK:
 - Analyze the single material detailed below and select its matching 6-digit MasterFormat classification from the context records.
 - Focus on material specific details: if it is ceramic tile, select the exact specific code (e.g., '09 30 13') rather than general level-3 parent headings (like '09 30 00').
-- Return a JSON schema containing exactly the mapped code assigned to a "csi_division" property field matching the template pattern 'XX XX XX'.
+- Return a JSON object containing exactly the mapped code assigned to a "csi_division" property field matching the template pattern 'XX XX XX'.
+  Example format:
+  {{
+    "csi_division": "09 30 13"
+  }}
 {feedback}
 
 MATERIAL IDENTIFIER DETAILS:
@@ -113,19 +106,24 @@ MASTERFORMAT SYSTEM CONTEXT:
 {item_context}"""
 
                 try:
-                    response = client.chat.completions.create(
-                        messages=[{"role": "user", "content": prompt}],
-                        model="llama-3.3-70b-versatile",
-                        temperature=0.2, 
-                        response_format={"type": "json_object"}
+                    response = client.messages.create(
+                        model="claude-sonnet-4-6",
+                        max_tokens=150,
+                        temperature=0.0, 
+                        system="You are a strict technical automation engine. You must output valid raw JSON data blocks only. Do not speak or include explanations. Begin directly with your JSON payload.",
+                        messages=[
+                            {"role": "user", "content": prompt}
+                        ]
                     )
                     
-                    result_json = json.loads(response.choices[0].message.content)
+                    raw_text = response.content[0].text.strip()
+                    result_json = safe_parse_json(raw_text)
                     
                     if isinstance(mat_info, dict):
                         mat_info["csi_division"] = result_json.get("csi_division", "00 00 00").strip()
+                        
                 except Exception as e:
-                    print(f"Failed parsing item loop matching logic for {mat_name}: {e}")
+                    print(f"[CSI] Unexpected response for '{mat_name}': {e}")
                     if isinstance(mat_info, dict):
                         mat_info["csi_division"] = "00 00 00"
 

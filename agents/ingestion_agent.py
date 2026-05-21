@@ -1,12 +1,13 @@
 import os
 import json
-from groq import Groq
+import re
+from anthropic import Anthropic
 from state.graph_state import AgenticState
 from tools.pdf_helpers import pdf_to_image
 
 def ingestion_agent_node(state: AgenticState):
     print(f"\n[Agent 1: Ingestion] Extracting Blueprint Views")
-    client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+    client = Anthropic(api_key=os.getenv("CLAUDE_API_KEY"))
     
     valid_pages = pdf_to_image(state["pdf_path"], state["output_base"])
     results = []
@@ -64,7 +65,7 @@ def ingestion_agent_node(state: AgenticState):
     
     - If a note row or cell is blank or contains a dash ("-"), represent its value as "none" inside the properties object. Do NOT skip the row!
     - If the image is crossed out, ignore it entirely.
-    - Collect all layout table columns dynamically inside the "properties" object for schedules. Do not ignore ab=ny tables.
+    - Collect all layout table columns dynamically inside the "properties" object for schedules. Do not ignore any tables.
 
     ### EXPECTED OUTPUT STRUCTURE
     Strictly match this JSON format:
@@ -113,32 +114,64 @@ def ingestion_agent_node(state: AgenticState):
     """
 
     for page in valid_pages:
+        print(f"Processing blueprint page {page['page_no']} through Claude Multimodal API...")
         try:
-            response = client.chat.completions.create(
+            response = client.messages.create(
+                model="claude-sonnet-4-6",
+                max_tokens=4000,
+                temperature=0.2,
+                system="You are a strict technical drawing extraction engine. You must output valid raw JSON data blocks only. Do not speak or include explanations, preamble, or trailing markdown wrappers. Start your response directly with '[' and end with ']'.",
                 messages=[
                     {
                         "role": "user",
                         "content": [
-                            {"type": "text", "text": prompt},
-                            {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{page['image_b64']}"}}
+                            {
+                                "type": "image",
+                                "source": {
+                                    "type": "base64",
+                                    "media_type": "image/png",
+                                    "data": page['image_b64']
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "text": prompt
+                            }
                         ],
                     }
                 ],
-                model="meta-llama/llama-4-scout-17b-16e-instruct", 
-                temperature=0.2,
-                response_format={"type": "json_object"}
             )
-            data = json.loads(response.choices[0].message.content)
+
+            raw_text = response.content[0].text.strip()
+
+            if not raw_text:
+                print(f"[Page {page['page_no']}] WARNING: Empty response received from API. Skipping.")
+                continue
+
+            if not raw_text.startswith(("[", "{")):
+                print(f"[Page {page['page_no']}] WARNING: Unexpected non-JSON response. Preview:\n{raw_text[:500]}\n")
+                continue
+
+            if raw_text.startswith("```"):
+                raw_text = re.sub(r"^```(?:json)?\s*", "", raw_text)
+                raw_text = re.sub(r"\s*```$", "", raw_text).strip()
+
+            data = json.loads(raw_text)
+              
             if isinstance(data, dict) and "views" in data:
                 data["page_no"] = page["page_no"]
                 results.append(data)
             elif isinstance(data, list):
                 for item in data:
-                    item["page_no"] = page["page_no"]
-                    results.append(item)
+                    if isinstance(item, dict):
+                        item["page_no"] = page["page_no"]
+                        results.append(item)
+                          
+        except json.JSONDecodeError as e:
+            print(f"[Page {page['page_no']}] JSON parse error: {e}")
+            print(f"[Page {page['page_no']}] Raw response was:\n{raw_text[:500]}\n")
         except Exception as e:
-            print(f"Error handling page {page['page_no']}: {e}")
-
+            print(f"[Page {page['page_no']}] Unexpected error: {e}")
 
     pdf_name = os.path.splitext(os.path.basename(state["pdf_path"]))[0]
     raw_json_path = os.path.join(state["output_base"], "data", f"{pdf_name}_materials.json")

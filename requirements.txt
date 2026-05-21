@@ -9,9 +9,7 @@ PyMuPDF
 pdfplumber
 
 # ---------------- Computer Vision ----------------
-opencv-python
 pytesseract
-ultralytics
 
 # ---------------- Deep Learning / Embeddings ----------------
 torch
@@ -24,7 +22,7 @@ fastembed
 qdrant-client
 
 # ---------------- LLM APIs ----------------
-groq
+anthropic
 langgraph
 
 # (optional if you later switch to OpenAI)

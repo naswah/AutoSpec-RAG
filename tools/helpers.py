@@ -1,5 +1,7 @@
+import re
 import uuid
 import os
+import json
 from dotenv import load_dotenv
 from qdrant_client import QdrantClient, models
 from qdrant_client.models import VectorParams, SparseVectorParams, Distance, PointStruct
@@ -12,6 +14,14 @@ HF_TOKEN = os.getenv("HF_TOKEN")
 dense_model = SentenceTransformer('all-MiniLM-L6-v2')
 sparse_model = SparseTextEmbedding('Qdrant/bm25')
 COLLECTION = 'MasterFormat'
+
+def safe_parse_json(text: str) -> dict:
+    """
+    Safely parse a JSON string that may be wrapped in markdown code fences.
+    Strips ```json ... ``` or ``` ... ``` before parsing.
+    """
+    cleaned = re.sub(r"```(?:json)?", "", text).strip()
+    return json.loads(cleaned)
 
 def create_collection(client):
     client.create_collection(
