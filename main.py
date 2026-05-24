@@ -14,7 +14,6 @@ from agents.validator_agent import validator_agent_node
 
 load_dotenv(override=True)
 
-
 def check_for_blueprint_codes(state: AgenticState) -> Literal["run_mapper", "skip_mapper"]:
 
     print("\nDecision Hub: Scanning extracted JSON for structural codes (e.g., X-30, F-78)...")
@@ -96,7 +95,7 @@ except Exception as e:
 
 if __name__ == "__main__":
     inputs = {
-        "pdf_path": r"D:\AutoSpec RAG\Example Plans\hi2.pdf",
+        "pdf_path": r"D:\AutoSpec RAG\Example Plans\American Farmhouse 201225 full.pdf",
         "output_base": r"D:\AutoSpec RAG\output",
         "retry_count": 0,
         "error_log": []

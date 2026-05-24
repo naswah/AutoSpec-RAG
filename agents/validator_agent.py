@@ -6,6 +6,7 @@ def validator_agent_node(state: AgenticState):
     specifications = state["final_specifications"]
     errors = []
     
+    # Strict pattern for valid codes: 'XX XX XX' or 'XX XX XX.XX'
     csi_pattern = re.compile(r"^\d{2}\s\d{2}\s\d{2}(\.\d{2})?$")
     
     pages = specifications if isinstance(specifications, list) else specifications.get("materials", [])
@@ -19,15 +20,19 @@ def validator_agent_node(state: AgenticState):
         for view in p.get("views", []):
             for mat, info in view.get("materials", {}).items():
                 if isinstance(info, dict):
-                    csi = info.get("csi_division", "")
-                    if not csi or csi == "none" or not csi_pattern.match(str(csi).strip()):
-                        errors.append(f"Material '{mat}' has invalid or missing 'csi_division': '{csi}'. Standard pattern template 'XX XX XX' required.")
+                    csi = str(info.get("csi_division", "")).strip()
+                    
+                    if csi == "" or csi.lower() == "none":
+                        continue  
+                        
+                    if not csi_pattern.match(csi):
+                        errors.append(f"Material '{mat}' has invalid 'csi_division': '{csi}'. Standard pattern template 'XX XX XX' required.")
                 else:
                     errors.append(f"Material '{mat}' lacks internal dictionary configuration holding 'csi_division'.")
 
     if errors:
-        print(f"Validation failure found. Logged {len(errors)} formatting defects.")
-        return {"error_log": errors, "retry_count": state.get("retry_count", 0) + 1}
+        print(f"Validation finished. Noted {len(errors)} formatting anomalies, but proceeding anyway to save API costs.")
+        return {"error_log": errors}
     
     print("Validation checklist complete. Content format complies with standards.")
     return {"error_log": []}

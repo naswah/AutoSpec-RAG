@@ -14,11 +14,21 @@ def ingestion_agent_node(state: AgenticState):
     
     prompt = """Your role is a professional construction material estimator. Analyze this architectural drawing and extract building materials used in CIVIL ENGINEERING and technical specs.
 
+    What NOT to extract for "materials":
+    DO NOT extract names of rooms, spatial zones, structural spaces, or architectural assemblies (e.g., "Front Porch", "Open Deck", "Balcony", "Primary Bedroom", "Staircase", "Living Room", "Walk-in Closet"). in materials feild. Write the name of material instead.
+
+    WHAT TO EXTRACT INSTEAD:
+    Only extract actual physical specification materials or products. For example:
+    - If a note mentions an exterior wall made of "8' Concrete Foundation Wall, 4000 PSI", extract "Concrete" or "Foundation Wall Assembly Specs". 
+    - Instead of extracting "Front Porch", look for specific material callouts inside that porch zone (e.g., "Pressure Treated Southern Yellow Pine", "CMU Block foundation", "Cast-in-place Concrete Slab").
+    - Instead of extracting "Interior Partition Walls", look for the actual materials: "5/8" Type X Gypsum Board", "2x4 Wood Studs", or "Light-Gauge Metal Stud Framing".
+
    🚨 REGEX RULE FOR CODES (CRITICAL)
     For codes (e.g., X-02, F-60, F-62, F-64, F-76, W-01), go automatically to category B.
    
    🚨CRITICAL🚨: LEGEND EXCLUSION RULE:
    - IF YOU SEE STANDALONE KEY NOTES, GENERAL LEGENDS, OR INDEX KEYS LOCATED ON THE SAME PAGE AS PLAN VIEWS, YOU MUST IGNORE THEM. Do not parse these static master legends as views or schedules.
+   - If there are no marks, then do not add them. It is not compulsary.
 
     ### CATEGORY CLASSIFICATION RULES
 
@@ -66,6 +76,7 @@ def ingestion_agent_node(state: AgenticState):
     - If a note row or cell is blank or contains a dash ("-"), represent its value as "none" inside the properties object. Do NOT skip the row!
     - If the image is crossed out, ignore it entirely.
     - Collect all layout table columns dynamically inside the "properties" object for schedules. Do not ignore any tables.
+    - Final Output must be a JSON
 
     ### EXPECTED OUTPUT STRUCTURE
     Strictly match this JSON format:
@@ -110,7 +121,7 @@ def ingestion_agent_node(state: AgenticState):
       }
     ]
 
-    Do not output any introductory or concluding text. Return ONLY the valid JSON object.
+   Return ONLY the valid JSON object.
     """
 
     for page in valid_pages:
