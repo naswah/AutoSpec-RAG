@@ -91,12 +91,10 @@ def csi_classifier_node(state: AgenticState):
                 prompt = f"""You are an expert construction specification cost & CSI classification engine.
 TASK:
 - Analyze the single material detailed below and select its matching 6-digit MasterFormat classification from the context records.
+- Do not remove anything, just add the key "csi_division" fro every material with their respective divisions.
 - Focus on material specific details: if it is ceramic tile, select the exact specific code (e.g., '09 30 13') rather than general level-3 parent headings (like '09 30 00').
 - Return a JSON object containing exactly the mapped code assigned to a "csi_division" property field matching the template pattern 'XX XX XX'.
-  Example format:
-  {{
-    "csi_division": "09 30 13"
-  }}
+
 {feedback}
 
 MATERIAL IDENTIFIER DETAILS:
