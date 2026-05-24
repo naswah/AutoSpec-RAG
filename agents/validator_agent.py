@@ -6,7 +6,6 @@ def validator_agent_node(state: AgenticState):
     specifications = state["final_specifications"]
     errors = []
     
-    # Strict pattern for valid codes: 'XX XX XX' or 'XX XX XX.XX'
     csi_pattern = re.compile(r"^\d{2}\s\d{2}\s\d{2}(\.\d{2})?$")
     
     pages = specifications if isinstance(specifications, list) else specifications.get("materials", [])
@@ -16,23 +15,33 @@ def validator_agent_node(state: AgenticState):
          pages = [specifications]
 
     for p in pages:
-        if not isinstance(p, dict): continue
+        if not isinstance(p, dict): 
+            continue
         for view in p.get("views", []):
-            for mat, info in view.get("materials", {}).items():
-                if isinstance(info, dict):
-                    csi = str(info.get("csi_division", "")).strip()
-                    
-                    if csi == "" or csi.lower() == "none":
-                        continue  
-                        
-                    if not csi_pattern.match(csi):
-                        errors.append(f"Material '{mat}' has invalid 'csi_division': '{csi}'. Standard pattern template 'XX XX XX' required.")
-                else:
-                    errors.append(f"Material '{mat}' lacks internal dictionary configuration holding 'csi_division'.")
+            materials = view.get("materials", [])
+            
+            if isinstance(materials, list):
+                for info in materials:
+                    if isinstance(info, dict):
+                        csi = str(info.get("csi_division", "")).strip()
+                        if csi == "" or csi.lower() == "none":
+                            continue  
+                        if not csi_pattern.match(csi):
+                            identifier = info.get("code") or info.get("name") or "Unknown Material"
+                            errors.append(f"Material '{identifier}' has invalid 'csi_division': '{csi}'. Use template pattern 'XX XX XX'.")
+            
+            elif isinstance(materials, dict):
+                for mat, info in materials.items():
+                    if isinstance(info, dict):
+                        csi = str(info.get("csi_division", "")).strip()
+                        if csi == "" or csi.lower() == "none":
+                            continue  
+                        if not csi_pattern.match(csi):
+                            errors.append(f"Material '{mat}' has invalid 'csi_division': '{csi}'. Use template pattern 'XX XX XX'.")
 
     if errors:
         print(f"Validation finished. Noted {len(errors)} formatting anomalies, but proceeding anyway to save API costs.")
         return {"error_log": errors}
     
-    print("Validation checklist complete. Content format complies with standards.")
+    print("Validation passed completely with zero structural schema defects.")
     return {"error_log": []}

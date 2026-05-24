@@ -37,8 +37,8 @@ def ingestion_agent_node(state: AgenticState):
     - Format: Provide "name" and "notes". Do NOT include a "code" key.
     - Example:
       "Material 1": {
-         "name": "Fiberglass Batt Insulation",
-         "notes": "R-19 thermal rating, unfaced"
+         "name": "OSB Board",
+         "notes": "2' 4x5 in size"
       }
 
     #### CATEGORY B: CODED MATERIALS & SCHEDULES (Codes Present)
@@ -56,20 +56,17 @@ def ingestion_agent_node(state: AgenticState):
     2. DETECTING FULL SCHEDULES & TABLES (e.g., MATERIALS SCHEDULE, FIXTURE & EQUIPMENT SCHEDULE):
        - If the page contains large master index tables (such as Sheet A5.0 containing "MATERIALS SCHEDULE" or "FIXTURE & EQUIPMENT SCHEDULE"), you MUST extract EVERY single row systematically.
        - Do NOT ignore tables just because columns are empty or contain dashes ("-"). Empty values or dashes are structurally valid data points!
-       - Capture the columns exactly as keys inside a dynamic "properties" block. Use the column headers as your JSON keys.
-       - Example:
-         "Material 1": {
+       - Map row column values directly to matching flat lowercase keys (e.g., "MARK" becomes "code", "ITEM" becomes "item", "MATERIAL" becomes "material", "NOTES" becomes "notes"). Do not nest inside a "properties" key block.
+       - ⚠️ CRITICAL TOKEN SAVING FILTER RULE: If a table cell column value is blank, empty, contains a dash ("-"), or equals "none", completely OMIT that key from the item object entirely. Do not generate empty metadata fields.
+       - Example row map:
+         {
             "code": "F-20",
-            "properties": {
-               "MARK": "F-20",
-               "ITEM": "FLOOR DECKING",
-               "SIZE": "1x4",
-               "MATERIAL": "PAINTED WOOD",
-               "NOTES": "TONGUE & GROOVE, UNPAINTED CEDAR PREFERRED",
-               "MANUFACTURER / MODEL": "none"
-            }
+            "item": "FLOOR DECKING",
+            "size": "1x4",
+            "material": "PAINTED WOOD",
+            "notes": "TONGUE & GROOVE, UNPAINTED CEDAR PREFERRED"
          }
-        Here, the "properties" block must be dynamically generated i.e. the table columns must be the keys and their respective values are the values in the table.
+        Here, the keys must be dynamically generated i.e. the table columns must be the keys and their respective values are the values in the table.
 
     ### FILTERING & EXTRACTION RULES:
     
@@ -103,19 +100,23 @@ def ingestion_agent_node(state: AgenticState):
           },
           {
             "view_name": "Schedules",
-            "materials": {
-              "Material 1": {
-                "code": "F-60",
-                "properties": {
-                  "MARK": "F-20",
-                  "ITEM": "HARDWOOD FLOORING",
-                  "SIZE": "1x4",
-                  "MATERIAL": "Select Red Oak",
-                  "NOTES": "TONGUE & GROOVE",
-                  "MANUFACTURER / MODEL": "none"
-                }
-              }
-            }
+            "materials": [
+              {
+                "code": "F-20",
+                "item": "HARDWOOD FLOORING",
+                "size": "1x4",
+                "material": "Select Red Oak",
+                "notes": "TONGUE & GROOVE"
+              },
+              {
+                "code": "F-64",
+                "item": "WALL TILE",
+                "size": "4' square",
+                "material": "Ceramic",
+                "notes": "white or light blue"
+              },
+              ...
+            ]
           }
         ]
       }
