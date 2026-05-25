@@ -62,7 +62,7 @@ def rerank_chunks(query, docs):
 
 
 def csi_classifier_node(state: AgenticState):
-    print("\n=== [Agent 3: CSI Classifier] MasterFormat Classifications (TRUE BATCH) ===")
+    print("\n=== [Agent 3: CSI Classifier] MasterFormat Classifications ===")
     client = Anthropic(api_key=os.getenv("CLAUDE_API_KEY"))
     
     target_materials = state.get("mapped_materials")
@@ -72,7 +72,6 @@ def csi_classifier_node(state: AgenticState):
     material_refs = []  
     full_retrieved_contexts = []
     
-    # Track materials in both list formats and layout dictionaries
     for page in target_materials:
         for view in page.get("views", []):
             materials = view.get("materials", [])
@@ -96,12 +95,9 @@ def csi_classifier_node(state: AgenticState):
         return {"final_specifications": target_materials, "retrieved_context": ""}
 
     unique_queries = list(set([ref["search_query"] for ref in material_refs]))
-    print(f"Aggregated {len(material_refs)} items ({len(unique_queries)} unique queries) for single-batch vector retrieval...")
 
-    # --- TRUE BATCH VECTOR DB LOOKUP (STAYS ATOMIC) ---
     if unique_queries:
         try:
-            print("Executing bulk asynchronous vector retrieval over Qdrant...")
             dense_vectors = dense_model.encode(unique_queries, normalize_embeddings=True).tolist()
             sparse_vectors = list(sparse_model.embed(unique_queries))
             
@@ -146,7 +142,6 @@ def csi_classifier_node(state: AgenticState):
     if state.get("retry_count", 0) > 0 and state.get("error_log"):
         feedback = f"\nCRITICAL CORRECTIONS REQUIRED FROM PREVIOUS ATTEMPT:\n" + "\n".join(state["error_log"])
 
-    # Build tracking map for the full collection
     llm_materials_payload = {}
     for index, ref in enumerate(material_refs):
         item_id = f"item_{index + 1}"
@@ -162,12 +157,13 @@ def csi_classifier_node(state: AgenticState):
         chunk = items_list[i : i + sub_batch_size]
         chunk_payload = dict(chunk)
         
-        prompt = f"""You are an expert construction specification cost & CSI classification engine.
+        prompt = f"""You are an expert construction specification cost & CSI classification engine. You must only map materials to CSI codes that are explicitly listed in the provided reference text. If a code is not present in the document(context), do not infer or use external MasterFormat knowledge.
 TASK:
 - Analyze the chunked slice of materials detailed below identified by their structural item IDs.
 - Assign each individual entry its matching 6-digit MasterFormat classification from the provided context records.
 - Focus on material specific details: if it is ceramic tile, select the exact specific code (e.g., '09 30 13') rather than general headings.
 - Return a single flat JSON object where each key matches the structural item ID (e.g., "item_1"), and its value is strictly its assigned "csi_division" code matching the template pattern 'XX XX XX'.
+- If a material cannot be found or mapped using ONLY the provided MASTERFORMAT SYSTEM CONTEXT, you MUST set its value strictly to "00 00 00". Do not use external knowledge or make up codes.
 
 {feedback}
 
@@ -175,7 +171,8 @@ MATERIALS SUB-COLLECTION TO CLASSIFY ({i + 1} to {min(i + sub_batch_size, len(it
 {json.dumps(chunk_payload, indent=2)}
 
 MASTERFORMAT SYSTEM CONTEXT:
-{item_context_block}"""
+{item_context_block}
+"""
 
         try:
             response = client.messages.create(
