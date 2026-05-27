@@ -11,7 +11,6 @@ def ingestion_agent_node(state: AgenticState):
     
     valid_pages = pdf_to_image(state["pdf_path"], state["output_base"])
     results = []
-    page_summaries = [] 
     
     prompt = """Your role is a professional construction material estimator. Analyze this architectural drawing and extract building materials used in CIVIL ENGINEERING and technical specs.
 
