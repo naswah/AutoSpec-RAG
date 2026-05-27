@@ -95,7 +95,7 @@ def clean_masterformat(pdf_path):
 
 
 def chunk_masterformat(text):
-    pattern = r"(\d{2}\s\d{2}\s\d{2})\s+([^\n\d]+)(.*?)(?=\s\d{2}\s\d{2}\s\d{2}|\Z)"
+    pattern = r"(\d{2}\s\d{2}\s\d{2}(?:\.\d{2})?)\s+([^\n\d\.]+)(.*?)(?=\s\d{2}\s\d{2}\s\d{2}(?:\.\d{2})?|\Z)"
     chunks = []
     
     for m in re.finditer(pattern, text, re.DOTALL):

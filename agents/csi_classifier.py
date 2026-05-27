@@ -160,10 +160,10 @@ def csi_classifier_node(state: AgenticState):
         prompt = f"""You are an expert construction specification cost & CSI classification engine. You must only map materials to CSI codes that are explicitly listed in the provided reference text. If a code is not present in the document(context), do not infer or use external MasterFormat knowledge.
 TASK:
 - Analyze the chunked slice of materials detailed below identified by their structural item IDs.
-- Assign each individual entry its matching 6-digit MasterFormat classification from the provided context records.
-- Focus on material specific details: if it is ceramic tile, select the exact specific code (e.g., '09 30 13') rather than general headings.
+- Assign each individual entry its matching MasterFormat csi codes from the provided context records.
+- Focus on material specific details: if it is ceramic tile, select the exact specific code (e.g., '09 30 13') rather than general headings. If the detailed notes are provided, do not give division of general heding but rathger the specified item
 - Return a single flat JSON object where each key matches the structural item ID (e.g., "item_1"), and its value is strictly its assigned "csi_division" code matching the template pattern 'XX XX XX'.
-- If a material cannot be found or mapped using ONLY the provided MASTERFORMAT SYSTEM CONTEXT, you MUST set its value strictly to "00 00 00". Do not use external knowledge or make up codes.
+- Do not hallucinate and do not use external knowledge or make up codes.
 
 {feedback}
 
