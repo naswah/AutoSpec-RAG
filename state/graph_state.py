@@ -10,3 +10,4 @@ class AgenticState(TypedDict):
     final_specifications: Dict[str, Any]      
     retry_count: int                          
     error_log: List[str]
+    plan_summary: str

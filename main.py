@@ -11,6 +11,7 @@ from agents.ingestion_agent import ingestion_agent_node
 from agents.blueprint_mapper import blueprint_mapper_node
 from agents.csi_classifier import csi_classifier_node
 from agents.validator_agent import validator_agent_node
+from agents.summary_agent import summary_agent_node
 
 load_dotenv(override=True)
 
@@ -34,7 +35,9 @@ def evaluation_router(state: AgenticState) -> Literal["back_to_classifier", "sav
     if state.get("error_log") and state.get("retry_count", 0) < 3:
         print(f"Routing back to Agent 3 (CSI Classifier) for correction attempt #{state.get('retry_count', 0)}")
         return "back_to_classifier"
-    return "save_and_exit"
+    
+    print("Validation passed. Routing to Agent 5 (Summary Agent)...")
+    return "generate_summary"
 
 
 def save_results_node(state: AgenticState):
@@ -57,6 +60,7 @@ workflow.add_node("agent_ingestion", ingestion_agent_node)
 workflow.add_node("agent_mapper", blueprint_mapper_node)
 workflow.add_node("agent_classifier", csi_classifier_node)
 workflow.add_node("agent_validator", validator_agent_node)
+workflow.add_node("agent_summary", summary_agent_node)
 workflow.add_node("node_save", save_results_node)
 
 workflow.set_entry_point("agent_ingestion")
@@ -78,9 +82,10 @@ workflow.add_conditional_edges(
     evaluation_router,
     {
         "back_to_classifier": "agent_classifier",
-        "save_and_exit": "node_save"
+        "generate_summary": "agent_summary"
     }
 )
+workflow.add_edge("agent_summary", "node_save")
 workflow.add_edge("node_save", END)
 
 app = workflow.compile()
