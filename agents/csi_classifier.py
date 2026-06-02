@@ -158,21 +158,21 @@ def csi_classifier_node(state: AgenticState):
         chunk_payload = dict(chunk)
         
         prompt = f"""You are an expert construction specification cost & CSI classification engine. You must only map materials to CSI codes that are explicitly listed in the provided reference text. If a code is not present in the document(context), do not infer or use external MasterFormat knowledge.
-TASK:
-- Analyze the chunked slice of materials detailed below identified by their structural item IDs.
-- Assign each individual entry its matching MasterFormat csi codes from the provided context records.
-- Focus on material specific details: if it is ceramic tile, select the exact specific code (e.g., '09 30 13') rather than general headings. If the detailed notes are provided, do not give division of general heding but rathger the specified item
-- Return a single flat JSON object where each key matches the structural item ID (e.g., "item_1"), and its value is strictly its assigned "csi_division" code matching the template pattern 'XX XX XX'.
-- Do not hallucinate and do not use external knowledge or make up codes.
+        TASK:
+        - Analyze the chunked slice of materials detailed below identified by their structural item IDs.
+        - Assign each individual entry its matching MasterFormat csi codes from the provided context records.
+        - Focus on material specific details: if it is ceramic tile, select the exact specific code (e.g., '09 30 13') rather than general headings. If the detailed notes are provided, do not give division of general heading but rather the specified item.
+        - Return a single flat JSON object where each key matches the structural item ID (e.g., "item_1"), and its value is strictly its assigned "csi_division" code matching the template pattern 'XX XX XX'.
+        - Do not hallucinate and do not use external knowledge or make up codes.
 
-{feedback}
+        {feedback}
 
-MATERIALS SUB-COLLECTION TO CLASSIFY ({i + 1} to {min(i + sub_batch_size, len(items_list))}):
-{json.dumps(chunk_payload, indent=2)}
+        MATERIALS SUB-COLLECTION TO CLASSIFY ({i + 1} to {min(i + sub_batch_size, len(items_list))}):
+        {json.dumps(chunk_payload, indent=2)}
 
-MASTERFORMAT SYSTEM CONTEXT:
-{item_context_block}
-"""
+        MASTERFORMAT SYSTEM CONTEXT:
+        {item_context_block}
+        """
 
         try:
             response = client.messages.create(

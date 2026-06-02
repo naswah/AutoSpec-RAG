@@ -12,10 +12,10 @@ def ingestion_agent_node(state: AgenticState):
     valid_pages = pdf_to_image(state["pdf_path"], state["output_base"])
     results = []
     
-    prompt = """Your role is a professional construction material estimator. Analyze this architectural drawing and extract building materials used in CIVIL ENGINEERING and technical specs.
+    prompt = """Your role is a professional construction material estimator. Analyze this architectural drawing and extract building materials used in CIVIL ENGINEERING and structural construction materials, specifications, and schedule references.
 
     What NOT to extract for "materials":
-    DO NOT extract names of rooms, spatial zones, structural spaces, or architectural assemblies (e.g., "Front Porch", "Open Deck", "Balcony", "Primary Bedroom", "Staircase", "Living Room", "Walk-in Closet"). in materials feild. Write the name of material instead. If there are no materials, then skip the view.
+    DO NOT extract names of rooms, spatial zones, structural spaces, or architectural assemblies (e.g., "Front Porch", "Open Deck", "Balcony", "Primary Bedroom", "Staircase", "Living Room", "Walk-in Closet"). in materials feild. Do not extract the furnitures (refrigerators, sink, etc), equiptments, Cabinets and Decorative architectual elements. If there are no civil materials, then skip the view.
 
     WHAT TO EXTRACT INSTEAD:
     Only extract actual physical specification materials or products. For example:
@@ -133,7 +133,7 @@ def ingestion_agent_node(state: AgenticState):
             response = client.messages.create(
                 model="claude-sonnet-4-6",
                 max_tokens=4000,
-                temperature=0.2,
+                temperature=0.2, 
                 system="You are a strict technical drawing extraction engine. You must output valid raw JSON data blocks only. Do not speak or include explanations, preamble, or trailing markdown wrappers. Start your response directly with '[' and end with ']'.",
                 messages=[
                     {

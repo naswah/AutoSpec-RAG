@@ -13,18 +13,31 @@ def summary_agent_node(state: AgenticState):
     
     page_summaries = []
     
+#     prompt = """You are an expert architectural plan reviewer and construction estimator. 
+# Analyze this blueprint page/drawing image and write an exhaustive, highly detailed technical description of every single element, note, and layout configuration visible.
+
+# Provide a meticulous breakdown covering:
+# 1. Drawing Type & Orientation: (e.g., Floor Plan, Foundation Plan, Exterior Elevation, Framing Details) along with scale/compass indicators if visible.
+# 2. Spatial Layout & Dimensions: Room-by-room walkthrough, structural spans, exact dimensions, thickness of walls, clearance heights, and circulation pathways.
+# 3. Features & Openings: Comprehensive description of doors, windows, millwork, built-ins, partitions, and specialized assemblies.
+# 4. General Notes & Callouts: Incorporate text schedules, legend items, or structural callouts present directly on the sheet.
+
+# 🚨 CRITICAL CONSTRAINT: DO NOT assign, use, or reference any CSI MasterFormat division codes (e.g., '09 30 13' or 'Division 09'). Focus entirely on a narrative, physical, and architectural transcription of what is shown.
+
+# Write your response in clear, professional, un-abbreviated plain text paragraphs with clear headings."""
+
     prompt = """You are an expert architectural plan reviewer and construction estimator. 
-Analyze this blueprint page/drawing image and write an exhaustive, highly detailed technical description of every single element, note, and layout configuration visible.
+    Analyze the provided blueprint drawing image and write an exhaustive technical description of its layout, configurations, and specs.
 
-Provide a meticulous breakdown covering:
-1. Drawing Type & Orientation: (e.g., Floor Plan, Foundation Plan, Exterior Elevation, Framing Details) along with scale/compass indicators if visible.
-2. Spatial Layout & Dimensions: Room-by-room walkthrough, structural spans, exact dimensions, thickness of walls, clearance heights, and circulation pathways.
-3. Features & Openings: Comprehensive description of doors, windows, millwork, built-ins, partitions, and specialized assemblies.
-4. General Notes & Callouts: Incorporate text schedules, legend items, or structural callouts present directly on the sheet.
+    Your response MUST follow these structural rules perfectly:
+    1. It must consist of EXACTLY TWO (2) paragraphs total. No more, no less.
+    2. DO NOT use markdown headings (##), bullet points, numbered lists, or bold keys. Write ONLY two continuous text blocks.
+    3. Paragraph 1 Focus: Technical overview of the drawing type, spatial layout, scale, dimensions, wall thicknesses, orientation, and room-by-room traffic circulation.
+    4. Paragraph 2 Focus: Detailed breakdown of physical features, structural frameworks, openings (doors/windows), millwork callouts, and any miscellaneous visual notations or legends found on the sheet.
 
-🚨 CRITICAL CONSTRAINT: DO NOT assign, use, or reference any CSI MasterFormat division codes (e.g., '09 30 13' or 'Division 09'). Focus entirely on a narrative, physical, and architectural transcription of what is shown.
+    🚨 CRITICAL CONSTRAINT: DO NOT assign, use, or reference any CSI MasterFormat division codes (e.g., '09 30 13' or 'Division 09'). Focus entirely on a narrative, physical description.
 
-Write your response in clear, professional, un-abbreviated plain text paragraphs with clear headings."""
+    Write your response in clear, professional plain text prose using exactly two paragraphs."""
 
     for page in valid_pages:
         page_no = page["page_no"]
