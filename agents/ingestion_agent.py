@@ -24,7 +24,7 @@ def ingestion_agent_node(state: AgenticState):
     - Instead of extracting "Interior Partition Walls", look for the actual materials: "5/8" Type X Gypsum Board", "2x4 Wood Studs", or "Light-Gauge Metal Stud Framing".
 
    🚨 REGEX RULE FOR CODES (CRITICAL)
-    For codes (e.g., X-02, F-60, F-62, F-64, F-76, W-01), go automatically to category B.
+    For codes (e.g., X-02, F-60, F-62, W1, F1, R2, etc), go automatically to category B.
    
    🚨CRITICAL🚨: LEGEND EXCLUSION RULE:
    - IF YOU SEE STANDALONE KEY NOTES, GENERAL LEGENDS, OR INDEX KEYS LOCATED ON THE SAME PAGE AS PLAN VIEWS, YOU MUST IGNORE THEM. Do not parse these static master legends as views or schedules.
@@ -50,6 +50,10 @@ def ingestion_agent_node(state: AgenticState):
        - Example (If you see "Hardwood Floor F-60" or just "F-60"):
          "Material 2": {
             "code": "F-60",
+            "notes": "Mapping Required"
+         },
+         "Material 3": {
+            "code": "R1",
             "notes": "Mapping Required"
          }
 
@@ -95,7 +99,7 @@ def ingestion_agent_node(state: AgenticState):
                 "notes": "Mapping Required"
               },
               "Material 3": {
-                "code": "X-02",
+                "code": "F1",
                 "notes": "Mapping Required"
               }
             }
@@ -119,6 +123,17 @@ def ingestion_agent_node(state: AgenticState):
               },
               ...
             ]
+          }
+          {
+          "view_name": "Construction Assembly Notes",
+            "materials": [
+              {
+                "code": "F1",
+                "notes": "4" CONCRETE SLAB 6 MIL POLY AIR BARRIER MIN 6" COMPACTED GRAVEL BASE"
+              },
+              ...
+            ]
+           }
           }
         ]
       }

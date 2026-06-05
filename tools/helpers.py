@@ -13,13 +13,9 @@ HF_TOKEN = os.getenv("HF_TOKEN")
 
 dense_model = SentenceTransformer('all-MiniLM-L6-v2')
 sparse_model = SparseTextEmbedding('Qdrant/bm25')
-COLLECTION = 'MasterFormat'
+COLLECTION = 'Master_Format'
 
 def safe_parse_json(text: str) -> dict:
-    """
-    Safely parse a JSON string that may be wrapped in markdown code fences.
-    Strips ```json ... ``` or ``` ... ``` before parsing.
-    """
     cleaned = re.sub(r"```(?:json)?", "", text).strip()
     return json.loads(cleaned)
 
@@ -37,13 +33,20 @@ def create_collection(client):
 
 
 def build_vectordb(client, chunks):
+
     texts = [c["content"] for c in chunks]
-    print(f"Generating embeddings for {len(texts)} chunks...")
+    print(f"Encoding and indexing {len(texts)} chunks...")
+    
     dense_vectors = dense_model.encode(texts, normalize_embeddings=True)
     sparse_vectors = list(sparse_model.embed(texts))
     points = []
 
-    for c, d, s in zip(chunks, dense_vectors, sparse_vectors):
+    for idx, (c, d, s) in enumerate(zip(chunks, dense_vectors, sparse_vectors)):
+        payload = {
+            "content": c["content"],
+            **c["metadata"]
+        }
+        
         point = PointStruct(
             id=str(uuid.uuid4()),
             vector={
@@ -53,7 +56,7 @@ def build_vectordb(client, chunks):
                     "values": s.values.tolist()
                 }
             },
-            payload=c
+            payload=payload
         )
         points.append(point)
 
@@ -61,6 +64,7 @@ def build_vectordb(client, chunks):
     for i in range(0, len(points), batch_size):
         batch = points[i : i + batch_size]
         client.upsert(collection_name=COLLECTION, points=batch)
+        print(f"Successfully uploaded batch {i // batch_size + 1}")
 
 
 def hybrid_search(client, query, top_k=5):

@@ -1,6 +1,6 @@
 import os
 from qdrant_client import QdrantClient
-from tools.pdf_helpers import clean_masterformat, chunk_masterformat
+from tools.pdf_helpers import clean_masterformat, chunk_masterformat_hierarchical
 from tools.helpers import create_collection, build_vectordb
 
 def run_indexing_setup():
@@ -14,10 +14,13 @@ def run_indexing_setup():
         return
 
     text = clean_masterformat(pdf_source)
-    chunks = chunk_masterformat(text)
+    chunks = chunk_masterformat_hierarchical(text)
 
     create_collection(client)
+    
+    print("Executing Batch Encoding & Hybrid Vector Upsert Pipeline:")
     build_vectordb(client, chunks)
+    print("\n Success: MasterFormat has been completely split, contextualized, and indexed into Qdrant!")
 
 if __name__ == "__main__":
     run_indexing_setup()

@@ -87,23 +87,85 @@ def clean_masterformat(pdf_path):
     with pdfplumber.open(pdf_path) as pdf:
         for p in pdf.pages:
             h = p.height
-            crop = p.within_bbox((0, h*0.08, p.width, h*0.92))
+            # Crop margins to avoid header/footer page numbers 
+            crop = p.within_bbox((0, h * 0.08, p.width, h * 0.92))
             t = crop.extract_text()
             if t:
                 text.append(t)
     return "\n".join(text)
 
 
-def chunk_masterformat(text):
-    pattern = r"(\d{2}\s\d{2}\s\d{2}(?:\.\d{2})?)\s+([^\n\d\.]+)(.*?)(?=\s\d{2}\s\d{2}\s\d{2}(?:\.\d{2})?|\Z)"
-    chunks = []
+def chunk_masterformat_hierarchical(raw_text: str):
+    lines = raw_text.split("\n")
     
-    for m in re.finditer(pattern, text, re.DOTALL):
-        content_body = m.group(0).strip()
-        chunks.append({
-            "code": m.group(1).strip(),
-            "title": m.group(2).strip(),
-            "content": content_body,
-            "type": "content"
+    chunks = []
+    current_division = "Unknown Division"
+    current_group = "Unknown Group"
+    
+    current_item = None
+    
+    div_pattern = re.compile(r'^(DIVISION\s+\d{2})\s*–?\s*(.*)$', re.IGNORECASE)
+    # Identifies codes like "01 11 00" or "33 82 13.13"
+    code_pattern = re.compile(r'^(\d{2}\s\d{2}\s\d{2}(?:\.\d{2})?)\s*(.*)$')
+    
+    for line in lines:
+        line_stripped = line.strip()
+        if not line_stripped:
+            continue
+            
+        # 1. Match Division headers (e.g., DIVISION 01 – GENERAL REQUIREMENTS)
+        div_match = div_pattern.match(line_stripped)
+        if div_match:
+            current_division = f"{div_match.group(1)}: {div_match.group(2)}"
+            continue
+            
+        # 2. Match standard MasterFormat Item Codes
+        code_match = code_pattern.match(line_stripped)
+        if code_match:
+            if current_item:
+                chunks.append(current_item)
+                
+            code = code_match.group(1).strip()
+            title = code_match.group(2).strip()
+            
+            # Update the current group context if it's a major level heading (ends with 00)
+            if code.endswith("00"):
+                current_group = f"{code} {title}"
+                
+            current_item = {
+                "code": code,
+                "title": title,
+                "division": current_division,
+                "group": current_group,
+                "associated_text": []
+            }
+            continue
+            
+        if current_item is not None:
+            current_item["associated_text"].append(line_stripped)
+            
+    if current_item:
+        chunks.append(current_item)
+        
+    final_chunks = []
+    for item in chunks:
+        extra_content = " ".join(item["associated_text"])
+        
+        text_payload = (
+            f"Context: {item['division']} -> {item['group']}\n"
+            f"Code: {item['code']}\n"
+            f"Title: {item['title']}\n"
+            f"Details: {extra_content}"
+        ).strip()
+        
+        final_chunks.append({
+            "content": text_payload,
+            "metadata": {
+                "code": item["code"],
+                "title": item["title"],
+                "division": item["division"],
+                "group": item["group"]
+            }
         })
-    return chunks
+        
+    return final_chunks

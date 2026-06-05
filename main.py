@@ -59,7 +59,7 @@ workflow.add_node("agent_ingestion", ingestion_agent_node)
 workflow.add_node("agent_mapper", blueprint_mapper_node)
 workflow.add_node("agent_classifier", csi_classifier_node)
 workflow.add_node("agent_validator", validator_agent_node)
-workflow.add_node("agent_summary", summary_agent_node)
+# workflow.add_node("agent_summary", summary_agent_node)
 workflow.add_node("node_save", save_results_node)
 
 workflow.set_entry_point("agent_ingestion")
@@ -81,12 +81,12 @@ workflow.add_conditional_edges(
     evaluation_router,
     {
         "back_to_classifier": "agent_classifier",
-        "generate_summary": "agent_summary"
-        # "generate_summary": "node_save"
+        # "generate_summary": "agent_summary"
+        "generate_summary": "node_save"
 
     }
 )
-workflow.add_edge("agent_summary", "node_save")
+# workflow.add_edge("agent_summary", "node_save")
 workflow.add_edge("node_save", END)
 
 app = workflow.compile()
@@ -101,7 +101,7 @@ except Exception as e:
 
 if __name__ == "__main__":
     inputs = {
-        "pdf_path": r"D:\AutoSpec RAG\Example Plans\REQUIRED.pdf",
+        "pdf_path": r"D:\AutoSpec RAG\Example Plans\DB_reduced.pdf",
         "output_base": r"D:\AutoSpec RAG\output",
         "retry_count": 0,
         "error_log": []
