@@ -1,10 +1,11 @@
 import os
-from anthropic import Anthropic
+from google import genai
+from google.genai import types
 from state.graph_state import AgenticState
 
 def summary_agent_node(state: AgenticState):
     print(f"\n=== [Agent 5: Summary Agent] Generating Comprehensive Plan Summary ===")
-    client = Anthropic(api_key=os.getenv("CLAUDE_API_KEY"))
+    client = genai.Client()
     
     valid_pages = state.get("valid_pages", [])
     if not valid_pages:
@@ -13,19 +14,6 @@ def summary_agent_node(state: AgenticState):
     
     page_summaries = []
     
-#     prompt = """You are an expert architectural plan reviewer and construction estimator. 
-# Analyze this blueprint page/drawing image and write an exhaustive, highly detailed technical description of every single element, note, and layout configuration visible.
-
-# Provide a meticulous breakdown covering:
-# 1. Drawing Type & Orientation: (e.g., Floor Plan, Foundation Plan, Exterior Elevation, Framing Details) along with scale/compass indicators if visible.
-# 2. Spatial Layout & Dimensions: Room-by-room walkthrough, structural spans, exact dimensions, thickness of walls, clearance heights, and circulation pathways.
-# 3. Features & Openings: Comprehensive description of doors, windows, millwork, built-ins, partitions, and specialized assemblies.
-# 4. General Notes & Callouts: Incorporate text schedules, legend items, or structural callouts present directly on the sheet.
-
-# 🚨 CRITICAL CONSTRAINT: DO NOT assign, use, or reference any CSI MasterFormat division codes (e.g., '09 30 13' or 'Division 09'). Focus entirely on a narrative, physical, and architectural transcription of what is shown.
-
-# Write your response in clear, professional, un-abbreviated plain text paragraphs with clear headings."""
-
     prompt = """You are an expert architectural plan reviewer and construction estimator. 
     Analyze the provided blueprint drawing image and write an exhaustive technical description of its layout, configurations, and specs.
 
@@ -43,33 +31,23 @@ def summary_agent_node(state: AgenticState):
         page_no = page["page_no"]
         print(f"Extracting all detailed plan data from sheet {page_no}...")
         try:
-            response = client.messages.create(
-                model="claude-sonnet-4-6",
-                max_tokens=3500, 
-                temperature=0.1,  
-                system="You are a precise architectural description engine. Write comprehensive, fully expanded technical descriptions of construction drawings. Do not summarize or skip small details—write out everything observed. Start directly with your findings.",
-                messages=[
-                    {
-                        "role": "user",
-                        "content": [
-                            {
-                                "type": "image",
-                                "source": {
-                                    "type": "base64",
-                                    "media_type": "image/png",
-                                    "data": page['image_b64']
-                                }
-                            },
-                            {
-                                "type": "text",
-                                "text": prompt
-                            }
-                        ],
-                    }
-                ],
+            image_part = {
+                'inline_data': {
+                    'mime_type': 'image/png',
+                    'data': page['image_b64']
+                }
+            }
+
+            response = client.models.generate_content(
+                model="gemini-3.5-flash",
+                contents=[image_part, prompt],
+                config=types.GenerateContentConfig(
+                    temperature=0.1,  
+                    system_instruction="You are a precise architectural description engine. Write comprehensive, fully expanded technical descriptions of construction drawings. Do not summarize or skip small details—write out everything observed. Start directly with your findings.",
+                ),
             )
             
-            page_text = response.content[0].text.strip()
+            page_text = response.text.strip()
             page_header = f"=================================================================\n" \
                           f" SHEET / PAGE {page_no} DETAILED REPORT\n" \
                           f"=================================================================\n"

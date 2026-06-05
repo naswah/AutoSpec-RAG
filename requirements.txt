@@ -22,7 +22,8 @@ fastembed
 qdrant-client
 
 # ---------------- LLM APIs ----------------
-anthropic
+google-genai
+pydantic
 langgraph
 
 # (optional if you later switch to OpenAI)

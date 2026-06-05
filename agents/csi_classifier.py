@@ -2,7 +2,9 @@ import os
 import re
 import json
 import asyncio
-from anthropic import AsyncAnthropic  
+from pydantic import BaseModel
+from google import genai
+from google.genai import types
 from qdrant_client import QdrantClient, models
 from sentence_transformers import CrossEncoder
 from state.graph_state import AgenticState
@@ -10,7 +12,11 @@ from tools.helpers import safe_parse_json, dense_model, sparse_model, COLLECTION
 
 reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 qdrant_client = QdrantClient(url="http://localhost:6333")
-async_anthropic_client = AsyncAnthropic(api_key=os.getenv("CLAUDE_API_KEY"))
+
+gemini_client = genai.Client()
+
+class CsiOutput(BaseModel):
+    csi_division: str
 
 def extract_keywords_from_material(mat_info):
     keywords = []
@@ -23,11 +29,6 @@ def extract_keywords_from_material(mat_info):
                 keywords.append(str(val).strip())
                 
     text = " | ".join(keywords) if keywords else ""
-    
-    # text = re.sub(r'\b\d{4,6}\b', '', text)                    # Strips 4-6 digit standalone numbers
-    # text = re.sub(r'[^a-zA-Z\s|]', '', text)                   # Keeps only letters and separators
-    # text = re.sub(r'\s+', ' ', text).strip()                   # Clean up whitespace
-
     text = re.sub(r'\b\d{4,6}\b', '', text)
     text = re.sub(r'[\s\t\n]+', ' ', text).strip()
     
@@ -92,15 +93,22 @@ TASK:
     {feedback}
     """
     try:
-        response = await async_anthropic_client.messages.create(
-            model="claude-sonnet-4-6",
-            max_tokens=150,  
-            temperature=0.0, 
-            system='You are a strict technical automation engine. You must output a valid flat raw JSON object with no additional text or markdown decoration. Do not explain anything. Begin directly with your JSON payload structure.',
-            messages=[{"role": "user", "content": prompt}]
+        loop = asyncio.get_event_loop()
+        response = await loop.run_in_executor(
+            None,
+            lambda: gemini_client.models.generate_content(
+                model='gemini-3.5-flash',
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    temperature=0.0,
+                    system_instruction='You are a strict technical automation engine. You must output a valid flat raw JSON object.',
+                    response_mime_type="application/json",
+                    response_schema=CsiOutput,
+                ),
+            )
         )
         
-        raw_text = response.content[0].text.strip()
+        raw_text = response.text.strip()
         result = safe_parse_json(raw_text)
         assigned_code = result.get("csi_division", "00 00 00")
     except Exception:
@@ -142,7 +150,6 @@ async def csi_classifier_node_async(state: AgenticState):
     query_contexts = {}
     all_retrieved_contexts_log = []
 
-    # 2. BATCH VECTOR SEARCH 
     if unique_queries:
         try:
             dense_vectors = dense_model.encode(unique_queries, normalize_embeddings=True).tolist()
@@ -197,7 +204,6 @@ async def csi_classifier_node_async(state: AgenticState):
         context_block = query_contexts.get(query, "No context available from MasterFormat Database.")
         tasks.append(classify_query_task(query, refs, context_block, feedback))
     
-    # Wait for all Claude requests to execute concurrently
     await asyncio.gather(*tasks)
     
     print(f"Successfully evaluated and mapped {len(material_refs)} elements across {len(unique_queries)} parallel async tasks.")
