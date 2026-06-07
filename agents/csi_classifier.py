@@ -97,7 +97,7 @@ TASK:
         response = await loop.run_in_executor(
             None,
             lambda: gemini_client.models.generate_content(
-                model='gemini-3.5-flash',
+                model='gemini-3-flash-preview',
                 contents=prompt,
                 config=types.GenerateContentConfig(
                     temperature=0.0,

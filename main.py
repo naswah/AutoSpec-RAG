@@ -101,7 +101,7 @@ except Exception as e:
 
 if __name__ == "__main__":
     inputs = {
-        "pdf_path": r"D:\AutoSpec RAG\Example Plans\DB_gemini.pdf",
+        "pdf_path": r"D:\AutoSpec RAG\Example Plans\American Farmhouse 201225 full.pdf",
         "output_base": r"D:\AutoSpec RAG\output",
         "retry_count": 0,
         "error_log": []

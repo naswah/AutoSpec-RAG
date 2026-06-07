@@ -13,7 +13,8 @@ def ingestion_agent_node(state: AgenticState):
     valid_pages = pdf_to_image(state["pdf_path"], state["output_base"])
     results = []
     
-    prompt = """Your role is a professional construction material estimator. Analyze this architectural drawing and extract building materials used in CIVIL ENGINEERING and structural construction materials, specifications, and schedule references.
+    prompt = """Your role is a professional construction material estimator. Analyze this architectural drawing and extract building materials used in CIVIL ENGINEERING and structural construction materials, specifications, and schedule references. 
+    🚨 EXTRACT ONLY CIVIL ENGINEERING MATERIALS
 
     What NOT to extract for "materials":
     DO NOT extract names of rooms, spatial zones, structural spaces, or architectural assemblies (e.g., "Front Porch", "Open Deck", "Balcony", "Primary Bedroom", "Staircase", "Living Room", "Walk-in Closet"). in materials feild. Do not extract the furnitures (refrigerators, sink, etc), equiptments, Cabinets and Decorative architectual elements. If there are no civil materials, then skip the view.
@@ -57,6 +58,7 @@ def ingestion_agent_node(state: AgenticState):
             "code": "R1",
             "notes": "Mapping Required"
          }
+       - But is you just see numbers like 2036 or 1 then do not consider it as material. Ignore that.
 
     2. DETECTING FULL SCHEDULES & TABLES (e.g., MATERIALS SCHEDULE, FIXTURE & EQUIPMENT SCHEDULE):
        - If the page contains large master index tables ("MATERIALS SCHEDULE" or "FIXTURE & EQUIPMENT SCHEDULE"), you MUST extract EVERY single row systematically.
@@ -143,7 +145,7 @@ def ingestion_agent_node(state: AgenticState):
    Return ONLY the valid JSON object.
     """
 
-    chosen_model = "gemini-3.5-flash"
+    chosen_model = "gemini-3-flash-preview"
 
     for page in valid_pages:
         print(f"Processing blueprint page {page['page_no']} through Gemini Multimodal API...")

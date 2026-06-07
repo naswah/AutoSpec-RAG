@@ -25,6 +25,7 @@ qdrant-client
 google-genai
 pydantic
 langgraph
+groq
 
 # (optional if you later switch to OpenAI)
 openai

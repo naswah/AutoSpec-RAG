@@ -39,10 +39,10 @@ def summary_agent_node(state: AgenticState):
             }
 
             response = client.models.generate_content(
-                model="gemini-3.5-flash",
+                model="gemini-3-flash-preview",
                 contents=[image_part, prompt],
                 config=types.GenerateContentConfig(
-                    temperature=0.1,  
+                    temperature=0.2,  
                     system_instruction="You are a precise architectural description engine. Write comprehensive, fully expanded technical descriptions of construction drawings. Do not summarize or skip small details—write out everything observed. Start directly with your findings.",
                 ),
             )
