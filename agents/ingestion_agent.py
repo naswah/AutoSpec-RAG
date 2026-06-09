@@ -14,14 +14,12 @@ def ingestion_agent_node(state: AgenticState):
     
     prompt = """Your role is a professional construction material estimator. Analyze this architectural drawing and extract building materials used in CIVIL ENGINEERING and structural construction materials, specifications, and schedule references.
 
-    What NOT to extract for "materials":
-    DO NOT extract names of rooms, spatial zones, structural spaces, or architectural assemblies (e.g., "Front Porch", "Open Deck", "Balcony", "Primary Bedroom", "Staircase", "Living Room", "Walk-in Closet"). in materials feild. Do not extract the furnitures (refrigerators, sink, etc), equiptments, Cabinets and Decorative architectual elements. If there are no civil materials, then skip the view.
-
-    WHAT TO EXTRACT INSTEAD:
+    WHAT TO EXTRACT:
     Only extract actual physical specification materials or products. For example:
     - If a note mentions an exterior wall made of "8' Concrete Foundation Wall, 4000 PSI", extract "Concrete" or "Foundation Wall Assembly Specs". 
     - Instead of extracting "Front Porch", look for specific material callouts inside that porch zone (e.g., "Pressure Treated Southern Yellow Pine", "CMU Block foundation", "Cast-in-place Concrete Slab").
     - Instead of extracting "Interior Partition Walls", look for the actual materials: "5/8" Type X Gypsum Board", "2x4 Wood Studs", or "Light-Gauge Metal Stud Framing".
+    - Extract where the materials are located (e.g., "Foundation Wall", "Exterior Walls", "Interior Wall", "Door", "Window", "Roof", "Kitchen Floor" etc) if that information is explicitly provided in the notes or schedules. If the materials applied in room, read the name of the room and provide that as the location context (e.g., "Kitchen Floor", "Bathroom Walls", "Living Room", "Front Porch") in the category key.
 
    🚨 REGEX RULE FOR CODES (CRITICAL)
     For codes (e.g., X-02, F-60, F-62, W1, F1, R2, etc), go automatically to category B.
@@ -39,6 +37,7 @@ def ingestion_agent_node(state: AgenticState):
       "Material 1": {
          "name": "OSB Board",
          "notes": "2' 4x5 in size"
+         "category": "Roof Sheathing"
       }
 
     #### CATEGORY B: CODED MATERIALS & SCHEDULES (Codes Present)
@@ -51,10 +50,12 @@ def ingestion_agent_node(state: AgenticState):
          "Material 2": {
             "code": "F-60",
             "notes": "Mapping Required"
+            "category": "Flooring"
          },
          "Material 3": {
             "code": "R1",
             "notes": "Mapping Required"
+            "category": "Roofing"
          }
 
     2. DETECTING FULL SCHEDULES & TABLES (e.g., MATERIALS SCHEDULE, FIXTURE & EQUIPMENT SCHEDULE):
@@ -92,15 +93,18 @@ def ingestion_agent_node(state: AgenticState):
             "materials": {
               "Material 1": {
                 "name": "Concrete Foundation Wall",
-                "notes": "8', 4000 PSI"
+                "notes": "8', 4000 PSI",
+                "category": "Foundation Wall"
               },
               "Material 2": {
                 "code": "F-60",
-                "notes": "Mapping Required"
+                "notes": "Mapping Required",
+                "category": "Flooring"
               },
               "Material 3": {
                 "code": "F1",
-                "notes": "Mapping Required"
+                "notes": "Mapping Required",
+                "category": "Interior Wall"
               }
             }
           },

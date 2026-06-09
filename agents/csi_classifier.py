@@ -17,7 +17,7 @@ def extract_keywords_from_material(mat_info):
     if isinstance(mat_info, str):
         keywords.append(mat_info)
     elif isinstance(mat_info, dict):
-        for flat_key in ["name", "code", "notes"]:
+        for flat_key in ["name", "code", "notes","category"]:
             val = mat_info.get(flat_key, "")
             if val and str(val).strip() not in ["-", "", "none", "Mapping Required"]:
                 keywords.append(str(val).strip())
@@ -142,7 +142,7 @@ async def csi_classifier_node_async(state: AgenticState):
     query_contexts = {}
     all_retrieved_contexts_log = []
 
-    # 2. BATCH VECTOR SEARCH 
+    # BATCH VECTOR SEARCH 
     if unique_queries:
         try:
             dense_vectors = dense_model.encode(unique_queries, normalize_embeddings=True).tolist()
@@ -165,7 +165,7 @@ async def csi_classifier_node_async(state: AgenticState):
                         )
                     ],
                     query=models.FusionQuery(fusion=models.Fusion.RRF),
-                    limit=5
+                    limit=7
                 )
                 requests.append(req)
             

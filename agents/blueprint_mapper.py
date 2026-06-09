@@ -107,14 +107,7 @@ def blueprint_mapper_node(state: AgenticState):
 
     # Step 3: Strip original index views out of final payload to optimize token delivery window
     if mapped_count > 0:
-        print("Schedules matched successfully. Cleaning up master index views...")
-        for page in materials_list:
-            if "views" in page and isinstance(page["views"], list):
-                page["views"] = [
-                    v for v in page["views"]
-                    if "schedule" not in str(v.get("view_name", v.get("view", ""))).lower() 
-                    and "assembly notes" not in str(v.get("view_name", v.get("view", ""))).lower()
-                ]
+        print("Schedules matched successfully.")
     else:
         print("Warning: No elements were mapped. Preserving raw view logs intact for code debugging.")
 
