@@ -14,6 +14,7 @@ def ingestion_agent_node(state: AgenticState):
     results = []
     
     prompt = """Your role is a professional construction material estimator. Analyze this architectural drawing and extract building materials used in CIVIL ENGINEERING and structural construction materials, specifications, and schedule references. 
+
     🚨 EXTRACT ONLY CIVIL ENGINEERING MATERIALS
 
     What NOT to extract for "materials":
@@ -32,9 +33,9 @@ def ingestion_agent_node(state: AgenticState):
    - IF YOU SEE STANDALONE KEY NOTES, GENERAL LEGENDS, OR INDEX KEYS LOCATED ON THE SAME PAGE AS PLAN VIEWS, YOU MUST IGNORE THEM. Do not parse these static master legends as views or schedules.
    - If there are no marks, then do not add them. It is not compulsary.
 
-    ### CATEGORY CLASSIFICATION RULES
+    #CATEGORY CLASSIFICATION RULES
 
-    #### CATEGORY A: STANDARD MATERIALS (No Codes Present)
+    ## CATEGORY A: STANDARD MATERIALS (No Codes Present)
     Use this formatting ONLY if there is absolutely no schedule code (like F-60 or X-02) associated with the material.
     - Format: Provide "name" and "notes". Do NOT include a "code" key.
     - Example:
@@ -43,7 +44,7 @@ def ingestion_agent_node(state: AgenticState):
          "notes": "2' 4x5 in size"
       }
 
-    #### CATEGORY B: CODED MATERIALS & SCHEDULES (Codes Present)
+    ## CATEGORY B: CODED MATERIALS & SCHEDULES (Codes Present)
     Use this formatting if a code (e.g., F-60, X-02) is detected anywhere on the drawing or inside a schedule layout.
     
     1. If it's on a plan view/detail pointing to a layout area:
@@ -64,7 +65,7 @@ def ingestion_agent_node(state: AgenticState):
        - If the page contains large master index tables ("MATERIALS SCHEDULE" or "FIXTURE & EQUIPMENT SCHEDULE"), you MUST extract EVERY single row systematically.
        - Write the colums of the table as keys for schedule and their respctive values in the values.
        - Do NOT ignore tables just because columns are empty or contain dashes ("-"). Empty values or dashes are structurally valid data points!
-       - Map row column values directly to matching flat lowercase keys (e.g., "MARK" becomes "code", "ITEM" becomes "item", "MATERIAL" becomes "material", "NOTES" becomes "notes"). Do not nest inside a "properties" key block.
+       - Map row column values directly to matching flat lowercase keys (e.g., "MARK" becomes "code", "ITEM" becomes "item", "MATERIAL" becomes "material", "NOTES" becomes "notes").
        - ⚠️ CRITICAL TOKEN SAVING FILTER RULE: If a table cell column value is blank, empty, contains a dash ("-"), or equals "none", completely OMIT that key from the item object entirely. Do not generate empty metadata fields.
        - Example row map:
          {
@@ -80,12 +81,11 @@ def ingestion_agent_node(state: AgenticState):
     
     - If a note row or cell is blank or contains a dash ("-"), represent its value as "none" inside the properties object. Do NOT skip the row!
     - If the image is crossed out, ignore it entirely.
-    - Collect all layout table columns dynamically inside the "properties" object for schedules. Do not ignore any tables.
-    - 1. Multi-ply framing notation MUST preserve the dash prefix. If text says "3-2x12" (meaning three plies of 2x12), it is a fatal error to omit the "3-" or rewrite it as "5x12". Extract it exactly as "3-2x12".
+    - Multi-ply framing notation MUST preserve the dash prefix. If text says "3-2x12" (meaning three plies of 2x12), it is a fatal error to omit the "3-" or rewrite it as "5x12". Extract it exactly as "3-2x12".
     - Final Output must be a JSON
 
     ### EXPECTED OUTPUT STRUCTURE
-    Strictly match this JSON format:
+    
     [
       {
         "page": "String",

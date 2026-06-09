@@ -15,16 +15,14 @@ def blueprint_mapper_node(state: AgenticState):
         for view in views:
             materials = view.get("materials", [])
             
-            # If materials is structured as a list of rows/assemblies
             if isinstance(materials, list):
                 for mat_value in materials:
                     if isinstance(mat_value, dict) and "code" in mat_value:
                         schedule_code = str(mat_value["code"]).strip()
-                        # Ensure it's a source entry and not a target placeholder requiring mapping
+
                         if str(mat_value.get("notes", "")).strip().lower() != "mapping required":
                             code_registry[schedule_code] = mat_value
                             
-            # If materials is structured as a dictionary object map
             elif isinstance(materials, dict):
                 for mat_key, mat_value in materials.items():
                     if isinstance(mat_value, dict) and "code" in mat_value:
@@ -39,7 +37,6 @@ def blueprint_mapper_node(state: AgenticState):
     def find_code(text):
         if not isinstance(text, str):
             return None
-        # Robust regex capturing both alphanumeric hyphen entries (F-02) and letter-digit codes (W1, R2, F12)
         matches = re.findall(r'\b[A-Za-z]+-\d+\b|\b[A-Za-z]+\d+\b', text)
         for match in matches:
             if match in code_registry:
@@ -49,7 +46,7 @@ def blueprint_mapper_node(state: AgenticState):
                 return key
         return None
 
-    # Step 2: Resolve layout callouts marked with "Mapping Required"
+    # Step 2: Resolving "Mapping Required"
     for page in materials_list:
         views = page.get("views", []) or page.get("view", [])
         for view in views:
@@ -69,7 +66,6 @@ def blueprint_mapper_node(state: AgenticState):
                                 registry_entry = code_registry[code]
                                 components = []
                                 
-                                # Uniformly collect data from structural assembly blocks or tabular schedules
                                 for key in ["item", "size", "material", "notes", "specification"]:
                                     val = registry_entry.get(key, "")
                                     if val and str(val).strip() not in ["", "none", "-", "Mapping Required"]:
