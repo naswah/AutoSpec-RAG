@@ -1,38 +1,27 @@
-# ---------------- Core ----------------
+
 numpy
 pandas
 tqdm
 python-dotenv
 
-# ---------------- PDF Processing ----------------
 PyMuPDF
 pdfplumber
-
-# ---------------- Computer Vision ----------------
 pytesseract
 
-# ---------------- Deep Learning / Embeddings ----------------
 torch
 sentence-transformers
+langchain-google-genai
 
-# Hybrid sparse embeddings (BM25 / SPLADE-style)
 fastembed
 
-# ---------------- Vector Database ----------------
 qdrant-client
 
-# ---------------- LLM APIs ----------------
 anthropic
 langgraph
 
-# (optional if you later switch to OpenAI)
-openai
-
-# ---------------- NLP / Reranking ----------------
 scikit-learn
 transformers
 torchvision
 
-# ---------------- Utilities ----------------
 regex
 uuid

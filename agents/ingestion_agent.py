@@ -12,14 +12,16 @@ def ingestion_agent_node(state: AgenticState):
     valid_pages = pdf_to_image(state["pdf_path"], state["output_base"])
     results = []
     
-    prompt = """Your role is a professional construction material estimator. Analyze this architectural drawing and extract building materials used in CIVIL ENGINEERING and structural construction materials, specifications, and schedule references.
+    prompt = """Your role is a professional construction material estimator. Analyze this architectural drawing and extract building materials used in CIVIL ENGINEERING and structural construction materials, specifications, and schedule references. Read the rules below and provide only the VALID JSON output strictly following the specified format.
 
     WHAT TO EXTRACT:
-    Only extract actual physical specification materials or products. For example:
-    - If a note mentions an exterior wall made of "8' Concrete Foundation Wall, 4000 PSI", extract "Concrete" or "Foundation Wall Assembly Specs". 
+    Only extract actual physical specification materials or products used in CIVIL ENGINEERING. For example:
+    - If a note mentions an exterior wall made of "8' Concrete Foundation Wall, 4000 PSI", extract "Concrete Foundation Wall" for name and "8' Concrete Foundation Wall, 4000 PSI" foir notes, "Wall" for category. 
     - Instead of extracting "Front Porch", look for specific material callouts inside that porch zone (e.g., "Pressure Treated Southern Yellow Pine", "CMU Block foundation", "Cast-in-place Concrete Slab").
     - Instead of extracting "Interior Partition Walls", look for the actual materials: "5/8" Type X Gypsum Board", "2x4 Wood Studs", or "Light-Gauge Metal Stud Framing".
-    - Extract where the materials are located (e.g., "Foundation Wall", "Exterior Walls", "Interior Wall", "Door", "Window", "Roof", "Kitchen Floor" etc) if that information is explicitly provided in the notes or schedules. If the materials applied in room, read the name of the room and provide that as the location context (e.g., "Kitchen Floor", "Bathroom Walls", "Living Room", "Front Porch") in the category key.
+    
+    REMEMBER TO: - Extract where the materials are located for 'category' key into fixed categories: "Interior Wall", "Exterior Wall", "Door", "Window", "Roof", "Room", "Stair and Railings" or "Others" 
+      if that information is explicitly provided in the notes or schedules. If the materials applied in room, read the name of the room and provide that as the location context (e.g., "Room-Kitchen Floor", "Room-Bathroom Walls", "Room-Living Room", Room-Front Porch") in the category key.
 
    🚨 REGEX RULE FOR CODES (CRITICAL)
     For codes (e.g., X-02, F-60, F-62, W1, F1, R2, etc), go automatically to category B.
@@ -37,7 +39,7 @@ def ingestion_agent_node(state: AgenticState):
       "Material 1": {
          "name": "OSB Board",
          "notes": "2' 4x5 in size"
-         "category": "Roof Sheathing"
+         "category": "Roof"
       }
 
     #### CATEGORY B: CODED MATERIALS & SCHEDULES (Codes Present)
@@ -50,28 +52,36 @@ def ingestion_agent_node(state: AgenticState):
          "Material 2": {
             "code": "F-60",
             "notes": "Mapping Required"
-            "category": "Flooring"
+            "category": "Floor"
          },
          "Material 3": {
             "code": "R1",
             "notes": "Mapping Required"
-            "category": "Roofing"
          }
+       - But is you just see numbers like 2036 or 1 then do not consider it as material. Ignore that.
 
     2. DETECTING FULL SCHEDULES & TABLES (e.g., MATERIALS SCHEDULE, FIXTURE & EQUIPMENT SCHEDULE):
        - If the page contains large master index tables ("MATERIALS SCHEDULE" or "FIXTURE & EQUIPMENT SCHEDULE"), you MUST extract EVERY single row systematically.
        - Write the colums of the table as keys for schedule and their respctive values in the values.
        - Do NOT ignore tables just because columns are empty or contain dashes ("-"). Empty values or dashes are structurally valid data points!
        - Map row column values directly to matching flat lowercase keys (e.g., "MARK" becomes "code", "ITEM" becomes "item", "MATERIAL" becomes "material", "NOTES" becomes "notes"). Do not nest inside a "properties" key block.
-       - ⚠️ CRITICAL TOKEN SAVING FILTER RULE: If a table cell column value is blank, empty, contains a dash ("-"), or equals "none", completely OMIT that key from the item object entirely. Do not generate empty metadata fields.
+       - CRITICAL: If a table cell column value is blank, empty, contains a dash ("-"), or equals "none", completely OMIT that key from the item object entirely. Do not generate empty metadata fields.
        - Example row map:
-         {
-            "code": "F-20",
-            "item": "FLOOR DECKING",
-            "size": "1x4",
-            "material": "PAINTED WOOD",
-            "notes": "TONGUE & GROOVE, UNPAINTED CEDAR PREFERRED"
-         }
+         "materials": [
+                    {
+                      "code": "F-00",
+                      "item": "BRICK",
+                      "material": "SMOOTH BRICK",
+                      "notes": "RED COLOR, SAND-FACED, AVOID WIRE CUT OR \"EXTRUDED\" LOOK"
+                    },
+                    {
+                      "code" : "1",
+                      "name": "Black Asphalt Shingles",
+                      "notes": "Roof covering material"
+                    },
+                    ...
+                ]
+
         Here, the keys must be dynamically generated i.e. the table columns must be the keys and their respective values are the values in the table.
 
     ### FILTERING & EXTRACTION RULES:
@@ -94,17 +104,17 @@ def ingestion_agent_node(state: AgenticState):
               "Material 1": {
                 "name": "Concrete Foundation Wall",
                 "notes": "8', 4000 PSI",
-                "category": "Foundation Wall"
+                "category": "Interior Wall"
               },
               "Material 2": {
                 "code": "F-60",
                 "notes": "Mapping Required",
-                "category": "Flooring"
+                "category": "Door"
               },
               "Material 3": {
                 "code": "F1",
                 "notes": "Mapping Required",
-                "category": "Interior Wall"
+                "category": "Room-Undeveloped Basement"
               }
             }
           },
@@ -119,7 +129,7 @@ def ingestion_agent_node(state: AgenticState):
                 "notes": "TONGUE & GROOVE"
               },
               {
-                "code": "F-64",
+                "code": "2",
                 "item": "WALL TILE",
                 "size": "4' square",
                 "material": "Ceramic",
@@ -143,7 +153,7 @@ def ingestion_agent_node(state: AgenticState):
       }
     ]
 
-   Return ONLY the valid JSON object.
+   Return ONLY VALID JSON.
     """
 
     for page in valid_pages:
@@ -151,7 +161,7 @@ def ingestion_agent_node(state: AgenticState):
         try:
             response = client.messages.create(
                 model="claude-sonnet-4-6",
-                max_tokens=4000,
+                max_tokens=4500,
                 temperature=0.2, 
                 system="You are a strict technical drawing extraction engine. You must output valid raw JSON data blocks only. Do not speak or include explanations, preamble, or trailing markdown wrappers. Start your response directly with '[' and end with ']'.",
                 messages=[

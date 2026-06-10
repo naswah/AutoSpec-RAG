@@ -12,22 +12,18 @@ reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 qdrant_client = QdrantClient(url="http://localhost:6333")
 async_anthropic_client = AsyncAnthropic(api_key=os.getenv("CLAUDE_API_KEY"))
 
+
 def extract_keywords_from_material(mat_info):
     keywords = []
     if isinstance(mat_info, str):
         keywords.append(mat_info)
     elif isinstance(mat_info, dict):
-        for flat_key in ["name", "code", "notes","category"]:
+        for flat_key in ["name", "code", "notes", "category"]:
             val = mat_info.get(flat_key, "")
             if val and str(val).strip() not in ["-", "", "none", "Mapping Required"]:
                 keywords.append(str(val).strip())
                 
     text = " | ".join(keywords) if keywords else ""
-    
-    # text = re.sub(r'\b\d{4,6}\b', '', text)                    # Strips 4-6 digit standalone numbers
-    # text = re.sub(r'[^a-zA-Z\s|]', '', text)                   # Keeps only letters and separators
-    # text = re.sub(r'\s+', ' ', text).strip()                   # Clean up whitespace
-
     text = re.sub(r'\b\d{4,6}\b', '', text)
     text = re.sub(r'[\s\t\n]+', ' ', text).strip()
     
@@ -94,7 +90,7 @@ TASK:
     try:
         response = await async_anthropic_client.messages.create(
             model="claude-sonnet-4-6",
-            max_tokens=150,  
+            max_tokens=500,  
             temperature=0.0, 
             system='You are a strict technical automation engine. You must output a valid flat raw JSON object with no additional text or markdown decoration. Do not explain anything. Begin directly with your JSON payload structure.',
             messages=[{"role": "user", "content": prompt}]
