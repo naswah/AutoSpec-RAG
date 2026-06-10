@@ -6,16 +6,16 @@ from state.graph_state import AgenticState
 def blueprint_mapper_node(state: AgenticState):
     print(f"\nMapping Blueprint Reference Codes...")
     
-    materials_list = state["extracted_materials"]
+    materials_list = state.get("extracted_materials", [])
     code_registry = {}
 
-    # Step 1: Discover and register all schedules and assembly types (F-02, W1, R1, etc.)
+    # Step 1: Discover and register all master schedules, tables, and notes (W1, F1, R1, etc.)
     for page in materials_list:
         views = page.get("views", []) or page.get("view", [])
         for view in views:
             materials = view.get("materials", [])
             
-            # If materials is structured as a list of rows/assemblies
+            # If materials is structured as a list of rows/assemblies (e.g., General Notes, Schedules)
             if isinstance(materials, list):
                 for mat_value in materials:
                     if isinstance(mat_value, dict) and "code" in mat_value:
@@ -32,80 +32,51 @@ def blueprint_mapper_node(state: AgenticState):
                         if str(mat_value.get("notes", "")).strip().lower() != "mapping required":
                             code_registry[schedule_code] = mat_value
 
-    print(f"Discovered schedule reference codes: {list(code_registry.keys())}")
-
+    # Step 2: Map placeholder views ("Mapping Required") to their matching registry data
     mapped_count = 0
-
-    def find_code(text):
-        if not isinstance(text, str):
-            return None
-        # Robust regex capturing both alphanumeric hyphen entries (F-02) and letter-digit codes (W1, R2, F12)
-        matches = re.findall(r'\b[A-Za-z]+-\d+\b|\b[A-Za-z]+\d+\b', text)
-        for match in matches:
-            if match in code_registry:
-                return match
-        for key in code_registry:
-            if key in text:
-                return key
-        return None
-
-    # Step 2: Resolve layout callouts marked with "Mapping Required"
     for page in materials_list:
         views = page.get("views", []) or page.get("view", [])
         for view in views:
             materials = view.get("materials", [])
             
-            # Case A: Materials collection structured as a list
-            if isinstance(materials, list):
-                for mat_value in materials:
-                    if isinstance(mat_value, dict):
-                        notes_val = mat_value.get("notes", "")
-                        code_val = mat_value.get("code", "")
-                        name_val = mat_value.get("name", "")
-
-                        if str(notes_val).strip().lower() == "mapping required":
-                            code = find_code(code_val) or find_code(name_val)
-                            if code and code in code_registry:
-                                registry_entry = code_registry[code]
-                                components = []
-                                
-                                # Uniformly collect data from structural assembly blocks or tabular schedules
-                                for key in ["item", "size", "material", "notes", "specification"]:
-                                    val = registry_entry.get(key, "")
-                                    if val and str(val).strip() not in ["", "none", "-", "Mapping Required"]:
-                                        components.append(str(val).strip())
-                                
-                                mat_value["notes"] = "; ".join(components) if components else "Mapped from Assembly Schedule"
-                                mat_value["code"] = code
-                                if "name" in mat_value:
-                                    del mat_value["name"]
-                                mapped_count += 1
-
-            # Case B: Materials collection structured as a key-value dictionary object
-            elif isinstance(materials, dict):
+            if isinstance(materials, dict):
                 for mat_key, mat_value in materials.items():
-                    if isinstance(mat_value, dict):
-                        notes_val = mat_value.get("notes", "")
-                        code_val = mat_value.get("code", "")
+                    if not isinstance(mat_value, dict):
+                        continue
                         
-                        if str(notes_val).strip().lower() == "mapping required":
-                            code = find_code(code_val) or find_code(mat_key)
-                            if code and code in code_registry:
-                                registry_entry = code_registry[code]
-                                components = []
-                                
-                                for key in ["item", "size", "material", "notes", "specification"]:
-                                    val = registry_entry.get(key, "")
-                                    if val and str(val).strip() not in ["", "none", "-", "Mapping Required"]:
-                                        components.append(str(val).strip())
-                                
-                                mat_value["notes"] = "; ".join(components) if components else "Mapped from Assembly Schedule"
-                                mat_value["code"] = code
-                                mapped_count += 1
+                    notes_str = str(mat_value.get("notes", "")).strip().lower()
+                    code = str(mat_value.get("code", "")).strip()
+                    
+                    if notes_str == "mapping required" and code in code_registry:
+                        registry_entry = code_registry[code]
+                        reg_notes = registry_entry.get("notes")
+                        
+                        # --- DYNAMIC STRUCTURE HANDLING FOR CATEGORY C ---
+                        if isinstance(reg_notes, dict) and "submaterials" in reg_notes:
+                            mat_value["notes"] = reg_notes
+                            mat_value["code"] = code
+                            mapped_count += 1
+                            
+                        # Fallback: if it's a structural dictionary row entry with flat values
+                        elif isinstance(registry_entry, dict) and ("item" in registry_entry or "material" in registry_entry):
+                            components = []
+                            for key in ["item", "size", "material", "notes", "specification"]:
+                                val = registry_entry.get(key, "")
+                                if val and str(val).strip() not in ["", "none", "-", "Mapping Required"]:
+                                    components.append(str(val).strip())
+                            
+                            mat_value["notes"] = "; ".join(components) if components else "Mapped from Assembly Schedule"
+                            mat_value["code"] = code
+                            mapped_count += 1
+                            
+                        # Safe fallback for simple textual descriptions
+                        else:
+                            mat_value["notes"] = str(reg_notes) if reg_notes else "Mapped from Assembly Schedule"
+                            mat_value["code"] = code
+                            mapped_count += 1
 
     print(f"Successfully mapped {mapped_count} plan layout elements.")
 
-    # Step 3: Strip original index views out of final payload to optimize token delivery window
     if mapped_count > 0:
         print("Schedules matched successfully.")
     else:

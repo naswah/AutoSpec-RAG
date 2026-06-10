@@ -20,7 +20,7 @@ def ingestion_agent_node(state: AgenticState):
     - Instead of extracting "Front Porch", look for specific material callouts inside that porch zone (e.g., "Pressure Treated Southern Yellow Pine", "CMU Block foundation", "Cast-in-place Concrete Slab").
     - Instead of extracting "Interior Partition Walls", look for the actual materials: "5/8" Type X Gypsum Board", "2x4 Wood Studs", or "Light-Gauge Metal Stud Framing".
     
-    REMEMBER TO: - Extract where the materials are located for 'category' key into fixed categories: "Interior Wall", "Exterior Wall", "Door", "Window", "Roof", "Room", "Stair and Railings" or "Others" 
+    REMEMBER TO: - Extract where the materials are located for 'category' key into fixed categories: "Interior Wall", "Exterior Wall", "Door", "Window", "Roof", "Room" or "Others" 
       if that information is explicitly provided in the notes or schedules. If the materials applied in room, read the name of the room and provide that as the location context (e.g., "Room-Kitchen Floor", "Room-Bathroom Walls", "Room-Living Room", Room-Front Porch") in the category key.
 
    🚨 REGEX RULE FOR CODES (CRITICAL)
@@ -38,7 +38,7 @@ def ingestion_agent_node(state: AgenticState):
     - Example:
       "Material 1": {
          "name": "OSB Board",
-         "notes": "2' 4x5 in size"
+         "notes": "2' 4x5 in size",
          "category": "Roof"
       }
 
@@ -60,6 +60,25 @@ def ingestion_agent_node(state: AgenticState):
          }
        - But is you just see numbers like 2036 or 1 then do not consider it as material. Ignore that.
 
+    #### CATEGORY C: Listed submaterials  inside a code
+      Use the format below if submaterials are listed inside a code. 
+      if W1 has listed VINYL SIDING, TYVEK HOUSE WRAP, 3/8' OSB EXTERIOR SHEATHING, 2X6 STUDS @ 16' O.C., R-25 BATT INSULATION, 6 MIL POLY VAPOUR BARRIER, 1/2' GYPSUM DRYWALL, then
+      "materials": [
+                    {
+                        "code": "W1",
+                        "notes": {
+                            "submaterials": [
+                              {"name": "VINYL SIDING"},
+                              {"name": "TYVEK HOUSE WRAP"},
+                              {"name": "3/8' OSB EXTERIOR SHEATHING"},
+                              {"name": "2X6 STUDS @ 16' O.C."},
+                              {"name": "R-25 BATT INSULATION"},
+                              {"name": "6 MIL POLY VAPOUR BARRIER"},
+                              {"name": "1/2' GYPSUM DRYWALL"}
+                            ]
+                        }
+                   ]
+
     2. DETECTING FULL SCHEDULES & TABLES (e.g., MATERIALS SCHEDULE, FIXTURE & EQUIPMENT SCHEDULE):
        - If the page contains large master index tables ("MATERIALS SCHEDULE" or "FIXTURE & EQUIPMENT SCHEDULE"), you MUST extract EVERY single row systematically.
        - Write the colums of the table as keys for schedule and their respctive values in the values.
@@ -72,7 +91,7 @@ def ingestion_agent_node(state: AgenticState):
                       "code": "F-00",
                       "item": "BRICK",
                       "material": "SMOOTH BRICK",
-                      "notes": "RED COLOR, SAND-FACED, AVOID WIRE CUT OR \"EXTRUDED\" LOOK"
+                      "notes": "RED COLOR, SAND-FACED, AVOID WIRE CUT OR 'EXTRUDED' LOOK"
                     },
                     {
                       "code" : "1",
@@ -143,11 +162,28 @@ def ingestion_agent_node(state: AgenticState):
             "materials": [
               {
                 "code": "F1",
-                "notes": "4" CONCRETE SLAB 6 MIL POLY AIR BARRIER MIN 6" COMPACTED GRAVEL BASE"
+                "notes": "4' CONCRETE SLAB 6 MIL POLY AIR BARRIER MIN 6" COMPACTED GRAVEL BASE"
               },
               ...
             ]
            }
+           "view_name": "General Notes",
+           {
+             "materials":[
+                "code": "W1",
+                "notes": {
+                    "submaterials": [
+                        {"name": "VINYL SIDING"},
+                        {"name": "TYVEK HOUSE WRAP"},
+                        {"name": "3/8' OSB EXTERIOR SHEATHING"},
+                        {"name": "2X6 STUDS @ 16' O.C."},
+                        {"name": "R-25 BATT INSULATION"},
+                        {"name": "6 MIL POLY VAPOUR BARRIER"},
+                        {"name": "1/2' GYPSUM DRYWALL"}
+                    ]
+                },
+                "category": "Exterior Wall"
+            ]
           }
         ]
       }
@@ -161,7 +197,7 @@ def ingestion_agent_node(state: AgenticState):
         try:
             response = client.messages.create(
                 model="claude-sonnet-4-6",
-                max_tokens=4500,
+                max_tokens=5000,
                 temperature=0.2, 
                 system="You are a strict technical drawing extraction engine. You must output valid raw JSON data blocks only. Do not speak or include explanations, preamble, or trailing markdown wrappers. Start your response directly with '[' and end with ']'.",
                 messages=[

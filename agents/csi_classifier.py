@@ -68,16 +68,42 @@ def rerank_chunks(query, docs):
     return cleaned_chunks
 
 
+def find_and_register_materials(item, material_refs):
+
+    if isinstance(item, dict):
+        # Scenario 1: It is a Category C submaterial item or a Standard flat material dictionary
+        if "name" in item and isinstance(item["name"], str):
+            search_query = extract_keywords_from_material(item)
+            if search_query:
+                material_refs.append({"search_query": search_query, "mat_dict_ref": item})
+        
+        # Scenario 2: It is a coded material structure requiring classification based on its components
+        elif "code" in item:
+            search_query = extract_keywords_from_material(item)
+            if search_query and item.get("notes") != "Mapping Required":
+                material_refs.append({"search_query": search_query, "mat_dict_ref": item})
+
+        # Recurse further down into nested fields (e.g., 'notes', 'submaterials')
+        for key, value in item.items():
+            if isinstance(value, (dict, list)):
+                find_and_register_materials(value, material_refs)
+                
+    elif isinstance(item, list):
+        for element in item:
+            find_and_register_materials(element, material_refs)
+
+
+
 async def classify_query_task(query, refs, context_block, feedback):
     prompt = f"""You are an expert construction specification cost & CSI classification engine. You must only map the material to a CSI code that is explicitly listed in the provided reference text. If a code is not present in the document context, do not infer or use external MasterFormat knowledge.
 
-TASK:
-- Analyze the single material type specified below.
-- If multiple codes are mentioned in the text (such as cross-references or "See Also" lines), pick the primary code that closest matches the material description itself. For example, if evaluating stair treads and the text says "05 55 00 Metal Stair Treads (See 05 51 00 for metal stairs)", choose "05 55 00"
-- Assign it its matching MasterFormat csi code from the provided context records.
-- Focus on material-specific details: if it is ceramic tile, select the exact specific code (e.g., '09 30 13') rather than general headings.
-- Return a single flat JSON object with exactly one key: "csi_division". Its value must strictly be the code matching the template pattern 'XX XX XX'.
-- Do NOT use external knowledge.
+    TASK:
+    - Analyze the single material type specified below.
+    - If multiple codes are mentioned in the text (such as cross-references or "See Also" lines), pick the primary code that closest matches the material description itself.
+    - Assign it its matching MasterFormat csi code from the provided context records.
+    - Focus on material-specific details: if it is ceramic tile, select the exact specific code (e.g., '09 30 13') rather than general headings.
+    - Return a single flat JSON object with exactly one key: "csi_division". Its value must strictly be the code matching the template pattern 'XX XX XX'.
+    - Do NOT use external knowledge.
 
     MATERIAL TO CLASSIFY:
     "{query}"
@@ -102,6 +128,7 @@ TASK:
     except Exception:
         assigned_code = "00 00 00"
 
+    # Inject the code back into the pointer references
     for ref in refs:
         ref["mat_dict_ref"]["csi_division"] = str(assigned_code).strip()
 
@@ -115,16 +142,11 @@ async def csi_classifier_node_async(state: AgenticState):
         
     material_refs = []  
     
+    # Use the recursive traversal to capture standard, coded, and structural submaterials
     for page in target_materials:
         for view in page.get("views", []):
-            materials = view.get("materials", [])
-            
-            mat_list = materials if isinstance(materials, list) else materials.values() if isinstance(materials, dict) else []
-            for mat_info in mat_list:
-                if isinstance(mat_info, dict):
-                    search_query = extract_keywords_from_material(mat_info)
-                    if search_query:
-                        material_refs.append({"search_query": search_query, "mat_dict_ref": mat_info})
+            materials_block = view.get("materials", [])
+            find_and_register_materials(materials_block, material_refs)
 
     if not material_refs:
         print("No dynamic materials discovered requiring classification.")
