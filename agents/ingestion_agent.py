@@ -19,12 +19,15 @@ def ingestion_agent_node(state: AgenticState):
     - If a note mentions an exterior wall made of "8' Concrete Foundation Wall, 4000 PSI", extract "Concrete Foundation Wall" for name and "8' Concrete Foundation Wall, 4000 PSI" foir notes, "Wall" for category. 
     - Instead of extracting "Front Porch", look for specific material callouts inside that porch zone (e.g., "Pressure Treated Southern Yellow Pine", "CMU Block foundation", "Cast-in-place Concrete Slab").
     - Instead of extracting "Interior Partition Walls", look for the actual materials: "5/8" Type X Gypsum Board", "2x4 Wood Studs", or "Light-Gauge Metal Stud Framing".
+    - Do not take dimensions as codes.
     
     REMEMBER TO: - Extract where the materials are located for 'category' key into fixed categories: "Interior Wall", "Exterior Wall", "Door", "Window", "Roof", "Room" or "Others" 
       if that information is explicitly provided in the notes or schedules. If the materials applied in room, read the name of the room and provide that as the location context (e.g., "Room-Kitchen Floor", "Room-Bathroom Walls", "Room-Living Room", Room-Front Porch") in the category key.
 
    🚨 REGEX RULE FOR CODES (CRITICAL)
     For codes (e.g., X-02, F-60, F-62, W1, F1, R2, etc), go automatically to category B.
+
+   ⚠️ If there are no materials in a view/page then you can skip the view or page. Try to fill the 'notes' section with sizes and specifications if possible. If there is no information for notes then you can leave it empty. 
    
    🚨CRITICAL🚨: LEGEND EXCLUSION RULE:
    - IF YOU SEE STANDALONE KEY NOTES, GENERAL LEGENDS, OR INDEX KEYS LOCATED ON THE SAME PAGE AS PLAN VIEWS, YOU MUST IGNORE THEM. Do not parse these static master legends as views or schedules.
