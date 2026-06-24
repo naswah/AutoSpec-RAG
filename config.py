@@ -1,0 +1,5 @@
+PDF_PATH= r"D:\qtakeoffai-AI\qtakeoff-ai-AI\Example Plans\CR-574_HousePlans.pdf"
+OUTPUT_BASE=r"D:\qtakeoffai-AI\qtakeoff-ai-AI\outputs"
+RESULTS = r"D:\qtakeoffai-AI\qtakeoff-ai-AI\Results"
+MASTERFORMAT_CSV= r"D:\qtakeoffai-AI\qtakeoff-ai-AI\masterformat_2018.csv"
+OCR_PATH=  r"C:\Program Files\Tesseract-OCR\tesseract.exe"

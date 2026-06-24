@@ -7,9 +7,9 @@ import pandas as pd
 from qdrant_client import QdrantClient
 from qdrant_client.models import VectorParams, SparseVectorParams, Distance, PointStruct
 from tools.helpers import dense_model, sparse_model, COLLECTION, TARGET_DIMENSIONS
+from config import MASTERFORMAT_CSV
 
-
-CSV_SRC =r"D:\qtakeoffai-AI\qtakeoff-ai-AI\masterformat_2018.csv"
+CSV_SRC =MASTERFORMAT_CSV
 
 
 def _parse_synonym_segments(alt_terms_text):

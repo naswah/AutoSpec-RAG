@@ -4,6 +4,7 @@ import re
 from typing import Literal
 from dotenv import load_dotenv
 from langgraph.graph import StateGraph, END
+from config import PDF_PATH, OUTPUT_BASE, RESULTS
 
 from state.graph_state import AgenticState
 from agents.ingestion_agent import ingestion_agent_node
@@ -121,8 +122,8 @@ def build_workflow():
 
 if __name__ == "__main__":
     inputs = {
-        "pdf_path": r"D:\qtakeoffai-AI\qtakeoff-ai-AI\Example Plans\CR-574_HousePlans.pdf",
-        "output_base": r"D:\qtakeoffai-AI\qtakeoff-ai-AI\outputs",
+        "pdf_path": PDF_PATH,
+        "output_base": OUTPUT_BASE,
         "retry_count": 0,
         "error_log": []
     }
@@ -141,7 +142,7 @@ if __name__ == "__main__":
     else:
         print("No outstanding validation issues.")
 
-    results_folder = r"D:\qtakeoffai-AI\qtakeoff-ai-AI\Results"
+    results_folder = RESULTS
     os.makedirs(results_folder, exist_ok=True)
     
     pdf_name = os.path.splitext(os.path.basename(final_state.get("pdf_path", "blueprint.pdf")))[0]
