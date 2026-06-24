@@ -7,104 +7,150 @@ from langgraph.graph import StateGraph, END
 
 from state.graph_state import AgenticState
 from agents.ingestion_agent import ingestion_agent_node
-from agents.blueprint_mapper import blueprint_mapper_node
 from agents.csi_classifier import csi_classifier_node
 from agents.validator_agent import validator_agent_node
 from agents.summary_agent import summary_agent_node
 
 load_dotenv(override=True)
 
-def check_for_blueprint_codes(state: AgenticState) -> Literal["run_mapper", "skip_mapper"]:
-
-    print("\nDecision Hub: Scanning extracted JSON for structural codes (e.g., X-30, F-78)...")
-    extracted_data = state.get("extracted_materials", [])
-    json_str = json.dumps(extracted_data)
-    
-    code_pattern = re.compile(r"\b[A-Za-z]-\d+\b")
-    
-    if code_pattern.search(json_str) or "Mapping Required" in json_str:
-        print("Structural codes found! Routing to Agent 2 (Blueprint Mapper).")
-        return "run_mapper"
-    
-    print("No blueprint codes detected. Skipping Agent 2 step entirely.")
-    return "skip_mapper"
+MAX_RETRIES = 2
 
 
-def evaluation_router(state: AgenticState) -> Literal["back_to_classifier", "save_and_exit"]:
-    if state.get("error_log") and state.get("retry_count", 0) < 3:
-        print(f"Routing back to Agent 3 (CSI Classifier) for correction attempt #{state.get('retry_count', 0)}")
-        return "back_to_classifier"
-    
-    print("Validation passed. Routing to Agent 5 (Summary Agent)...")
-    return "generate_summary"
+def increment_retry_node(state: AgenticState):
+    current = state.get("retry_count", 0)
+    print(f"\n[Retry Controller] Validation flagged issues. Retry attempt {current + 1}/{MAX_RETRIES}...")
+    return {"retry_count": current + 1}
 
 
-def save_results_node(state: AgenticState):
-    plan_name = os.path.splitext(os.path.basename(state["pdf_path"]))[0]
-    save_path = os.path.join(os.getcwd(), "Results", f"{plan_name}_Final.json")
-    os.makedirs(os.path.dirname(save_path), exist_ok=True)
-    
-    final_output = state.get("final_specifications")
-    
-    with open(save_path, "w", encoding="utf-8") as f:
-        json.dump(final_output, f, indent=4, ensure_ascii=False)
-        
-    print(f"\nFinal output successfully saved to: {save_path}")
-    return {}
+def route_after_validation(state: AgenticState) -> Literal["retry", "proceed"]:
+    errors = state.get("error_log", [])
+    retry_count = state.get("retry_count", 0)
+
+    if errors and retry_count < MAX_RETRIES:
+        return "retry"
+    return "proceed"
 
 
-workflow = StateGraph(AgenticState)
+def normalize_material_names(materials: list) -> list:
+    """Kunai kunai materials ma 'name' ko thau ma 'code' cha so repace it by 'name' for backend processing"""
+    normalized = []
+    for item in materials:
+        if not isinstance(item, dict):
+            normalized.append(item)
+            continue
 
-workflow.add_node("agent_ingestion", ingestion_agent_node)
-workflow.add_node("agent_mapper", blueprint_mapper_node)
-workflow.add_node("agent_classifier", csi_classifier_node)
-workflow.add_node("agent_validator", validator_agent_node)
-# workflow.add_node("agent_summary", summary_agent_node)
-workflow.add_node("node_save", save_results_node)
+        name = item.get("name")
+        has_name = isinstance(name, str) and name.strip()
 
-workflow.set_entry_point("agent_ingestion")
+        code = item.get("code")
+        has_code = isinstance(code, str) and code.strip()
 
-workflow.add_conditional_edges(
-    "agent_ingestion",
-    check_for_blueprint_codes,
-    {
-        "run_mapper": "agent_mapper",      # Code found -> map it
-        "skip_mapper": "agent_classifier"  # Code missing -> bypass mapper node completely
-    }
-)
+        if has_name or not has_code:
+            
+            normalized.append(item)
+            continue
 
-workflow.add_edge("agent_mapper", "agent_classifier")
-workflow.add_edge("agent_classifier", "agent_validator")
+        new_item = {}
+        for k, v in item.items():
+            if k == "code":
+                new_item["name"] = code
+            else:
+                new_item[k] = v
+        normalized.append(new_item)
 
-workflow.add_conditional_edges(
-    "agent_validator",
-    evaluation_router,
-    {
-        "back_to_classifier": "agent_classifier",
-        # "generate_summary": "agent_summary"
-        "generate_summary": "node_save"
+    return normalized
 
-    }
-)
-# workflow.add_edge("agent_summary", "node_save")
-workflow.add_edge("node_save", END)
 
-app = workflow.compile()
+# def build_workflow():
 
-try:
-    graph_image_bytes = app.get_graph().draw_mermaid_png()
-    
-    with open("workflow_graph.png", "wb") as f:
-        f.write(graph_image_bytes)
-except Exception as e:
-    print(f"Could not generate graph image: {e}")
+#     workflow = StateGraph(AgenticState)
+
+#     workflow.add_node("ingestion", ingestion_agent_node)
+#     workflow.add_node("csi_classifier", csi_classifier_node)
+#     workflow.add_node("validator", validator_agent_node)
+#     workflow.add_node("increment_retry", increment_retry_node)
+#     workflow.add_node("summary", summary_agent_node)
+
+#     workflow.set_entry_point("ingestion")
+
+#     workflow.add_edge("ingestion", "csi_classifier")
+#     workflow.add_edge("csi_classifier", "validator")
+
+#     workflow.add_conditional_edges(
+#         "validator",
+#         route_after_validation,
+#         {
+#             "retry": "increment_retry",
+#             "proceed": "summary",
+#         },
+#     )
+
+#     workflow.add_edge("increment_retry", "csi_classifier")
+
+#     workflow.add_edge("summary", END)
+
+#     return workflow.compile()
+
+
+def build_workflow():
+
+    workflow = StateGraph(AgenticState)
+    workflow.add_node("ingestion", ingestion_agent_node)
+    workflow.add_node("csi_classifier", csi_classifier_node)
+    workflow.add_node("validator", validator_agent_node)
+    workflow.add_node("increment_retry", increment_retry_node)
+
+    workflow.set_entry_point("ingestion")
+
+    workflow.add_edge("ingestion", "csi_classifier")
+    workflow.add_edge("csi_classifier", "validator")
+
+    workflow.add_conditional_edges(
+        "validator",
+        route_after_validation,
+        {
+            "retry": "increment_retry",
+            "proceed": END,  
+        },
+    )
+
+    workflow.add_edge("increment_retry", "csi_classifier")
+
+    return workflow.compile()
+
 
 if __name__ == "__main__":
     inputs = {
-        "pdf_path": r"D:\AutoSpec RAG\Example Plans\Revised Plan.pdf",
-        "output_base": r"D:\AutoSpec RAG\output",
+        "pdf_path": r"D:\qtakeoffai-AI\qtakeoff-ai-AI\Example Plans\CR-574_HousePlans.pdf",
+        "output_base": r"D:\qtakeoffai-AI\qtakeoff-ai-AI\outputs",
         "retry_count": 0,
         "error_log": []
     }
+
     print("Launching agentic AutoSpec RAG...")
-    app.invoke(inputs)
+
+    app = build_workflow()
+    final_state = app.invoke(inputs)
+
+    print("\n=== Workflow Complete ===")
+    print(f"Total retries used: {final_state.get('retry_count', 0)}")
+    if final_state.get("error_log"):
+        print(f"Remaining validation notes ({len(final_state['error_log'])}):")
+        for err in final_state["error_log"]:
+            print(f"  - {err}")
+    else:
+        print("No outstanding validation issues.")
+
+    results_folder = r"D:\qtakeoffai-AI\qtakeoff-ai-AI\Results"
+    os.makedirs(results_folder, exist_ok=True)
+    
+    pdf_name = os.path.splitext(os.path.basename(final_state.get("pdf_path", "blueprint.pdf")))[0]
+    output_file = os.path.join(results_folder, f"{pdf_name}_Final.json")
+    
+    final_data = final_state.get("extracted_materials", [])
+    final_data = normalize_material_names(final_data)
+
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump(final_data, f, indent=4, ensure_ascii=False)
+
+    print(f"Final validated JSON saved securely to standalone folder: {output_file}")

@@ -3,7 +3,7 @@ from anthropic import Anthropic
 from state.graph_state import AgenticState
 
 def summary_agent_node(state: AgenticState):
-    print(f"\n=== [Agent 5: Summary Agent] Generating Comprehensive Plan Summary ===")
+    print(f"\n=== [Agent 4: Summary Agent] Generating Comprehensive Summary Plan ===")
     client = Anthropic(api_key=os.getenv("CLAUDE_API_KEY"))
     
     valid_pages = state.get("valid_pages", [])
@@ -26,18 +26,20 @@ def summary_agent_node(state: AgenticState):
 
 # Write your response in clear, professional, un-abbreviated plain text paragraphs with clear headings."""
 
-    prompt = """You are an expert architectural plan reviewer and construction estimator. 
-    Analyze the provided blueprint drawing image and write an exhaustive technical description of its layout, configurations, and specs.
+    # prompt = """You are an expert architectural plan reviewer and construction estimator. 
+    # Analyze the provided blueprint drawing image and write an exhaustive technical description of its layout, configurations, and specs.
 
-    Your response MUST follow these structural rules perfectly:
-    1. It must consist of EXACTLY TWO (2) paragraphs total. No more, no less.
-    2. DO NOT use markdown headings (##), bullet points, numbered lists, or bold keys. Write ONLY two continuous text blocks.
-    3. Paragraph 1 Focus: Technical overview of the drawing type, spatial layout, scale, dimensions, wall thicknesses, orientation, and room-by-room traffic circulation.
-    4. Paragraph 2 Focus: Detailed breakdown of physical features, structural frameworks, openings (doors/windows), millwork callouts, and any miscellaneous visual notations or legends found on the sheet.
+    # Your response MUST follow these structural rules perfectly:
+    # 1. It must consist of EXACTLY TWO (2) paragraphs total. No more, no less.
+    # 2. DO NOT use markdown headings (##), bullet points, numbered lists, or bold keys. Write ONLY two continuous text blocks.
+    # 3. Paragraph 1 Focus: Technical overview of the drawing type, spatial layout, scale, dimensions, wall thicknesses, orientation, and room-by-room traffic circulation.
+    # 4. Paragraph 2 Focus: Detailed breakdown of physical features, structural frameworks, openings (doors/windows), millwork callouts, and any miscellaneous visual notations or legends found on the sheet.
 
-    🚨 CRITICAL CONSTRAINT: DO NOT assign, use, or reference any CSI MasterFormat division codes (e.g., '09 30 13' or 'Division 09'). Focus entirely on a narrative, physical description.
+    # 🚨 CRITICAL CONSTRAINT: DO NOT assign, use, or reference any CSI MasterFormat division codes (e.g., '09 30 13' or 'Division 09'). Focus entirely on a narrative, physical description.
 
-    Write your response in clear, professional plain text prose using exactly two paragraphs."""
+    # Write your response in clear, professional plain text prose using exactly two paragraphs."""
+
+    prompt = """Write 1 paragraph about the overall drawing type, company and user plan. """
 
     for page in valid_pages:
         page_no = page["page_no"]

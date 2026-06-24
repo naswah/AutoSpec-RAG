@@ -13,6 +13,7 @@ load_dotenv()
 HF_TOKEN = os.getenv("HF_TOKEN")
 GEMINI_KEY= os.getenv("GEMINI_API_KEY")
 TARGET_DIMENSIONS= 768
+COLLECTION = 'Master_Format_csv'
 
 dense_model = GoogleGenerativeAIEmbeddings(
     model="gemini-embedding-001",
@@ -20,8 +21,6 @@ dense_model = GoogleGenerativeAIEmbeddings(
     output_dimensionality=TARGET_DIMENSIONS 
 )
 sparse_model = SparseTextEmbedding('Qdrant/bm25')
-
-COLLECTION = 'Master_Format'
 
 def safe_parse_json(text: str) -> dict:
     cleaned = re.sub(r"```(?:json)?", "", text).strip()

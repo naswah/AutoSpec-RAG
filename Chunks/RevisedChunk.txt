@@ -1,0 +1,690 @@
+=== CSI Classifier Debug - Run: 20260624_101140 ===
+
+Query: 'Asphalt Shingles. Description: Black colored asphalt shingles. Exterior material no. 1. Part of Main Roof Assembly (R1): Asphalt Shingles, Ice and Weather Shield, Plywood C/W H Clips at Joins, Engineered Trusses @ per layouts, Blown in Loose Fill Insulation to meet R-50, Batt Insulation R-21 between trusses, 6 Mil Poly Vapour Barrier, Gypsum Drywall'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 31 13 Title: Asphalt Shingles
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 31 13.13 Title: Fiberglass-Reinforced Asphalt Shingles
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 51 13 Title: Built-Up Asphalt Roofing
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 31 00 Title: Shingles and Shakes Includes: lapped roof shingles and shakes. Solar collector shingles.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 25 00 Title: Weather Barriers Includes: materials applied separately in wall, roof, and floor assemblies to resist vapor penetration, primarily to mitigate the consequences of thermal variation. Materials installed at walls, roof-wall connections, perimeter of door and window openings, and similar locations to provide a continuous, impermeable barrier to air infiltration or loss.
+------------------------------------------------------------
+
+Query: 'Ice and Weather Shield. Description: Part of Main Roof Assembly (R1). Applied under asphalt shingles'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 31 13 Title: Asphalt Shingles
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 51 13.13 Title: Cold-Applied Built-Up Asphalt Roofing
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 25 00 Title: Weather Barriers Includes: materials applied separately in wall, roof, and floor assemblies to resist vapor penetration, primarily to mitigate the consequences of thermal variation. Materials installed at walls, roof-wall connections, perimeter of door and window openings, and similar locations to provide a continuous, impermeable barrier to air infiltration or loss.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 22 00 Title: Roof and Deck Insulation Includes: organic or inorganic insulation applied for thermal protection as a part of roofing assemblies and under decks. Tapered roof insulation. Also known as: board insulation: rigid insulation: semi-rigid insulation.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 50 00 Title: Membrane Roofing Includes: roofing assemblies applied to the structural substrate, over insulation, or protected with insulation as appropriate to the particular assembly. Composition and elastomeric flashing. Surfacing materials, coatings, and ballast. May include: roof insulation, vapor retarders, and air barriers. Walkways, roof drains, and other items integral with roofing assembly. Roof pavers. Also known as: membrane roofing: sheet roofing.
+------------------------------------------------------------
+
+Query: 'Plywood Sheathing. Description: Plywood C/W H Clips at Joins. Part of Main Roof Assembly (R1)'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 00 Title: Sheathing Includes: sheathing, subflooring, and underlayment. Also known as: OSB: oriented strand board: chipboard: flake board. Plywood: sturd-i-floor. Structural-use panels: structural wood panel.
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 36 Title: Wood Panel Product Sheathing
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 15 16 Title: Wood Roof Decking
+   [4] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 33 Title: Wood Board Sheathing
+   [5] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 13 Title: Insulating Sheathing
+------------------------------------------------------------
+
+Query: 'Engineered Trusses. Description: Engineered Trusses @ per layouts. Part of Main Roof Assembly (R1)'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 13 26 Title: Heavy Timber Trusses
+   [2] Context: DIVISION 05: METALS Code: 05 19 19 Title: Canopy Support Truss Assemblies
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 40 00 Title: Roofing and Siding Panels Includes: siding, wall panels, and roof panels, with or without integral interior panels or insulation. Fabricated panel assemblies, which may include framing, sheathing, insulation, substrates, interior finish, and exterior finish. May include: roof and wall panels that are used with a fabricated engineered structure.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 50 00 Title: Membrane Roofing Includes: roofing assemblies applied to the structural substrate, over insulation, or protected with insulation as appropriate to the particular assembly. Composition and elastomeric flashing. Surfacing materials, coatings, and ballast. May include: roof insulation, vapor retarders, and air barriers. Walkways, roof drains, and other items integral with roofing assembly. Roof pavers. Also known as: membrane roofing: sheet roofing.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 22 00 Title: Roof and Deck Insulation Includes: organic or inorganic insulation applied for thermal protection as a part of roofing assemblies and under decks. Tapered roof insulation. Also known as: board insulation: rigid insulation: semi-rigid insulation.
+------------------------------------------------------------
+
+Query: 'Loose Fill Blown-In Insulation. Description: Blown in loose fill insulation to meet R-50. Part of Main Roof Assembly (R1)'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 26 Title: Blown Insulation
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 23 Title: Loose-Fill Insulation Also known as: Loose fill insulation: fill insulation: granular insulation.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 00 Title: Thermal Insulation Includes: organic and inorganic insulation applied for thermal protection in walls, ceilings, attics, and crawl spaces; under concrete slabs on grade; and at perimeter of foundations. Vapor retarders integral with insulation. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Loose fill insulation: fill insulation: granular insulation. Sprayed insulation: spray-on insulation.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 22 00 Title: Roof and Deck Insulation Includes: organic or inorganic insulation applied for thermal protection as a part of roofing assemblies and under decks. Tapered roof insulation. Also known as: board insulation: rigid insulation: semi-rigid insulation.
+   [5] Context: DIVISION 03: CONCRETE Code: 03 52 00 Title: Lightweight Concrete Roof Insulation Includes: insulating concrete used in roofing assemblies. May include: corrugated permanent metal forms when part of the cast deck system.
+------------------------------------------------------------
+
+Query: 'Batt Insulation. Description: R-21 Batt Insulation between trusses. Part of Main Roof Assembly (R1)'  [20260624_101140]
+   [1] Context: DIVISION 09: FINISHES Code: 09 81 00 Title: Acoustic Insulation Includes: insulation to provide acoustical isolation. May include: acoustic insulation for plaster and gypsum board assemblies. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Sprayed insulation: spray-on insulation.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 16 Title: Blanket Insulation Also known as: blanket insulation: batt insulation.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 00 Title: Thermal Insulation Includes: organic and inorganic insulation applied for thermal protection in walls, ceilings, attics, and crawl spaces; under concrete slabs on grade; and at perimeter of foundations. Vapor retarders integral with insulation. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Loose fill insulation: fill insulation: granular insulation. Sprayed insulation: spray-on insulation.
+   [4] Context: DIVISION 09: FINISHES Code: 09 81 16 Title: Acoustic Blanket Insulation Also known as: blanket insulation: batt insulation.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 22 00 Title: Roof and Deck Insulation Includes: organic or inorganic insulation applied for thermal protection as a part of roofing assemblies and under decks. Tapered roof insulation. Also known as: board insulation: rigid insulation: semi-rigid insulation.
+------------------------------------------------------------
+
+Query: 'Poly Vapour Barrier. Description: 6 Mil Poly Vapour Barrier. Part of Main Roof Assembly (R1)'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 25 00 Title: Weather Barriers Includes: materials applied separately in wall, roof, and floor assemblies to resist vapor penetration, primarily to mitigate the consequences of thermal variation. Materials installed at walls, roof-wall connections, perimeter of door and window openings, and similar locations to provide a continuous, impermeable barrier to air infiltration or loss.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 50 00 Title: Membrane Roofing Includes: roofing assemblies applied to the structural substrate, over insulation, or protected with insulation as appropriate to the particular assembly. Composition and elastomeric flashing. Surfacing materials, coatings, and ballast. May include: roof insulation, vapor retarders, and air barriers. Walkways, roof drains, and other items integral with roofing assembly. Roof pavers. Also known as: membrane roofing: sheet roofing.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 22 00 Title: Roof and Deck Insulation Includes: organic or inorganic insulation applied for thermal protection as a part of roofing assemblies and under decks. Tapered roof insulation. Also known as: board insulation: rigid insulation: semi-rigid insulation.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 26 00 Title: Vapor Retarders Includes: bituminous, laminated, and plastic vapor retarders. May include: vapor retarder under concrete slabs on grade.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 55 00 Title: Protected Membrane Roofing Includes: roofing assemblies with protective insulation and other surfacing materials covering membranes applied directly to the structural substrate. Also known as: fluid-applied: liquid-applied. IRMA: insulated roof membrane assembly: inverted roof membrane assembly. PRM: protected roof membrane. Vegetated protected membrane roofing: landscaped protected membrane roofing: green roof: sustainable design roof.
+------------------------------------------------------------
+
+Query: 'Gypsum Drywall. Description: Gypsum Drywall. Part of Main Roof Assembly (R1)'  [20260624_101140]
+   [1] Context: DIVISION 09: FINISHES Code: 09 29 00 Title: Gypsum Board Includes: unfinished and prefinished gypsum board over metal and wood framing; accessories and trim; joint taping and finishing. May include: non-structural metal framing, ceiling suspension, and furring systems. Gypsum and cementitious backing board for other finishes. Also known as: gypsum board: gypsum wallboard: drywall.
+   [2] Context: DIVISION 09: FINISHES Code: 09 29 82 Title: Gypsum Board Fire Protection Also known as: gypsum board: gypsum wallboard: drywall.
+   [3] Context: DIVISION 09: FINISHES Code: 09 20 00 Title: Plaster and Gypsum Board Includes: non-structural metal support assemblies for plaster and gypsum board. Exterior and interior veneer plaster, acoustical plaster, plaster partitions, and plaster fireproofing. Exterior and interior gypsum board, gypsum board assemblies, accessories, and trim. May include: acoustical insulation and sealants.
+   [4] Context: DIVISION 09: FINISHES Code: 09 21 16 Title: Gypsum Board Assemblies
+   [5] Context: DIVISION 03: CONCRETE Code: 03 51 16 Title: Gypsum Concrete Roof Decks
+------------------------------------------------------------
+
+Query: 'Asphalt Shingles. Description: Part of Porch Roof Assembly (R2): Asphalt Shingles, Ice and Weather Shield, Plywood C/W H Clips at Joins, Engineered Trusses @ per layout, Painted Exterior Grade MDF Sheathing, Venting per ABC'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 31 13 Title: Asphalt Shingles
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 31 13.13 Title: Fiberglass-Reinforced Asphalt Shingles
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 31 00 Title: Shingles and Shakes Includes: lapped roof shingles and shakes. Solar collector shingles.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 31 26 Title: Slate Shingles
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 30 00 Title: Steep Slope Roofing Includes: roof shingles, shakes, and roof tiles. Underlayment and fastening products and methods.
+------------------------------------------------------------
+
+Query: 'Ice and Weather Shield. Description: Part of Porch Roof Assembly (R2). Applied under asphalt shingles'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 31 13 Title: Asphalt Shingles
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 51 13.13 Title: Cold-Applied Built-Up Asphalt Roofing
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 25 00 Title: Weather Barriers Includes: materials applied separately in wall, roof, and floor assemblies to resist vapor penetration, primarily to mitigate the consequences of thermal variation. Materials installed at walls, roof-wall connections, perimeter of door and window openings, and similar locations to provide a continuous, impermeable barrier to air infiltration or loss.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 22 00 Title: Roof and Deck Insulation Includes: organic or inorganic insulation applied for thermal protection as a part of roofing assemblies and under decks. Tapered roof insulation. Also known as: board insulation: rigid insulation: semi-rigid insulation.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 50 00 Title: Membrane Roofing Includes: roofing assemblies applied to the structural substrate, over insulation, or protected with insulation as appropriate to the particular assembly. Composition and elastomeric flashing. Surfacing materials, coatings, and ballast. May include: roof insulation, vapor retarders, and air barriers. Walkways, roof drains, and other items integral with roofing assembly. Roof pavers. Also known as: membrane roofing: sheet roofing.
+------------------------------------------------------------
+
+Query: 'Plywood Sheathing. Description: Plywood C/W H Clips at Joins. Part of Porch Roof Assembly (R2)'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 00 Title: Sheathing Includes: sheathing, subflooring, and underlayment. Also known as: OSB: oriented strand board: chipboard: flake board. Plywood: sturd-i-floor. Structural-use panels: structural wood panel.
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 36 Title: Wood Panel Product Sheathing
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 33 Title: Wood Board Sheathing
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 29 Title: Plywood Siding
+   [5] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 13 Title: Insulating Sheathing
+------------------------------------------------------------
+
+Query: 'Engineered Trusses. Description: Engineered Trusses @ per layout. Part of Porch Roof Assembly (R2)'  [20260624_101140]
+   [1] Context: DIVISION 05: METALS Code: 05 19 13 Title: Façade Support Truss Assemblies
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 13 26 Title: Heavy Timber Trusses
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 40 00 Title: Roofing and Siding Panels Includes: siding, wall panels, and roof panels, with or without integral interior panels or insulation. Fabricated panel assemblies, which may include framing, sheathing, insulation, substrates, interior finish, and exterior finish. May include: roof and wall panels that are used with a fabricated engineered structure.
+   [4] Context: DIVISION 05: METALS Code: 05 19 19 Title: Canopy Support Truss Assemblies
+   [5] Context: DIVISION 05: METALS Code: 05 44 13 Title: Cold-Formed Metal Roof Trusses
+------------------------------------------------------------
+
+Query: 'Painted Exterior Grade MDF Sheathing. Description: Painted Exterior Grade MDF Sheathing. Part of Porch Roof Assembly (R2)'  [20260624_101140]
+   [1] Context: DIVISION 09: FINISHES Code: 09 93 13.53 Title: Exterior Finishing
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 40 00 Title: Roofing and Siding Panels Includes: siding, wall panels, and roof panels, with or without integral interior panels or insulation. Fabricated panel assemblies, which may include framing, sheathing, insulation, substrates, interior finish, and exterior finish. May include: roof and wall panels that are used with a fabricated engineered structure.
+   [3] Context: DIVISION 02: EXISTING CONDITIONS Code: 02 42 21.49 Title: Paint and Coatings Salvage Includes: interior/exterior architectural paints, deck coatings, floor paints, elastomeric, primers, sealers, under-coaters, stains, shellacs, lacquers, varnishes, urethanes, waterproofing concrete, roof, wood sealers and repellents. Supplies, thinners, spirits, solvents, additives, tints, field and lawn paints.
+   [4] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 00 Title: Sheathing Includes: sheathing, subflooring, and underlayment. Also known as: OSB: oriented strand board: chipboard: flake board. Plywood: sturd-i-floor. Structural-use panels: structural wood panel.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 44 00 Title: Faced Panels Includes: roof and wall panels coated on the exterior surface with aggregate, porcelain enamel, ceramic tile, or quarry tile. Fabricated panel assemblies with faced-panel exterior finish. Roof and wall panels composed of fiber-reinforced cementitious material. Fabricated-faced panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish.
+------------------------------------------------------------
+
+Query: 'Vinyl Siding. Description: Beige Vinyl Siding. Exterior material no. 3. Part of Typical Exterior Wall Assembly (W1)'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 43 Title: Composition Siding Also known as: composition siding: wood-fiber-reinforced resin siding.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 40 00 Title: Roofing and Siding Panels Includes: siding, wall panels, and roof panels, with or without integral interior panels or insulation. Fabricated panel assemblies, which may include framing, sheathing, insulation, substrates, interior finish, and exterior finish. May include: roof and wall panels that are used with a fabricated engineered structure.
+   [4] Context: DIVISION 08: OPENINGS Code: 08 53 13 Title: Vinyl Windows
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 95 13.16 Title: Exterior Expansion Joint Cover Assemblies Includes: expansion joint cover assemblies for exterior walls, soffits, and parapets. Moisture barriers and attachment devices.
+------------------------------------------------------------
+
+Query: 'Tyvek House Wrap. Description: Tyvek House Wrap. Part of Typical Exterior Wall Assembly (W1)'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 95 13.16 Title: Exterior Expansion Joint Cover Assemblies Includes: expansion joint cover assemblies for exterior walls, soffits, and parapets. Moisture barriers and attachment devices.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 44 00 Title: Curtain Wall and Glazed Assemblies Includes: multi-story cladding fabricated from glass and other materials for exterior applications. Framing members, sash, glazing, and sealants for complete enclosure. Insulated and non-insulated spandrel and infill panels. Louvers integral to curtain wall. Fixed sun screens integral to curtain wall.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 44 00 Title: Faced Panels Includes: roof and wall panels coated on the exterior surface with aggregate, porcelain enamel, ceramic tile, or quarry tile. Fabricated panel assemblies with faced-panel exterior finish. Roof and wall panels composed of fiber-reinforced cementitious material. Fabricated-faced panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 27 00 Title: Air Barriers Includes: reinforced rubber and sheet metal membranes, plastic sheet, board products with sealed joints, cement parging, and similar products. Also known as: air barrier: housewrap. Fluid-applied: liquid-applied. Note: gypsum board, concrete, metal decking, and similar building elements normally located under other titles may also serve as air barriers.
+------------------------------------------------------------
+
+Query: 'OSB Exterior Sheathing. Description: OSB Exterior Sheathing. Part of Typical Exterior Wall Assembly (W1)'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 00 Title: Sheathing Includes: sheathing, subflooring, and underlayment. Also known as: OSB: oriented strand board: chipboard: flake board. Plywood: sturd-i-floor. Structural-use panels: structural wood panel.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 95 13.16 Title: Exterior Expansion Joint Cover Assemblies Includes: expansion joint cover assemblies for exterior walls, soffits, and parapets. Moisture barriers and attachment devices.
+   [4] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 33 Title: Wood Board Sheathing
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 40 00 Title: Roofing and Siding Panels Includes: siding, wall panels, and roof panels, with or without integral interior panels or insulation. Fabricated panel assemblies, which may include framing, sheathing, insulation, substrates, interior finish, and exterior finish. May include: roof and wall panels that are used with a fabricated engineered structure.
+------------------------------------------------------------
+
+Query: 'Wood Studs. Description: Studs @ O.C. Part of Typical Exterior Wall Assembly (W1)'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 42 23 Title: Wood Wall Panels
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 11 00 Title: Wood Framing Includes: mechanically-graded lumber for framing and those engineered lumber products that are available at lumber yards and that are intended to be cut to length in the field. Wood columns, beams, girders, joists, purlins, rafters, studs, bracing, and other wood framing.
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 74 00 Title: Manufactured Exterior Specialties Includes: complete fabrications of metal, wood, and fiberglass, including all accessories and appurtenances. Also known as: below-grade egress assemblies: basement window egress assemblies: basement window emergency escape. Window wells: areaways.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [5] Context: DIVISION 01: GENERAL REQUIREMENTS Code: 01 33 29.02 Title: Wood-Containing Product List
+------------------------------------------------------------
+
+Query: 'Batt Insulation. Description: R-25 Batt Insulation. Part of Typical Exterior Wall Assembly (W1)'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 16 Title: Blanket Insulation Also known as: blanket insulation: batt insulation.
+   [2] Context: DIVISION 09: FINISHES Code: 09 81 00 Title: Acoustic Insulation Includes: insulation to provide acoustical isolation. May include: acoustic insulation for plaster and gypsum board assemblies. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Sprayed insulation: spray-on insulation.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 00 Title: Thermal Insulation Includes: organic and inorganic insulation applied for thermal protection in walls, ceilings, attics, and crawl spaces; under concrete slabs on grade; and at perimeter of foundations. Vapor retarders integral with insulation. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Loose fill insulation: fill insulation: granular insulation. Sprayed insulation: spray-on insulation.
+   [4] Context: DIVISION 09: FINISHES Code: 09 81 16 Title: Acoustic Blanket Insulation Also known as: blanket insulation: batt insulation.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+------------------------------------------------------------
+
+Query: 'Poly Vapour Barrier. Description: 6 Mil Poly Vapour Barrier. Part of Typical Exterior Wall Assembly (W1)'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 25 00 Title: Weather Barriers Includes: materials applied separately in wall, roof, and floor assemblies to resist vapor penetration, primarily to mitigate the consequences of thermal variation. Materials installed at walls, roof-wall connections, perimeter of door and window openings, and similar locations to provide a continuous, impermeable barrier to air infiltration or loss.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 95 13.16 Title: Exterior Expansion Joint Cover Assemblies Includes: expansion joint cover assemblies for exterior walls, soffits, and parapets. Moisture barriers and attachment devices.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 26 00 Title: Vapor Retarders Includes: bituminous, laminated, and plastic vapor retarders. May include: vapor retarder under concrete slabs on grade.
+   [5] Context: DIVISION 08: OPENINGS Code: 08 44 00 Title: Curtain Wall and Glazed Assemblies Includes: multi-story cladding fabricated from glass and other materials for exterior applications. Framing members, sash, glazing, and sealants for complete enclosure. Insulated and non-insulated spandrel and infill panels. Louvers integral to curtain wall. Fixed sun screens integral to curtain wall.
+------------------------------------------------------------
+
+Query: 'Gypsum Drywall. Description: Gypsum Drywall. Part of Typical Exterior Wall Assembly (W1)'  [20260624_101140]
+   [1] Context: DIVISION 09: FINISHES Code: 09 20 00 Title: Plaster and Gypsum Board Includes: non-structural metal support assemblies for plaster and gypsum board. Exterior and interior veneer plaster, acoustical plaster, plaster partitions, and plaster fireproofing. Exterior and interior gypsum board, gypsum board assemblies, accessories, and trim. May include: acoustical insulation and sealants.
+   [2] Context: DIVISION 09: FINISHES Code: 09 29 00 Title: Gypsum Board Includes: unfinished and prefinished gypsum board over metal and wood framing; accessories and trim; joint taping and finishing. May include: non-structural metal framing, ceiling suspension, and furring systems. Gypsum and cementitious backing board for other finishes. Also known as: gypsum board: gypsum wallboard: drywall.
+   [3] Context: DIVISION 09: FINISHES Code: 09 29 82 Title: Gypsum Board Fire Protection Also known as: gypsum board: gypsum wallboard: drywall.
+   [4] Context: DIVISION 09: FINISHES Code: 09 21 16 Title: Gypsum Board Assemblies
+   [5] Context: DIVISION 09: FINISHES Code: 09 21 16.33 Title: Gypsum Board Area Separation Wall Assemblies
+------------------------------------------------------------
+
+Query: 'Vinyl Siding. Description: Part of Double Wall Assembly at Pony Wall (W2). Beige Vinyl Siding'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [2] Context: DIVISION 09: FINISHES Code: 09 72 16 Title: Vinyl-Coated Fabric Wall Coverings
+   [3] Context: DIVISION 09: FINISHES Code: 09 72 00 Title: Wall Coverings Includes: vinyl-coated fabrics, cork, wallpaper, and textile wall coverings.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 63 Title: Fabricated Panel Assemblies with Siding
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 40 00 Title: Roofing and Siding Panels Includes: siding, wall panels, and roof panels, with or without integral interior panels or insulation. Fabricated panel assemblies, which may include framing, sheathing, insulation, substrates, interior finish, and exterior finish. May include: roof and wall panels that are used with a fabricated engineered structure.
+------------------------------------------------------------
+
+Query: 'Tyvek House Wrap. Description: Part of Double Wall Assembly at Pony Wall (W2)'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 27 00 Title: Air Barriers Includes: reinforced rubber and sheet metal membranes, plastic sheet, board products with sealed joints, cement parging, and similar products. Also known as: air barrier: housewrap. Fluid-applied: liquid-applied. Note: gypsum board, concrete, metal decking, and similar building elements normally located under other titles may also serve as air barriers.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 27 13 Title: Modified Bituminous Sheet Air Barriers Also known as: air barrier: housewrap.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 42 63 Title: Fabricated Wall Panel Assemblies
+   [4] Context: DIVISION 23: HEATING, VENTILATING, AND AIR CONDITIONING (HVAC) Code: 23 51 00 Title: Breechings, Chimneys, and Stacks Includes: double-wall and single-wall chimneys, breechings, and stacks.
+   [5] Context: DIVISION 08: OPENINGS Code: 08 44 00 Title: Curtain Wall and Glazed Assemblies Includes: multi-story cladding fabricated from glass and other materials for exterior applications. Framing members, sash, glazing, and sealants for complete enclosure. Insulated and non-insulated spandrel and infill panels. Louvers integral to curtain wall. Fixed sun screens integral to curtain wall.
+------------------------------------------------------------
+
+Query: 'OSB Exterior Sheathing. Description: OSB Exterior Sheathing. Part of Double Wall Assembly at Pony Wall (W2)'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 00 Title: Sheathing Includes: sheathing, subflooring, and underlayment. Also known as: OSB: oriented strand board: chipboard: flake board. Plywood: sturd-i-floor. Structural-use panels: structural wood panel.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 95 13.16 Title: Exterior Expansion Joint Cover Assemblies Includes: expansion joint cover assemblies for exterior walls, soffits, and parapets. Moisture barriers and attachment devices.
+   [4] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 33 Title: Wood Board Sheathing
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 40 00 Title: Roofing and Siding Panels Includes: siding, wall panels, and roof panels, with or without integral interior panels or insulation. Fabricated panel assemblies, which may include framing, sheathing, insulation, substrates, interior finish, and exterior finish. May include: roof and wall panels that are used with a fabricated engineered structure.
+------------------------------------------------------------
+
+Query: 'Wood Studs. Description: Stud Wall @ O.C. Part of Double Wall Assembly at Pony Wall (W2)'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 11 00 Title: Wood Framing Includes: mechanically-graded lumber for framing and those engineered lumber products that are available at lumber yards and that are intended to be cut to length in the field. Wood columns, beams, girders, joists, purlins, rafters, studs, bracing, and other wood framing.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 42 23 Title: Wood Wall Panels
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 42 63 Title: Fabricated Wall Panel Assemblies
+   [4] Context: DIVISION 13: SPECIAL CONSTRUCTION Code: 13 42 73.13 Title: Integrated Wall Assemblies
+   [5] Context: DIVISION 09: FINISHES Code: 09 74 00 Title: Flexible Wood Sheets Includes: wood wall covering and flexible wood veneers.
+------------------------------------------------------------
+
+Query: 'Loose Fill Blown-In Insulation. Description: Loose Fill Blown Insulation R-50 Min. Cavity. Part of Double Wall Assembly at Pony Wall (W2)'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 23 Title: Loose-Fill Insulation Also known as: Loose fill insulation: fill insulation: granular insulation.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 26 Title: Blown Insulation
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 00 Title: Thermal Insulation Includes: organic and inorganic insulation applied for thermal protection in walls, ceilings, attics, and crawl spaces; under concrete slabs on grade; and at perimeter of foundations. Vapor retarders integral with insulation. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Loose fill insulation: fill insulation: granular insulation. Sprayed insulation: spray-on insulation.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 16 Title: Blanket Insulation Also known as: blanket insulation: batt insulation.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 29 Title: Sprayed Insulation May include: various insulation materials such as cellulose or other fibrous products that are mixed with adhesives and sprayed onto surfaces. Also known as: Sprayed insulation: spray-on insulation.
+------------------------------------------------------------
+
+Query: 'Poly Vapour Barrier. Description: 6 Mil Poly Vapour Barrier. Part of Double Wall Assembly at Pony Wall (W2)'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 25 00 Title: Weather Barriers Includes: materials applied separately in wall, roof, and floor assemblies to resist vapor penetration, primarily to mitigate the consequences of thermal variation. Materials installed at walls, roof-wall connections, perimeter of door and window openings, and similar locations to provide a continuous, impermeable barrier to air infiltration or loss.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 26 00 Title: Vapor Retarders Includes: bituminous, laminated, and plastic vapor retarders. May include: vapor retarder under concrete slabs on grade.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 95 13.16 Title: Exterior Expansion Joint Cover Assemblies Includes: expansion joint cover assemblies for exterior walls, soffits, and parapets. Moisture barriers and attachment devices.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 95 13.13 Title: Interior Expansion Joint Cover Assemblies Includes: expansion joint cover assemblies for interior floors, walls, and ceilings. Moisture barriers and attachment devices.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 27 19 Title: Plastic Sheet Air Barriers
+------------------------------------------------------------
+
+Query: 'Concrete Foundation Wall. Description: Concrete Foundation Wall. Part of Foundation Wall Assembly (W3). Includes Drainage Board, Damp-Proofing, and Closed Cell XPS Insulation'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 10 00 Title: Dampproofing and Waterproofing Includes: dampproofing materials used to resist moisture penetration through foundation walls and similar surfaces subject to high humidity, dampness, or direct water contact, but not subject to hydraulic pressures. Impervious waterproofing membranes, coatings, and other materials applied to walls, slabs, decks, and other surfaces subject to hydrostatic pressure or water immersion. Boards and coatings, and drainage media integral to dampproofing and waterproofing.
+   [2] Context: DIVISION 31: EARTHWORK Code: 31 66 16.33 Title: Manufactured Modular Foundation Walls
+   [3] Context: DIVISION 31: EARTHWORK Code: 31 66 16.23 Title: Concrete Cribbing Foundation Walls
+   [4] Context: DIVISION 03: CONCRETE Code: 03 52 00 Title: Lightweight Concrete Roof Insulation Includes: insulating concrete used in roofing assemblies. May include: corrugated permanent metal forms when part of the cast deck system.
+   [5] Context: DIVISION 03: CONCRETE Code: 03 40 00 Title: Precast Concrete Includes: concrete cast in forms, either on or off site, before final placement. Forming, reinforcing, inserts, and accessories. May include: precast concrete tunnel lining. Precast concrete shaft lining. Precast concrete retaining walls.
+------------------------------------------------------------
+
+Query: 'Drainage Board. Description: Part of Foundation Wall Assembly (W3)'  [20260624_101140]
+   [1] Context: DIVISION 33: UTILITIES Code: 33 41 13 Title: Foundation Drainage Also known as: foundation drainage: footing drains: footer drains.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 10 00 Title: Dampproofing and Waterproofing Includes: dampproofing materials used to resist moisture penetration through foundation walls and similar surfaces subject to high humidity, dampness, or direct water contact, but not subject to hydraulic pressures. Impervious waterproofing membranes, coatings, and other materials applied to walls, slabs, decks, and other surfaces subject to hydrostatic pressure or water immersion. Boards and coatings, and drainage media integral to dampproofing and waterproofing.
+   [3] Context: DIVISION 33: UTILITIES Code: 33 41 13.13 Title: Foundation Drainage Piping
+   [4] Context: DIVISION 33: UTILITIES Code: 33 41 00 Title: Subdrainage Includes: subdrainage for intercepting and conveying groundwater away from a structure or to a drainage sump. Also known as: foundation drainage: footing drains: footer drains.
+   [5] Context: DIVISION 31: EARTHWORK Code: 31 68 00 Title: Foundation Anchors Includes: anchor assemblies to fasten deep foundations, walls, and similar elements to rock or other material. Tendons, equipment, corrosion protection grout, drilling, anchor fabrication, grouting, and testing.
+------------------------------------------------------------
+
+Query: 'Damp-Proofing. Description: Part of Foundation Wall Assembly (W3)'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 10 00 Title: Dampproofing and Waterproofing Includes: dampproofing materials used to resist moisture penetration through foundation walls and similar surfaces subject to high humidity, dampness, or direct water contact, but not subject to hydraulic pressures. Impervious waterproofing membranes, coatings, and other materials applied to walls, slabs, decks, and other surfaces subject to hydrostatic pressure or water immersion. Boards and coatings, and drainage media integral to dampproofing and waterproofing.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 11 00 Title: Dampproofing Includes: bituminous and cementitious dampproofing applied in a viscous state or in sheets.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 11 16 Title: Cementitious Dampproofing
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 11 19 Title: Sheet Dampproofing
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 11 13 Title: Bituminous Dampproofing
+------------------------------------------------------------
+
+Query: 'Closed Cell XPS Insulation. Description: Closed Cell XPS Insulation. Part of Foundation Wall Assembly (W3)'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 00 Title: Thermal Insulation Includes: organic and inorganic insulation applied for thermal protection in walls, ceilings, attics, and crawl spaces; under concrete slabs on grade; and at perimeter of foundations. Vapor retarders integral with insulation. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Loose fill insulation: fill insulation: granular insulation. Sprayed insulation: spray-on insulation.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 22 00 Title: Roof and Deck Insulation Includes: organic or inorganic insulation applied for thermal protection as a part of roofing assemblies and under decks. Tapered roof insulation. Also known as: board insulation: rigid insulation: semi-rigid insulation.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 20 00 Title: Thermal Protection Includes: insulation applied for thermal protection, elastomeric finish systems, vapor retarders, and air barriers. Cellulose, expanded polystyrene, extruded polystyrene, fiberglass, foamed glass, mineral fiber, perlite, polyisocyanurate, polyurethane, reflective, rock wool, vermiculite insulations.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 42 00 Title: Wall Panels Includes: manufactured wall panels and fabricated panel assemblies. Fabricated wall panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish.
+   [5] Context: DIVISION 31: EARTHWORK Code: 31 68 00 Title: Foundation Anchors Includes: anchor assemblies to fasten deep foundations, walls, and similar elements to rock or other material. Tendons, equipment, corrosion protection grout, drilling, anchor fabrication, grouting, and testing.
+------------------------------------------------------------
+
+Query: 'Concrete Slab. Description: Concrete Slab. Part of Foundation Slab Assembly (F1). Includes 6 Mil Poly Air Barrier and Min Compacted Gravel Base'  [20260624_101140]
+   [1] Context: DIVISION 03: CONCRETE Code: 03 06 30.19 Title: Concrete Slab Schedule
+   [2] Context: DIVISION 03: CONCRETE Code: 03 30 00 Title: Cast-in-Place Concrete Includes: aggregate, cement, additives, and pigmented mix. May include: concrete forming, accessories, and reinforcing. Granular subbase and vapor retarders for concrete slabs-on-grade. CIP concrete tunnel lining. CIP concrete shaft lining. CIP concrete retaining walls. Also known as: CIP: cast-in-place. Cast-in-place: poured-in-place.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 27 00 Title: Air Barriers Includes: reinforced rubber and sheet metal membranes, plastic sheet, board products with sealed joints, cement parging, and similar products. Also known as: air barrier: housewrap. Fluid-applied: liquid-applied. Note: gypsum board, concrete, metal decking, and similar building elements normally located under other titles may also serve as air barriers.
+   [4] Context: DIVISION 03: CONCRETE Code: 03 06 20.16 Title: Concrete Slab Reinforcing Schedule
+   [5] Context: DIVISION 03: CONCRETE Code: 03 53 00 Title: Concrete Topping Includes: cellular concrete for floor construction and concrete topping for slabs.
+------------------------------------------------------------
+
+Query: 'Poly Air Barrier. Description: 6 Mil Poly Air Barrier. Part of Foundation Slab Assembly (F1)'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 27 00 Title: Air Barriers Includes: reinforced rubber and sheet metal membranes, plastic sheet, board products with sealed joints, cement parging, and similar products. Also known as: air barrier: housewrap. Fluid-applied: liquid-applied. Note: gypsum board, concrete, metal decking, and similar building elements normally located under other titles may also serve as air barriers.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 27 23 Title: Board Product Air Barriers
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 27 13 Title: Modified Bituminous Sheet Air Barriers Also known as: air barrier: housewrap.
+   [4] Context: DIVISION 01: GENERAL REQUIREMENTS Code: 01 56 13 Title: Temporary Air Barriers
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 20 00 Title: Thermal Protection Includes: insulation applied for thermal protection, elastomeric finish systems, vapor retarders, and air barriers. Cellulose, expanded polystyrene, extruded polystyrene, fiberglass, foamed glass, mineral fiber, perlite, polyisocyanurate, polyurethane, reflective, rock wool, vermiculite insulations.
+------------------------------------------------------------
+
+Query: 'Compacted Gravel Base. Description: Min Compacted Gravel Base. Part of Foundation Slab Assembly (F1)'  [20260624_101140]
+   [1] Context: DIVISION 31: EARTHWORK Code: 31 23 23.23 Title: Compaction
+   [2] Context: DIVISION 31: EARTHWORK Code: 31 62 00 Title: Driven Piles Includes: driven deep pile foundations of various materials for support of structures. May include: reinforcement in cast-in-place concrete piles and concrete-filled steel piles. Also known as: pressure-injected footings: compacted-expanded base-concrete piles.
+   [3] Context: DIVISION 31: EARTHWORK Code: 31 68 00 Title: Foundation Anchors Includes: anchor assemblies to fasten deep foundations, walls, and similar elements to rock or other material. Tendons, equipment, corrosion protection grout, drilling, anchor fabrication, grouting, and testing.
+   [4] Context: DIVISION 32: EXTERIOR IMPROVEMENTS Code: 32 11 00 Title: Base Courses Includes: bound and unbound base and subbase courses that separate flexible, rigid, or unit paving courses from the underlying foundation or subgrade. Bound and unbound base and subbase courses that separate rail track supports from the underlying foundation or subgrade.
+   [5] Context: DIVISION 31: EARTHWORK Code: 31 64 00 Title: Caissons Includes: sunken or driven load-bearing enclosures to protect excavation for foundations, promote substructure construction, and become part of permanent structure. Casing and reinforcement.
+------------------------------------------------------------
+
+Query: 'Plywood Subfloor. Description: Tongue & Groove Plywood Subfloor. Part of Typical Floor Assembly (F2)'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 23 Title: Subflooring
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 00 Title: Sheathing Includes: sheathing, subflooring, and underlayment. Also known as: OSB: oriented strand board: chipboard: flake board. Plywood: sturd-i-floor. Structural-use panels: structural wood panel.
+   [3] Context: DIVISION 09: FINISHES Code: 09 64 00 Title: Wood Flooring Includes: flooring composed of wood with various types of backing. Wood sleeper and subfloor installation, adhesive installation. Also known as: athletic flooring: gymnasium flooring: sports flooring.
+   [4] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 15 13 Title: Wood Floor Decking
+   [5] Context: DIVISION 09: FINISHES Code: 09 64 53 Title: Resilient Wood Flooring Assemblies
+------------------------------------------------------------
+
+Query: 'Engineered Joists. Description: 9- TJI Engineered Joists @ Part of Typical Floor Assembly (F2)'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 11 00 Title: Wood Framing Includes: mechanically-graded lumber for framing and those engineered lumber products that are available at lumber yards and that are intended to be cut to length in the field. Wood columns, beams, girders, joists, purlins, rafters, studs, bracing, and other wood framing.
+   [2] Context: DIVISION 09: FINISHES Code: 09 69 00 Title: Access Flooring Includes: free-standing, elevated accessible floor assembly forming an underfloor cavity that may be used for utility services. Accessories and floor panel finish. May include: air outlets and inlets integral with floor panels. Loose-laid or glued-down carpet tile. Also known as: access flooring: computer floor: elevated floor: raised floor: free access floors: pedestal floors.
+   [3] Context: DIVISION 05: METALS Code: 05 42 00 Title: Cold-Formed Metal Joist Framing Includes: cold-formed metal framing intended for floor, roof, and ceiling joist applications.
+   [4] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 17 33 Title: Wood I-Joists
+   [5] Context: DIVISION 04: MASONRY Code: 04 29 00 Title: Engineered Unit Masonry Includes: unit masonry assemblies with engineered reinforcing members. Also known as: reinforced unit masonry.
+------------------------------------------------------------
+
+Query: 'Gypsum Drywall. Description: Gypsum Drywall. Part of Typical Floor Assembly (F2)'  [20260624_101140]
+   [1] Context: DIVISION 09: FINISHES Code: 09 29 00 Title: Gypsum Board Includes: unfinished and prefinished gypsum board over metal and wood framing; accessories and trim; joint taping and finishing. May include: non-structural metal framing, ceiling suspension, and furring systems. Gypsum and cementitious backing board for other finishes. Also known as: gypsum board: gypsum wallboard: drywall.
+   [2] Context: DIVISION 09: FINISHES Code: 09 29 82 Title: Gypsum Board Fire Protection Also known as: gypsum board: gypsum wallboard: drywall.
+   [3] Context: DIVISION 09: FINISHES Code: 09 20 00 Title: Plaster and Gypsum Board Includes: non-structural metal support assemblies for plaster and gypsum board. Exterior and interior veneer plaster, acoustical plaster, plaster partitions, and plaster fireproofing. Exterior and interior gypsum board, gypsum board assemblies, accessories, and trim. May include: acoustical insulation and sealants.
+   [4] Context: DIVISION 09: FINISHES Code: 09 21 16 Title: Gypsum Board Assemblies
+   [5] Context: DIVISION 09: FINISHES Code: 09 21 00 Title: Plaster and Gypsum Board Assemblies Includes: plaster, lath, board, non-structural framing, accessories, and trim for plaster and gypsum board assemblies.
+------------------------------------------------------------
+
+Query: 'Decking. Description: Decking. Part of Porch Deck Assembly (F3). Includes Joists @ 16 O.C'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 73 00 Title: Composite Decking Includes: decking fabricated of composites.
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 15 00 Title: Wood Decking Includes: flooring and decking using lumber and timber.
+   [3] Context: DIVISION 05: METALS Code: 05 35 00 Title: Raceway Decking Assemblies Includes: metal deck fabricated to provide raceway for power and communications wiring. Also known as: raceway decking: electrified floors: cellular decking.
+   [4] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 15 19 Title: Timber Decking
+   [5] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 15 33 Title: Wood Patio Decking
+------------------------------------------------------------
+
+Query: 'Wood Joists. Description: Joists @ Part of Porch Deck Assembly (F3)'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 17 33 Title: Wood I-Joists
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 17 00 Title: Shop-Fabricated Structural Wood Includes: columns, beams, joists, trusses, and other structural units fabricated from wood or wood in combination with metal elements. Also known as: LVL: laminated veneer lumber. PSL: parallel strand lumber.
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 11 00 Title: Wood Framing Includes: mechanically-graded lumber for framing and those engineered lumber products that are available at lumber yards and that are intended to be cut to length in the field. Wood columns, beams, girders, joists, purlins, rafters, studs, bracing, and other wood framing.
+   [4] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 17 36 Title: Metal-Web Wood Joists
+   [5] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 72 13 Title: Composite Joist Assemblies
+------------------------------------------------------------
+
+Query: 'Concrete Strip Footings. Description: Concrete Strip Footings. Part of Footing Assembly (F4)'  [20260624_101140]
+   [1] Context: DIVISION 03: CONCRETE Code: 03 06 30.13 Title: Concrete Footing Schedule
+   [2] Context: DIVISION 03: CONCRETE Code: 03 10 00 Title: Concrete Forming and Accessories
+   [3] Context: DIVISION 03: CONCRETE Code: 03 15 00 Title: Concrete Accessories Includes: anchors, cast-in anchors, inserts, expansion and contraction joints, and waterstops.
+   [4] Context: DIVISION 03: CONCRETE Code: 03 11 00 Title: Concrete Forming Includes: permanent and temporary forms for structural and architectural cast-in-place concrete. Metal pan forms, wood forms, plastic forms, slip forms, and corrugated paper forms for placing concrete. Form liners, void forms. May include: manufactured joints, anchors, inserts, and waterstops.
+   [5] Context: DIVISION 03: CONCRETE Code: 03 31 00 Title: Structural Concrete Includes: cast-in-place concrete for structural purposes where appearance is not a prime consideration. Cast-in-place concrete beams, columns, girders, joists, slabs, and other concrete framing members. Also known as: self-compacting concrete: self-consolidating concrete: self-placing concrete: self-leveling concrete.
+------------------------------------------------------------
+
+Query: 'Cedar Shakes. Description: Natural Finish Cedar Shakes. Exterior material no. 4'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 20 13 Title: Exterior Finish Carpentry
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 31 29 Title: Wood Shingles and Shakes
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 31 29.16 Title: Wood Shakes
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 31 00 Title: Shingles and Shakes Includes: lapped roof shingles and shakes. Solar collector shingles.
+   [5] Context: DIVISION 09: FINISHES Code: 09 93 13.53 Title: Exterior Finishing
+------------------------------------------------------------
+
+Query: 'Fascia. Description: White Fascia. Exterior material no. 2'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 46 29 Title: Wood Fasciae and Soffits
+   [2] Context: DIVISION 09: FINISHES Code: 09 93 13.53 Title: Exterior Finishing
+   [3] Context: DIVISION 32: EXTERIOR IMPROVEMENTS Code: 32 10 00 Title: Bases, Ballasts, and Paving Includes: granular, concrete, treated, synthetic, and other materials that comprise the structure; paving, and surfacing for walks, parking lots, roads, streets, highways, rail transportation, airfields, and athletic playing surfaces. Curbs, gutters, and paving specialties.
+   [4] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 20 13 Title: Exterior Finish Carpentry
+   [5] Context: DIVISION 08: OPENINGS Code: 08 44 00 Title: Curtain Wall and Glazed Assemblies Includes: multi-story cladding fabricated from glass and other materials for exterior applications. Framing members, sash, glazing, and sealants for complete enclosure. Insulated and non-insulated spandrel and infill panels. Louvers integral to curtain wall. Fixed sun screens integral to curtain wall.
+------------------------------------------------------------
+
+Query: 'Pressure Treated Deck Ledger. Description: Pressure Treated Deck Ledger. Exterior material no. 5'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 10 00 Title: Dampproofing and Waterproofing Includes: dampproofing materials used to resist moisture penetration through foundation walls and similar surfaces subject to high humidity, dampness, or direct water contact, but not subject to hydraulic pressures. Impervious waterproofing membranes, coatings, and other materials applied to walls, slabs, decks, and other surfaces subject to hydrostatic pressure or water immersion. Boards and coatings, and drainage media integral to dampproofing and waterproofing.
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 05 73.13 Title: Fire-Retardant Wood Treatment Also known as: wood treatment: pressure treatment.
+   [3] Context: DIVISION 32: EXTERIOR IMPROVEMENTS Code: 32 10 00 Title: Bases, Ballasts, and Paving Includes: granular, concrete, treated, synthetic, and other materials that comprise the structure; paving, and surfacing for walks, parking lots, roads, streets, highways, rail transportation, airfields, and athletic playing surfaces. Curbs, gutters, and paving specialties.
+   [4] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 10 63 Title: Exterior Rough Carpentry
+   [5] Context: DIVISION 05: METALS Code: 05 36 00 Title: Composite Metal Decking Includes: decks fabricated from a composite of materials.
+------------------------------------------------------------
+
+Query: 'Concrete Pier. Description: Diameter Concrete Pier, Min - below grade on x6 Concrete Pad (Typ). Used for deck support'  [20260624_101140]
+   [1] Context: DIVISION 31: EARTHWORK Code: 31 63 29.16 Title: Cased Drilled Concrete Piers
+   [2] Context: DIVISION 31: EARTHWORK Code: 31 63 29.13 Title: Uncased Drilled Concrete Piers
+   [3] Context: DIVISION 03: CONCRETE Code: 03 50 00 Title: Cast Decks and Underlayment Includes: poured and prefabricated cast floor and roof decks and fill. Includes form boards, reinforcement, and support members when part of a system.
+   [4] Context: DIVISION 03: CONCRETE Code: 03 52 00 Title: Lightweight Concrete Roof Insulation Includes: insulating concrete used in roofing assemblies. May include: corrugated permanent metal forms when part of the cast deck system.
+   [5] Context: DIVISION 05: METALS Code: 05 31 00 Title: Steel Decking Includes: metal deck fabricated from steel. May include: steel decking used as form for concrete or lightweight insulating concrete fill.
+------------------------------------------------------------
+
+Query: 'Built-Up Beam. Description: 3 Ply Built Up Beam on Steel Adjustable Saddle. Used for deck support'  [20260624_101140]
+   [1] Context: DIVISION 05: METALS Code: 05 31 00 Title: Steel Decking Includes: metal deck fabricated from steel. May include: steel decking used as form for concrete or lightweight insulating concrete fill.
+   [2] Context: DIVISION 03: CONCRETE Code: 03 50 00 Title: Cast Decks and Underlayment Includes: poured and prefabricated cast floor and roof decks and fill. Includes form boards, reinforcement, and support members when part of a system.
+   [3] Context: DIVISION 05: METALS Code: 05 06 10.16 Title: Steel Beam Schedule
+   [4] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 10 00 Title: Rough Carpentry Includes: wood foundations, framing, sheathing, and decking using lumber, timber, and engineered wood products. Blocking and supports to join the members and anchor the framework to other construction. Erection of the units and incorporation of connectors and supports to join the units and anchor the units to other construction. Usually Includes: related fasteners, adhesives, and wood treatment.
+   [5] Context: DIVISION 05: METALS Code: 05 30 00 Title: Metal Decking Includes: metal floor and roof deck of fluted, ribbed, and cellular configurations; composite decks; anchors, closures, and related accessories. Metal decking used as form for concrete or lightweight insulating concrete fill. Usually Includes: related fastenings and shop-applied coatings.
+------------------------------------------------------------
+
+Query: 'Decking. Description: Decking, Joists @ 16 OC. Deck size --'  [20260624_101140]
+   [1] Context: DIVISION 01: GENERAL REQUIREMENTS Code: 01 53 16 Title: Temporary Decking
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 15 19 Title: Timber Decking
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 15 16 Title: Wood Roof Decking
+   [4] Context: DIVISION 05: METALS Code: 05 21 16 Title: Longspan Steel Joist Framing
+   [5] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 15 13 Title: Wood Floor Decking
+------------------------------------------------------------
+
+Query: 'Concrete Slab. Description: Concrete Slab on Closed Cell XPS on Min Compacted Gravel. Undeveloped Basement - Basement'  [20260624_101140]
+   [1] Context: DIVISION 03: CONCRETE Code: 03 06 30.19 Title: Concrete Slab Schedule
+   [2] Context: DIVISION 03: CONCRETE Code: 03 41 16 Title: Precast Concrete Slabs
+   [3] Context: DIVISION 03: CONCRETE Code: 03 53 00 Title: Concrete Topping Includes: cellular concrete for floor construction and concrete topping for slabs.
+   [4] Context: DIVISION 03: CONCRETE Code: 03 47 16 Title: Lift-Slab Concrete
+   [5] Context: DIVISION 03: CONCRETE Code: 03 31 00 Title: Structural Concrete Includes: cast-in-place concrete for structural purposes where appearance is not a prime consideration. Cast-in-place concrete beams, columns, girders, joists, slabs, and other concrete framing members. Also known as: self-compacting concrete: self-consolidating concrete: self-placing concrete: self-leveling concrete.
+------------------------------------------------------------
+
+Query: 'Concrete Foundation Wall. Description: Weeping Tile as required, Wide x Deep Footing on Undisturbed Soil. Foundation wall for Basement'  [20260624_101140]
+   [1] Context: DIVISION 01: GENERAL REQUIREMENTS Code: 01 82 16 Title: Basement Construction Performance Requirements
+   [2] Context: DIVISION 31: EARTHWORK Code: 31 66 16 Title: Special Foundation Walls
+   [3] Context: DIVISION 01: GENERAL REQUIREMENTS Code: 01 82 13 Title: Foundation Performance Requirements
+   [4] Context: DIVISION 31: EARTHWORK Code: 31 66 16.23 Title: Concrete Cribbing Foundation Walls
+   [5] Context: DIVISION 31: EARTHWORK Code: 31 66 16.33 Title: Manufactured Modular Foundation Walls
+------------------------------------------------------------
+
+Query: 'Closed Cell XPS Insulation. Description: Closed Cell XPS Insulation on Min Compacted Gravel under basement slab'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 00 Title: Thermal Insulation Includes: organic and inorganic insulation applied for thermal protection in walls, ceilings, attics, and crawl spaces; under concrete slabs on grade; and at perimeter of foundations. Vapor retarders integral with insulation. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Loose fill insulation: fill insulation: granular insulation. Sprayed insulation: spray-on insulation.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 20 00 Title: Thermal Protection Includes: insulation applied for thermal protection, elastomeric finish systems, vapor retarders, and air barriers. Cellulose, expanded polystyrene, extruded polystyrene, fiberglass, foamed glass, mineral fiber, perlite, polyisocyanurate, polyurethane, reflective, rock wool, vermiculite insulations.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 22 00 Title: Roof and Deck Insulation Includes: organic or inorganic insulation applied for thermal protection as a part of roofing assemblies and under decks. Tapered roof insulation. Also known as: board insulation: rigid insulation: semi-rigid insulation.
+   [4] Context: DIVISION 01: GENERAL REQUIREMENTS Code: 01 91 16.53 Title: Basement Construction Commissioning
+   [5] Context: DIVISION 09: FINISHES Code: 09 81 00 Title: Acoustic Insulation Includes: insulation to provide acoustical isolation. May include: acoustic insulation for plaster and gypsum board assemblies. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Sprayed insulation: spray-on insulation.
+------------------------------------------------------------
+
+Query: 'Window. Description: Type 1: H x 36- W Sliding Window (SL). XO, 185 Series or Equiv. Level: Foundation (FDN). Count: 1'  [20260624_101140]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 50 00 Title: Windows Includes: windows of any material, both operating and non-operating. Fixed, single-hung, double-hung, sliding, projected, hopper, awning, casement, and jalousie windows. Operating hardware, screens, and other accessories. Factory glazing. Louver blinds integral to window construction. May include: window sills and stools. Perimeter joint sealant.
+   [2] Context: DIVISION 08: OPENINGS Code: 08 01 00 Title: Operation and Maintenance of Openings Includes: maintenance, repair, rehabilitation, replacement, restoration, preservation, etc. of openings. Level 4 Numbering Recommendation: Level 4 titles for wood windows are provided as examples for user's creation of more detailed titles for other subjects as required. Following Level 4 numbering is recommended: .51-.59 for maintenance. .61-.69 for repair. .71-.79 for rehabilitation. .81-.89 for replacement. .91-.99 for restoration.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 46 00 Title: Window Wall Assemblies
+   [4] Context: DIVISION 08: OPENINGS Code: 08 53 13 Title: Vinyl Windows
+   [5] Context: DIVISION 08: OPENINGS Code: 08 06 50 Title: Window Schedule
+------------------------------------------------------------
+
+Query: 'Window. Description: Type 2: 83- H x 59- W Tri-Window. LPR Casement, 260 Series or Equiv. Level: Main. Count: 1'  [20260624_101140]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 50 00 Title: Windows Includes: windows of any material, both operating and non-operating. Fixed, single-hung, double-hung, sliding, projected, hopper, awning, casement, and jalousie windows. Operating hardware, screens, and other accessories. Factory glazing. Louver blinds integral to window construction. May include: window sills and stools. Perimeter joint sealant.
+   [2] Context: DIVISION 08: OPENINGS Code: 08 56 59 Title: Service and Teller Window Units
+   [3] Context: DIVISION 08: OPENINGS Code: 08 01 00 Title: Operation and Maintenance of Openings Includes: maintenance, repair, rehabilitation, replacement, restoration, preservation, etc. of openings. Level 4 Numbering Recommendation: Level 4 titles for wood windows are provided as examples for user's creation of more detailed titles for other subjects as required. Following Level 4 numbering is recommended: .51-.59 for maintenance. .61-.69 for repair. .71-.79 for rehabilitation. .81-.89 for replacement. .91-.99 for restoration.
+   [4] Context: DIVISION 08: OPENINGS Code: 08 46 00 Title: Window Wall Assemblies
+   [5] Context: DIVISION 08: OPENINGS Code: 08 54 13 Title: Fiberglass Windows
+------------------------------------------------------------
+
+Query: 'Window. Description: Type 3: 24- H x 59- W Casement. R, 260 Series or Equiv. Level: Main & 2. Count: 2'  [20260624_101140]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 50 00 Title: Windows Includes: windows of any material, both operating and non-operating. Fixed, single-hung, double-hung, sliding, projected, hopper, awning, casement, and jalousie windows. Operating hardware, screens, and other accessories. Factory glazing. Louver blinds integral to window construction. May include: window sills and stools. Perimeter joint sealant.
+   [2] Context: DIVISION 08: OPENINGS Code: 08 01 00 Title: Operation and Maintenance of Openings Includes: maintenance, repair, rehabilitation, replacement, restoration, preservation, etc. of openings. Level 4 Numbering Recommendation: Level 4 titles for wood windows are provided as examples for user's creation of more detailed titles for other subjects as required. Following Level 4 numbering is recommended: .51-.59 for maintenance. .61-.69 for repair. .71-.79 for rehabilitation. .81-.89 for replacement. .91-.99 for restoration.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 54 73 Title: Vinyl-Wood Composite Windows
+   [4] Context: DIVISION 08: OPENINGS Code: 08 46 00 Title: Window Wall Assemblies
+   [5] Context: DIVISION 08: OPENINGS Code: 08 53 13 Title: Vinyl Windows
+------------------------------------------------------------
+
+Query: 'Window. Description: Type 4: H x W Dual Casement. LR, 260 Series or Equiv. Level: Main & 2. Count: 2'  [20260624_101140]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 50 00 Title: Windows Includes: windows of any material, both operating and non-operating. Fixed, single-hung, double-hung, sliding, projected, hopper, awning, casement, and jalousie windows. Operating hardware, screens, and other accessories. Factory glazing. Louver blinds integral to window construction. May include: window sills and stools. Perimeter joint sealant.
+   [2] Context: DIVISION 08: OPENINGS Code: 08 01 00 Title: Operation and Maintenance of Openings Includes: maintenance, repair, rehabilitation, replacement, restoration, preservation, etc. of openings. Level 4 Numbering Recommendation: Level 4 titles for wood windows are provided as examples for user's creation of more detailed titles for other subjects as required. Following Level 4 numbering is recommended: .51-.59 for maintenance. .61-.69 for repair. .71-.79 for rehabilitation. .81-.89 for replacement. .91-.99 for restoration.
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 74 00 Title: Manufactured Exterior Specialties Includes: complete fabrications of metal, wood, and fiberglass, including all accessories and appurtenances. Also known as: below-grade egress assemblies: basement window egress assemblies: basement window emergency escape. Window wells: areaways.
+   [4] Context: DIVISION 08: OPENINGS Code: 08 46 00 Title: Window Wall Assemblies
+   [5] Context: DIVISION 08: OPENINGS Code: 08 53 13 Title: Vinyl Windows
+------------------------------------------------------------
+
+Query: 'Window. Description: Type 5: H x W Casement. R, 260 Series or Equiv. Level: 2nd. Count: 2'  [20260624_101140]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 50 00 Title: Windows Includes: windows of any material, both operating and non-operating. Fixed, single-hung, double-hung, sliding, projected, hopper, awning, casement, and jalousie windows. Operating hardware, screens, and other accessories. Factory glazing. Louver blinds integral to window construction. May include: window sills and stools. Perimeter joint sealant.
+   [2] Context: DIVISION 08: OPENINGS Code: 08 01 00 Title: Operation and Maintenance of Openings Includes: maintenance, repair, rehabilitation, replacement, restoration, preservation, etc. of openings. Level 4 Numbering Recommendation: Level 4 titles for wood windows are provided as examples for user's creation of more detailed titles for other subjects as required. Following Level 4 numbering is recommended: .51-.59 for maintenance. .61-.69 for repair. .71-.79 for rehabilitation. .81-.89 for replacement. .91-.99 for restoration.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 51 13 Title: Aluminum Windows
+   [4] Context: DIVISION 02: EXISTING CONDITIONS Code: 02 42 21.39 Title: Window Salvage
+   [5] Context: DIVISION 08: OPENINGS Code: 08 46 00 Title: Window Wall Assemblies
+------------------------------------------------------------
+
+Query: 'Window. Description: Type 6: H x W Single Hung. XO, 260 Series or Equiv. Level: 2nd. Count: 2'  [20260624_101140]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 50 00 Title: Windows Includes: windows of any material, both operating and non-operating. Fixed, single-hung, double-hung, sliding, projected, hopper, awning, casement, and jalousie windows. Operating hardware, screens, and other accessories. Factory glazing. Louver blinds integral to window construction. May include: window sills and stools. Perimeter joint sealant.
+   [2] Context: DIVISION 08: OPENINGS Code: 08 01 00 Title: Operation and Maintenance of Openings Includes: maintenance, repair, rehabilitation, replacement, restoration, preservation, etc. of openings. Level 4 Numbering Recommendation: Level 4 titles for wood windows are provided as examples for user's creation of more detailed titles for other subjects as required. Following Level 4 numbering is recommended: .51-.59 for maintenance. .61-.69 for repair. .71-.79 for rehabilitation. .81-.89 for replacement. .91-.99 for restoration.
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 48 23 Title: Stick-Built Wood Windows
+   [4] Context: DIVISION 08: OPENINGS Code: 08 56 88 Title: Interior Insulating Windows
+   [5] Context: DIVISION 08: OPENINGS Code: 08 60 00 Title: Roof Windows and Skylights Includes: glazed openings located above the interior space, fixed or operating. Shop glazing, operating hardware, screens, and other accessories.
+------------------------------------------------------------
+
+Query: 'Wooden Door Trim Assembly. Description: Wide Wooden Door Trim Assembly. Item 01 in Attic Hatch Detail. Drawing No. AAD-M 22-30-002'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 46 00 Title: Wood Trim Includes: shop-fabricated standing and running trim.
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 22 00 Title: Millwork Includes: standard pattern wood trim and moldings.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 30 00 Title: Specialty Doors and Frames Includes: doors and door assemblies for a variety of special functions and applications involving a variety of operating methods. Fire-resistant rated doors and frames. Hardware, controls, operators, and drive mechanisms.
+   [4] Context: DIVISION 08: OPENINGS Code: 08 17 23 Title: Integrated Wood Door Opening Assemblies
+   [5] Context: DIVISION 08: OPENINGS Code: 08 34 73.16 Title: Wood Sound Control Door Assemblies Includes: wood sound-control doors and frames, sound-control seals, thresholds, hardware, and accessories.
+------------------------------------------------------------
+
+Query: 'Wood. Description: Thick Wood (Box Shorter Sides). Item 02 in Attic Hatch Detail. Drawing No. AAD-M 22-30-002'  [20260624_101140]
+   [1] Context: DIVISION 01: GENERAL REQUIREMENTS Code: 01 33 29.02 Title: Wood-Containing Product List
+   [2] Context: DIVISION 02: EXISTING CONDITIONS Code: 02 42 21.23 Title: Wood Salvage Includes: cabinetry, fixtures, doors, lumber, millwork, pallets, crates.
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 11 13 Title: Engineered Wood Products
+   [4] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 22 00 Title: Millwork Includes: standard pattern wood trim and moldings.
+   [5] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 06 00 Title: Schedules for Wood, Plastics, and Composites Includes: schedules of items common to multiple titles in Division 06. Note: a schedule may be included on drawings, in the project manual, or a project book.
+------------------------------------------------------------
+
+Query: 'Wood. Description: Thick Wood (Box Longer Sides). Item 03 in Attic Hatch Detail. Drawing No. AAD-M 22-30-002'  [20260624_101140]
+   [1] Context: DIVISION 01: GENERAL REQUIREMENTS Code: 01 33 29.02 Title: Wood-Containing Product List
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 11 13 Title: Engineered Wood Products
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 06 00 Title: Schedules for Wood, Plastics, and Composites Includes: schedules of items common to multiple titles in Division 06. Note: a schedule may be included on drawings, in the project manual, or a project book.
+   [4] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 22 00 Title: Millwork Includes: standard pattern wood trim and moldings.
+   [5] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 03 05 Title: Common Work Results for Period Wood
+------------------------------------------------------------
+
+Query: 'Weather Strip. Description: Weather Strip. Item 04 in Attic Hatch Detail. Drawing No. AAD-M 22-30-002'  [20260624_101140]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 75 00 Title: Window Hardware Includes: hardware for the operation of windows. Weatherstripping, seals, and gaskets for windows.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 25 00 Title: Weather Barriers Includes: materials applied separately in wall, roof, and floor assemblies to resist vapor penetration, primarily to mitigate the consequences of thermal variation. Materials installed at walls, roof-wall connections, perimeter of door and window openings, and similar locations to provide a continuous, impermeable barrier to air infiltration or loss.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 72 33 Title: Roof Hatches Also known as: roof hatch: scuttle.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 72 00 Title: Roof Accessories Includes: accessories installed on or in roofing other than mechanical or structural items. May include: roof curbs for mechanical equipment. Also known as: roof hatch: scuttle.
+   [5] Context: DIVISION 04: MASONRY Code: 04 06 00 Title: Schedules for Masonry Includes: schedules of items common to multiple titles in Division 04. Note: a schedule may be included on drawings, in the project manual, or a project book.
+------------------------------------------------------------
+
+Query: 'Laminated Cabinet Board. Description: Laminated Cabinet Board or Wood Painted White Gloss. Item 05 in Attic Hatch Detail. Drawing No. AAD-M 22-30-003'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 41 13 Title: Wood-Veneer-Faced Architectural Cabinets
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 42 13 Title: Wood Board Paneling
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 41 00 Title: Architectural Wood Casework Includes: shop-fabricated cabinets, cases, and fixtures. Cabinet hardware. May include: countertops and sinks integral with countertops. Also known as: PLAM: plastic laminate.
+   [4] Context: DIVISION 12: FURNISHINGS Code: 12 32 00 Title: Manufactured Wood Casework Includes: casework manufactured of wood or faced with wood veneer or plastic laminate. May include: countertops and sinks and lavatories integral with countertops. Also known as: PLAM: plastic laminate.
+   [5] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 15 23 Title: Laminated Wood Decking
+------------------------------------------------------------
+
+Query: 'Expanded Polystyrene. Description: Thick Expanded Polystyrene. Item 06 in Attic Hatch Detail. Drawing No. AAD-M 22-30-003'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 20 00 Title: Thermal Protection Includes: insulation applied for thermal protection, elastomeric finish systems, vapor retarders, and air barriers. Cellulose, expanded polystyrene, extruded polystyrene, fiberglass, foamed glass, mineral fiber, perlite, polyisocyanurate, polyurethane, reflective, rock wool, vermiculite insulations.
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 13 Title: Insulating Sheathing
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 06 00 Title: Schedules for Wood, Plastics, and Composites Includes: schedules of items common to multiple titles in Division 06. Note: a schedule may be included on drawings, in the project manual, or a project book.
+   [4] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 12 00 Title: Structural Panels Includes: reinforced and unreinforced wood-based structural panels. Structural insulated panels.
+   [5] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 11 13 Title: Engineered Wood Products
+------------------------------------------------------------
+
+Query: 'Rubber Pipe Duct Insulation Gasket. Description: Sealing Gasket - Thick Rubber Pipe/Duct Insulation. Item 07 in Attic Hatch Detail. Drawing No. AAD-M 22-30-003'  [20260624_101140]
+   [1] Context: DIVISION 23: HEATING, VENTILATING, AND AIR CONDITIONING (HVAC) Code: 23 07 13 Title: Duct Insulation
+   [2] Context: DIVISION 22: PLUMBING Code: 22 07 19 Title: Plumbing Piping Insulation
+   [3] Context: DIVISION 22: PLUMBING Code: 22 07 00 Title: Plumbing Insulation Includes: thermal insulation of plumbing piping and equipment.
+   [4] Context: DIVISION 22: PLUMBING Code: 22 07 16 Title: Plumbing Equipment Insulation
+   [5] Context: DIVISION 23: HEATING, VENTILATING, AND AIR CONDITIONING (HVAC) Code: 23 07 00 Title: HVAC Insulation Includes: thermal insulation of HVAC ducts, piping, and equipment.
+------------------------------------------------------------
+
+Query: 'Tyvek HomWrap. Description: Tyvek HomeWrap. Part of Typical Wall Assembly'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 42 00 Title: Wall Panels Includes: manufactured wall panels and fabricated panel assemblies. Fabricated wall panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 25 00 Title: Weather Barriers Includes: materials applied separately in wall, roof, and floor assemblies to resist vapor penetration, primarily to mitigate the consequences of thermal variation. Materials installed at walls, roof-wall connections, perimeter of door and window openings, and similar locations to provide a continuous, impermeable barrier to air infiltration or loss.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 44 00 Title: Curtain Wall and Glazed Assemblies Includes: multi-story cladding fabricated from glass and other materials for exterior applications. Framing members, sash, glazing, and sealants for complete enclosure. Insulated and non-insulated spandrel and infill panels. Louvers integral to curtain wall. Fixed sun screens integral to curtain wall.
+   [4] Context: DIVISION 10: SPECIALTIES Code: 10 25 00 Title: Service Walls Includes: wall assemblies and wall-mounted units incorporating services such as medical services, drinking fountains, clocks, fire hose and extinguishing cabinets, telephones, and waste receptacles.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 95 13.13 Title: Interior Expansion Joint Cover Assemblies Includes: expansion joint cover assemblies for interior floors, walls, and ceilings. Moisture barriers and attachment devices.
+------------------------------------------------------------
+
+Query: 'OSB Sheathing. Description: OSB Sheathing. Part of Typical Wall Assembly'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 00 Title: Sheathing Includes: sheathing, subflooring, and underlayment. Also known as: OSB: oriented strand board: chipboard: flake board. Plywood: sturd-i-floor. Structural-use panels: structural wood panel.
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 33 Title: Wood Board Sheathing
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 40 00 Title: Roofing and Siding Panels Includes: siding, wall panels, and roof panels, with or without integral interior panels or insulation. Fabricated panel assemblies, which may include framing, sheathing, insulation, substrates, interior finish, and exterior finish. May include: roof and wall panels that are used with a fabricated engineered structure.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 42 00 Title: Wall Panels Includes: manufactured wall panels and fabricated panel assemblies. Fabricated wall panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish.
+   [5] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 36 Title: Wood Panel Product Sheathing
+------------------------------------------------------------
+
+Query: 'Batt Insulation. Description: R-25 Batt Insulation. Part of Typical Wall Assembly'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 16 Title: Blanket Insulation Also known as: blanket insulation: batt insulation.
+   [2] Context: DIVISION 09: FINISHES Code: 09 81 00 Title: Acoustic Insulation Includes: insulation to provide acoustical isolation. May include: acoustic insulation for plaster and gypsum board assemblies. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Sprayed insulation: spray-on insulation.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 00 Title: Thermal Insulation Includes: organic and inorganic insulation applied for thermal protection in walls, ceilings, attics, and crawl spaces; under concrete slabs on grade; and at perimeter of foundations. Vapor retarders integral with insulation. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Loose fill insulation: fill insulation: granular insulation. Sprayed insulation: spray-on insulation.
+   [4] Context: DIVISION 09: FINISHES Code: 09 81 16 Title: Acoustic Blanket Insulation Also known as: blanket insulation: batt insulation.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 42 00 Title: Wall Panels Includes: manufactured wall panels and fabricated panel assemblies. Fabricated wall panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish.
+------------------------------------------------------------
+
+Query: 'Vapour Retarder. Description: Vapour Retarder. Part of Typical Wall Assembly'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 26 00 Title: Vapor Retarders Includes: bituminous, laminated, and plastic vapor retarders. May include: vapor retarder under concrete slabs on grade.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 25 00 Title: Weather Barriers Includes: materials applied separately in wall, roof, and floor assemblies to resist vapor penetration, primarily to mitigate the consequences of thermal variation. Materials installed at walls, roof-wall connections, perimeter of door and window openings, and similar locations to provide a continuous, impermeable barrier to air infiltration or loss.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 26 16 Title: Below-Grade Vapor Retarders
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 50 00 Title: Membrane Roofing Includes: roofing assemblies applied to the structural substrate, over insulation, or protected with insulation as appropriate to the particular assembly. Composition and elastomeric flashing. Surfacing materials, coatings, and ballast. May include: roof insulation, vapor retarders, and air barriers. Walkways, roof drains, and other items integral with roofing assembly. Roof pavers. Also known as: membrane roofing: sheet roofing.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 26 13 Title: Above-Grade Vapor Retarders
+------------------------------------------------------------
+
+Query: 'Gypsum Board. Description: Gypsum Board. Part of Typical Wall Assembly'  [20260624_101140]
+   [1] Context: DIVISION 09: FINISHES Code: 09 21 16 Title: Gypsum Board Assemblies
+   [2] Context: DIVISION 09: FINISHES Code: 09 29 00 Title: Gypsum Board Includes: unfinished and prefinished gypsum board over metal and wood framing; accessories and trim; joint taping and finishing. May include: non-structural metal framing, ceiling suspension, and furring systems. Gypsum and cementitious backing board for other finishes. Also known as: gypsum board: gypsum wallboard: drywall.
+   [3] Context: DIVISION 09: FINISHES Code: 09 20 00 Title: Plaster and Gypsum Board Includes: non-structural metal support assemblies for plaster and gypsum board. Exterior and interior veneer plaster, acoustical plaster, plaster partitions, and plaster fireproofing. Exterior and interior gypsum board, gypsum board assemblies, accessories, and trim. May include: acoustical insulation and sealants.
+   [4] Context: DIVISION 09: FINISHES Code: 09 21 16.23 Title: Gypsum Board Shaft Wall Assemblies
+   [5] Context: DIVISION 09: FINISHES Code: 09 21 00 Title: Plaster and Gypsum Board Assemblies Includes: plaster, lath, board, non-structural framing, accessories, and trim for plaster and gypsum board assemblies.
+------------------------------------------------------------
+
+Query: 'Parging. Description: Parging and Drainage Layer. Part of Foundation Wall at Pony Wall base'  [20260624_101140]
+   [1] Context: DIVISION 33: UTILITIES Code: 33 41 23 Title: Drainage Layers Note: drainage layers may be used for surface drainage or as part of a vegetated roofing system.
+   [2] Context: DIVISION 32: EXTERIOR IMPROVEMENTS Code: 32 11 23.23 Title: Base Course Drainage Layers
+   [3] Context: DIVISION 09: FINISHES Code: 09 24 33 Title: Cement Parging
+   [4] Context: DIVISION 33: UTILITIES Code: 33 41 13.13 Title: Foundation Drainage Piping
+   [5] Context: DIVISION 33: UTILITIES Code: 33 41 13 Title: Foundation Drainage Also known as: foundation drainage: footing drains: footer drains.
+------------------------------------------------------------
+
+Query: 'Concrete Foundation Wall. Description: Concrete Foundation Wall. Part of Base of Wall at Pony Wall Detail. Includes Closed Cell XPS Insulation'  [20260624_101140]
+   [1] Context: DIVISION 03: CONCRETE Code: 03 52 16.13 Title: Lightweight Cellular Insulating Concrete
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 00 Title: Thermal Insulation Includes: organic and inorganic insulation applied for thermal protection in walls, ceilings, attics, and crawl spaces; under concrete slabs on grade; and at perimeter of foundations. Vapor retarders integral with insulation. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Loose fill insulation: fill insulation: granular insulation. Sprayed insulation: spray-on insulation.
+   [3] Context: DIVISION 31: EARTHWORK Code: 31 66 16.33 Title: Manufactured Modular Foundation Walls
+   [4] Context: DIVISION 03: CONCRETE Code: 03 11 19 Title: Insulating Concrete Forming
+   [5] Context: DIVISION 03: CONCRETE Code: 03 53 00 Title: Concrete Topping Includes: cellular concrete for floor construction and concrete topping for slabs.
+------------------------------------------------------------
+
+Query: 'Sill Gasket. Description: Sill Gasket sealed between ladder and wood gusset'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 46 33 Title: Wood Stops, Stools, and Sills
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 91 00 Title: Preformed Joint Seals Includes: preformed compression seals and gaskets.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 91 16 Title: Joint Gaskets
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 86 00 Title: Smoke Seals Includes: material installed at the perimeter of openings to prevent the spread of smoke.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 91 13 Title: Compression Seals
+------------------------------------------------------------
+
+Query: 'Loose Fill Blown-In Insulation. Description: R-50 Loose Fill Insulation. Part of Pony Double Wall Assembly'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 26 Title: Blown Insulation
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 23 Title: Loose-Fill Insulation Also known as: Loose fill insulation: fill insulation: granular insulation.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 00 Title: Thermal Insulation Includes: organic and inorganic insulation applied for thermal protection in walls, ceilings, attics, and crawl spaces; under concrete slabs on grade; and at perimeter of foundations. Vapor retarders integral with insulation. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Loose fill insulation: fill insulation: granular insulation. Sprayed insulation: spray-on insulation.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 19 Title: Foamed-In-Place Insulation May include: various insulation materials that require mixing multiple components to create a stable matrix that is different from the original components to contain air or other insulating gas, and is foamed or poured in place.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 22 00 Title: Roof and Deck Insulation Includes: organic or inorganic insulation applied for thermal protection as a part of roofing assemblies and under decks. Tapered roof insulation. Also known as: board insulation: rigid insulation: semi-rigid insulation.
+------------------------------------------------------------
+
+Query: 'Plywood Subfloor. Description: Tongue & Groove Plywood Sub-Floor'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 00 Title: Sheathing Includes: sheathing, subflooring, and underlayment. Also known as: OSB: oriented strand board: chipboard: flake board. Plywood: sturd-i-floor. Structural-use panels: structural wood panel.
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 23 Title: Subflooring
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 29 Title: Plywood Siding
+   [4] Context: DIVISION 09: FINISHES Code: 09 64 00 Title: Wood Flooring Includes: flooring composed of wood with various types of backing. Wood sleeper and subfloor installation, adhesive installation. Also known as: athletic flooring: gymnasium flooring: sports flooring.
+   [5] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 25 16 Title: Prefinished Plywood Paneling
+------------------------------------------------------------
+
+Query: 'Engineered Joists. Description: TJI Engineered Joists'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 11 00 Title: Wood Framing Includes: mechanically-graded lumber for framing and those engineered lumber products that are available at lumber yards and that are intended to be cut to length in the field. Wood columns, beams, girders, joists, purlins, rafters, studs, bracing, and other wood framing.
+   [2] Context: DIVISION 05: METALS Code: 05 20 00 Title: Metal Joists Includes: metal joists, bridging, anchors, and accessories. Usually Includes: related fastenings and shop-applied coatings. Also known as: metal joists: bar joists.
+   [3] Context: DIVISION 05: METALS Code: 05 21 00 Title: Steel Joist Framing Includes: metal joists fabricated from structural steel. Also known as: steel joists: steel bar joists.
+   [4] Context: DIVISION 05: METALS Code: 05 25 00 Title: Aluminum Joist Framing Includes: metal joists fabricated from aluminum. Also known as: aluminum joists: aluminum bar joists.
+   [5] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 17 33 Title: Wood I-Joists
+------------------------------------------------------------
+
+Query: 'Gypsum Board. Description: Gypsum Board. Part of Typical Floor Assembly'  [20260624_101140]
+   [1] Context: DIVISION 09: FINISHES Code: 09 21 16 Title: Gypsum Board Assemblies
+   [2] Context: DIVISION 09: FINISHES Code: 09 29 00 Title: Gypsum Board Includes: unfinished and prefinished gypsum board over metal and wood framing; accessories and trim; joint taping and finishing. May include: non-structural metal framing, ceiling suspension, and furring systems. Gypsum and cementitious backing board for other finishes. Also known as: gypsum board: gypsum wallboard: drywall.
+   [3] Context: DIVISION 09: FINISHES Code: 09 20 00 Title: Plaster and Gypsum Board Includes: non-structural metal support assemblies for plaster and gypsum board. Exterior and interior veneer plaster, acoustical plaster, plaster partitions, and plaster fireproofing. Exterior and interior gypsum board, gypsum board assemblies, accessories, and trim. May include: acoustical insulation and sealants.
+   [4] Context: DIVISION 09: FINISHES Code: 09 21 00 Title: Plaster and Gypsum Board Assemblies Includes: plaster, lath, board, non-structural framing, accessories, and trim for plaster and gypsum board assemblies.
+   [5] Context: DIVISION 09: FINISHES Code: 09 29 82 Title: Gypsum Board Fire Protection Also known as: gypsum board: gypsum wallboard: drywall.
+------------------------------------------------------------
+
+Query: 'Roofing Shingles. Description: Roofing Shingles. Part of Roof/Wall Interface Detail. Includes Membrane Type Eave Protection ( High Min.)'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 50 00 Title: Membrane Roofing Includes: roofing assemblies applied to the structural substrate, over insulation, or protected with insulation as appropriate to the particular assembly. Composition and elastomeric flashing. Surfacing materials, coatings, and ballast. May include: roof insulation, vapor retarders, and air barriers. Walkways, roof drains, and other items integral with roofing assembly. Roof pavers. Also known as: membrane roofing: sheet roofing.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 55 00 Title: Protected Membrane Roofing Includes: roofing assemblies with protective insulation and other surfacing materials covering membranes applied directly to the structural substrate. Also known as: fluid-applied: liquid-applied. IRMA: insulated roof membrane assembly: inverted roof membrane assembly. PRM: protected roof membrane. Vegetated protected membrane roofing: landscaped protected membrane roofing: green roof: sustainable design roof.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 52 00 Title: Modified Bituminous Membrane Roofing Includes: roofing assemblies formed with modified bituminous membranes. Also known as: APP: atactic polypropylene. SBS: styrene-butadiene-styrene.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 30 00 Title: Steep Slope Roofing Includes: roof shingles, shakes, and roof tiles. Underlayment and fastening products and methods.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 31 00 Title: Shingles and Shakes Includes: lapped roof shingles and shakes. Solar collector shingles.
+------------------------------------------------------------
+
+Query: 'Plywood Sheathing. Description: Plywood Sheathing (Preferred). Part of Roof/Wall Interface Detail'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 00 Title: Sheathing Includes: sheathing, subflooring, and underlayment. Also known as: OSB: oriented strand board: chipboard: flake board. Plywood: sturd-i-floor. Structural-use panels: structural wood panel.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 29 Title: Plywood Siding
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 36 Title: Wood Panel Product Sheathing
+   [4] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 15 16 Title: Wood Roof Decking
+   [5] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 13 Title: Insulating Sheathing
+------------------------------------------------------------
+
+Query: 'Pre-Engineered Raised Heel Wood Truss. Description: Pre-Engineered Raised Heel Wood Truss (Preferred). Part of Roof/Wall Interface Detail'  [20260624_101140]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 11 13 Title: Engineered Wood Products
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 06 10.26 Title: Wood Truss Schedule
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 15 16 Title: Wood Roof Decking
+   [4] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 17 53 Title: Shop-Fabricated Wood Trusses
+   [5] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 13 26 Title: Heavy Timber Trusses
+------------------------------------------------------------
+
+Query: 'Batt Insulation. Description: R-49 Insulation. Part of Roof/Wall Interface Detail'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 00 Title: Thermal Insulation Includes: organic and inorganic insulation applied for thermal protection in walls, ceilings, attics, and crawl spaces; under concrete slabs on grade; and at perimeter of foundations. Vapor retarders integral with insulation. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Loose fill insulation: fill insulation: granular insulation. Sprayed insulation: spray-on insulation.
+   [2] Context: DIVISION 09: FINISHES Code: 09 81 00 Title: Acoustic Insulation Includes: insulation to provide acoustical isolation. May include: acoustic insulation for plaster and gypsum board assemblies. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Sprayed insulation: spray-on insulation.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 16 Title: Blanket Insulation Also known as: blanket insulation: batt insulation.
+   [4] Context: DIVISION 09: FINISHES Code: 09 81 16 Title: Acoustic Blanket Insulation Also known as: blanket insulation: batt insulation.
+   [5] Context: DIVISION 02: EXISTING CONDITIONS Code: 02 42 19.31 Title: Insulation Recycling Includes: batt.
+------------------------------------------------------------
+
+Query: 'Vented Metal Soffit. Description: Vented Metal Soffit. Part of Roof/Wall Interface Detail'  [20260624_101140]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 95 13 Title: Soffit Vents
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 42 93 Title: Soffit Panels
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 70 00 Title: Roof and Wall Specialties and Accessories Includes: standard manufactured components, both formed and extruded.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 60 00 Title: Flashing and Sheet Metal Includes: sheet metal roofing, accessories, and trim, and specialties associated with roofing, and metal and other flexible flashings for roofing and wall construction.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 63 00 Title: Sheet Metal Roofing Specialties Includes: roof-related protective and ornamental items and roof-related sheet metal items.
+------------------------------------------------------------
+
+Query: 'Batt Insulation. Description: Batt Insulation'  [20260624_101140]
+   [1] Context: DIVISION 09: FINISHES Code: 09 81 00 Title: Acoustic Insulation Includes: insulation to provide acoustical isolation. May include: acoustic insulation for plaster and gypsum board assemblies. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Sprayed insulation: spray-on insulation.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 16 Title: Blanket Insulation Also known as: blanket insulation: batt insulation.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 00 Title: Thermal Insulation Includes: organic and inorganic insulation applied for thermal protection in walls, ceilings, attics, and crawl spaces; under concrete slabs on grade; and at perimeter of foundations. Vapor retarders integral with insulation. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Loose fill insulation: fill insulation: granular insulation. Sprayed insulation: spray-on insulation.
+   [4] Context: DIVISION 09: FINISHES Code: 09 81 16 Title: Acoustic Blanket Insulation Also known as: blanket insulation: batt insulation.
+   [5] Context: DIVISION 02: EXISTING CONDITIONS Code: 02 42 19.31 Title: Insulation Recycling Includes: batt.
+------------------------------------------------------------
+
+Query: 'Vinyl Soffit. Description: Vinyl Soffit'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 42 93 Title: Soffit Panels
+   [2] Context: DIVISION 09: FINISHES Code: 09 65 16.23 Title: Vinyl Sheet Flooring
+   [3] Context: DIVISION 08: OPENINGS Code: 08 95 13 Title: Soffit Vents
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [5] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 46 29 Title: Wood Fasciae and Soffits
+------------------------------------------------------------
+
+Query: 'Batt Insulation. Description: R-35 Batt Insulation (Minimum)'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 00 Title: Thermal Insulation Includes: organic and inorganic insulation applied for thermal protection in walls, ceilings, attics, and crawl spaces; under concrete slabs on grade; and at perimeter of foundations. Vapor retarders integral with insulation. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Loose fill insulation: fill insulation: granular insulation. Sprayed insulation: spray-on insulation.
+   [2] Context: DIVISION 09: FINISHES Code: 09 81 00 Title: Acoustic Insulation Includes: insulation to provide acoustical isolation. May include: acoustic insulation for plaster and gypsum board assemblies. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Sprayed insulation: spray-on insulation.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 16 Title: Blanket Insulation Also known as: blanket insulation: batt insulation.
+   [4] Context: DIVISION 09: FINISHES Code: 09 81 16 Title: Acoustic Blanket Insulation Also known as: blanket insulation: batt insulation.
+   [5] Context: DIVISION 02: EXISTING CONDITIONS Code: 02 42 19.31 Title: Insulation Recycling Includes: batt.
+------------------------------------------------------------
+
+Query: 'Tyvek FlexWrap. Description: Tyvek FlexWrap. Applied around perimeter of window opening'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 25 00 Title: Weather Barriers Includes: materials applied separately in wall, roof, and floor assemblies to resist vapor penetration, primarily to mitigate the consequences of thermal variation. Materials installed at walls, roof-wall connections, perimeter of door and window openings, and similar locations to provide a continuous, impermeable barrier to air infiltration or loss.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 86 00 Title: Smoke Seals Includes: material installed at the perimeter of openings to prevent the spread of smoke.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 50 00 Title: Windows Includes: windows of any material, both operating and non-operating. Fixed, single-hung, double-hung, sliding, projected, hopper, awning, casement, and jalousie windows. Operating hardware, screens, and other accessories. Factory glazing. Louver blinds integral to window construction. May include: window sills and stools. Perimeter joint sealant.
+   [4] Context: DIVISION 08: OPENINGS Code: 08 40 00 Title: Entrances, Storefronts, and Curtain Walls Includes: entrances, storefronts, and curtain walls fabricated from formed and extruded metals and glass components for exterior and interior applications. Doors of various operating methods, framing for doors, sidelights, panels, and transoms. Shop glazing and shop applied hardware. May include: perimeter joint sealant.
+   [5] Context: DIVISION 08: OPENINGS Code: 08 75 00 Title: Window Hardware Includes: hardware for the operation of windows. Weatherstripping, seals, and gaskets for windows.
+------------------------------------------------------------
+
+Query: 'Sill Flashing. Description: Sill Flashing. Part of Window Installation'  [20260624_101140]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 50 00 Title: Windows Includes: windows of any material, both operating and non-operating. Fixed, single-hung, double-hung, sliding, projected, hopper, awning, casement, and jalousie windows. Operating hardware, screens, and other accessories. Factory glazing. Louver blinds integral to window construction. May include: window sills and stools. Perimeter joint sealant.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 65 00 Title: Flexible Flashing Includes: flexible flashings for roof and wall construction. May include: flexible flashing for masonry.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 60 00 Title: Flashing and Sheet Metal Includes: sheet metal roofing, accessories, and trim, and specialties associated with roofing, and metal and other flexible flashings for roofing and wall construction.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 65 23 Title: Rubber Sheet Flashing
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 65 13 Title: Laminated Sheet Flashing
+------------------------------------------------------------
+
+Query: 'Jamb Flashing. Description: Jamb Flashing. Extend Jamb Flashing to overlap Sill Flashing. Extend () above rough opening at head. Part of Window Installation'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 65 00 Title: Flexible Flashing Includes: flexible flashings for roof and wall construction. May include: flexible flashing for masonry.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 62 00 Title: Sheet Metal Flashing and Trim Includes: shop and field-formed accessories and trim. May include: metal flashing for masonry.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 50 00 Title: Windows Includes: windows of any material, both operating and non-operating. Fixed, single-hung, double-hung, sliding, projected, hopper, awning, casement, and jalousie windows. Operating hardware, screens, and other accessories. Factory glazing. Louver blinds integral to window construction. May include: window sills and stools. Perimeter joint sealant.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 06 60 Title: Schedules for Flashing and Sheet Metal
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 65 19 Title: Plastic Sheet Flashing
+------------------------------------------------------------
+
+Query: 'Head Flashing. Description: Head Flashing. Flashing at head extends beyond jamb flashing. Part of Window Installation'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 65 00 Title: Flexible Flashing Includes: flexible flashings for roof and wall construction. May include: flexible flashing for masonry.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 60 00 Title: Flashing and Sheet Metal Includes: sheet metal roofing, accessories, and trim, and specialties associated with roofing, and metal and other flexible flashings for roofing and wall construction.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 01 60 Title: Maintenance of Flashing and Sheet Metal
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 71 00 Title: Roof Specialties Includes: manufactured specialties serving as roofing perimeter facing, drainage, and expansion control. May include: manufactured flashing for penetrations.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 62 00 Title: Sheet Metal Flashing and Trim Includes: shop and field-formed accessories and trim. May include: metal flashing for masonry.
+------------------------------------------------------------
+
+Query: 'Weather Resistant Barrier. Description: Weather Resistant Barrier (WRB). Applied prior to window installation. Flashing applied behind the mounting flange'  [20260624_101140]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 25 00 Title: Weather Barriers Includes: materials applied separately in wall, roof, and floor assemblies to resist vapor penetration, primarily to mitigate the consequences of thermal variation. Materials installed at walls, roof-wall connections, perimeter of door and window openings, and similar locations to provide a continuous, impermeable barrier to air infiltration or loss.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 24 Title: Wood Shingle and Shake Siding Includes: wood shingle and shake siding, weather-resistive barriers, and flexible flashing.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 50 00 Title: Membrane Roofing Includes: roofing assemblies applied to the structural substrate, over insulation, or protected with insulation as appropriate to the particular assembly. Composition and elastomeric flashing. Surfacing materials, coatings, and ballast. May include: roof insulation, vapor retarders, and air barriers. Walkways, roof drains, and other items integral with roofing assembly. Roof pavers. Also known as: membrane roofing: sheet roofing.
+   [4] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 95 00 Title: Expansion Control Includes: manufactured expansion joint assemblies, including frames, covers, and gaskets. Fire-resistant barriers for fire-resistant rated expansion control assemblies.
+   [5] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 27 13 Title: Modified Bituminous Sheet Air Barriers Also known as: air barrier: housewrap.
+------------------------------------------------------------
+
