@@ -9,18 +9,18 @@ This project automates the manual process of material estimation by processing a
 
 2. Vision-Aided Extraction: Uses Claude VLM to extract the materials from the image.
 
-3. Mapping: If codes are present in the document, then the codes are mapped with their respective tables or schedules. The schedule is passed in every batch in ingestion agent so that they are properly processed by the LLM.
+3. Mapping: The window/door or any other schedule is passed in every batch for mapping the codes to their respective details.
 
-4. CSI MasterFormat Mapping: Uses a Hybrid Search (Semantic + Keyword) via Qdrant (Google Embeddings) to map extracted materials to official CSI divisions.
+4. CSI MasterFormat Mapping: Uses a Hybrid Search (Semantic + Keyword) via Qdrant (gemini embeddings) to map extracted materials to official CSI divisions.
 
 ## Installation and Setup 🛠️
 ### Prerequisites 🐍
 
-1. Python 3.10+
+1. Python 3.12.7
 
-2. Qdrant instance running (default: localhost:6333)
+2. Qdrant instance running (default: localhost:6333 )
 
-3. API Keys for GEMINI, CLAUDE and HugingFace token.
+3. API Keys for Gemini, Claude, HuggingFace token
 
 ### Install dependencies 📥
 In terminal: pip install -r requirements.txt
@@ -32,7 +32,10 @@ GEMINI_API_KEY=your_gemini_api_key_here \
 HF_TOKEN=your_hf_token_here
 
 ### Usuage
-python main.py
+1. Open Qdrant
+2. Run index_masterformat.py 
+3. Update path for user plan in config.py
+4. Run python main.py
 
 ## Pipeline Flow 🔄
 1. Ingestion: main.py initializes the pipeline, pulling raw data from inputs using tools/pdf_helpers.py.
@@ -47,9 +50,9 @@ python main.py
 
     - Validator Agent: Quality-checks calculations and data consistency.
 
-    - Summary Agent: Provides the summary of the user plan.
+    - Summary Agent: Provides summary of the user plan.
 
-Output: tools/helpers.py formats the final validated state and exports the results into the output/ and Results/ directories.
+Output: Exports the final results into the local/results directory, scale JSON to local/scale directory.
 
 ## Output📊
-A structurted JSON with the CSI division, Notes, Descrption and Category of the materials present in the user architectural plan.
+A structurted JSON with the CSI division, Notes and Descrption of the materials and Category present in the user architectural plan.
