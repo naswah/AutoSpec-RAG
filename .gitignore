@@ -1,8 +1,6 @@
 .env
 __pycache__/
-RAG plan for cost estimation.docx
+autospec_env/
 RAG Result.docx
-groq_rag_env/
-output/
-Results/
+cache/
 API Key Research.xlsx

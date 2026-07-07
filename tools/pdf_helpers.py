@@ -18,8 +18,8 @@ def is_page_excluded(page):
     width, height = rect.width, rect.height
     
     zones = [
-        # fitz.Rect(0, height * 0.90, width, height),   #bottom title block
-        fitz.Rect(width * 0.80, 0, width, height)  #right title block
+        # fitz.Rect(0, height * 0.85, width, height),   #bottom title block
+        fitz.Rect(width * 0.85, 0, width, height)  #right title block
     ]
     
     for i, zone in enumerate(zones):
@@ -41,7 +41,8 @@ def is_page_excluded(page):
             kw_dense = kw_clean.replace(" ", "")
             
             if kw_clean in zone_clean or kw_dense in dense_zone_text:
-                zone_name = "Bottom 20%" if i == 0 else "Right 20%"
+                zone_name = "Right 15%" if zone.x0 > 0 else "Bottom 15%"
+                
                 print(f"[OCR MATCH] Page flagged! Keyword '{keyword}' visually found in {zone_name}.")
                 return True
                 
@@ -49,13 +50,8 @@ def is_page_excluded(page):
 
 
 def is_schedule_page(page):
-    """
-    Detects whether a page contains a schedule/legend table that defines
-    material codes (e.g. F-60, X-02) referenced on other plan/elevation/detail
-    pages. Pages flagged True should always be included as cross-reference
-    anchors when batching multiple pages into one multimodal API request,
-    so a code's callout and its definition are never split across batches.
-    """
+    """ Detects whether a page contains a schedule/legend table that defines material codes (e.g. F-60, X-02) referenced on other plan/elevation/detail pages. Pages flagged True should always be included as cross-reference anchors when batching multiple pages into one multimodal API request, so a code's callout and its definition are never split across batches. """
+    
     text = page.get_text() or ""
     if not text.strip():
         # No embedded text layer (scanned page) - fall back to a full-page OCR pass.
@@ -82,10 +78,26 @@ def pdf_to_image(pdf_path, output_base):
 
         schedule_flag = is_schedule_page(page)
 
-        pix = page.get_pixmap(matrix=fitz.Matrix(300/72, 300/72))
+        target_zoom = 300 / 72
+        rect = page.rect
+        target_width = rect.width * target_zoom
+        target_height = rect.height * target_zoom
+
+        # Claude le 8000x8000 samma ko imagematra lincha so check for size
+        if target_width > 8000 or target_height > 8000:
+            scale_down_factor = 8000.0 / max(target_width, target_height)
+            final_zoom = target_zoom * scale_down_factor
+            print(f"⚠️Page {i+1} exceeds 8000px at 300 DPI. Dynamically scaling down to fit within constraints.")
+        else:
+            final_zoom = target_zoom
+
+        pix = page.get_pixmap(matrix=fitz.Matrix(final_zoom, final_zoom))
         image_filename = f"page_{i+1}.png"
         image_path = os.path.join(extraction_folder, image_filename)
         pix.save(image_path)
+        
+        img_bytes = pix.tobytes("png")
+        b64_string = base64.b64encode(img_bytes).decode('utf-8')
         
         img_bytes = pix.tobytes("png")
         b64_string = base64.b64encode(img_bytes).decode('utf-8')

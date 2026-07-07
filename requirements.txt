@@ -1,4 +1,14 @@
-numpy
+# numpy/torch/torchvision/scipy are pinned to match the qtakeoff-ai-backend
+# repo's versions exactly, so both repos can eventually share one venv.
+
+# GPU Computer: Install torch FIRST, separately, before the rest of this file:
+#   pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cu121
+
+#CPU-only fallback (no NVIDIA GPU available):
+#   pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cpu
+
+numpy==1.26.4
+scipy==1.13.1
 pandas
 tqdm
 python-dotenv
@@ -7,7 +17,7 @@ PyMuPDF
 pdfplumber
 pytesseract
 
-torch
+# Install with: pip install torch==2.10.0 torchvision==0.25.0 --index-url https://download.pytorch.org/whl/cpu
 sentence-transformers
 langchain-google-genai
 
@@ -20,7 +30,5 @@ langgraph
 
 scikit-learn
 transformers
-torchvision
 
 regex
-uuid

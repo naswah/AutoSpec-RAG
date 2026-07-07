@@ -1,0 +1,68 @@
+[
+    {
+        "page_label": "C-201",
+        "view": "Floor Plan",
+        "view_type": "FloorPlan",
+        "scale": "1/2\" = 1'-0\""
+    },
+    {
+        "page_label": "C-202",
+        "view": "Fixtures Plan",
+        "view_type": "FloorPlan",
+        "scale": "1/2\" = 1'-0\""
+    },
+    {
+        "page_label": "C-203",
+        "view": "Reflected Ceiling Plan",
+        "view_type": "FloorPlan",
+        "scale": "1/2\" = 1'-0\""
+    },
+    {
+        "page_label": "C-204",
+        "view": "Roof Plan",
+        "view_type": "FloorPlan",
+        "scale": "1/4\" = 1'-0\""
+    },
+    {
+        "page_label": "C-205",
+        "view": "Elevation B",
+        "view_type": "Elevation",
+        "scale": "3/8\" = 1'-0\""
+    },
+    {
+        "page_label": "C-205",
+        "view": "Elevation D",
+        "view_type": "Elevation",
+        "scale": "3/8\" = 1'-0\""
+    },
+    {
+        "page_label": "C-206",
+        "view": "Elevation A",
+        "view_type": "Elevation",
+        "scale": "3/8\" = 1'-0\""
+    },
+    {
+        "page_label": "C-206",
+        "view": "Elevation C",
+        "view_type": "Elevation",
+        "scale": "3/8\" = 1'-0\""
+    },
+    {
+        "page_label": "C-207",
+        "view": "Building Section AA'",
+        "view_type": "Elevation",
+        "scale": "3/8\" = 1'-0\""
+    },
+    {
+        "page_label": "C-207",
+        "view": "Building Section CC'",
+        "view_type": "Elevation",
+        "scale": "3/8\" = 1'-0\""
+    },
+    {
+        "page_label": "C-207",
+        "view": "Building Section EE'",
+        "view_type": "Elevation",
+        "scale": "3/8\" = 1'-0\""
+    }
+]

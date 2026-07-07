@@ -1,0 +1,20 @@
+ prompt = f"""You are an expert construction specification cost & CSI classification engine. Your task is to match a MATERIAL/PRODUCT description to its accurate MasterFormat 2018 classification code.
+
+    🚨CRITICAL RULES:
+        1. MATCH BY NAME AND TITLE: Look at the names of the Divisions and Titles in the context reference. Match the material name to the text name that describes what the product fundamentally is.
+        2. MATERIAL OVER LOCATION: Classify based strictly on WHAT the product is fundamentally built as, NOT where it sits or what macro-structure it serves.
+        3. SPECIFICITY OVER GENERALITY: If a code exists that explicitly covers the mechanism or form of the item, you MUST choose it over a broad umbrella code, provided a related section is present in the context. If a specific CSI division is not found in the context, assign the parent category code (e.g., ending in '00' like '06 16 00') rather than an overly granular micro-subdivision.
+        4. FUNCTION OVER LOCATION: Words describing the SURFACE or APPLICATION (e.g. "floor", "roof") are functional. Use them to pick sibling sub-codes under the same parent.
+        5. NAME IS THE PRIMARY SIGNAL: The "Item Type" shown below is the canonical identity of this material.
+
+    TASK:
+        - Classify based on the MATERIAL/PRODUCT itself, NOT based on where it is installed.
+        - Return ONLY a single flat JSON object with exactly one key: "csi_division", value formatted as "XX XX XX" or "XX XX XX.XX".
+        - If nothing in the context matches perfectly, use a valid parent level category code present in the text. If entirely unresolvable, return "00 00 00".
+
+        MATERIAL/PRODUCT TO CLASSIFY:
+        "{query}"
+        {location_line}
+        MASTERFORMAT SYSTEM CONTEXT REFERENCE (codes + titles retrieved for this material):
+        {context_block}
+    """

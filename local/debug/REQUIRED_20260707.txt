@@ -1,0 +1,524 @@
+=== CSI Classifier Debug - Run: 20260707_140919 ===
+
+Query: 'F-00. Description: BRICK, SIZE: -, SMOOTH BRICK, RED COLOR, SAND-FACED, AVOID WIRE CUT OR EXTRUDED LOOK'  [20260707_140919]
+   [1] Context: DIVISION 04: MASONRY Code: 04 21 13 Title: Brick Masonry
+   [2] Context: DIVISION 04: MASONRY Code: 04 71 00 Title: Manufactured Brick Masonry
+   [3] Context: DIVISION 04: MASONRY Code: 04 54 00 Title: Refractory Brick Masonry
+------------------------------------------------------------
+
+Query: 'F-20. Description: FLOOR DECKING, SIZE: , PAINTED WOOD, TONGUE & GROOVE, UNPAINTED CEDAR PREFERRED'  [20260707_140919]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 15 13 Title: Wood Floor Decking
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 15 00 Title: Wood Decking Includes: flooring and decking using lumber and timber.
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 15 16 Title: Wood Roof Decking
+------------------------------------------------------------
+
+Query: 'F-22. Description: PORCH COLUMN, SIZE: , WOOD, CHAMFERED FROM EDGES'  [20260707_140919]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 44 39 Title: Wood Posts and Columns
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 17 00 Title: Shop-Fabricated Structural Wood Includes: columns, beams, joists, trusses, and other structural units fabricated from wood or wood in combination with metal elements. Also known as: LVL: laminated veneer lumber. PSL: parallel strand lumber.
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 11 00 Title: Wood Framing Includes: mechanically-graded lumber for framing and those engineered lumber products that are available at lumber yards and that are intended to be cut to length in the field. Wood columns, beams, girders, joists, purlins, rafters, studs, bracing, and other wood framing.
+------------------------------------------------------------
+
+Query: 'F-24. Description: CLAPBOARD SIDING, SIZE: , FIBER CEMENT, JAMES HARDIE / ARTISAN LAP SIDING'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 46 Title: Fiber-Cement Siding
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 43 Title: Composition Siding Also known as: composition siding: wood-fiber-reinforced resin siding.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 24 Title: Wood Shingle and Shake Siding Includes: wood shingle and shake siding, weather-resistive barriers, and flexible flashing.
+------------------------------------------------------------
+
+Query: 'F-26. Description: EXT OPENING CASING, SIZE: 5-, FIBER CEMENT, . THICK HARDIPLANK'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 46 Title: Fiber-Cement Siding
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 46 13 Title: Wood Door and Window Casings
+   [3] Context: DIVISION 03: CONCRETE Code: 03 49 00 Title: Glass-Fiber-Reinforced Concrete Includes: products using a cement/aggregate slurry reinforced with glass fibers. Also known as: GFRC: glass-fiber-reinforced concrete.
+------------------------------------------------------------
+
+Query: 'F-28. Description: BED MOLDING, SIZE: 2., ROT-RESISTANT, PAINTED'  [20260707_140919]
+   [1] Context: DIVISION 12: FURNISHINGS Code: 12 58 29 Title: Beds
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 46 19 Title: Wood Base and Shoe Moldings
+   [3] Context: DIVISION 09: FINISHES Code: 09 96 00 Title: High-Performance Coatings Includes: high-performance, heavy industrial, glazed resinous, epoxy polyester, polyurethane, polyvinyl fluoride, chlorinated rubber, heat-resistant, and corrosion-resistant coatings. Zinc-rich primers. Fire-retardant paint.
+------------------------------------------------------------
+
+Query: 'F-30. Description: ASTRAGAL, SIZE: , ROT-RESISTANT, PAINTED'  [20260707_140919]
+   [1] Context: DIVISION 09: FINISHES Code: 09 96 00 Title: High-Performance Coatings Includes: high-performance, heavy industrial, glazed resinous, epoxy polyester, polyurethane, polyvinyl fluoride, chlorinated rubber, heat-resistant, and corrosion-resistant coatings. Zinc-rich primers. Fire-retardant paint.
+   [2] Context: DIVISION 08: OPENINGS Code: 08 30 00 Title: Specialty Doors and Frames Includes: doors and door assemblies for a variety of special functions and applications involving a variety of operating methods. Fire-resistant rated doors and frames. Hardware, controls, operators, and drive mechanisms.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 03 30 Title: Conservation Treatment for Period Specialty Doors and Frames
+------------------------------------------------------------
+
+Query: 'F-32. Description: CROWN MOLDING, SIZE: , ROT-RESISTANT, PAINTED'  [20260707_140919]
+   [1] Context: DIVISION 32: EXTERIOR IMPROVEMENTS Code: 32 12 36.23 Title: Fuel-Resistant Sealers
+   [2] Context: DIVISION 32: EXTERIOR IMPROVEMENTS Code: 32 01 11.53 Title: Paint Removal from Paving
+   [3] Context: DIVISION 32: EXTERIOR IMPROVEMENTS Code: 32 31 32 Title: Composite Fences and Gates
+------------------------------------------------------------
+
+Query: 'F-40. Description: 5V METAL ROOF PANELS, SIZE: OC, GALVALUME, OPTIONAL: STANDING SEAM METAL ROOF PANELS'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 41 13 Title: Metal Roof Panels
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 41 00 Title: Roof Panels Includes: manufactured roof panels and fabricated panel assemblies. Fabricated roof panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish. Aluminum, copper, steel, stainless steel, and terne metal roof panels. Batten seam, flat seam, and standing seam metal roof panels.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 61 13 Title: Standing Seam Sheet Metal Roofing
+------------------------------------------------------------
+
+Query: 'F-42. Description: BULBED RIDGE CAP, SIZE: , GALVALUME, USE SAME SUPPLIER AND PRODUCT LINE AS 5V PANELS'  [20260707_140919]
+   [1] Context: DIVISION 02: EXISTING CONDITIONS Code: 02 42 21.89 Title: Electrical Salvage Includes: equipment, wire transformers, boxes, panels, lighting, components, ballasts, bulbs.
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 42 00 Title: Wood Paneling Includes: shop-fabricated wall paneling fabricated with solid lumber, wood-veneer panel products, flush wood paneling, and plastic laminate. Veneers and flitches.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 41 16 Title: Insulated Metal Roof Panels
+------------------------------------------------------------
+
+Query: 'F-44. Description: HALF-ROUND GUTTER, SIZE: DIA, GALV STEEL OR COPPER, DOWNSPOUTS TO FOLLOW CORNER BOARDS'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 62 23 Title: Fabricated Gutters and Downspouts
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 71 23 Title: Manufactured Gutters and Downspouts
+   [3] Context: DIVISION 33: UTILITIES Code: 33 44 21 Title: Stormwater Downspout Filters
+------------------------------------------------------------
+
+Query: 'F-52. Description: CHIMNEY CAP, SIZE: ~, CONCRETE, MINIMAL PROFILE, OPTIONAL: SPARK ARRESTOR OR CHIMNEY POT'  [20260707_140919]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 31 13 Title: Manufactured Fireplace Chimneys
+   [2] Context: DIVISION 03: CONCRETE Code: 03 52 00 Title: Lightweight Concrete Roof Insulation Includes: insulating concrete used in roofing assemblies. May include: corrugated permanent metal forms when part of the cast deck system.
+   [3] Context: DIVISION 03: CONCRETE Code: 03 52 16 Title: Lightweight Insulating Concrete
+------------------------------------------------------------
+
+Query: 'F-60. Description: HARDWOOD FLOOR, SIZE: 2- WIDE, FINISH WOOD, TONGUE & GROOVE, STAINED'  [20260707_140919]
+   [1] Context: DIVISION 09: FINISHES Code: 09 64 00 Title: Wood Flooring Includes: flooring composed of wood with various types of backing. Wood sleeper and subfloor installation, adhesive installation. Also known as: athletic flooring: gymnasium flooring: sports flooring.
+   [2] Context: DIVISION 09: FINISHES Code: 09 64 66 Title: Wood Athletic Flooring Also known as: athletic flooring: gymnasium flooring: sports flooring.
+   [3] Context: DIVISION 09: FINISHES Code: 09 64 29 Title: Wood Strip and Plank Flooring
+------------------------------------------------------------
+
+Query: 'F-62. Description: FLOOR TILE, SIZE: ~, CERAMIC, HEXAGONAL PATTERN'  [20260707_140919]
+   [1] Context: DIVISION 02: EXISTING CONDITIONS Code: 02 42 21.47 Title: Flooring Salvage Includes: carpet, underlayment, tile-carpet, granite tile, vinyl composite tile, ceramic tile, porcelain tile.
+   [2] Context: DIVISION 02: EXISTING CONDITIONS Code: 02 42 19.47 Title: Flooring Recycling Includes: carpet, underlayment, non-PVC backed tile-carpet, PVC backed tile-carpet, granite tile, vinyl composite tile, ceramic tile, porcelain tile.
+   [3] Context: DIVISION 09: FINISHES Code: 09 66 16 Title: Terrazzo Floor Tile Includes: precast terrazzo.
+------------------------------------------------------------
+
+Query: 'F-64. Description: WALL TILE, SIZE: SQUARE, CERAMIC, WHITE OR LIGHT BLUE'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 44 00 Title: Faced Panels Includes: roof and wall panels coated on the exterior surface with aggregate, porcelain enamel, ceramic tile, or quarry tile. Fabricated panel assemblies with faced-panel exterior finish. Roof and wall panels composed of fiber-reinforced cementitious material. Fabricated-faced panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish.
+   [2] Context: DIVISION 12: FURNISHINGS Code: 12 11 26 Title: Ceramic Tile Murals
+   [3] Context: DIVISION 09: FINISHES Code: 09 30 13 Title: Ceramic Tiling Includes: ceramic tile: porcelain mosaic tile, glazed wall tile, monocuttura tile, and bicottura tile.
+------------------------------------------------------------
+
+Query: 'F-66. Description: BRICK TILE, SIZE: THICK, RECLAIMED BRICK, THIN BRICK VENEER, NARROW () MORTAR JOINTS, SMOOTH RED COLOR'  [20260707_140919]
+   [1] Context: DIVISION 04: MASONRY Code: 04 21 13.13 Title: Brick Veneer Masonry
+   [2] Context: DIVISION 09: FINISHES Code: 09 30 39 Title: Brick Tiling
+   [3] Context: DIVISION 09: FINISHES Code: 09 63 13 Title: Brick Flooring
+------------------------------------------------------------
+
+Query: 'F-68. Description: BASE MOLDING, SIZE: ., FINISH WOOD, INCLUDE DECORATIVE BASE CAP MOLDING'  [20260707_140919]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 46 19 Title: Wood Base and Shoe Moldings
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 20 00 Title: Finish Carpentry Includes: finish wood construction that can be purchased ready-made and installed by a finish carpenter, not requiring the specialized skills of architectural woodwork fabrication. Usually Includes: related fasteners, adhesives, and wood treatment.
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 22 00 Title: Millwork Includes: standard pattern wood trim and moldings.
+------------------------------------------------------------
+
+Query: 'F-72. Description: INT OPENING CASING, SIZE: ., WOOD, PAINTED, WITH .-THICK PLINTH BLOCK AT BASE'  [20260707_140919]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 17 23 Title: Integrated Wood Door Opening Assemblies
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 46 13 Title: Wood Door and Window Casings
+   [3] Context: DIVISION 08: OPENINGS Code: 08 14 00 Title: Wood Doors Includes: hinged, sliding, or pivoting doors manufactured of wood with solid or hollow cores, flush panel or stile and rail, with wood, plastic laminate, and metal veneers. Also known as: metal-faced doors: kalamein doors. Stile and rail wood doors: paneled wood doors.
+------------------------------------------------------------
+
+Query: 'F-74. Description: BEADBOARD, SIZE: , COMPOSITE PANEL, EXTERIOR GRADE BEADBOARD TO BE USED AT PORCH'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 40 00 Title: Roofing and Siding Panels Includes: siding, wall panels, and roof panels, with or without integral interior panels or insulation. Fabricated panel assemblies, which may include framing, sheathing, insulation, substrates, interior finish, and exterior finish. May include: roof and wall panels that are used with a fabricated engineered structure.
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 00 Title: Sheathing Includes: sheathing, subflooring, and underlayment. Also known as: OSB: oriented strand board: chipboard: flake board. Plywood: sturd-i-floor. Structural-use panels: structural wood panel.
+------------------------------------------------------------
+
+Query: 'F-76. Description: WAINSCOT CAP, SIZE: -, WOOD, PAINTED'  [20260707_140919]
+   [1] Context: DIVISION 02: EXISTING CONDITIONS Code: 02 42 21.49 Title: Paint and Coatings Salvage Includes: interior/exterior architectural paints, deck coatings, floor paints, elastomeric, primers, sealers, under-coaters, stains, shellacs, lacquers, varnishes, urethanes, waterproofing concrete, roof, wood sealers and repellents. Supplies, thinners, spirits, solvents, additives, tints, field and lawn paints.
+   [2] Context: DIVISION 02: EXISTING CONDITIONS Code: 02 42 19.49 Title: Paint and Coatings Recycling and Management Includes: interior/exterior architectural paints, deck coatings, floor paints, elastomeric, primers, sealers, under-coaters, stains, shellacs, lacquers, varnishes, urethanes, waterproofing concrete, roof, wood sealers and repellents. Supplies, thinners, spirits, solvents, additives, tints, field and lawn paints.
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 46 00 Title: Wood Trim Includes: shop-fabricated standing and running trim.
+------------------------------------------------------------
+
+Query: 'F-78. Description: HANDRAIL, SIZE: , FINISH WOOD, STAINED SAME COLOR AS FLOOR'  [20260707_140919]
+   [1] Context: DIVISION 09: FINISHES Code: 09 64 00 Title: Wood Flooring Includes: flooring composed of wood with various types of backing. Wood sleeper and subfloor installation, adhesive installation. Also known as: athletic flooring: gymnasium flooring: sports flooring.
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 43 00 Title: Wood Stairs and Railings Includes: stairs, stringers, treads, nosings, risers, handrails, railings, and related items.
+   [3] Context: DIVISION 09: FINISHES Code: 09 64 66 Title: Wood Athletic Flooring Also known as: athletic flooring: gymnasium flooring: sports flooring.
+------------------------------------------------------------
+
+Query: 'F-80. Description: NEWEL POST, SIZE: , WOOD, PAINTED, MODESTLY DECORATIVE'  [20260707_140919]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 44 39 Title: Wood Posts and Columns
+   [2] Context: DIVISION 32: EXTERIOR IMPROVEMENTS Code: 32 31 26.11 Title: Wire Fences with Wood Posts
+   [3] Context: DIVISION 02: EXISTING CONDITIONS Code: 02 42 21.49 Title: Paint and Coatings Salvage Includes: interior/exterior architectural paints, deck coatings, floor paints, elastomeric, primers, sealers, under-coaters, stains, shellacs, lacquers, varnishes, urethanes, waterproofing concrete, roof, wood sealers and repellents. Supplies, thinners, spirits, solvents, additives, tints, field and lawn paints.
+------------------------------------------------------------
+
+Query: 'F-82. Description: CROWN MOLDING, SIZE: -, WOOD OR MDF, PAINTED'  [20260707_140919]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 22 00 Title: Millwork Includes: standard pattern wood trim and moldings.
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 46 19 Title: Wood Base and Shoe Moldings
+   [3] Context: DIVISION 02: EXISTING CONDITIONS Code: 02 42 21.49 Title: Paint and Coatings Salvage Includes: interior/exterior architectural paints, deck coatings, floor paints, elastomeric, primers, sealers, under-coaters, stains, shellacs, lacquers, varnishes, urethanes, waterproofing concrete, roof, wood sealers and repellents. Supplies, thinners, spirits, solvents, additives, tints, field and lawn paints.
+------------------------------------------------------------
+
+Query: 'F-90. Description: WINDOW SHUTTERS, SIZE: , WOOD, SHALL BE OPERABLE. LOUVERS PREFERRED'  [20260707_140919]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 49 19 Title: Wood Shutters
+   [2] Context: DIVISION 12: FURNISHINGS Code: 12 23 13 Title: Wood Interior Shutters
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 49 00 Title: Wood Screens and Shutters Includes: shop-fabricated wood framed screens, blinds, and shutters.
+------------------------------------------------------------
+
+Query: 'X-00. Description: REFRIGERATOR, SIZE: x69, ENERGY STAR, MANUFACTURER: BLOMBERG / BRFB1042SS'  [20260707_140919]
+   [1] Context: DIVISION 11: EQUIPMENT Code: 11 41 13 Title: Refrigerated Food Storage Cases
+   [2] Context: DIVISION 23: HEATING, VENTILATING, AND AIR CONDITIONING (HVAC) Code: 23 23 00 Title: Refrigerant Piping Includes: refrigerant piping, valves, piping specialties, refrigerant, and other components within a structure.
+   [3] Context: DIVISION 13: SPECIAL CONSTRUCTION Code: 13 49 00 Title: Radiation Protection Includes: fabricated and pre-engineered radiation shielding components and structures for protection against radio frequency, x-ray, nuclear radiation, electromagnetic fields, and high energy magnetic pulse protection. Also known as: EMI: electromagnetic interference. RFI: radio frequency interference.
+------------------------------------------------------------
+
+Query: 'X-02. Description: KITCHEN SINK, SIZE: , SINGLE BOWL, VITREOUS CHINA, MANUFACTURER: HIGHPOINT COLLECTION / FIRECLAY'  [20260707_140919]
+   [1] Context: DIVISION 22: PLUMBING Code: 22 42 16.16 Title: Commercial Sinks
+   [2] Context: DIVISION 11: EQUIPMENT Code: 11 32 00 Title: Unit Kitchens Includes: manufactured units incorporating kitchen plumbing fixtures, appliances, casework, and countertops.
+   [3] Context: DIVISION 22: PLUMBING Code: 22 43 16 Title: Healthcare Sinks
+------------------------------------------------------------
+
+Query: 'X-04. Description: RANGE / OVEN, SIZE: x36,'  [20260707_140919]
+   [1] Context: DIVISION 11: EQUIPMENT Code: 11 44 16 Title: Commercial Ovens
+   [2] Context: DIVISION 11: EQUIPMENT Code: 11 44 13 Title: Commercial Ranges
+   [3] Context: DIVISION 04: MASONRY Code: 04 05 23 Title: Masonry Accessories Includes: masonry accessories other than those intended to anchor or reinforce for other titles in Division 04.
+------------------------------------------------------------
+
+Query: 'X-10. Description: KITCHEN COUNTERTOP, SIZE: THICK, WHITE PORCELEIN TILE OVER COMPOSITE BOARD, MANUFACTURER: IKEA / AKERBY'  [20260707_140919]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 11 13 Title: Chalkboards Includes: chalkboards made from slate, composition board, painted material, porcelain-enameled steel, and aluminum. Also known as: chalkboards: blackboards.
+   [2] Context: DIVISION 11: EQUIPMENT Code: 11 32 00 Title: Unit Kitchens Includes: manufactured units incorporating kitchen plumbing fixtures, appliances, casework, and countertops.
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 11 23 Title: Tackboards Includes: display boards with mounting surfaces of cork, composition board, and fabric-covered material. Also known as: tackboards: bulletin boards: cork boards.
+------------------------------------------------------------
+
+Query: 'X-12. Description: FLOOR CABINETS, SIZE: , WIDE, PAINTED, STAT WHITE, BIRCH EFFECT, INCLUDE NON-STANDARD SHELVES, MANUFACTURER: IKEA / AKURUM'  [20260707_140919]
+   [1] Context: DIVISION 12: FURNISHINGS Code: 12 30 00 Title: Casework Includes: stock modular cabinets and other casework units of any material. Countertops. Sinks integral with countertops. Laboratory countertops with integral sinks and fixtures and accessories mounted on countertops. Also known as: casework: cabinets: cabinetry.
+   [2] Context: DIVISION 12: FURNISHINGS Code: 12 35 30.13 Title: Kitchen Casework
+   [3] Context: DIVISION 12: FURNISHINGS Code: 12 56 51.13 Title: Book Shelves
+------------------------------------------------------------
+
+Query: 'X-14. Description: WALL CABINETS, SIZE: WIDE, PAINTED, GLAZED DOORS PREFERRED, MANUFACTURER: IKEA / AKURUM'  [20260707_140919]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 80 00 Title: Glazing Includes: glass and plastic glazing for doors, sidelights, transoms, borrowed lights, entrances, storefronts, curtain walls, windows, skylights, and glazed structures. Does Not Include: glazing integral with manufactured items such as casework, food service equipment, and telephone enclosures.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 26 00 Title: Wall and Door Protection Includes: manufactured protective devices for walls and doors made of metal, plastic, rubber, and other finish materials.
+   [3] Context: DIVISION 11: EQUIPMENT Code: 11 32 16 Title: Wood Unit Kitchens
+------------------------------------------------------------
+
+Query: 'X-20. Description: TOILET, SIZE: , 1.0 GPF, MANUFACTURER: TOTO / ROWAN CST405MF OR EQUIVALENT'  [20260707_140919]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 28 00 Title: Toilet, Bath, and Laundry Accessories Includes: manufactured items for use in conjunction with toilets, baths, and laundries.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 21 00 Title: Compartments and Cubicles Includes: manufactured compartments and cubicles that are enclosures, dividers, screens, and curtains for toilets, urinals, showers, dressing compartments, and hospital cubicles, including hardware and accessories. Ceiling-hung, floor-supported, overhead-braced, and wall-supported.
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 06 20.13 Title: Toilet, Bath, and Laundry Accessory Schedule
+------------------------------------------------------------
+
+Query: 'X-22. Description: WC TOILET, SIZE: MAX LENGTH, WALL HUNG, 1.6 GPF, SIZE IS CRITICAL FOR PROPER CLEARANCES, MANUFACTURER: AQUIA / WALL HUNG DUAL FLUSH TOILET CT418F'  [20260707_140919]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 21 00 Title: Compartments and Cubicles Includes: manufactured compartments and cubicles that are enclosures, dividers, screens, and curtains for toilets, urinals, showers, dressing compartments, and hospital cubicles, including hardware and accessories. Ceiling-hung, floor-supported, overhead-braced, and wall-supported.
+   [2] Context: DIVISION 22: PLUMBING Code: 22 41 13 Title: Residential Water Closets, Urinals, and Bidets
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 77 00 Title: Wall Specialties Includes: manufactured specialties for wall construction.
+------------------------------------------------------------
+
+Query: 'X-24. Description: CORNER SINK, SIZE: MAX, VITREOUS CHINA, WALL HUNG OR PEDESTAL, SIZE CRITICAL FOR CLEARANCES, MANUFACTURER: ELIZABETHAN CLASSICS / ETCB CORNER BASIN'  [20260707_140919]
+   [1] Context: DIVISION 22: PLUMBING Code: 22 42 16.16 Title: Commercial Sinks
+   [2] Context: DIVISION 22: PLUMBING Code: 22 42 16 Title: Commercial Lavatories and Sinks
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 21 00 Title: Compartments and Cubicles Includes: manufactured compartments and cubicles that are enclosures, dividers, screens, and curtains for toilets, urinals, showers, dressing compartments, and hospital cubicles, including hardware and accessories. Ceiling-hung, floor-supported, overhead-braced, and wall-supported.
+------------------------------------------------------------
+
+Query: 'X-26. Description: BATHROOM VANITY, SIZE: , CENTERED WITH MIRROR WALL CABINET, MANUFACTURER: CHOICE BY OWNER'  [20260707_140919]
+   [1] Context: DIVISION 12: FURNISHINGS Code: 12 35 30.23 Title: Bathroom Casework
+   [2] Context: DIVISION 13: SPECIAL CONSTRUCTION Code: 13 42 13 Title: Bathroom Unit Modules
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 26 00 Title: Wall and Door Protection Includes: manufactured protective devices for walls and doors made of metal, plastic, rubber, and other finish materials.
+------------------------------------------------------------
+
+Query: 'X-28. Description: BATHTUB, SIZE: x18, INSTALL LOW-FLOW SHOWER HEAD, MANUFACTURER: KOHLER / STERLING 71091120 OR EQUIVALENT'  [20260707_140919]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 28 16.13 Title: Residential Bath Accessories
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 28 19 Title: Tub and Shower Enclosures Includes: shower and tub doors for residential bathroom use.
+   [3] Context: DIVISION 28: ELECTRONIC SAFETY AND SECURITY Code: 28 18 13 Title: Security Access X-ray Equipment
+------------------------------------------------------------
+
+Query: 'X-30. Description: MIRROR CABINET, SIZE: x6, WHITE FRAME, OPTIONAL CASING SURROUND, CENTERED ON SINK, MANUFACTURER: IKEA / HEMNES OR EQUIVALENT'  [20260707_140919]
+   [1] Context: DIVISION 12: FURNISHINGS Code: 12 30 00 Title: Casework Includes: stock modular cabinets and other casework units of any material. Countertops. Sinks integral with countertops. Laboratory countertops with integral sinks and fixtures and accessories mounted on countertops. Also known as: casework: cabinets: cabinetry.
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 41 00 Title: Architectural Wood Casework Includes: shop-fabricated cabinets, cases, and fixtures. Cabinet hardware. May include: countertops and sinks integral with countertops. Also known as: PLAM: plastic laminate.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 11 00 Title: Metal Doors and Frames Includes: hinged or pivoting doors, fixed panels within frames, and frames manufactured of metal. Muntz metal. Formed and extruded metal frames for doors, sidelights, transoms, borrowed lights, and other openings. Also known as: hollow metal doors and frames: steel doors and frames. Muntz metal: yellow metal.
+------------------------------------------------------------
+
+Query: 'X-40. Description: WOODSTOVE, SIZE: x22, USE DOUBLE WALL CONNECTOR PIPE, MANUFACTURER: JOTUL / F3 CB'  [20260707_140919]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 35 00 Title: Stoves Includes: wood, pellet, corn, and coal stoves. Stove pipe. Franklin stoves.
+   [2] Context: DIVISION 33: UTILITIES Code: 33 32 13 Title: Packaged Wastewater Pumping Stations Includes: factory-assembled systems, purchased as a package, for conventional wastewater pumping. Field-assembled engineered systems not purchased as a package are indicated in detail under 43 20 00 (pumps) and 40 00 00 (exposed process piping). Packaged pumping systems include a variety of skid-mounted pumps, wet well structures, and discharge piping and valves, and controls including control panels, variable-speed drives, two-speed drives, constant-speed units, and combinations thereof. May be used for public or private sewerage systems. Pumps may vary with the package. Pump types may include: dry-pit overhung (end suction) centrifugal pumps, submersible overhung (end suction) centrifugal pumps, and other pump types.
+   [3] Context: DIVISION 33: UTILITIES Code: 33 44 13 Title: Packaged Stormwater Pumping Stations Includes: factory-assembled systems, purchased as a package, for conventional stormwater pumping. Field-assembled engineered systems not purchased as a package are indicated in detail under 43 20 00 (pumps) and 40 00 00 (exposed process piping). Packaged pumping systems include a variety of skid-mounted pumps, wet well structures, and discharge piping and valves, and controls including control panels, variable-speed drives, two-speed drives, constant-speed units, and combinations thereof. May be used for public or private stormwater systems. Pumps may vary with the package. Pump types may include: dry-pit overhung (end suction) centrifugal pumps, submersible overhung (end suction) centrifugal pumps, and other pump types.
+------------------------------------------------------------
+
+Query: 'X-42. Description: CORNER CUPBOARD, SIZE: ~x80, GLAZED DOORS, AVOID CHEAP VENEERS, A BOOKEND FOR THE KITCHEN, MANUFACTURER: ANTIQUE PREFERRED'  [20260707_140919]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 80 00 Title: Glazing Includes: glass and plastic glazing for doors, sidelights, transoms, borrowed lights, entrances, storefronts, curtain walls, windows, skylights, and glazed structures. Does Not Include: glazing integral with manufactured items such as casework, food service equipment, and telephone enclosures.
+   [2] Context: DIVISION 02: EXISTING CONDITIONS Code: 02 42 21.23 Title: Wood Salvage Includes: cabinetry, fixtures, doors, lumber, millwork, pallets, crates.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 14 00 Title: Wood Doors Includes: hinged, sliding, or pivoting doors manufactured of wood with solid or hollow cores, flush panel or stile and rail, with wood, plastic laminate, and metal veneers. Also known as: metal-faced doors: kalamein doors. Stile and rail wood doors: paneled wood doors.
+------------------------------------------------------------
+
+Query: 'X-44. Description: WASHER / DRYER COMBO, SIZE: x23, VENTLESS, ENERGY STAR PREFERRED, FITS BELOW STAIRCASE, MANUFACTURER: HAIER / HWD1600BW'  [20260707_140919]
+   [1] Context: DIVISION 11: EQUIPMENT Code: 11 30 13.23 Title: Residential Laundry Appliances
+   [2] Context: DIVISION 02: EXISTING CONDITIONS Code: 02 42 21.55 Title: Appliance Salvage Includes: washer, dryer, dishwasher, stove, oven, microwave.
+   [3] Context: DIVISION 13: SPECIAL CONSTRUCTION Code: 13 49 00 Title: Radiation Protection Includes: fabricated and pre-engineered radiation shielding components and structures for protection against radio frequency, x-ray, nuclear radiation, electromagnetic fields, and high energy magnetic pulse protection. Also known as: EMI: electromagnetic interference. RFI: radio frequency interference.
+------------------------------------------------------------
+
+Query: 'X-80. Description: WATER HEATER, SIZE: x3, INSTANT, TANKLESS, UNDERCOUNTER, MANUFACTURER: STIEBEL / ELTRON MINI'  [20260707_140919]
+   [1] Context: DIVISION 22: PLUMBING Code: 22 34 13 Title: Instantaneous, Tankless, Gas Domestic Water Heaters
+   [2] Context: DIVISION 22: PLUMBING Code: 22 33 13 Title: Instantaneous Electric Domestic Water Heaters
+   [3] Context: DIVISION 22: PLUMBING Code: 22 33 13.13 Title: Flow-Control, Instantaneous Electric Domestic Water Heaters
+------------------------------------------------------------
+
+Query: 'X-84. Description: INTERIOR CEILING FAN, SIZE: DIA MAX, INCLUDES LIGHTING'  [20260707_140919]
+   [1] Context: DIVISION 26: ELECTRICAL Code: 26 51 00 Title: Interior Lighting Includes: lighting for interior locations, except for emergency lighting, lighting in hazardous locations, and special purpose lighting. Chandeliers, troffers.
+   [2] Context: DIVISION 11: EQUIPMENT Code: 11 30 34 Title: Residential Ceiling Fans
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 84 16 Title: Interior Gas Lighting
+------------------------------------------------------------
+
+Query: 'X-86. Description: EXTERIOR CEILING FAN, SIZE: DIA MAX, INCLUDES LIGHTING'  [20260707_140919]
+   [1] Context: DIVISION 26: ELECTRICAL Code: 26 56 00 Title: Exterior Lighting Includes: lighting equipment for exterior locations, except for special purpose and signal lighting. Airfield general exterior lighting. Also known as: athletic lighting: sports lighting.
+   [2] Context: DIVISION 09: FINISHES Code: 09 58 00 Title: Integrated Ceiling Assemblies Includes: ceiling assemblies with integrated lighting, HVAC, and plumbing provisions. Also known as: integrated ceiling: ventilating ceiling.
+   [3] Context: DIVISION 11: EQUIPMENT Code: 11 30 34 Title: Residential Ceiling Fans
+------------------------------------------------------------
+
+Query: 'Door- A. Description: SIZE: , MATERIAL: COMPOSITE, TYPE: GLAZED, PANELLED, NOTE: 3/3 LITES, MAKE/MODEL: MARVIN / CLAD ULTIMATE'  [20260707_140919]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 16 00 Title: Composite Doors Includes: hinged, sliding, or pivoting doors manufactured of composite materials.
+   [2] Context: DIVISION 08: OPENINGS Code: 08 32 00 Title: Sliding Glass Doors Includes: fully glazed doors and frames of any material with sliding operation.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 16 76 Title: Bifolding Composite Doors
+------------------------------------------------------------
+
+Query: 'Door- B. Description: SIZE: , MATERIAL: COMPOSITE, TYPE: GLAZED, PANELLED, NOTE: 2/2 LITES, MAKE/MODEL: MARVIN / CLAD ULTIMATE'  [20260707_140919]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 16 00 Title: Composite Doors Includes: hinged, sliding, or pivoting doors manufactured of composite materials.
+   [2] Context: DIVISION 08: OPENINGS Code: 08 10 00 Title: Doors and Frames Includes: doors and door assemblies for a variety of purposes and types of operation. Fire-resistant rated doors and frames. Usually Includes: glazing accessories in doors, louvers integral to door construction, and louvers in fire-resistant rated doors.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 16 76 Title: Bifolding Composite Doors
+------------------------------------------------------------
+
+Query: 'Door- C. Description: SIZE: , MATERIAL: WOOD, TYPE: 1-PANEL, NOTE: SOLID WOOD, MAKE/MODEL: ANTIQUE PREFERRED'  [20260707_140919]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 14 00 Title: Wood Doors Includes: hinged, sliding, or pivoting doors manufactured of wood with solid or hollow cores, flush panel or stile and rail, with wood, plastic laminate, and metal veneers. Also known as: metal-faced doors: kalamein doors. Stile and rail wood doors: paneled wood doors.
+   [2] Context: DIVISION 08: OPENINGS Code: 08 14 33 Title: Stile and Rail Wood Doors Also known as: Stile and rail wood doors: paneled wood doors.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 14 16 Title: Flush Wood Doors
+------------------------------------------------------------
+
+Query: 'Door- D. Description: SIZE: , MATERIAL: WOOD, TYPE: 5-PANEL, NOTE: OPT LOUVERS, MAKE/MODEL: ANTIQUE PREFERRED'  [20260707_140919]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 14 00 Title: Wood Doors Includes: hinged, sliding, or pivoting doors manufactured of wood with solid or hollow cores, flush panel or stile and rail, with wood, plastic laminate, and metal veneers. Also known as: metal-faced doors: kalamein doors. Stile and rail wood doors: paneled wood doors.
+   [2] Context: DIVISION 08: OPENINGS Code: 08 14 33 Title: Stile and Rail Wood Doors Also known as: Stile and rail wood doors: paneled wood doors.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 14 16 Title: Flush Wood Doors
+------------------------------------------------------------
+
+Query: 'Window- 1. Description: SIZE: , MATERIAL: COMPOSITE, TYPE: DOUBLE HUNG, NOTE: 2/2 LITES, MAKE/MODEL: MARVIN / ULTIMATE DH'  [20260707_140919]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 50 00 Title: Windows Includes: windows of any material, both operating and non-operating. Fixed, single-hung, double-hung, sliding, projected, hopper, awning, casement, and jalousie windows. Operating hardware, screens, and other accessories. Factory glazing. Louver blinds integral to window construction. May include: window sills and stools. Perimeter joint sealant.
+   [2] Context: DIVISION 08: OPENINGS Code: 08 54 00 Title: Composite Windows Includes: windows framed with composite materials.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 54 73 Title: Vinyl-Wood Composite Windows
+------------------------------------------------------------
+
+Query: 'Window- 2. Description: SIZE: , MATERIAL: COMPOSITE, TYPE: DOUBLE HUNG, NOTE: 2/2 LITES, MAKE/MODEL: MARVIN / ULTIMATE DH'  [20260707_140919]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 50 00 Title: Windows Includes: windows of any material, both operating and non-operating. Fixed, single-hung, double-hung, sliding, projected, hopper, awning, casement, and jalousie windows. Operating hardware, screens, and other accessories. Factory glazing. Louver blinds integral to window construction. May include: window sills and stools. Perimeter joint sealant.
+   [2] Context: DIVISION 08: OPENINGS Code: 08 54 00 Title: Composite Windows Includes: windows framed with composite materials.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 54 73 Title: Vinyl-Wood Composite Windows
+------------------------------------------------------------
+
+Query: 'Fiber Cement Lap Siding. Description: Exterior wall cladding, fiber cement lap siding with flashing at head'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 46 Title: Fiber-Cement Siding
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 44 00 Title: Faced Panels Includes: roof and wall panels coated on the exterior surface with aggregate, porcelain enamel, ceramic tile, or quarry tile. Fabricated panel assemblies with faced-panel exterior finish. Roof and wall panels composed of fiber-reinforced cementitious material. Fabricated-faced panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish.
+------------------------------------------------------------
+
+Query: 'Exterior Sheathing with Building Wrap. Description: EXT SHEATHING W/ BUILDING WRAP, used in exterior wall assembly behind siding'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 40 00 Title: Roofing and Siding Panels Includes: siding, wall panels, and roof panels, with or without integral interior panels or insulation. Fabricated panel assemblies, which may include framing, sheathing, insulation, substrates, interior finish, and exterior finish. May include: roof and wall panels that are used with a fabricated engineered structure.
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 16 36 Title: Wood Panel Product Sheathing
+------------------------------------------------------------
+
+Query: 'Air Space. Description: AIR SPACE between siding and sheathing in exterior wall assembly'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 40 00 Title: Roofing and Siding Panels Includes: siding, wall panels, and roof panels, with or without integral interior panels or insulation. Fabricated panel assemblies, which may include framing, sheathing, insulation, substrates, interior finish, and exterior finish. May include: roof and wall panels that are used with a fabricated engineered structure.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 44 00 Title: Faced Panels Includes: roof and wall panels coated on the exterior surface with aggregate, porcelain enamel, ceramic tile, or quarry tile. Fabricated panel assemblies with faced-panel exterior finish. Roof and wall panels composed of fiber-reinforced cementitious material. Fabricated-faced panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish.
+------------------------------------------------------------
+
+Query: 'Surround. Description: SURROUND used at window and door rough openings in exterior wall'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 25 00 Title: Weather Barriers Includes: materials applied separately in wall, roof, and floor assemblies to resist vapor penetration, primarily to mitigate the consequences of thermal variation. Materials installed at walls, roof-wall connections, perimeter of door and window openings, and similar locations to provide a continuous, impermeable barrier to air infiltration or loss.
+   [2] Context: DIVISION 08: OPENINGS Code: 08 31 00 Title: Access Doors and Panels Includes: interior and exterior doors and panels in walls, ceilings and floors to provide access to concealed spaces.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 40 00 Title: Entrances, Storefronts, and Curtain Walls Includes: entrances, storefronts, and curtain walls fabricated from formed and extruded metals and glass components for exterior and interior applications. Doors of various operating methods, framing for doors, sidelights, panels, and transoms. Shop glazing and shop applied hardware. May include: perimeter joint sealant.
+------------------------------------------------------------
+
+Query: 'Z-Flashing. Description: Z-FLASHING at window and door head in exterior wall assembly'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 44 00 Title: Faced Panels Includes: roof and wall panels coated on the exterior surface with aggregate, porcelain enamel, ceramic tile, or quarry tile. Fabricated panel assemblies with faced-panel exterior finish. Roof and wall panels composed of fiber-reinforced cementitious material. Fabricated-faced panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 65 00 Title: Flexible Flashing Includes: flexible flashings for roof and wall construction. May include: flexible flashing for masonry.
+------------------------------------------------------------
+
+Query: 'Polyiso Insulation Board. Description: POLYISO B/T 2X WD HEADERS, used at window and door headers'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 13 Title: Board Insulation Also known as: Board insulation: rigid insulation: semi-rigid insulation.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 13.13 Title: Foam Board Insulation
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 22 16 Title: Roof Board Insulation Also known as: board insulation: rigid insulation: semi-rigid insulation.
+------------------------------------------------------------
+
+Query: 'Wood Headers. Description: 2X WD HEADERS at window and door openings'  [20260707_140919]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 52 00 Title: Wood Windows Includes: windows framed with wood.
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 48 13 Title: Exterior Wood Door Frames
+   [3] Context: DIVISION 08: OPENINGS Code: 08 14 00 Title: Wood Doors Includes: hinged, sliding, or pivoting doors manufactured of wood with solid or hollow cores, flush panel or stile and rail, with wood, plastic laminate, and metal veneers. Also known as: metal-faced doors: kalamein doors. Stile and rail wood doors: paneled wood doors.
+------------------------------------------------------------
+
+Query: 'Insect Screen. Description: INSECT SCREEN at window head/sill detail'  [20260707_140919]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 56 56 Title: Security Window Screens
+   [2] Context: DIVISION 11: EQUIPMENT Code: 11 98 23 Title: Detention Window Screens
+   [3] Context: DIVISION 08: OPENINGS Code: 08 50 00 Title: Windows Includes: windows of any material, both operating and non-operating. Fixed, single-hung, double-hung, sliding, projected, hopper, awning, casement, and jalousie windows. Operating hardware, screens, and other accessories. Factory glazing. Louver blinds integral to window construction. May include: window sills and stools. Perimeter joint sealant.
+------------------------------------------------------------
+
+Query: 'Metal Flashing. Description: METAL FLASHING OVER 2X SUBSILL at window sill; also METAL FLASHING at exterior door head'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 62 00 Title: Sheet Metal Flashing and Trim Includes: shop and field-formed accessories and trim. May include: metal flashing for masonry.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 60 00 Title: Flashing and Sheet Metal Includes: sheet metal roofing, accessories, and trim, and specialties associated with roofing, and metal and other flexible flashings for roofing and wall construction.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 06 60 Title: Schedules for Flashing and Sheet Metal
+------------------------------------------------------------
+
+Query: 'Window Sill. Description: WINDOW SILL at base of window opening, exterior detail'  [20260707_140919]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 50 00 Title: Windows Includes: windows of any material, both operating and non-operating. Fixed, single-hung, double-hung, sliding, projected, hopper, awning, casement, and jalousie windows. Operating hardware, screens, and other accessories. Factory glazing. Louver blinds integral to window construction. May include: window sills and stools. Perimeter joint sealant.
+   [2] Context: DIVISION 08: OPENINGS Code: 08 75 00 Title: Window Hardware Includes: hardware for the operation of windows. Weatherstripping, seals, and gaskets for windows.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 51 00 Title: Metal Windows Includes: windows framed with any metal.
+------------------------------------------------------------
+
+Query: 'Purlin. Description: PURLIN at window sill exterior detail'  [20260707_140919]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 50 00 Title: Windows Includes: windows of any material, both operating and non-operating. Fixed, single-hung, double-hung, sliding, projected, hopper, awning, casement, and jalousie windows. Operating hardware, screens, and other accessories. Factory glazing. Louver blinds integral to window construction. May include: window sills and stools. Perimeter joint sealant.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 74 00 Title: Manufactured Exterior Specialties Includes: complete fabrications of metal, wood, and fiberglass, including all accessories and appurtenances. Also known as: below-grade egress assemblies: basement window egress assemblies: basement window emergency escape. Window wells: areaways.
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 71 13.13 Title: Exterior Shutters
+------------------------------------------------------------
+
+Query: 'Fiber Cement Apron. Description: FIBER CEMENT APRON at window sill exterior'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 46 Title: Fiber-Cement Siding
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 31 19 Title: Mineral-Fiber Cement Shingles
+   [3] Context: DIVISION 32: EXTERIOR IMPROVEMENTS Code: 32 05 23 Title: Cement and Concrete for Exterior Improvements
+------------------------------------------------------------
+
+Query: 'Spray Foam with Wood Shims. Description: SPRAY FOAM W/ WD SHIMS at window and door jamb for air sealing'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 27 36 Title: Sprayed Foam Air Barrier
+   [2] Context: DIVISION 08: OPENINGS Code: 08 34 73.16 Title: Wood Sound Control Door Assemblies Includes: wood sound-control doors and frames, sound-control seals, thresholds, hardware, and accessories.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 19 Title: Foamed-In-Place Insulation May include: various insulation materials that require mixing multiple components to create a stable matrix that is different from the original components to contain air or other insulating gas, and is foamed or poured in place.
+------------------------------------------------------------
+
+Query: 'Exterior Surround. Description: EXT SURROUND at window and door jamb'  [20260707_140919]
+   [1] Context: DIVISION 09: FINISHES Code: 09 93 13.53 Title: Exterior Finishing
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 26 33 Title: Door and Frame Protection
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 48 00 Title: Wood Frames Includes: interior and exterior wood frames for doors, sidelights, transoms, and borrowed lights. Wood veneer frames and stick-built windows.
+------------------------------------------------------------
+
+Query: 'Wood Furring Strip. Description: WD FURRING STRIP at window and door jamb exterior'  [20260707_140919]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 48 13 Title: Exterior Wood Door Frames
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 48 00 Title: Wood Frames Includes: interior and exterior wood frames for doors, sidelights, transoms, and borrowed lights. Wood veneer frames and stick-built windows.
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 46 13 Title: Wood Door and Window Casings
+------------------------------------------------------------
+
+Query: 'Fiber Cement Siding. Description: FIBER CEMENT SIDING at window and door jamb exterior'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 46 Title: Fiber-Cement Siding
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 31 19 Title: Mineral-Fiber Cement Shingles
+------------------------------------------------------------
+
+Query: 'Fiber Cement 2x Subsill. Description: FIBER CEMENT 2X SUBSILL at exterior door head & sill detail'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 46 Title: Fiber-Cement Siding
+   [2] Context: DIVISION 32: EXTERIOR IMPROVEMENTS Code: 32 05 23 Title: Cement and Concrete for Exterior Improvements
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 31 19 Title: Mineral-Fiber Cement Shingles
+------------------------------------------------------------
+
+Query: 'Door Frame. Description: DOOR FRAME at exterior door jamb detail'  [20260707_140919]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 48 13 Title: Exterior Wood Door Frames
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 48 00 Title: Wood Frames Includes: interior and exterior wood frames for doors, sidelights, transoms, and borrowed lights. Wood veneer frames and stick-built windows.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 42 13 Title: Aluminum-Framed Entrances Includes: exterior and interior manual-swing aluminum entrance door and frame units, thresholds, hardware, glazing, and accessories for doors.
+------------------------------------------------------------
+
+Query: '5V Metal Roof Panels. Description: 5V METAL ROOF PANELS, 12/12 SLOPE on main roof. Galvalume material per F-40 schedule'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 41 13 Title: Metal Roof Panels
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 06 40 Title: Schedules for Roofing and Siding Panels
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 41 00 Title: Roof Panels Includes: manufactured roof panels and fabricated panel assemblies. Fabricated roof panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish. Aluminum, copper, steel, stainless steel, and terne metal roof panels. Batten seam, flat seam, and standing seam metal roof panels.
+------------------------------------------------------------
+
+Query: 'Fascia. Description: FASCIA board at roof eave, exterior'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 44 00 Title: Faced Panels Includes: roof and wall panels coated on the exterior surface with aggregate, porcelain enamel, ceramic tile, or quarry tile. Fabricated panel assemblies with faced-panel exterior finish. Roof and wall panels composed of fiber-reinforced cementitious material. Fabricated-faced panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish.
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 46 29 Title: Wood Fasciae and Soffits
+------------------------------------------------------------
+
+Query: 'Frieze Board. Description: FRIEZE BOARD at roof eave, exterior'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 40 13 Title: Exterior Architectural Woodwork
+   [3] Context: DIVISION 09: FINISHES Code: 09 20 00 Title: Plaster and Gypsum Board Includes: non-structural metal support assemblies for plaster and gypsum board. Exterior and interior veneer plaster, acoustical plaster, plaster partitions, and plaster fireproofing. Exterior and interior gypsum board, gypsum board assemblies, accessories, and trim. May include: acoustical insulation and sealants.
+------------------------------------------------------------
+
+Query: 'Corner Board. Description: CORNER BOARD at building corners, exterior'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [2] Context: DIVISION 09: FINISHES Code: 09 20 00 Title: Plaster and Gypsum Board Includes: non-structural metal support assemblies for plaster and gypsum board. Exterior and interior veneer plaster, acoustical plaster, plaster partitions, and plaster fireproofing. Exterior and interior gypsum board, gypsum board assemblies, accessories, and trim. May include: acoustical insulation and sealants.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 82 00 Title: Board Fire Protection Includes: board materials that provide fire resistance to building components. Does Not Include: fire barriers of gypsum board, plaster, and similar construction for prevention of the spread of fire.
+------------------------------------------------------------
+
+Query: 'Brick Chimney. Description: BRICK CHIMNEY, smooth brick, red color, sand-faced per F-00 schedule'  [20260707_140919]
+   [1] Context: DIVISION 04: MASONRY Code: 04 21 13 Title: Brick Masonry
+   [2] Context: DIVISION 04: MASONRY Code: 04 71 00 Title: Manufactured Brick Masonry
+   [3] Context: DIVISION 23: HEATING, VENTILATING, AND AIR CONDITIONING (HVAC) Code: 23 51 00 Title: Breechings, Chimneys, and Stacks Includes: double-wall and single-wall chimneys, breechings, and stacks.
+------------------------------------------------------------
+
+Query: 'Water Table Board. Description: WATER TABLE BOARD at base of exterior wall above foundation'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 10 00 Title: Dampproofing and Waterproofing Includes: dampproofing materials used to resist moisture penetration through foundation walls and similar surfaces subject to high humidity, dampness, or direct water contact, but not subject to hydraulic pressures. Impervious waterproofing membranes, coatings, and other materials applied to walls, slabs, decks, and other surfaces subject to hydrostatic pressure or water immersion. Boards and coatings, and drainage media integral to dampproofing and waterproofing.
+   [3] Context: DIVISION 32: EXTERIOR IMPROVEMENTS Code: 32 11 00 Title: Base Courses Includes: bound and unbound base and subbase courses that separate flexible, rigid, or unit paving courses from the underlying foundation or subgrade. Bound and unbound base and subbase courses that separate rail track supports from the underlying foundation or subgrade.
+------------------------------------------------------------
+
+Query: 'Brick Foundation. Description: BRICK FOUNDATION at base of building exterior'  [20260707_140919]
+   [1] Context: DIVISION 04: MASONRY Code: 04 21 13 Title: Brick Masonry
+   [2] Context: DIVISION 32: EXTERIOR IMPROVEMENTS Code: 32 14 16 Title: Brick Unit Paving
+   [3] Context: DIVISION 32: EXTERIOR IMPROVEMENTS Code: 32 11 00 Title: Base Courses Includes: bound and unbound base and subbase courses that separate flexible, rigid, or unit paving courses from the underlying foundation or subgrade. Bound and unbound base and subbase courses that separate rail track supports from the underlying foundation or subgrade.
+------------------------------------------------------------
+
+Query: 'Shed Roof. Description: SHED ROOF over back door entry, exterior'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 44 00 Title: Faced Panels Includes: roof and wall panels coated on the exterior surface with aggregate, porcelain enamel, ceramic tile, or quarry tile. Fabricated panel assemblies with faced-panel exterior finish. Roof and wall panels composed of fiber-reinforced cementitious material. Fabricated-faced panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 40 00 Title: Roofing and Siding Panels Includes: siding, wall panels, and roof panels, with or without integral interior panels or insulation. Fabricated panel assemblies, which may include framing, sheathing, insulation, substrates, interior finish, and exterior finish. May include: roof and wall panels that are used with a fabricated engineered structure.
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 71 13.13 Title: Exterior Shutters
+------------------------------------------------------------
+
+Query: 'Joists. Description: JOISTS @ OC, floor framing in living room and kitchen/dining areas'  [20260707_140919]
+   [1] Context: DIVISION 05: METALS Code: 05 42 13 Title: Cold-Formed Metal Floor Joist Framing
+   [2] Context: DIVISION 05: METALS Code: 05 21 00 Title: Steel Joist Framing Includes: metal joists fabricated from structural steel. Also known as: steel joists: steel bar joists.
+   [3] Context: DIVISION 05: METALS Code: 05 42 00 Title: Cold-Formed Metal Joist Framing Includes: cold-formed metal framing intended for floor, roof, and ceiling joist applications.
+------------------------------------------------------------
+
+Query: 'Brick Tile Hearth. Description: BRICK TILE HEARTH in living room at woodstove location, reclaimed brick per F-66 schedule'  [20260707_140919]
+   [1] Context: DIVISION 09: FINISHES Code: 09 06 30 Title: Schedules for Tiling
+   [2] Context: DIVISION 09: FINISHES Code: 09 30 39 Title: Brick Tiling
+   [3] Context: DIVISION 09: FINISHES Code: 09 63 13 Title: Brick Flooring
+------------------------------------------------------------
+
+Query: 'CMU Block. Description: X16 CMU, used in chimney/woodstove base assembly'  [20260707_140919]
+   [1] Context: DIVISION 04: MASONRY Code: 04 22 00 Title: Concrete Unit Masonry Includes: load-bearing and non-load-bearing concrete unit masonry. May include: integral water repellent. Also known as: CMU: concrete masonry unit, concrete block: cinder blocks.
+   [2] Context: DIVISION 04: MASONRY Code: 04 24 16 Title: Manufactured Adobe Unit Masonry
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 95 13.19 Title: Parking Deck Expansion Joint Cover Assemblies Includes: expansion joint cover assemblies for use in exterior slabs subject to vehicular traffic. Moisture barriers and attachment devices.
+------------------------------------------------------------
+
+Query: 'Ceramic Flue Liner. Description: CERAMIC FLUE LINER inside chimney assembly'  [20260707_140919]
+   [1] Context: DIVISION 04: MASONRY Code: 04 51 00 Title: Flue Liner Masonry
+   [2] Context: DIVISION 23: HEATING, VENTILATING, AND AIR CONDITIONING (HVAC) Code: 23 51 00 Title: Breechings, Chimneys, and Stacks Includes: double-wall and single-wall chimneys, breechings, and stacks.
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 31 13 Title: Manufactured Fireplace Chimneys
+------------------------------------------------------------
+
+Query: 'Double Wall Chimney Connector. Description: DOUBLE WALL CHIMNEY CONNECTOR W/ INSULATED DAMPER, used in woodstove chimney assembly'  [20260707_140919]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 32 13 Title: Fireplace Dampers
+   [2] Context: DIVISION 23: HEATING, VENTILATING, AND AIR CONDITIONING (HVAC) Code: 23 51 00 Title: Breechings, Chimneys, and Stacks Includes: double-wall and single-wall chimneys, breechings, and stacks.
+   [3] Context: DIVISION 23: HEATING, VENTILATING, AND AIR CONDITIONING (HVAC) Code: 23 51 33 Title: Insulated Sectional Chimneys
+------------------------------------------------------------
+
+Query: 'Slate. Description: SLATE flooring/hearth material in woodstove area'  [20260707_140919]
+   [1] Context: DIVISION 09: FINISHES Code: 09 63 00 Title: Masonry Flooring Includes: fired clay unit masonry and natural, simulated, and cast stone flooring. Flagstone, granite, marble, and slate stone flooring.
+   [2] Context: DIVISION 09: FINISHES Code: 09 63 40 Title: Stone Flooring
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 11 13 Title: Chalkboards Includes: chalkboards made from slate, composition board, painted material, porcelain-enameled steel, and aluminum. Also known as: chalkboards: blackboards.
+------------------------------------------------------------
+
+Query: 'Brick Veneer. Description: BRICK VENEER on chimney/woodstove surround, thin brick veneer per F-66 schedule'  [20260707_140919]
+   [1] Context: DIVISION 04: MASONRY Code: 04 21 13.13 Title: Brick Veneer Masonry
+   [2] Context: DIVISION 04: MASONRY Code: 04 26 13 Title: Masonry Veneer
+   [3] Context: DIVISION 09: FINISHES Code: 09 26 00 Title: Veneer Plastering Includes: gypsum plaster capable of thin application over veneer plaster base. May include: non-structural metal framing, ceiling suspension, and furring systems.
+------------------------------------------------------------
+
+Query: 'Adams Casing. Description: ADAMS CASING at woodstove/chimney surround'  [20260707_140919]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 30 00 Title: Fireplaces and Stoves Includes: manufactured fireplaces, stoves, chimneys, dampers, and specialties required for fireplaces and stoves.
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 46 13 Title: Wood Door and Window Casings
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 35 00 Title: Stoves Includes: wood, pellet, corn, and coal stoves. Stove pipe. Franklin stoves.
+------------------------------------------------------------
+
+Query: 'Mantle Overhead. Description: MANTLE OVERHEAD at woodstove/chimney surround'  [20260707_140919]
+   [1] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 44 33 Title: Wood Mantels
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 30 00 Title: Fireplaces and Stoves Includes: manufactured fireplaces, stoves, chimneys, dampers, and specialties required for fireplaces and stoves.
+   [3] Context: DIVISION 11: EQUIPMENT Code: 11 52 16.19 Title: Overhead Projectors
+------------------------------------------------------------
+
+Query: 'Stringer Board. Description: STRINGER BD at winder stair assembly'  [20260707_140919]
+   [1] Context: DIVISION 09: FINISHES Code: 09 69 56 Title: Access Flooring Stairs and Stringers
+   [2] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 43 00 Title: Wood Stairs and Railings Includes: stairs, stringers, treads, nosings, risers, handrails, railings, and related items.
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 72 23 Title: Composite Stair Assemblies
+------------------------------------------------------------
+
+Query: 'Nosing. Description: NOSING at winder stair treads'  [20260707_140919]
+   [1] Context: DIVISION 05: METALS Code: 05 55 00 Title: Metal Stair Treads and Nosings Includes: metal stair treads and nosings.
+   [2] Context: DIVISION 05: METALS Code: 05 55 16 Title: Metal Stair Nosings
+   [3] Context: DIVISION 09: FINISHES Code: 09 65 13.26 Title: Resilient Stair Nosings
+------------------------------------------------------------
+
+Query: 'Front Porch Roof. Description: FRONT PORCH ROOF, 4/12 SLOPE, shown on 2nd floor plan above front porch'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 30 91 Title: Canvas Roofing Includes: sloped roofing made of canvas.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 30 00 Title: Steep Slope Roofing Includes: roof shingles, shakes, and roof tiles. Underlayment and fastening products and methods.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 01 50.81 Title: Roof Replacement
+------------------------------------------------------------
+
+Query: 'Back Porch Roof. Description: BACK PORCH ROOF, 6/12 SLOPE, shown on 2nd floor plan above back porch'  [20260707_140919]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 30 91 Title: Canvas Roofing Includes: sloped roofing made of canvas.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 30 00 Title: Steep Slope Roofing Includes: roof shingles, shakes, and roof tiles. Underlayment and fastening products and methods.
+   [3] Context: DIVISION 06: WOOD, PLASTICS, AND COMPOSITES Code: 06 15 16 Title: Wood Roof Decking
+------------------------------------------------------------
+

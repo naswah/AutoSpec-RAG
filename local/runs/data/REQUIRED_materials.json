@@ -1,0 +1,1224 @@
+[
+    {
+        "code": "F-00",
+        "notes": "BRICK, SIZE: -, SMOOTH BRICK, RED COLOR, SAND-FACED, AVOID WIRE CUT OR 'EXTRUDED' LOOK",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            },
+            {
+                "page_label": "Sheet A2.2 - North Elevation",
+                "view": "Back Elevation (North) - Brick Chimney callout"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Chimney / Woodstove Plan - Brick Exterior callout"
+            }
+        ]
+    },
+    {
+        "code": "F-20",
+        "notes": "FLOOR DECKING, SIZE: 1x4, PAINTED WOOD, TONGUE & GROOVE, UNPAINTED CEDAR PREFERRED",
+        "category": "Room- Front Porch",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            },
+            {
+                "page_label": "Sheet A1.2 - 1st Floor Plan",
+                "view": "1st Floor Plan - Wood Decking callout"
+            }
+        ]
+    },
+    {
+        "code": "F-22",
+        "notes": "PORCH COLUMN, SIZE: 6x6, WOOD, CHAMFERED 1\" FROM EDGES",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            },
+            {
+                "page_label": "Sheet A1.2 - 1st Floor Plan",
+                "view": "1st Floor Plan - 6x6 Post callout"
+            }
+        ]
+    },
+    {
+        "code": "F-24",
+        "notes": "CLAPBOARD SIDING, SIZE: 6\", FIBER CEMENT, JAMES HARDIE / ARTISAN LAP SIDING",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            },
+            {
+                "page_label": "Sheet A2.2 - North Elevation",
+                "view": "Back Elevation (North) - Clapboard Siding callout"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Detail @ Head & Sill"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Detail @ Jamb"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Exterior Door Head & Sill"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Exterior Door Detail @ Jamb"
+            }
+        ]
+    },
+    {
+        "code": "F-26",
+        "notes": "EXT OPENING CASING, SIZE: 5-6\", FIBER CEMENT, .75\" THICK HARDIPLANK",
+        "category": {
+            "c1": "Window",
+            "c2": "Door"
+        },
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Door Elevation Details"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Optional Window Shutters"
+            }
+        ]
+    },
+    {
+        "code": "F-28",
+        "notes": "BED MOLDING, SIZE: 2.5\", ROT-RESISTANT, PAINTED",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            }
+        ]
+    },
+    {
+        "code": "F-30",
+        "notes": "ASTRAGAL, SIZE: 1\", ROT-RESISTANT, PAINTED",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            }
+        ]
+    },
+    {
+        "code": "F-32",
+        "notes": "CROWN MOLDING, SIZE: 3\", ROT-RESISTANT, PAINTED",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            }
+        ]
+    },
+    {
+        "code": "F-40",
+        "notes": "5V METAL ROOF PANELS, SIZE: 24\" OC, GALVALUME, OPTIONAL: STANDING SEAM METAL ROOF PANELS",
+        "category": "Roof",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            },
+            {
+                "page_label": "Sheet A2.2 - North Elevation",
+                "view": "Back Elevation (North) - 5V Metal Roof Panels callout"
+            }
+        ]
+    },
+    {
+        "code": "F-42",
+        "notes": "BULBED RIDGE CAP, SIZE: 4\", GALVALUME, USE SAME SUPPLIER AND PRODUCT LINE AS 5V PANELS",
+        "category": "Roof",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            }
+        ]
+    },
+    {
+        "code": "F-44",
+        "notes": "HALF-ROUND GUTTER, SIZE: 5\" DIA, GALV STEEL OR COPPER, DOWNSPOUTS TO FOLLOW CORNER BOARDS",
+        "category": "Roof",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            }
+        ]
+    },
+    {
+        "code": "F-52",
+        "notes": "CHIMNEY CAP, SIZE: ~2'x2', CONCRETE, MINIMAL PROFILE, OPTIONAL: SPARK ARRESTOR OR CHIMNEY POT",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            }
+        ]
+    },
+    {
+        "code": "F-60",
+        "notes": "HARDWOOD FLOOR, SIZE: 2-3\" WIDE, FINISH WOOD, TONGUE & GROOVE, STAINED",
+        "category": {
+            "c1": "Room- Living Room",
+            "c2": "Room- Kitchen",
+            "c3": "Room- Dining",
+            "c4": "Room- Main Bedroom",
+            "c5": "Room- Bedroom",
+            "c6": "Room- Winder Stairs"
+        },
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Kitchen / Water Closet - Floor Plan Detail"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Winder Stairs - Plan Detail"
+            },
+            {
+                "page_label": "Sheet A1.2 - 1st Floor Plan",
+                "view": "1st Floor Plan - Hardwood Floor callout"
+            },
+            {
+                "page_label": "Sheet A1.3 - 2nd Floor Plan",
+                "view": "2nd Floor Plan - Hardwood Floor callout"
+            }
+        ]
+    },
+    {
+        "code": "F-62",
+        "notes": "FLOOR TILE, SIZE: ~2\", CERAMIC, HEXAGONAL PATTERN",
+        "category": {
+            "c1": "Room- Bathroom",
+            "c2": "Room- Water Closet"
+        },
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Kitchen / Water Closet - Floor Plan Detail"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Bathroom Floor Plan Detail"
+            }
+        ]
+    },
+    {
+        "code": "F-64",
+        "notes": "WALL TILE, SIZE: 4\" SQUARE, CERAMIC, WHITE OR LIGHT BLUE",
+        "category": "Interior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            }
+        ]
+    },
+    {
+        "code": "F-66",
+        "notes": "BRICK TILE, SIZE: 1/2\" THICK, RECLAIMED BRICK, THIN BRICK VENEER, NARROW (1/4\") MORTAR JOINTS, SMOOTH RED COLOR",
+        "category": "Room- Woodstove Area",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Chimney / Woodstove Plan - Brick Tile callout"
+            }
+        ]
+    },
+    {
+        "code": "F-68",
+        "notes": "BASE MOLDING, SIZE: .5\"x4\", FINISH WOOD, INCLUDE DECORATIVE BASE CAP MOLDING",
+        "category": "Interior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            }
+        ]
+    },
+    {
+        "code": "F-72",
+        "notes": "INT OPENING CASING, SIZE: .5\"x4\", WOOD, PAINTED, WITH .75\"-THICK PLINTH BLOCK AT BASE",
+        "category": "Interior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            }
+        ]
+    },
+    {
+        "code": "F-74",
+        "notes": "BEADBOARD, SIZE: 1/2\", COMPOSITE PANEL, EXTERIOR GRADE BEADBOARD TO BE USED AT PORCH",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            }
+        ]
+    },
+    {
+        "code": "F-76",
+        "notes": "WAINSCOT CAP, SIZE: -, WOOD, PAINTED",
+        "category": "Interior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            }
+        ]
+    },
+    {
+        "code": "F-78",
+        "notes": "HANDRAIL, SIZE: 2\", FINISH WOOD, STAINED SAME COLOR AS FLOOR",
+        "category": "Others",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Winder Stairs - Plan Detail - Handrail callout"
+            }
+        ]
+    },
+    {
+        "code": "F-80",
+        "notes": "NEWEL POST, SIZE: 4x4, WOOD, PAINTED, MODESTLY DECORATIVE",
+        "category": "Others",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Winder Stairs - Plan Detail - Newel Post callout"
+            }
+        ]
+    },
+    {
+        "code": "F-82",
+        "notes": "CROWN MOLDING, SIZE: -, WOOD OR MDF, PAINTED",
+        "category": "Interior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            }
+        ]
+    },
+    {
+        "code": "F-90",
+        "notes": "WINDOW SHUTTERS, SIZE: 15\"x60\", WOOD, SHALL BE OPERABLE. LOUVERS PREFERRED.",
+        "category": "Window",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Materials Schedule"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Optional Window Shutters"
+            }
+        ]
+    },
+    {
+        "code": "X-00",
+        "notes": "REFRIGERATOR, SIZE: 25x25x69\", ENERGY STAR, MANUFACTURER: BLOMBERG / BRFB1042SS",
+        "category": "Room- Kitchen",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Fixture & Equipment Schedule"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Kitchen / Water Closet - Floor Plan Detail"
+            }
+        ]
+    },
+    {
+        "code": "X-02",
+        "notes": "KITCHEN SINK, SIZE: 24\"x18\", SINGLE BOWL, VITREOUS CHINA, MANUFACTURER: HIGHPOINT COLLECTION / FIRECLAY",
+        "category": "Room- Kitchen",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Fixture & Equipment Schedule"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Kitchen / Water Closet - Floor Plan Detail"
+            }
+        ]
+    },
+    {
+        "code": "X-04",
+        "notes": "RANGE / OVEN, SIZE: 24\"x24\"x36\", -",
+        "category": "Room- Kitchen",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Fixture & Equipment Schedule"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Kitchen / Water Closet - Floor Plan Detail"
+            }
+        ]
+    },
+    {
+        "code": "X-10",
+        "notes": "KITCHEN COUNTERTOP, SIZE: 2\" THICK, WHITE PORCELEIN TILE OVER COMPOSITE BOARD, MANUFACTURER: IKEA / AKERBY",
+        "category": "Room- Kitchen",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Fixture & Equipment Schedule"
+            }
+        ]
+    },
+    {
+        "code": "X-12",
+        "notes": "FLOOR CABINETS, SIZE: 12\", 24\" WIDE, PAINTED, STAT WHITE, BIRCH EFFECT, INCLUDE NON-STANDARD 12\" SHELVES, MANUFACTURER: IKEA / AKURUM",
+        "category": "Room- Kitchen",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Fixture & Equipment Schedule"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Kitchen / Water Closet - Floor Plan Detail"
+            }
+        ]
+    },
+    {
+        "code": "X-14",
+        "notes": "WALL CABINETS, SIZE: 12\" WIDE, PAINTED, GLAZED DOORS PREFERRED, MANUFACTURER: IKEA / AKURUM",
+        "category": "Room- Kitchen",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Fixture & Equipment Schedule"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Kitchen / Water Closet - Floor Plan Detail"
+            }
+        ]
+    },
+    {
+        "code": "X-20",
+        "notes": "TOILET, SIZE: 26\"x18\", 1.0 GPF, MANUFACTURER: TOTO / ROWAN CST405MF OR EQUIVALENT",
+        "category": "Room- Bathroom",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Fixture & Equipment Schedule"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Bathroom Floor Plan Detail"
+            }
+        ]
+    },
+    {
+        "code": "X-22",
+        "notes": "WC TOILET, SIZE: 2' MAX LENGTH, WALL HUNG, 1.6 GPF, SIZE IS CRITICAL FOR PROPER CLEARANCES, MANUFACTURER: AQUIA / WALL HUNG DUAL FLUSH TOILET CT418F",
+        "category": "Room- Water Closet",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Fixture & Equipment Schedule"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Kitchen / Water Closet - Floor Plan Detail"
+            }
+        ]
+    },
+    {
+        "code": "X-24",
+        "notes": "CORNER SINK, SIZE: 16\"x16\" MAX, VITREOUS CHINA, WALL HUNG OR PEDESTAL, SIZE CRITICAL FOR CLEARANCES, MANUFACTURER: ELIZABETHAN CLASSICS / ETCB CORNER BASIN",
+        "category": "Room- Water Closet",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Fixture & Equipment Schedule"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Kitchen / Water Closet - Floor Plan Detail"
+            }
+        ]
+    },
+    {
+        "code": "X-26",
+        "notes": "BATHROOM VANITY, SIZE: 21\"x42\", CENTERED WITH MIRROR WALL CABINET, MANUFACTURER: CHOICE BY OWNER",
+        "category": "Room- Bathroom",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Fixture & Equipment Schedule"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Bathroom Floor Plan Detail"
+            }
+        ]
+    },
+    {
+        "code": "X-28",
+        "notes": "BATHTUB, SIZE: 30\"x60\"x18\", INSTALL LOW-FLOW SHOWER HEAD, MANUFACTURER: KOHLER / STERLING 71091120 OR EQUIVALENT",
+        "category": "Room- Bathroom",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Fixture & Equipment Schedule"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Bathroom Floor Plan Detail"
+            }
+        ]
+    },
+    {
+        "code": "X-30",
+        "notes": "MIRROR CABINET, SIZE: 25\"x38\"x6\", WHITE FRAME, OPTIONAL CASING SURROUND, CENTERED ON SINK, MANUFACTURER: IKEA / HEMNES OR EQUIVALENT",
+        "category": "Room- Bathroom",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Fixture & Equipment Schedule"
+            }
+        ]
+    },
+    {
+        "code": "X-40",
+        "notes": "WOODSTOVE, SIZE: 14\"x19\"x22\", USE DOUBLE WALL CONNECTOR PIPE, MANUFACTURER: JOTUL / F3 CB",
+        "category": "Room- Living Room",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Fixture & Equipment Schedule"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Chimney / Woodstove Plan"
+            },
+            {
+                "page_label": "Sheet A1.2 - 1st Floor Plan",
+                "view": "1st Floor Plan - Woodstove callout"
+            }
+        ]
+    },
+    {
+        "code": "X-42",
+        "notes": "CORNER CUPBOARD, SIZE: ~24\"x24\"x80\", GLAZED DOORS, AVOID CHEAP VENEERS, A 'BOOKEND' FOR THE KITCHEN, MANUFACTURER: ANTIQUE PREFERRED",
+        "category": "Room- Kitchen",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Fixture & Equipment Schedule"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Kitchen / Water Closet - Floor Plan Detail"
+            }
+        ]
+    },
+    {
+        "code": "X-44",
+        "notes": "WASHER / DRYER COMBO, SIZE: 24\"x34\"x23\", VENTLESS, ENERGY STAR PREFERRED, FITS BELOW STAIRCASE, MANUFACTURER: HAIER / HWD1600BW",
+        "category": "Others",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Fixture & Equipment Schedule"
+            }
+        ]
+    },
+    {
+        "code": "X-80",
+        "notes": "WATER HEATER, SIZE: 8\"x7\"x3\", INSTANT, TANKLESS, UNDERCOUNTER, MANUFACTURER: STIEBEL / ELTRON MINI",
+        "category": "Others",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Fixture & Equipment Schedule"
+            },
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Kitchen / Water Closet - Floor Plan Detail"
+            }
+        ]
+    },
+    {
+        "code": "X-84",
+        "notes": "INTERIOR CEILING FAN, SIZE: 48\" DIA MAX, INCLUDES LIGHTING",
+        "category": "Others",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Fixture & Equipment Schedule"
+            }
+        ]
+    },
+    {
+        "code": "X-86",
+        "notes": "EXTERIOR CEILING FAN, SIZE: 60\" DIA MAX, INCLUDES LIGHTING",
+        "category": "Others",
+        "mentions": [
+            {
+                "page_label": "Sheet A5.0 - Schedules",
+                "view": "Fixture & Equipment Schedule"
+            }
+        ]
+    },
+    {
+        "name": "Door- A",
+        "notes": "SIZE: 36\"x84\", MATERIAL: COMPOSITE, TYPE: GLAZED, PANELLED, NOTE: 3/3 LITES, MAKE/MODEL: MARVIN / CLAD ULTIMATE",
+        "category": "Door",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Door Schedule"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Door Elevation Details - Front Door"
+            }
+        ]
+    },
+    {
+        "name": "Door- B",
+        "notes": "SIZE: 36\"x84\", MATERIAL: COMPOSITE, TYPE: GLAZED, PANELLED, NOTE: 2/2 LITES, MAKE/MODEL: MARVIN / CLAD ULTIMATE",
+        "category": "Door",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Door Schedule"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Door Elevation Details - Back Door"
+            }
+        ]
+    },
+    {
+        "name": "Door- C",
+        "notes": "SIZE: 24\"x80\", MATERIAL: WOOD, TYPE: 1-PANEL, NOTE: SOLID WOOD, MAKE/MODEL: ANTIQUE PREFERRED",
+        "category": "Door",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Door Schedule"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Door Elevation Details - 1-Panel"
+            }
+        ]
+    },
+    {
+        "name": "Door- D",
+        "notes": "SIZE: 30\"x80\", MATERIAL: WOOD, TYPE: 5-PANEL, NOTE: OPT LOUVERS, MAKE/MODEL: ANTIQUE PREFERRED",
+        "category": "Door",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Door Schedule"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Door Elevation Details - 5-Panel"
+            }
+        ]
+    },
+    {
+        "name": "Window- 1",
+        "notes": "SIZE: 30\"x60\", MATERIAL: COMPOSITE, TYPE: DOUBLE HUNG, NOTE: 2/2 LITES, MAKE/MODEL: MARVIN / ULTIMATE DH",
+        "category": "Window",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Schedule"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Elevation Details - 30\"x60\""
+            }
+        ]
+    },
+    {
+        "name": "Window- 2",
+        "notes": "SIZE: 24\"x48\", MATERIAL: COMPOSITE, TYPE: DOUBLE HUNG, NOTE: 2/2 LITES, MAKE/MODEL: MARVIN / ULTIMATE DH",
+        "category": "Window",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Schedule"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Elevation Details - 24\"x48\""
+            }
+        ]
+    },
+    {
+        "name": "Fiber Cement Lap Siding",
+        "notes": "Exterior wall cladding, fiber cement lap siding with flashing at head. Referenced in window and door head/sill details.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Detail @ Head & Sill"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Exterior Door Head & Sill"
+            }
+        ]
+    },
+    {
+        "name": "Exterior Sheathing with Building Wrap",
+        "notes": "EXT SHEATHING W/ BUILDING WRAP, used in exterior wall assembly behind siding",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Detail @ Head & Sill"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Detail @ Jamb"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Exterior Door Head & Sill"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Exterior Door Detail @ Jamb"
+            }
+        ]
+    },
+    {
+        "name": "Air Space",
+        "notes": "3/4\" AIR SPACE between siding and sheathing in exterior wall assembly",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Detail @ Head & Sill"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Exterior Door Head & Sill"
+            }
+        ]
+    },
+    {
+        "name": "2x6 Surround",
+        "notes": "2X6 SURROUND used at window and door rough openings in exterior wall",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Detail @ Head & Sill"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Exterior Door Head & Sill"
+            }
+        ]
+    },
+    {
+        "name": "Z-Flashing",
+        "notes": "Z-FLASHING at window and door head in exterior wall assembly",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Detail @ Head & Sill"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Exterior Door Head & Sill"
+            }
+        ]
+    },
+    {
+        "name": "Polyiso Insulation Board",
+        "notes": "1/2\" POLYISO B/T 2X WD HEADERS, used at window and door headers",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Detail @ Head & Sill"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Exterior Door Head & Sill"
+            }
+        ]
+    },
+    {
+        "name": "Wood Headers",
+        "notes": "2X WD HEADERS at window and door openings",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Detail @ Head & Sill"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Exterior Door Head & Sill"
+            }
+        ]
+    },
+    {
+        "name": "Insect Screen",
+        "notes": "INSECT SCREEN at window head/sill detail",
+        "category": "Window",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Detail @ Head & Sill"
+            }
+        ]
+    },
+    {
+        "name": "Metal Flashing",
+        "notes": "METAL FLASHING OVER 2X SUBSILL at window sill; also METAL FLASHING at exterior door head",
+        "category": {
+            "c1": "Window",
+            "c2": "Door"
+        },
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Detail @ Head & Sill"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Exterior Door Head & Sill"
+            }
+        ]
+    },
+    {
+        "name": "Window Sill",
+        "notes": "WINDOW SILL at base of window opening, exterior detail",
+        "category": "Window",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Detail @ Head & Sill"
+            },
+            {
+                "page_label": "Sheet A2.2 - North Elevation",
+                "view": "Back Elevation (North) - Window Sill callout"
+            }
+        ]
+    },
+    {
+        "name": "Purlin",
+        "notes": "3/4\" PURLIN at window sill exterior detail",
+        "category": "Roof",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Detail @ Head & Sill"
+            }
+        ]
+    },
+    {
+        "name": "Fiber Cement 2x6 Apron",
+        "notes": "FIBER CEMENT 2X6 APRON at window sill exterior",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Detail @ Head & Sill"
+            }
+        ]
+    },
+    {
+        "name": "Spray Foam with Wood Shims",
+        "notes": "SPRAY FOAM W/ WD SHIMS at window and door jamb for air sealing",
+        "category": {
+            "c1": "Window",
+            "c2": "Door"
+        },
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Detail @ Jamb"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Exterior Door Detail @ Jamb"
+            }
+        ]
+    },
+    {
+        "name": "2x6 Exterior Surround",
+        "notes": "2X6 EXT SURROUND at window and door jamb",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Detail @ Jamb"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Exterior Door Detail @ Jamb"
+            }
+        ]
+    },
+    {
+        "name": "Wood Furring Strip",
+        "notes": "1X4 WD FURRING STRIP at window and door jamb exterior",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Detail @ Jamb"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Exterior Door Detail @ Jamb"
+            }
+        ]
+    },
+    {
+        "name": "Fiber Cement Siding",
+        "notes": "FIBER CEMENT SIDING at window and door jamb exterior",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Window Detail @ Jamb"
+            },
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Exterior Door Detail @ Jamb"
+            }
+        ]
+    },
+    {
+        "name": "Fiber Cement 2x Subsill",
+        "notes": "FIBER CEMENT 2X SUBSILL at exterior door head & sill detail",
+        "category": "Door",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Exterior Door Head & Sill"
+            }
+        ]
+    },
+    {
+        "name": "Door Frame",
+        "notes": "DOOR FRAME at exterior door jamb detail",
+        "category": "Door",
+        "mentions": [
+            {
+                "page_label": "Sheet A4.3 - Doors & Windows",
+                "view": "Exterior Door Detail @ Jamb"
+            }
+        ]
+    },
+    {
+        "name": "5V Metal Roof Panels",
+        "notes": "5V METAL ROOF PANELS, 12/12 SLOPE on main roof. Galvalume material per F-40 schedule.",
+        "category": "Roof",
+        "mentions": [
+            {
+                "page_label": "Sheet A2.2 - North Elevation",
+                "view": "Back Elevation (North)"
+            }
+        ]
+    },
+    {
+        "name": "Fascia",
+        "notes": "FASCIA board at roof eave, exterior",
+        "category": "Roof",
+        "mentions": [
+            {
+                "page_label": "Sheet A2.2 - North Elevation",
+                "view": "Back Elevation (North)"
+            }
+        ]
+    },
+    {
+        "name": "Frieze Board",
+        "notes": "FRIEZE BOARD at roof eave, exterior",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A2.2 - North Elevation",
+                "view": "Back Elevation (North)"
+            }
+        ]
+    },
+    {
+        "name": "Corner Board",
+        "notes": "CORNER BOARD at building corners, exterior",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A2.2 - North Elevation",
+                "view": "Back Elevation (North)"
+            }
+        ]
+    },
+    {
+        "name": "Brick Chimney",
+        "notes": "BRICK CHIMNEY, smooth brick, red color, sand-faced per F-00 schedule",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A2.2 - North Elevation",
+                "view": "Back Elevation (North)"
+            },
+            {
+                "page_label": "Sheet A1.2 - 1st Floor Plan",
+                "view": "1st Floor Plan - Brick Chimney callout"
+            },
+            {
+                "page_label": "Sheet A1.3 - 2nd Floor Plan",
+                "view": "2nd Floor Plan - Brick Chimney callout"
+            }
+        ]
+    },
+    {
+        "name": "Water Table Board",
+        "notes": "WATER TABLE BOARD at base of exterior wall above foundation",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A2.2 - North Elevation",
+                "view": "Back Elevation (North)"
+            }
+        ]
+    },
+    {
+        "name": "Brick Foundation",
+        "notes": "BRICK FOUNDATION at base of building exterior",
+        "category": "Foundation-Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A2.2 - North Elevation",
+                "view": "Back Elevation (North)"
+            }
+        ]
+    },
+    {
+        "name": "Shed Roof",
+        "notes": "SHED ROOF over back door entry, exterior",
+        "category": "Roof",
+        "mentions": [
+            {
+                "page_label": "Sheet A2.2 - North Elevation",
+                "view": "Back Elevation (North)"
+            }
+        ]
+    },
+    {
+        "name": "2x12 Joists",
+        "notes": "2X12 JOISTS @ 16\" OC, floor framing in living room and kitchen/dining areas",
+        "category": {
+            "c1": "Room- Living Room",
+            "c2": "Room- Kitchen",
+            "c3": "Room- Dining",
+            "c4": "Room- Main Bedroom",
+            "c5": "Room- Bedroom"
+        },
+        "mentions": [
+            {
+                "page_label": "Sheet A1.2 - 1st Floor Plan",
+                "view": "1st Floor Plan"
+            },
+            {
+                "page_label": "Sheet A1.3 - 2nd Floor Plan",
+                "view": "2nd Floor Plan"
+            }
+        ]
+    },
+    {
+        "name": "Brick Tile Hearth",
+        "notes": "BRICK TILE HEARTH in living room at woodstove location, reclaimed brick per F-66 schedule",
+        "category": "Room- Living Room",
+        "mentions": [
+            {
+                "page_label": "Sheet A1.2 - 1st Floor Plan",
+                "view": "1st Floor Plan"
+            }
+        ]
+    },
+    {
+        "name": "CMU Block",
+        "notes": "8X8X16 CMU, used in chimney/woodstove base assembly",
+        "category": "Foundation-Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Chimney / Woodstove Plan"
+            }
+        ]
+    },
+    {
+        "name": "Ceramic Flue Liner",
+        "notes": "12\" CERAMIC FLUE LINER inside chimney assembly",
+        "category": "Others",
+        "mentions": [
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Chimney / Woodstove Plan"
+            }
+        ]
+    },
+    {
+        "name": "Double Wall Chimney Connector",
+        "notes": "DOUBLE WALL CHIMNEY CONNECTOR W/ INSULATED DAMPER, used in woodstove chimney assembly",
+        "category": "Others",
+        "mentions": [
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Chimney / Woodstove Plan"
+            }
+        ]
+    },
+    {
+        "name": "Slate",
+        "notes": "SLATE flooring/hearth material in woodstove area",
+        "category": "Room- Living Room",
+        "mentions": [
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Chimney / Woodstove Plan"
+            }
+        ]
+    },
+    {
+        "name": "Brick Veneer",
+        "notes": "BRICK VENEER on chimney/woodstove surround, thin brick veneer per F-66 schedule",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Chimney / Woodstove Plan"
+            }
+        ]
+    },
+    {
+        "name": "Adams Casing",
+        "notes": "ADAMS CASING at woodstove/chimney surround",
+        "category": "Room- Living Room",
+        "mentions": [
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Chimney / Woodstove Plan"
+            }
+        ]
+    },
+    {
+        "name": "Mantle Overhead",
+        "notes": "MANTLE OVERHEAD at woodstove/chimney surround",
+        "category": "Room- Living Room",
+        "mentions": [
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Chimney / Woodstove Plan"
+            }
+        ]
+    },
+    {
+        "name": "Stringer Board",
+        "notes": "STRINGER BD at winder stair assembly",
+        "category": "Others",
+        "mentions": [
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Winder Stairs - Plan Detail"
+            }
+        ]
+    },
+    {
+        "name": "Nosing",
+        "notes": "1\" NOSING at winder stair treads",
+        "category": "Others",
+        "mentions": [
+            {
+                "page_label": "Sheet A1.7 - Detail Plans",
+                "view": "Winder Stairs - Plan Detail"
+            }
+        ]
+    },
+    {
+        "name": "Front Porch Roof",
+        "notes": "FRONT PORCH ROOF, 4/12 SLOPE, shown on 2nd floor plan above front porch",
+        "category": "Roof",
+        "mentions": [
+            {
+                "page_label": "Sheet A1.3 - 2nd Floor Plan",
+                "view": "2nd Floor Plan - Front Porch Roof"
+            }
+        ]
+    },
+    {
+        "name": "Back Porch Roof",
+        "notes": "BACK PORCH ROOF, 6/12 SLOPE, shown on 2nd floor plan above back porch",
+        "category": "Roof",
+        "mentions": [
+            {
+                "page_label": "Sheet A1.3 - 2nd Floor Plan",
+                "view": "2nd Floor Plan - Back Porch Roof"
+            }
+        ]
+    }
+]
