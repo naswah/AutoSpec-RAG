@@ -1,0 +1,1192 @@
+[
+    {
+        "name": "AC-1",
+        "notes": "Accessory: Toilet Paper Dispenser. Item Specification: Bobrick Model B2888 or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "10 28 13.13"
+    },
+    {
+        "name": "AC-2",
+        "notes": "Accessory: Toilet Seat Cover Dispenser. Item Specification: Kimberly-Clark Model 09505 or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "10 28 13.13"
+    },
+    {
+        "name": "AC-3",
+        "notes": "Accessory: Diaper Changing Station. Item Specification: ASI Model 10-9012 or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "10 28 13.13"
+    },
+    {
+        "name": "AC-4",
+        "notes": "Accessory: Soap Dispenser. Item Specification: SAON Model 4034 or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "10 28 00"
+    },
+    {
+        "name": "AC-5",
+        "notes": "Accessory: Hand Dryer. Item Specification: ASI Model 10-0192-1-93 or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "00 00 00"
+    },
+    {
+        "name": "AC-6",
+        "notes": "Accessory: Paper Towel Dispenser w/ Trash Can. Item Specification: Hardware Resources Model CAN-35GRY or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "10 28 26"
+    },
+    {
+        "name": "AC-7",
+        "notes": "Accessory: Sanitary Napkin Dispenser. Item Specification: Seachrome Model SCAL-170 or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "10 28 13.13"
+    },
+    {
+        "name": "AC-8",
+        "notes": "Accessory: Paper Towel Dispenser. Item Specification: ASI Model 10-0210-41 or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "10 28 13.13"
+    },
+    {
+        "name": "AC-9",
+        "notes": "Accessory: Commercial Wall Rack. Item Specification: ROHL Model ROT10APC or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "10 28 13.13"
+    },
+    {
+        "name": "G-1",
+        "notes": "Accessory: Grab Bar Vertical. Item Specification: System Model 3570.001.10 or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "10 28 00"
+    },
+    {
+        "name": "G-2",
+        "notes": "Accessory: Grab Bar Horizontal. Item Specification: Polo Model 0770.001.30 or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "10 28 00"
+    },
+    {
+        "name": "G-3",
+        "notes": "Accessory: Towel Bar. Item Specification: Norm Model WSBC 268610-12 CR or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "10 28 13.13"
+    },
+    {
+        "name": "L-1",
+        "notes": "Accessory: Lavatory Type-1. Item Specification: Simple 60.50A Model 60.50A.01 or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "10 06 20.13"
+    },
+    {
+        "name": "L-2",
+        "notes": "Accessory: Lavatory Type-2. Item Specification: Sloan Model ELRF-83000 or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "22 42 16.13"
+    },
+    {
+        "name": "HS-1",
+        "notes": "Accessory: Hand Sink-1. Item Specification: Serv-Ware Model HS15-CWP or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "22 43 16"
+    },
+    {
+        "name": "M-1",
+        "notes": "Accessory: Mirror Type-1. Item Specification: Speci Model SPECI 5676 or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "08 83 00"
+    },
+    {
+        "name": "M-2",
+        "notes": "Accessory: Mirror Type-2. Item Specification: Elan Model 84171 or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "08 83 00"
+    },
+    {
+        "name": "M-3",
+        "notes": "Accessory: Mirror Type-3. Item Specification: Modo Bath Model TS TS-R or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "10 28 16"
+    },
+    {
+        "name": "MS-1",
+        "notes": "Accessory: Mop Sink. Item Specification: Proflo Model PFMB2424 or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "22 42 16.16"
+    },
+    {
+        "name": "P-1",
+        "notes": "Accessory: SS Partition Wall Upto 8'. Item Specification: Global Partitions Model PCSBW or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "10 22 00"
+    },
+    {
+        "name": "P-2",
+        "notes": "Accessory: SS Partition Wall Upto 4'-4\". Item Specification: Global Partitions Model 95FCSXX or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "00 00 00"
+    },
+    {
+        "name": "P-3",
+        "notes": "Accessory: SS Partition Wall Upto 8'. Item Specification: Global Partitions Model PCSBW or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "10 22 23"
+    },
+    {
+        "name": "S-1",
+        "notes": "Accessory: Shower Head. Item Specification: Kohler Model K-22170-CP or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "22 43 23"
+    },
+    {
+        "name": "U-1",
+        "notes": "Accessory: Urinal STD. Item Specification: TOTO Model UT104E#01 or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "22 42 13.16"
+    },
+    {
+        "name": "U-2",
+        "notes": "Accessory: Urinal ACC. Item Specification: TOTO Model UT104E#01 or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "22 42 13.16"
+    },
+    {
+        "name": "U-3",
+        "notes": "Accessory: Utility Hooks. Item Specification: Ives Model 581A92 or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "12 55 26"
+    },
+    {
+        "name": "WC-1",
+        "notes": "Accessory: Water Closet STD. Item Specification: Sloan Model 20231001 or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "22 41 13"
+    },
+    {
+        "name": "WC-2",
+        "notes": "Accessory: Water Closet ACC. Item Specification: Sloan Model 20231001 or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "22 42 13.13"
+    },
+    {
+        "name": "WH-1",
+        "notes": "Accessory: Water Heater. Item Specification: Cycloner MXI Modulating Model BTH-120 MXI or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "22 33 00"
+    },
+    {
+        "name": "WF-1",
+        "notes": "Accessory: Water Fountain. Item Specification: Elkay Model EZSTL8LC or equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+        "csi_division": "22 47 00"
+    },
+    {
+        "name": "Exterior PVC Plank",
+        "notes": "Ceiling material. Standing Seam - Galvalume Coated - Regal Blue or approved equal. Applied to ceiling in Lobby.",
+        "category": "Room- Lobby",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 56 19"
+    },
+    {
+        "name": "Exterior PVC Plank",
+        "notes": "Ceiling material. Standing Seam - Galvalume Coated - Regal Blue or approved equal. Applied to ceiling in Family Restroom.",
+        "category": "Room- Family Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 56 19"
+    },
+    {
+        "name": "Exterior PVC Plank",
+        "notes": "Ceiling material. Standing Seam - Galvalume Coated - Regal Blue or approved equal. Applied to ceiling in Men's Restroom.",
+        "category": "Room- Men's Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 56 19"
+    },
+    {
+        "name": "Exterior PVC Plank",
+        "notes": "Ceiling material. Standing Seam - Galvalume Coated - Regal Blue or approved equal. Applied to ceiling in Women's Restroom.",
+        "category": "Room- Women's Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 56 19"
+    },
+    {
+        "name": "Ceramic Tile (Anti-Slip)",
+        "notes": "Floor. Trafficmaster, Baja Gray - Matte Finish 12\" x 12\" or approved equal. Applied to floor in Lobby.",
+        "category": "Room- Lobby",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 30 13"
+    },
+    {
+        "name": "Ceramic Tile (Anti-Slip)",
+        "notes": "Floor. Trafficmaster, Baja Gray - Matte Finish 12\" x 12\" or approved equal. Applied to floor in Shower Room.",
+        "category": "Room- Shower Room",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 30 13"
+    },
+    {
+        "name": "Ceramic Tile (Anti-Slip)",
+        "notes": "Floor. Trafficmaster, Baja Gray - Matte Finish 12\" x 12\" or approved equal. Applied to floor in Family Restroom.",
+        "category": "Room- Family Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 30 13"
+    },
+    {
+        "name": "Ceramic Tile (Anti-Slip)",
+        "notes": "Floor. Trafficmaster, Baja Gray - Matte Finish 12\" x 12\" or approved equal. Applied to floor in Men's Restroom.",
+        "category": "Room- Men's Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 30 13"
+    },
+    {
+        "name": "Ceramic Tile (Anti-Slip)",
+        "notes": "Floor. Trafficmaster, Baja Gray - Matte Finish 12\" x 12\" or approved equal. Applied to floor in Women's Restroom.",
+        "category": "Room- Women's Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 30 13"
+    },
+    {
+        "name": "Sealed Concrete",
+        "notes": "Floor. Light Grey or approved equal. Applied to floor in Utility Room and Seating Area.",
+        "category": "Room- Utility Room",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 61 19"
+    },
+    {
+        "name": "Moisture Resistant Ceiling Tile",
+        "notes": "Wall. Armstrong, Fine Fissured - Ivory 24\" x 48\" or approved equal. Applied to wall in Shower Room.",
+        "category": "Room- Shower Room",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 51 23"
+    },
+    {
+        "name": "Interior Latex Wall Paint",
+        "notes": "Wall. Sherwin Williams, SW-1668 (Pineapple Cream) or approved equal. Applied to wall in Lobby.",
+        "category": "Room- Lobby",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 91 23"
+    },
+    {
+        "name": "Interior Latex Wall Paint",
+        "notes": "Wall. Sherwin Williams, SW-1668 (Pineapple Cream) or approved equal. Applied to wall in Family Restroom.",
+        "category": "Room- Family Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 91 23"
+    },
+    {
+        "name": "Interior Latex Wall Paint",
+        "notes": "Wall. Sherwin Williams, SW-1668 (Pineapple Cream) or approved equal. Applied to wall in Men's Restroom.",
+        "category": "Room- Men's Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 91 23"
+    },
+    {
+        "name": "Interior Latex Wall Paint",
+        "notes": "Wall. Sherwin Williams, SW-1668 (Pineapple Cream) or approved equal. Applied to wall in Women's Restroom.",
+        "category": "Room- Women's Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 91 23"
+    },
+    {
+        "name": "Interior Latex Wall Paint",
+        "notes": "Wall. Sherwin Williams, SW-1668 (Pineapple Cream) or approved equal. Applied to wall in Utility Room and Seating Area.",
+        "category": "Room- Utility Room",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 91 23"
+    },
+    {
+        "name": "Plaster Board",
+        "notes": "Wall. Applied to wall in Shower Room.",
+        "category": "Room- Shower Room",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "00 00 00"
+    },
+    {
+        "name": "Brick Cladding",
+        "notes": "Wall. Brickworks Glen-Gery, Mountain Shadow Smooth or approved equal. Applied to wall in Shower Room.",
+        "category": "Room- Shower Room",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "04 21 13"
+    },
+    {
+        "name": "Ceramic Wall Tile",
+        "notes": "Wall. Daltile, Glacier White - Glossy Finish 6\" x 6\" or approved equal. Applied to wall in Shower Room.",
+        "category": "Room- Shower Room",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 30 13"
+    },
+    {
+        "name": "Ceramic Wall Tile",
+        "notes": "Wall. Daltile, Glacier White - Glossy Finish 6\" x 6\" or approved equal. Applied to wall in Family Restroom.",
+        "category": "Room- Family Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 30 13"
+    },
+    {
+        "name": "Ceramic Wall Tile",
+        "notes": "Wall. Daltile, Glacier White - Glossy Finish 6\" x 6\" or approved equal. Applied to wall in Men's Restroom.",
+        "category": "Room- Men's Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 30 13"
+    },
+    {
+        "name": "Ceramic Wall Tile",
+        "notes": "Wall. Daltile, Glacier White - Glossy Finish 6\" x 6\" or approved equal. Applied to wall in Women's Restroom.",
+        "category": "Room- Women's Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+        "csi_division": "09 30 13"
+    },
+    {
+        "name": "Sealed Concrete Flooring",
+        "notes": "Tag 1. Brand/Manufacturer: NA. Type/Color: Light Grey or approved equal.",
+        "category": "Others",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Materials and Finishes Legend"
+            }
+        ],
+        "csi_division": "09 61 19"
+    },
+    {
+        "name": "Moisture Resistant Ceiling Tile",
+        "notes": "Tag 3. Brand/Manufacturer: Armstrong. Type/Color: Fine Fissured - Ivory 24\" x 48\" or approved equal.",
+        "category": "Others",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Materials and Finishes Legend"
+            }
+        ],
+        "csi_division": "09 51 23"
+    },
+    {
+        "name": "Fiber Cement Board",
+        "notes": "Tag 4. Brand/Manufacturer: Allura. Type/Color: White 12\" x 16\" or approved equal.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Materials and Finishes Legend"
+            }
+        ],
+        "csi_division": "07 46 46"
+    },
+    {
+        "name": "Metal Roof Panel",
+        "notes": "Tag 5. Brand/Manufacturer: NA. Type/Color: Standing Seam - Galvalume Coated - Regal Blue or approved equal.",
+        "category": "Roof",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Materials and Finishes Legend"
+            }
+        ],
+        "csi_division": "07 41 13"
+    },
+    {
+        "name": "Metal Box Gutter with Downspout",
+        "notes": "Tag 6. Brand/Manufacturer: NA. Type/Color: Galvalume Coated - Black Powder Coated Finish or approved equal.",
+        "category": "Roof",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Materials and Finishes Legend"
+            }
+        ],
+        "csi_division": "07 62 23"
+    },
+    {
+        "name": "Metal Fascia Trim Board",
+        "notes": "Tag 7. Brand/Manufacturer: NA. Type/Color: Regal Blue or approved equal.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Materials and Finishes Legend"
+            }
+        ],
+        "csi_division": "07 62 00"
+    },
+    {
+        "name": "Exterior Fiber Cement Panel Siding",
+        "notes": "Tag 8. Brand/Manufacturer: James Hardie. Type/Color: Cedarmill Texture - PTD to Silver Herring or approved equal.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Materials and Finishes Legend"
+            }
+        ],
+        "csi_division": "07 46 46"
+    },
+    {
+        "name": "Exterior Fiber Glass Column Wrap",
+        "notes": "Tag 9. Brand/Manufacturer: Resinart. Type/Color: Duracraft - White or approved equal.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Materials and Finishes Legend"
+            }
+        ],
+        "csi_division": "03 49 13"
+    },
+    {
+        "name": "Brick Masonry Anchored Cladding",
+        "notes": "Tag 10. Brand/Manufacturer: Brickworks Glen-Gery. Type/Color: Mountain Shadow Smooth or approved equal.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Materials and Finishes Legend"
+            }
+        ],
+        "csi_division": "04 21 13"
+    },
+    {
+        "name": "Exterior Fiber Cement Trim",
+        "notes": "Tag 11. Brand/Manufacturer: James Hardie. Type/Color: Smooth Texture - Primed Finish - PTD to SW - Extra White or approved equal.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Materials and Finishes Legend"
+            }
+        ],
+        "csi_division": "07 46 46"
+    },
+    {
+        "name": "Metal Soffit (Perforated)",
+        "notes": "Tag 12. Brand/Manufacturer: NA. Type/Color: Regal Blue or approved equal.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Materials and Finishes Legend"
+            }
+        ],
+        "csi_division": "07 42 93"
+    },
+    {
+        "name": "Exterior Fiber Cement Artisan Siding",
+        "notes": "Tag 13. Brand/Manufacturer: James Hardie. Type/Color: V-Groove - Primed Finish - PTD to SW - Olympus White or approved equal.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Materials and Finishes Legend"
+            }
+        ],
+        "csi_division": "07 46 46"
+    },
+    {
+        "name": "Rubber Cove Base",
+        "notes": "Tag 16. Brand/Manufacturer: Roppe. Type/Color: Pinnacle Dark Gray Matte - 6\" or approved equal.",
+        "category": "Room- Restroom",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Materials and Finishes Legend"
+            }
+        ],
+        "csi_division": "09 65 16.33"
+    },
+    {
+        "name": "Door-D1",
+        "notes": "No. of Doors: 4, Size W: 3'-0\", H: 7'-0\", T: 0'-1 1/2\", Material: STL, Panel Type: P1, Frame Material: HM, Frame Type: DF1, Finish: PTD - PTM1, Hardware: Satin Chrome Finish",
+        "category": "Door-D1",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Door and Window Schedule"
+            }
+        ],
+        "csi_division": "08 11 13.16"
+    },
+    {
+        "name": "Door-D2",
+        "notes": "No. of Doors: 1, Size W: 3'-8\", H: 8'-0\", T: 0'-1 1/2\", Material: STL, Panel Type: P2, Frame Material: HM, Frame Type: DF2, Finish: PTD - PTM1, Hardware: Satin Chrome Finish",
+        "category": "Door-D2",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Door and Window Schedule"
+            }
+        ],
+        "csi_division": "08 11 13.13"
+    },
+    {
+        "name": "Window-W1",
+        "notes": "No. of Windows: 2, Size W: 2'-6\", H: 3'-0\", T: 0'-2\", Sash Material: Glass, Sash Type: W1, Frame Material: Aluminum, Frame Type: W1, Finish: Powder Coated",
+        "category": "Window-W1",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Door and Window Schedule"
+            }
+        ],
+        "csi_division": "08 51 13"
+    },
+    {
+        "name": "Window-W2",
+        "notes": "No. of Windows: 4, Size W: 4'-0\", H: 3'-0\", T: 0'-2\", Sash Material: Glass, Sash Type: W2, Frame Material: Aluminum, Frame Type: W2, Finish: Powder Coated",
+        "category": "Window-W2",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Door and Window Schedule"
+            }
+        ],
+        "csi_division": "08 51 13"
+    },
+    {
+        "name": "Metal Stud",
+        "notes": "3 5/8\" metal stud framing. Material listed in Partition Wall Type A1. Used with one layer of 5/8\" cementitious backer board and ceramic tile upto 72\" from FFL on interior elevations, painted finish above, on both sides.",
+        "category": "Interior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "A1"
+            }
+        ],
+        "csi_division": "09 22 16.13"
+    },
+    {
+        "name": "Cementitious Backer Board",
+        "notes": "5/8\" cementitious backer board. Material listed in Partition Wall Type A1. Applied on both sides of 3 5/8\" metal stud.",
+        "category": "Interior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "A1"
+            }
+        ],
+        "csi_division": "09 28 13"
+    },
+    {
+        "name": "Ceramic Tile",
+        "notes": "Applied upto 72\" from FFL on interior elevations. Material listed in Partition Wall Type A1. Painted finish above.",
+        "category": "Interior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "A1"
+            }
+        ],
+        "csi_division": "09 30 13"
+    },
+    {
+        "name": "Interior Latex Wall Paint",
+        "notes": "Painted finish above ceramic tile (above 72\" from FFL). Material listed in Partition Wall Type A1, on both sides.",
+        "category": "Interior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "A1"
+            }
+        ],
+        "csi_division": "09 91 23"
+    },
+    {
+        "name": "Metal Stud",
+        "notes": "3 5/8\" metal stud framing. Material listed in Partition Wall Type A2. Used with one layer of 5/8\" gypsum wallboard with painted finish on one side and 5/8\" cementitious backer board with ceramic tile upto 72\" from FFL on other side.",
+        "category": "Interior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "A2"
+            }
+        ],
+        "csi_division": "09 22 16.13"
+    },
+    {
+        "name": "Gypsum Wallboard",
+        "notes": "5/8\" gypsum wallboard with painted finish. Material listed in Partition Wall Type A2, on one side of 3 5/8\" metal stud.",
+        "category": "Interior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "A2"
+            }
+        ],
+        "csi_division": "09 29 00"
+    },
+    {
+        "name": "Cementitious Backer Board",
+        "notes": "5/8\" cementitious backer board. Material listed in Partition Wall Type A2, on other side of 3 5/8\" metal stud with ceramic tile upto 72\" from FFL.",
+        "category": "Interior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "A2"
+            }
+        ],
+        "csi_division": "09 28 13"
+    },
+    {
+        "name": "Ceramic Tile",
+        "notes": "Applied upto 72\" from FFL on interior elevations. Material listed in Partition Wall Type A2, on one side. Painted finish above.",
+        "category": "Interior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "A2"
+            }
+        ],
+        "csi_division": "09 30 13"
+    },
+    {
+        "name": "Metal Stud",
+        "notes": "6\" metal stud framing. Material listed in Partition Wall Type B1. Used with 5/8\" cementitious backer board and ceramic tile upto bottom of window opening on interior side, and exterior sheathing with brick cladding and exterior siding panel on exterior side.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "B1"
+            }
+        ],
+        "csi_division": "09 22 16.13"
+    },
+    {
+        "name": "Cementitious Backer Board",
+        "notes": "5/8\" cementitious backer board. Material listed in Partition Wall Type B1, on interior side with ceramic tile upto bottom of window opening.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "B1"
+            }
+        ],
+        "csi_division": "09 28 13"
+    },
+    {
+        "name": "Ceramic Tile",
+        "notes": "Applied upto bottom of window opening on interior side. Material listed in Partition Wall Type B1.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "B1"
+            }
+        ],
+        "csi_division": "09 30 13"
+    },
+    {
+        "name": "Exterior Sheathing",
+        "notes": "Exterior sheathing on exterior side. Material listed in Partition Wall Type B1, with brick cladding upto bottom of window opening and exterior siding panel for remaining height.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "B1"
+            }
+        ],
+        "csi_division": "07 40 00"
+    },
+    {
+        "name": "Brick Cladding",
+        "notes": "Applied upto bottom of window opening on exterior side. Material listed in Partition Wall Type B1.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "B1"
+            }
+        ],
+        "csi_division": "04 21 13"
+    },
+    {
+        "name": "Exterior Siding Panel",
+        "notes": "Applied for remaining height above brick cladding on exterior side. Material listed in Partition Wall Type B1.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "B1"
+            }
+        ],
+        "csi_division": "07 46 00"
+    },
+    {
+        "name": "Metal Stud",
+        "notes": "6\" metal stud framing. Material listed in Partition Wall Type B2. Used with 5/8\" cementitious backer board and ceramic tile upto 3'-0\" from floor on interior side, and exterior sheathing with brick cladding upto 5'-5\" and exterior siding panel for remaining height on exterior side.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "B2"
+            }
+        ],
+        "csi_division": "09 22 16.13"
+    },
+    {
+        "name": "Cementitious Backer Board",
+        "notes": "5/8\" cementitious backer board. Material listed in Partition Wall Type B2, on interior side with ceramic tile upto 3'-0\" from floor.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "B2"
+            }
+        ],
+        "csi_division": "09 28 13"
+    },
+    {
+        "name": "Ceramic Tile",
+        "notes": "Applied upto 3'-0\" from floor on interior side. Material listed in Partition Wall Type B2.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "B2"
+            }
+        ],
+        "csi_division": "09 30 13"
+    },
+    {
+        "name": "Exterior Sheathing",
+        "notes": "Exterior sheathing on exterior side. Material listed in Partition Wall Type B2, with brick cladding upto 5'-5\" and exterior siding panel for remaining height.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "B2"
+            }
+        ],
+        "csi_division": "07 40 00"
+    },
+    {
+        "name": "Brick Cladding",
+        "notes": "Applied upto 5'-5\" on exterior side. Material listed in Partition Wall Type B2.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "B2"
+            }
+        ],
+        "csi_division": "04 21 13"
+    },
+    {
+        "name": "Exterior Siding Panel",
+        "notes": "Applied for remaining height above brick cladding on exterior side. Material listed in Partition Wall Type B2.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "B2"
+            }
+        ],
+        "csi_division": "07 46 00"
+    },
+    {
+        "name": "Metal Stud",
+        "notes": "6\" metal stud framing. Material listed in Partition Wall Type B3. Used with 5/8\" cementitious backer board and ceramic tile upto 72\" from FFL on interior side with painted finish above, and exterior sheathing with exterior siding panel on exterior side.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "B3"
+            }
+        ],
+        "csi_division": "09 22 16.13"
+    },
+    {
+        "name": "Cementitious Backer Board",
+        "notes": "5/8\" cementitious backer board. Material listed in Partition Wall Type B3, on interior side with ceramic tile upto 72\" from FFL.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "B3"
+            }
+        ],
+        "csi_division": "09 28 13"
+    },
+    {
+        "name": "Ceramic Tile",
+        "notes": "Applied upto 72\" from FFL on interior side. Material listed in Partition Wall Type B3. Painted finish above.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "B3"
+            }
+        ],
+        "csi_division": "09 30 13"
+    },
+    {
+        "name": "Interior Latex Wall Paint",
+        "notes": "Painted finish above ceramic tile (above 72\" from FFL) on interior side. Material listed in Partition Wall Type B3.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "B3"
+            }
+        ],
+        "csi_division": "09 91 23"
+    },
+    {
+        "name": "Exterior Sheathing",
+        "notes": "Exterior sheathing on exterior side. Material listed in Partition Wall Type B3, with exterior siding panel finish.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "B3"
+            }
+        ],
+        "csi_division": "07 40 00"
+    },
+    {
+        "name": "Exterior Siding Panel",
+        "notes": "Applied on exterior side. Material listed in Partition Wall Type B3.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Schedule",
+                "Extracted from code": "B3"
+            }
+        ],
+        "csi_division": "07 46 00"
+    },
+    {
+        "name": "Acoustic and Thermal Insulation Batt",
+        "notes": "Acoustic and thermal insulation batt within metal stud wall cavity. Shown in partition wall type detail sections on C-302.",
+        "category": "Exterior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Wall Type Detail Sections"
+            }
+        ],
+        "csi_division": "09 81 16"
+    },
+    {
+        "name": "Gypsum Wall Board",
+        "notes": "5/8\" gypsum wall board. Shown in partition wall type detail sections (e.g. Type A2, B1, B2, B3) on C-302.",
+        "category": "Interior Wall",
+        "mentions": [
+            {
+                "page_label": "C - 302 - Door and Window Details and Partition Type Details",
+                "view": "Partition Wall Type Detail Sections"
+            }
+        ],
+        "csi_division": "09 29 00"
+    }
+]

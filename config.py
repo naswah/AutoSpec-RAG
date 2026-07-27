@@ -21,7 +21,7 @@ def _path(env_key, *default_parts):
     return value if value else str(BASE_DIR.joinpath(*default_parts))
 
 
-PDF_PATH = _path("AUTOSPEC_PDF_PATH", "local", "samples", "REQUIRED.pdf")
+PDF_PATH = _path("AUTOSPEC_PDF_PATH", "local", "samples", "test.pdf")
 OUTPUT_BASE = _path("AUTOSPEC_OUTPUT_BASE", "local", "runs")
 RESULTS = _path("AUTOSPEC_RESULTS", "local", "results")
 MASTERFORMAT_CSV = _path(

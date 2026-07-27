@@ -1,0 +1,542 @@
+=== CSI Classifier Debug - Run: 20260727_124252 ===
+
+Query: 'AC-1. Description: Accessory: Toilet Paper Dispenser. Item Specification: Bobrick Model B2888 or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 28 13 Title: Toilet Accessories Includes: accessories associated with public toilet rooms. Accessories mounted on or recessed in partitions and compartments. Usually Includes: janitor's closet and other similar accessories. Also known as: toilet accessories: rest room accessories.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 28 13.13 Title: Commercial Toilet Accessories Also known as: toilet accessories: rest room accessories.
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 28 00 Title: Toilet, Bath, and Laundry Accessories Includes: manufactured items for use in conjunction with toilets, baths, and laundries.
+------------------------------------------------------------
+
+Query: 'AC-2. Description: Accessory: Toilet Seat Cover Dispenser. Item Specification: Kimberly-Clark Model 09505 or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 28 13 Title: Toilet Accessories Includes: accessories associated with public toilet rooms. Accessories mounted on or recessed in partitions and compartments. Usually Includes: janitor's closet and other similar accessories. Also known as: toilet accessories: rest room accessories.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 28 13.13 Title: Commercial Toilet Accessories Also known as: toilet accessories: rest room accessories.
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 28 13.53 Title: Security Toilet Accessories
+------------------------------------------------------------
+
+Query: 'AC-3. Description: Accessory: Diaper Changing Station. Item Specification: ASI Model 10-9012 or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 28 26 Title: Hygiene and Custodial Accessories Includes: items such as hand sanitizers and other non-toilet accessories.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 28 13.13 Title: Commercial Toilet Accessories Also known as: toilet accessories: rest room accessories.
+   [3] Context: DIVISION 11: EQUIPMENT Code: 11 11 36.13 Title: Commercial Electric Vehicle Charging Unit
+------------------------------------------------------------
+
+Query: 'AC-4. Description: Accessory: Soap Dispenser. Item Specification: SAON Model 4034 or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 28 26 Title: Hygiene and Custodial Accessories Includes: items such as hand sanitizers and other non-toilet accessories.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 28 00 Title: Toilet, Bath, and Laundry Accessories Includes: manufactured items for use in conjunction with toilets, baths, and laundries.
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 06 20.13 Title: Toilet, Bath, and Laundry Accessory Schedule
+------------------------------------------------------------
+
+Query: 'AC-5. Description: Accessory: Hand Dryer. Item Specification: ASI Model 10-0192-1-93 or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 28 26 Title: Hygiene and Custodial Accessories Includes: items such as hand sanitizers and other non-toilet accessories.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 06 20.13 Title: Toilet, Bath, and Laundry Accessory Schedule
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 28 00 Title: Toilet, Bath, and Laundry Accessories Includes: manufactured items for use in conjunction with toilets, baths, and laundries.
+------------------------------------------------------------
+
+Query: 'AC-6. Description: Accessory: Paper Towel Dispenser w/ Trash Can. Item Specification: Hardware Resources Model CAN-35GRY or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 28 26 Title: Hygiene and Custodial Accessories Includes: items such as hand sanitizers and other non-toilet accessories.
+   [2] Context: DIVISION 09: FINISHES Code: 09 30 00 Title: Tiling Includes: manufactured surfacing units of impervious, vitreous, semi-vitreous, and non-vitreous materials; glazed, unglazed, conductive, abrasive, and textured surfaces. Related mortar, adhesives, grout, trim, and accessories. Related antifracture membranes. Tile towel bar holders, toilet paper holders, soap dishes, and other tile accessories. Tiling by tile material. May include: tile murals.
+   [3] Context: DIVISION 12: FURNISHINGS Code: 12 93 23 Title: Trash and Litter Receptacles THIS PAGE INTENTIONALLY LEFT BLANK
+------------------------------------------------------------
+
+Query: 'AC-7. Description: Accessory: Sanitary Napkin Dispenser. Item Specification: Seachrome Model SCAL-170 or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 28 13.13 Title: Commercial Toilet Accessories Also known as: toilet accessories: rest room accessories.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 28 26 Title: Hygiene and Custodial Accessories Includes: items such as hand sanitizers and other non-toilet accessories.
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 28 00 Title: Toilet, Bath, and Laundry Accessories Includes: manufactured items for use in conjunction with toilets, baths, and laundries.
+------------------------------------------------------------
+
+Query: 'AC-8. Description: Accessory: Paper Towel Dispenser. Item Specification: ASI Model 10-0210-41 or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 28 26 Title: Hygiene and Custodial Accessories Includes: items such as hand sanitizers and other non-toilet accessories.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 06 20.13 Title: Toilet, Bath, and Laundry Accessory Schedule
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 28 13.13 Title: Commercial Toilet Accessories Also known as: toilet accessories: rest room accessories.
+------------------------------------------------------------
+
+Query: 'AC-9. Description: Accessory: Commercial Wall Rack. Item Specification: ROHL Model ROT10APC or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 28 13.13 Title: Commercial Toilet Accessories Also known as: toilet accessories: rest room accessories.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 28 26 Title: Hygiene and Custodial Accessories Includes: items such as hand sanitizers and other non-toilet accessories.
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 28 00 Title: Toilet, Bath, and Laundry Accessories Includes: manufactured items for use in conjunction with toilets, baths, and laundries.
+------------------------------------------------------------
+
+Query: 'G-1. Description: Accessory: Grab Bar Vertical. Item Specification: System Model 3570.001.10 or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 28 16.13 Title: Residential Bath Accessories
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 28 26 Title: Hygiene and Custodial Accessories Includes: items such as hand sanitizers and other non-toilet accessories.
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 28 00 Title: Toilet, Bath, and Laundry Accessories Includes: manufactured items for use in conjunction with toilets, baths, and laundries.
+------------------------------------------------------------
+
+Query: 'G-2. Description: Accessory: Grab Bar Horizontal. Item Specification: Polo Model 0770.001.30 or equal'  [20260727_124252]
+   [1] Context: DIVISION 14: CONVEYING EQUIPMENT Code: 14 30 00 Title: Escalators and Moving Walks Includes: passenger conveying systems composed of moving belts or treads installed in horizontal or inclined position, including associated components, hardware, controls, safety equipment, and related items.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 28 16.13 Title: Residential Bath Accessories
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 28 00 Title: Toilet, Bath, and Laundry Accessories Includes: manufactured items for use in conjunction with toilets, baths, and laundries.
+------------------------------------------------------------
+
+Query: 'G-3. Description: Accessory: Towel Bar. Item Specification: Norm Model WSBC 268610-12 CR or equal'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 30 00 Title: Tiling Includes: manufactured surfacing units of impervious, vitreous, semi-vitreous, and non-vitreous materials; glazed, unglazed, conductive, abrasive, and textured surfaces. Related mortar, adhesives, grout, trim, and accessories. Related antifracture membranes. Tile towel bar holders, toilet paper holders, soap dishes, and other tile accessories. Tiling by tile material. May include: tile murals.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 28 13.13 Title: Commercial Toilet Accessories Also known as: toilet accessories: rest room accessories.
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 28 16.13 Title: Residential Bath Accessories
+------------------------------------------------------------
+
+Query: 'L-1. Description: Accessory: Lavatory Type-1. Item Specification: Simple 60.50A Model 60.50A.01 or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 06 20.13 Title: Toilet, Bath, and Laundry Accessory Schedule
+   [2] Context: DIVISION 01: GENERAL REQUIREMENTS Code: 01 52 19 Title: Sanitary Facilities
+   [3] Context: DIVISION 01: GENERAL REQUIREMENTS Code: 01 60 00 Title: Product Requirements
+------------------------------------------------------------
+
+Query: 'L-2. Description: Accessory: Lavatory Type-2. Item Specification: Sloan Model ELRF-83000 or equal'  [20260727_124252]
+   [1] Context: DIVISION 22: PLUMBING Code: 22 42 16.13 Title: Commercial Lavatories
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 28 26 Title: Hygiene and Custodial Accessories Includes: items such as hand sanitizers and other non-toilet accessories.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 72 00 Title: Roof Accessories Includes: accessories installed on or in roofing other than mechanical or structural items. May include: roof curbs for mechanical equipment. Also known as: roof hatch: scuttle.
+------------------------------------------------------------
+
+Query: 'HS-1. Description: Accessory: Hand Sink-1. Item Specification: Serv-Ware Model HS15-CWP or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 28 26 Title: Hygiene and Custodial Accessories Includes: items such as hand sanitizers and other non-toilet accessories.
+   [2] Context: DIVISION 01: GENERAL REQUIREMENTS Code: 01 52 19 Title: Sanitary Facilities
+   [3] Context: DIVISION 22: PLUMBING Code: 22 43 16 Title: Healthcare Sinks
+------------------------------------------------------------
+
+Query: 'M-1. Description: Accessory: Mirror Type-1. Item Specification: Speci Model SPECI 5676 or equal'  [20260727_124252]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 83 00 Title: Mirrors Includes: unframed mirrors of any material.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 28 26 Title: Hygiene and Custodial Accessories Includes: items such as hand sanitizers and other non-toilet accessories.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 72 00 Title: Roof Accessories Includes: accessories installed on or in roofing other than mechanical or structural items. May include: roof curbs for mechanical equipment. Also known as: roof hatch: scuttle.
+------------------------------------------------------------
+
+Query: 'M-2. Description: Accessory: Mirror Type-2. Item Specification: Elan Model 84171 or equal'  [20260727_124252]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 83 00 Title: Mirrors Includes: unframed mirrors of any material.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 28 26 Title: Hygiene and Custodial Accessories Includes: items such as hand sanitizers and other non-toilet accessories.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 72 00 Title: Roof Accessories Includes: accessories installed on or in roofing other than mechanical or structural items. May include: roof curbs for mechanical equipment. Also known as: roof hatch: scuttle.
+------------------------------------------------------------
+
+Query: 'M-3. Description: Accessory: Mirror Type-3. Item Specification: Modo Bath Model TS TS-R or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 28 16.13 Title: Residential Bath Accessories
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 28 16 Title: Bath Accessories Includes: accessories associated with residential bathroom use. May include: shower and tub doors for residential bathroom use.
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 28 00 Title: Toilet, Bath, and Laundry Accessories Includes: manufactured items for use in conjunction with toilets, baths, and laundries.
+------------------------------------------------------------
+
+Query: 'MS-1. Description: Accessory: Mop Sink. Item Specification: Proflo Model PFMB2424 or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 28 26 Title: Hygiene and Custodial Accessories Includes: items such as hand sanitizers and other non-toilet accessories.
+   [2] Context: DIVISION 12: FURNISHINGS Code: 12 30 00 Title: Casework Includes: stock modular cabinets and other casework units of any material. Countertops. Sinks integral with countertops. Laboratory countertops with integral sinks and fixtures and accessories mounted on countertops. Also known as: casework: cabinets: cabinetry.
+   [3] Context: DIVISION 22: PLUMBING Code: 22 42 16.16 Title: Commercial Sinks
+------------------------------------------------------------
+
+Query: 'P-1. Description: Accessory: SS Partition Wall Upto . Item Specification: Global Partitions Model PCSBW or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 22 23 Title: Portable Partitions, Screens, and Panels Includes: wall screens, movable panel systems, and partitions that are not connected to permanent construction.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 28 13 Title: Toilet Accessories Includes: accessories associated with public toilet rooms. Accessories mounted on or recessed in partitions and compartments. Usually Includes: janitor's closet and other similar accessories. Also known as: toilet accessories: rest room accessories.
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 22 00 Title: Partitions Includes: fixed, demountable, and operable fabricated partitions used as enclosures, dividers, and partitions.
+------------------------------------------------------------
+
+Query: 'P-2. Description: Accessory: SS Partition Wall Upto -. Item Specification: Global Partitions Model 95FCSXX or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 22 23 Title: Portable Partitions, Screens, and Panels Includes: wall screens, movable panel systems, and partitions that are not connected to permanent construction.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 28 13 Title: Toilet Accessories Includes: accessories associated with public toilet rooms. Accessories mounted on or recessed in partitions and compartments. Usually Includes: janitor's closet and other similar accessories. Also known as: toilet accessories: rest room accessories.
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 22 39.13 Title: Folding Glass-Panel Partitions Includes: manually operated, glass-panel partitions, closures, hardware, seals, suspension systems, tracks, carriers, and accessories.
+------------------------------------------------------------
+
+Query: 'P-3. Description: Accessory: SS Partition Wall Upto . Item Specification: Global Partitions Model PCSBW or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 22 23 Title: Portable Partitions, Screens, and Panels Includes: wall screens, movable panel systems, and partitions that are not connected to permanent construction.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 28 13 Title: Toilet Accessories Includes: accessories associated with public toilet rooms. Accessories mounted on or recessed in partitions and compartments. Usually Includes: janitor's closet and other similar accessories. Also known as: toilet accessories: rest room accessories.
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 22 39.13 Title: Folding Glass-Panel Partitions Includes: manually operated, glass-panel partitions, closures, hardware, seals, suspension systems, tracks, carriers, and accessories.
+------------------------------------------------------------
+
+Query: 'S-1. Description: Accessory: Shower Head. Item Specification: Kohler Model K-22170-CP or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 21 16.14 Title: Stainless-Steel Shower and Dressing Compartments Includes: stainless-steel shower and dressing compartments and shower receptors, anchors, hardware, and accessories.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 21 16.17 Title: Phenolic-Core Shower and Dressing Compartments Includes: phenolic-core shower and dressing compartments and shower receptors, anchors, hardware, and accessories.
+   [3] Context: DIVISION 22: PLUMBING Code: 22 43 23 Title: Healthcare Showers
+------------------------------------------------------------
+
+Query: 'U-1. Description: Accessory: Urinal STD. Item Specification: TOTO Model UT104E#01 or equal'  [20260727_124252]
+   [1] Context: DIVISION 22: PLUMBING Code: 22 42 13.16 Title: Commercial Urinals
+   [2] Context: DIVISION 22: PLUMBING Code: 22 41 13.16 Title: Residential Urinals
+   [3] Context: DIVISION 01: GENERAL REQUIREMENTS Code: 01 22 00 Title: Unit Prices Includes: administrative and procedural requirements for unit prices and measurement and payment. May include: list and description of unit price items.
+------------------------------------------------------------
+
+Query: 'U-2. Description: Accessory: Urinal ACC. Item Specification: TOTO Model UT104E#01 or equal'  [20260727_124252]
+   [1] Context: DIVISION 22: PLUMBING Code: 22 46 13.16 Title: Security Urinals
+   [2] Context: DIVISION 22: PLUMBING Code: 22 42 13.16 Title: Commercial Urinals
+   [3] Context: DIVISION 22: PLUMBING Code: 22 41 13.16 Title: Residential Urinals
+------------------------------------------------------------
+
+Query: 'U-3. Description: Accessory: Utility Hooks. Item Specification: Ives Model 581A92 or equal'  [20260727_124252]
+   [1] Context: DIVISION 33: UTILITIES Code: 33 72 63.31 Title: Hook Sticks
+   [2] Context: DIVISION 33: UTILITIES Code: 33 05 83 Title: Non-Metallic Accessories for Utility Structures Includes: fiberglass covers for manholes, chambers, and vaults, polypropylene steps for manholes, and other non-metallic accessories for buried utility structures.
+   [3] Context: DIVISION 12: FURNISHINGS Code: 12 55 26 Title: Detention Safety Clothes Hooks
+------------------------------------------------------------
+
+Query: 'WC-1. Description: Accessory: Water Closet STD. Item Specification: Sloan Model 20231001 or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 28 13 Title: Toilet Accessories Includes: accessories associated with public toilet rooms. Accessories mounted on or recessed in partitions and compartments. Usually Includes: janitor's closet and other similar accessories. Also known as: toilet accessories: rest room accessories.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 28 13.19 Title: Healthcare Toilet Accessories
+   [3] Context: DIVISION 22: PLUMBING Code: 22 41 13 Title: Residential Water Closets, Urinals, and Bidets
+------------------------------------------------------------
+
+Query: 'WC-2. Description: Accessory: Water Closet ACC. Item Specification: Sloan Model 20231001 or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 28 13 Title: Toilet Accessories Includes: accessories associated with public toilet rooms. Accessories mounted on or recessed in partitions and compartments. Usually Includes: janitor's closet and other similar accessories. Also known as: toilet accessories: rest room accessories.
+   [2] Context: DIVISION 10: SPECIALTIES Code: 10 06 20.13 Title: Toilet, Bath, and Laundry Accessory Schedule
+   [3] Context: DIVISION 22: PLUMBING Code: 22 42 13.13 Title: Commercial Water Closets
+------------------------------------------------------------
+
+Query: 'WH-1. Description: Accessory: Water Heater. Item Specification: Cycloner MXI Modulating Model BTH-120 MXI or equal'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 32 26 Title: Fireplace Water Heaters
+   [2] Context: DIVISION 22: PLUMBING Code: 22 33 00 Title: Electric Domestic Water Heaters Includes: electric equipment to heat domestic water. Also known as: residential: household.
+   [3] Context: DIVISION 22: PLUMBING Code: 22 06 30.13 Title: Domestic Water Heater Schedule
+------------------------------------------------------------
+
+Query: 'WF-1. Description: Accessory: Water Fountain. Item Specification: Elkay Model EZSTL8LC or equal'  [20260727_124252]
+   [1] Context: DIVISION 22: PLUMBING Code: 22 52 19 Title: Fountain Water Treatment Equipment
+   [2] Context: DIVISION 22: PLUMBING Code: 22 47 00 Title: Drinking Fountains and Water Coolers
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 28 26 Title: Hygiene and Custodial Accessories Includes: items such as hand sanitizers and other non-toilet accessories.
+------------------------------------------------------------
+
+Query: 'Exterior PVC Plank. Description: Ceiling material. Standing Seam - Galvalume Coated - Regal Blue or approved equal. Applied to ceiling in Lobby'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 56 19 Title: Plastic-Panel Textured Ceilings
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 57 00 Title: Coated Foamed Roofing Includes: roofing assemblies consisting of spray-applied materials which expand through chemical reaction and an elastomeric coating.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 10 00 Title: Dampproofing and Waterproofing Includes: dampproofing materials used to resist moisture penetration through foundation walls and similar surfaces subject to high humidity, dampness, or direct water contact, but not subject to hydraulic pressures. Impervious waterproofing membranes, coatings, and other materials applied to walls, slabs, decks, and other surfaces subject to hydrostatic pressure or water immersion. Boards and coatings, and drainage media integral to dampproofing and waterproofing.
+------------------------------------------------------------
+
+Query: 'Exterior PVC Plank. Description: Ceiling material. Standing Seam - Galvalume Coated - Regal Blue or approved equal. Applied to ceiling in Family Restroom'  [20260727_124252]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 41 33 Title: Plastic Roof Panels
+   [2] Context: DIVISION 09: FINISHES Code: 09 78 26 Title: Plastic Interior Wall Paneling
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 61 13 Title: Standing Seam Sheet Metal Roofing
+------------------------------------------------------------
+
+Query: 'Exterior PVC Plank. Description: Ceiling material. Standing Seam - Galvalume Coated - Regal Blue or approved equal. Applied to ceiling in Mens Restroom'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 56 19 Title: Plastic-Panel Textured Ceilings
+   [2] Context: DIVISION 09: FINISHES Code: 09 54 29 Title: Suspended Plastic Ceilings
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 57 00 Title: Coated Foamed Roofing Includes: roofing assemblies consisting of spray-applied materials which expand through chemical reaction and an elastomeric coating.
+------------------------------------------------------------
+
+Query: 'Exterior PVC Plank. Description: Ceiling material. Standing Seam - Galvalume Coated - Regal Blue or approved equal. Applied to ceiling in Womens Restroom'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 54 29 Title: Suspended Plastic Ceilings
+   [2] Context: DIVISION 09: FINISHES Code: 09 78 26 Title: Plastic Interior Wall Paneling
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 57 00 Title: Coated Foamed Roofing Includes: roofing assemblies consisting of spray-applied materials which expand through chemical reaction and an elastomeric coating.
+------------------------------------------------------------
+
+Query: 'Ceramic Tile (Anti-Slip). Description: Floor. Trafficmaster, Baja Gray - Matte Finish or approved equal. Applied to floor in Lobby'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 30 13 Title: Ceramic Tiling Includes: ceramic tile: porcelain mosaic tile, glazed wall tile, monocuttura tile, and bicottura tile.
+   [2] Context: DIVISION 09: FINISHES Code: 09 31 13 Title: Thin-Set Ceramic Tiling
+   [3] Context: DIVISION 09: FINISHES Code: 09 32 13 Title: Mortar-Bed Ceramic Tiling
+------------------------------------------------------------
+
+Query: 'Ceramic Tile (Anti-Slip). Description: Floor. Trafficmaster, Baja Gray - Matte Finish or approved equal. Applied to floor in Shower Room'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 30 13 Title: Ceramic Tiling Includes: ceramic tile: porcelain mosaic tile, glazed wall tile, monocuttura tile, and bicottura tile.
+   [2] Context: DIVISION 09: FINISHES Code: 09 32 13 Title: Mortar-Bed Ceramic Tiling
+   [3] Context: DIVISION 09: FINISHES Code: 09 34 13 Title: Waterproofing-Membrane Ceramic Tiling
+------------------------------------------------------------
+
+Query: 'Ceramic Tile (Anti-Slip). Description: Floor. Trafficmaster, Baja Gray - Matte Finish or approved equal. Applied to floor in Family Restroom'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 30 13 Title: Ceramic Tiling Includes: ceramic tile: porcelain mosaic tile, glazed wall tile, monocuttura tile, and bicottura tile.
+   [2] Context: DIVISION 09: FINISHES Code: 09 31 13 Title: Thin-Set Ceramic Tiling
+   [3] Context: DIVISION 09: FINISHES Code: 09 32 13 Title: Mortar-Bed Ceramic Tiling
+------------------------------------------------------------
+
+Query: 'Ceramic Tile (Anti-Slip). Description: Floor. Trafficmaster, Baja Gray - Matte Finish or approved equal. Applied to floor in Mens Restroom'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 30 13 Title: Ceramic Tiling Includes: ceramic tile: porcelain mosaic tile, glazed wall tile, monocuttura tile, and bicottura tile.
+   [2] Context: DIVISION 09: FINISHES Code: 09 31 13 Title: Thin-Set Ceramic Tiling
+   [3] Context: DIVISION 09: FINISHES Code: 09 34 13 Title: Waterproofing-Membrane Ceramic Tiling
+------------------------------------------------------------
+
+Query: 'Ceramic Tile (Anti-Slip). Description: Floor. Trafficmaster, Baja Gray - Matte Finish or approved equal. Applied to floor in Womens Restroom'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 30 13 Title: Ceramic Tiling Includes: ceramic tile: porcelain mosaic tile, glazed wall tile, monocuttura tile, and bicottura tile.
+   [2] Context: DIVISION 09: FINISHES Code: 09 35 13 Title: Chemical-Resistant Ceramic Tiling
+   [3] Context: DIVISION 09: FINISHES Code: 09 31 13 Title: Thin-Set Ceramic Tiling
+------------------------------------------------------------
+
+Query: 'Sealed Concrete. Description: Floor. Light Grey or approved equal. Applied to floor in Utility Room and Seating Area'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 61 19 Title: Concrete Floor Staining
+   [2] Context: DIVISION 09: FINISHES Code: 09 62 16 Title: Concrete Plank Flooring
+   [3] Context: DIVISION 03: CONCRETE Code: 03 35 16 Title: Heavy-Duty Concrete Floor Finishing Includes: finishes to reinforce high weight bearing, high traffic, high usage areas.
+------------------------------------------------------------
+
+Query: 'Moisture Resistant Ceiling Tile. Description: Wall. Armstrong, Fine Fissured - Ivory or approved equal. Applied to wall in Shower Room'  [20260727_124252]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 25 00 Title: Weather Barriers Includes: materials applied separately in wall, roof, and floor assemblies to resist vapor penetration, primarily to mitigate the consequences of thermal variation. Materials installed at walls, roof-wall connections, perimeter of door and window openings, and similar locations to provide a continuous, impermeable barrier to air infiltration or loss.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 10 00 Title: Dampproofing and Waterproofing Includes: dampproofing materials used to resist moisture penetration through foundation walls and similar surfaces subject to high humidity, dampness, or direct water contact, but not subject to hydraulic pressures. Impervious waterproofing membranes, coatings, and other materials applied to walls, slabs, decks, and other surfaces subject to hydrostatic pressure or water immersion. Boards and coatings, and drainage media integral to dampproofing and waterproofing.
+   [3] Context: DIVISION 09: FINISHES Code: 09 35 13 Title: Chemical-Resistant Ceramic Tiling
+------------------------------------------------------------
+
+Query: 'Interior Latex Wall Paint. Description: Wall. Sherwin Williams, SW-1668 (Pineapple Cream) or approved equal. Applied to wall in Lobby'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 91 23 Title: Interior Painting
+   [2] Context: DIVISION 09: FINISHES Code: 09 70 00 Title: Wall Finishes Includes: wall finishes applied over solid substrates.
+   [3] Context: DIVISION 09: FINISHES Code: 09 06 90.13 Title: Paint Schedule
+------------------------------------------------------------
+
+Query: 'Interior Latex Wall Paint. Description: Wall. Sherwin Williams, SW-1668 (Pineapple Cream) or approved equal. Applied to wall in Family Restroom'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 91 23 Title: Interior Painting
+   [2] Context: DIVISION 09: FINISHES Code: 09 70 00 Title: Wall Finishes Includes: wall finishes applied over solid substrates.
+   [3] Context: DIVISION 09: FINISHES Code: 09 06 90.13 Title: Paint Schedule
+------------------------------------------------------------
+
+Query: 'Interior Latex Wall Paint. Description: Wall. Sherwin Williams, SW-1668 (Pineapple Cream) or approved equal. Applied to wall in Mens Restroom'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 91 23 Title: Interior Painting
+   [2] Context: DIVISION 09: FINISHES Code: 09 70 00 Title: Wall Finishes Includes: wall finishes applied over solid substrates.
+   [3] Context: DIVISION 09: FINISHES Code: 09 06 90.13 Title: Paint Schedule
+------------------------------------------------------------
+
+Query: 'Interior Latex Wall Paint. Description: Wall. Sherwin Williams, SW-1668 (Pineapple Cream) or approved equal. Applied to wall in Womens Restroom'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 91 23 Title: Interior Painting
+   [2] Context: DIVISION 09: FINISHES Code: 09 70 00 Title: Wall Finishes Includes: wall finishes applied over solid substrates.
+   [3] Context: DIVISION 09: FINISHES Code: 09 06 90.13 Title: Paint Schedule
+------------------------------------------------------------
+
+Query: 'Interior Latex Wall Paint. Description: Wall. Sherwin Williams, SW-1668 (Pineapple Cream) or approved equal. Applied to wall in Utility Room and Seating Area'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 91 23 Title: Interior Painting
+   [2] Context: DIVISION 09: FINISHES Code: 09 70 00 Title: Wall Finishes Includes: wall finishes applied over solid substrates.
+   [3] Context: DIVISION 09: FINISHES Code: 09 06 90.13 Title: Paint Schedule
+------------------------------------------------------------
+
+Query: 'Plaster Board. Description: Wall. Applied to wall in Shower Room'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 20 00 Title: Plaster and Gypsum Board Includes: non-structural metal support assemblies for plaster and gypsum board. Exterior and interior veneer plaster, acoustical plaster, plaster partitions, and plaster fireproofing. Exterior and interior gypsum board, gypsum board assemblies, accessories, and trim. May include: acoustical insulation and sealants.
+   [2] Context: DIVISION 09: FINISHES Code: 09 21 00 Title: Plaster and Gypsum Board Assemblies Includes: plaster, lath, board, non-structural framing, accessories, and trim for plaster and gypsum board assemblies.
+   [3] Context: DIVISION 09: FINISHES Code: 09 01 20 Title: Maintenance of Plaster and Gypsum Board
+------------------------------------------------------------
+
+Query: 'Brick Cladding. Description: Wall. Brickworks Glen-Gery, Mountain Shadow Smooth or approved equal. Applied to wall in Shower Room'  [20260727_124252]
+   [1] Context: DIVISION 04: MASONRY Code: 04 21 13 Title: Brick Masonry
+   [2] Context: DIVISION 09: FINISHES Code: 09 70 00 Title: Wall Finishes Includes: wall finishes applied over solid substrates.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 64 13 Title: Standing Seam Sheet Metal Wall Cladding
+------------------------------------------------------------
+
+Query: 'Ceramic Wall Tile. Description: Wall. Daltile, Glacier White - Glossy Finish or approved equal. Applied to wall in Shower Room'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 30 13 Title: Ceramic Tiling Includes: ceramic tile: porcelain mosaic tile, glazed wall tile, monocuttura tile, and bicottura tile.
+   [2] Context: DIVISION 09: FINISHES Code: 09 31 13 Title: Thin-Set Ceramic Tiling
+   [3] Context: DIVISION 09: FINISHES Code: 09 32 13 Title: Mortar-Bed Ceramic Tiling
+------------------------------------------------------------
+
+Query: 'Ceramic Wall Tile. Description: Wall. Daltile, Glacier White - Glossy Finish or approved equal. Applied to wall in Family Restroom'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 30 13 Title: Ceramic Tiling Includes: ceramic tile: porcelain mosaic tile, glazed wall tile, monocuttura tile, and bicottura tile.
+   [2] Context: DIVISION 09: FINISHES Code: 09 31 13 Title: Thin-Set Ceramic Tiling
+   [3] Context: DIVISION 09: FINISHES Code: 09 32 13 Title: Mortar-Bed Ceramic Tiling
+------------------------------------------------------------
+
+Query: 'Ceramic Wall Tile. Description: Wall. Daltile, Glacier White - Glossy Finish or approved equal. Applied to wall in Mens Restroom'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 30 13 Title: Ceramic Tiling Includes: ceramic tile: porcelain mosaic tile, glazed wall tile, monocuttura tile, and bicottura tile.
+   [2] Context: DIVISION 09: FINISHES Code: 09 31 13 Title: Thin-Set Ceramic Tiling
+   [3] Context: DIVISION 09: FINISHES Code: 09 32 13 Title: Mortar-Bed Ceramic Tiling
+------------------------------------------------------------
+
+Query: 'Ceramic Wall Tile. Description: Wall. Daltile, Glacier White - Glossy Finish or approved equal. Applied to wall in Womens Restroom'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 30 13 Title: Ceramic Tiling Includes: ceramic tile: porcelain mosaic tile, glazed wall tile, monocuttura tile, and bicottura tile.
+   [2] Context: DIVISION 09: FINISHES Code: 09 31 13 Title: Thin-Set Ceramic Tiling
+   [3] Context: DIVISION 09: FINISHES Code: 09 32 13 Title: Mortar-Bed Ceramic Tiling
+------------------------------------------------------------
+
+Query: 'Sealed Concrete Flooring. Description: Tag 1. Brand/Manufacturer: NA. Type/Color: Light Grey or approved equal'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 61 19 Title: Concrete Floor Staining
+   [2] Context: DIVISION 09: FINISHES Code: 09 62 16 Title: Concrete Plank Flooring
+   [3] Context: DIVISION 03: CONCRETE Code: 03 35 13 Title: High-Tolerance Concrete Floor Finishing
+------------------------------------------------------------
+
+Query: 'Moisture Resistant Ceiling Tile. Description: Tag 3. Brand/Manufacturer: Armstrong. Type/Color: Fine Fissured - Ivory or approved equal'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 35 00 Title: Chemical-Resistant Tiling Includes: tiling with chemical-resistant tile, mortar, and grout.
+   [2] Context: DIVISION 09: FINISHES Code: 09 51 23 Title: Acoustical Tile Ceilings
+   [3] Context: DIVISION 09: FINISHES Code: 09 50 00 Title: Ceilings Includes: ceiling panels, units, and materials manufactured as finished ceiling surfaces. Ceiling suspension assemblies.
+------------------------------------------------------------
+
+Query: 'Fiber Cement Board. Description: Tag 4. Brand/Manufacturer: Allura. Type/Color: White or approved equal'  [20260727_124252]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 46 Title: Fiber-Cement Siding
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 42 46 Title: Cementitious Wall Panels Includes: panels manufactured from high modulus concrete and fiber-reinforced cement.
+   [3] Context: DIVISION 09: FINISHES Code: 09 28 13 Title: Cementitious Backing Boards
+------------------------------------------------------------
+
+Query: 'Metal Roof Panel. Description: Tag 5. Brand/Manufacturer: NA. Type/Color: Standing Seam - Galvalume Coated - Regal Blue or approved equal'  [20260727_124252]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 41 13 Title: Metal Roof Panels
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 41 00 Title: Roof Panels Includes: manufactured roof panels and fabricated panel assemblies. Fabricated roof panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish. Aluminum, copper, steel, stainless steel, and terne metal roof panels. Batten seam, flat seam, and standing seam metal roof panels.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 41 16 Title: Insulated Metal Roof Panels
+------------------------------------------------------------
+
+Query: 'Metal Box Gutter with Downspout. Description: Tag 6. Brand/Manufacturer: NA. Type/Color: Galvalume Coated - Black Powder Coated Finish or approved equal'  [20260727_124252]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 71 23 Title: Manufactured Gutters and Downspouts
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 62 23 Title: Fabricated Gutters and Downspouts
+   [3] Context: DIVISION 10: SPECIALTIES Code: 10 26 00 Title: Wall and Door Protection Includes: manufactured protective devices for walls and doors made of metal, plastic, rubber, and other finish materials.
+------------------------------------------------------------
+
+Query: 'Metal Fascia Trim Board. Description: Tag 7. Brand/Manufacturer: NA. Type/Color: Regal Blue or approved equal'  [20260727_124252]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 62 00 Title: Sheet Metal Flashing and Trim Includes: shop and field-formed accessories and trim. May include: metal flashing for masonry.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 60 00 Title: Flashing and Sheet Metal Includes: sheet metal roofing, accessories, and trim, and specialties associated with roofing, and metal and other flexible flashings for roofing and wall construction.
+   [3] Context: DIVISION 09: FINISHES Code: 09 29 00 Title: Gypsum Board Includes: unfinished and prefinished gypsum board over metal and wood framing; accessories and trim; joint taping and finishing. May include: non-structural metal framing, ceiling suspension, and furring systems. Gypsum and cementitious backing board for other finishes. Also known as: gypsum board: gypsum wallboard: drywall.
+------------------------------------------------------------
+
+Query: 'Exterior Fiber Cement Panel Siding. Description: Tag 8. Brand/Manufacturer: James Hardie. Type/Color: Cedarmill Texture - PTD to Silver Herring or approved equal'  [20260727_124252]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 46 Title: Fiber-Cement Siding
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 42 46 Title: Cementitious Wall Panels Includes: panels manufactured from high modulus concrete and fiber-reinforced cement.
+------------------------------------------------------------
+
+Query: 'Exterior Fiber Glass Column Wrap. Description: Tag 9. Brand/Manufacturer: Resinart. Type/Color: Duracraft - White or approved equal'  [20260727_124252]
+   [1] Context: DIVISION 03: CONCRETE Code: 03 49 13 Title: Glass-Fiber-Reinforced Concrete Column Covers
+   [2] Context: DIVISION 09: FINISHES Code: 09 27 13 Title: Glass-Fiber-Reinforced Gypsum Fabrications
+   [3] Context: DIVISION 09: FINISHES Code: 09 27 00 Title: Plaster Fabrications Includes: glass-fiber-reinforced plaster and simulated plaster fabrications. Also known as: GFRP: glass-fiber-reinforced plaster.
+------------------------------------------------------------
+
+Query: 'Brick Masonry Anchored Cladding. Description: Tag 10. Brand/Manufacturer: Brickworks Glen-Gery. Type/Color: Mountain Shadow Smooth or approved equal'  [20260727_124252]
+   [1] Context: DIVISION 04: MASONRY Code: 04 21 13 Title: Brick Masonry
+   [2] Context: DIVISION 04: MASONRY Code: 04 71 00 Title: Manufactured Brick Masonry
+   [3] Context: DIVISION 04: MASONRY Code: 04 70 00 Title: Manufactured Masonry Includes: hydraulically compressed veneer masonry units and artificial stone products. Various types of manufactured masonry. Also known as: manufactured masonry: simulated masonry. Manufactured stone: artificial stone: simulated stone.
+------------------------------------------------------------
+
+Query: 'Exterior Fiber Cement Trim. Description: Tag 11. Brand/Manufacturer: James Hardie. Type/Color: Smooth Texture - Primed Finish - PTD to SW - Extra White or approved equal'  [20260727_124252]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 46 Title: Fiber-Cement Siding
+   [2] Context: DIVISION 32: EXTERIOR IMPROVEMENTS Code: 32 11 33 Title: Cement-Treated Base Courses
+   [3] Context: DIVISION 09: FINISHES Code: 09 30 00 Title: Tiling Includes: manufactured surfacing units of impervious, vitreous, semi-vitreous, and non-vitreous materials; glazed, unglazed, conductive, abrasive, and textured surfaces. Related mortar, adhesives, grout, trim, and accessories. Related antifracture membranes. Tile towel bar holders, toilet paper holders, soap dishes, and other tile accessories. Tiling by tile material. May include: tile murals.
+------------------------------------------------------------
+
+Query: 'Metal Soffit (Perforated). Description: Tag 12. Brand/Manufacturer: NA. Type/Color: Regal Blue or approved equal'  [20260727_124252]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 42 93 Title: Soffit Panels
+   [2] Context: DIVISION 08: OPENINGS Code: 08 95 13 Title: Soffit Vents
+   [3] Context: DIVISION 12: FURNISHINGS Code: 12 31 00 Title: Manufactured Metal Casework Includes: casework manufactured of metal or surfaced in metal. May include: countertops and sinks and lavatories integral with countertops.
+------------------------------------------------------------
+
+Query: 'Exterior Fiber Cement Artisan Siding. Description: Tag 13. Brand/Manufacturer: James Hardie. Type/Color: V-Groove - Primed Finish - PTD to SW - Olympus White or approved equal'  [20260727_124252]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 46 Title: Fiber-Cement Siding
+   [2] Context: DIVISION 09: FINISHES Code: 09 93 13.53 Title: Exterior Finishing
+   [3] Context: DIVISION 09: FINISHES Code: 09 93 13.13 Title: Exterior Staining
+------------------------------------------------------------
+
+Query: 'Rubber Cove Base. Description: Tag 16. Brand/Manufacturer: Roppe. Type/Color: Pinnacle Dark Gray Matte - or approved equal'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 65 16.33 Title: Rubber Sheet Flooring
+   [2] Context: DIVISION 32: EXTERIOR IMPROVEMENTS Code: 32 17 16 Title: Manufactured Traffic-Calming Devices Includes: preformed rubber or plastic traffic-calming devices; including speed bumps, speed humps, and speed cushions; applied to pavement. Does Not Include: site-formed or cut calming items integral with the paving.
+   [3] Context: DIVISION 32: EXTERIOR IMPROVEMENTS Code: 32 12 16.33 Title: Granulated Rubber-Modified Asphalt Paving
+------------------------------------------------------------
+
+Query: 'Door-D1. Description: No. of Doors: 4, Size W: -, H: -, T: -1 , Material: STL, Panel Type: P1, Frame Material: HM, Frame Type: DF1, Finish: PTD - PTM1, Hardware: Satin Chrome Finish'  [20260727_124252]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 10 00 Title: Doors and Frames Includes: doors and door assemblies for a variety of purposes and types of operation. Fire-resistant rated doors and frames. Usually Includes: glazing accessories in doors, louvers integral to door construction, and louvers in fire-resistant rated doors.
+   [2] Context: DIVISION 08: OPENINGS Code: 08 17 00 Title: Integrated Door Opening Assemblies Includes: assemblies, manufactured of a variety of materials, complete with doors, frames, and hardware. Also known as: integrated door opening assemblies: preassembled door assemblies: packaged door assemblies: pre-hung doors.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 11 13.16 Title: Custom Hollow Metal Doors and Frames
+------------------------------------------------------------
+
+Query: 'Door-D2. Description: No. of Doors: 1, Size W: -, H: -, T: -1 , Material: STL, Panel Type: P2, Frame Material: HM, Frame Type: DF2, Finish: PTD - PTM1, Hardware: Satin Chrome Finish'  [20260727_124252]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 10 00 Title: Doors and Frames Includes: doors and door assemblies for a variety of purposes and types of operation. Fire-resistant rated doors and frames. Usually Includes: glazing accessories in doors, louvers integral to door construction, and louvers in fire-resistant rated doors.
+   [2] Context: DIVISION 08: OPENINGS Code: 08 17 00 Title: Integrated Door Opening Assemblies Includes: assemblies, manufactured of a variety of materials, complete with doors, frames, and hardware. Also known as: integrated door opening assemblies: preassembled door assemblies: packaged door assemblies: pre-hung doors.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 11 13.13 Title: Standard Hollow Metal Doors and Frames
+------------------------------------------------------------
+
+Query: 'Window-W1. Description: No. of Windows: 2, Size W: -, H: -, T: -, Sash Material: Glass, Sash Type: W1, Frame Material: Aluminum, Frame Type: W1, Finish: Powder Coated'  [20260727_124252]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 51 13 Title: Aluminum Windows
+   [2] Context: DIVISION 08: OPENINGS Code: 08 54 00 Title: Composite Windows Includes: windows framed with composite materials.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 06 50 Title: Window Schedule
+------------------------------------------------------------
+
+Query: 'Window-W2. Description: No. of Windows: 4, Size W: -, H: -, T: -, Sash Material: Glass, Sash Type: W2, Frame Material: Aluminum, Frame Type: W2, Finish: Powder Coated'  [20260727_124252]
+   [1] Context: DIVISION 08: OPENINGS Code: 08 51 13 Title: Aluminum Windows
+   [2] Context: DIVISION 08: OPENINGS Code: 08 54 00 Title: Composite Windows Includes: windows framed with composite materials.
+   [3] Context: DIVISION 08: OPENINGS Code: 08 54 73 Title: Vinyl-Wood Composite Windows
+------------------------------------------------------------
+
+Query: 'Metal Stud. Description: 3 metal stud framing. . Used with one layer of cementitious backer board and ceramic tile upto from FFL on interior elevations, painted finish above, on both sides'  [20260727_124252]
+   [1] Context: DIVISION 05: METALS Code: 05 41 00 Title: Structural Metal Stud Framing Includes: cold-formed metal framing intended for structural applications. Also known as: structural: loadbearing.
+   [2] Context: DIVISION 09: FINISHES Code: 09 22 16.13 Title: Non-Structural Metal Stud Framing
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 44 00 Title: Faced Panels Includes: roof and wall panels coated on the exterior surface with aggregate, porcelain enamel, ceramic tile, or quarry tile. Fabricated panel assemblies with faced-panel exterior finish. Roof and wall panels composed of fiber-reinforced cementitious material. Fabricated-faced panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish.
+------------------------------------------------------------
+
+Query: 'Cementitious Backer Board. Description: cementitious backer board. . Applied on both sides of 3 metal stud'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 28 13 Title: Cementitious Backing Boards
+   [2] Context: DIVISION 09: FINISHES Code: 09 28 00 Title: Backing Boards and Underlayments Includes: gypsum and cementitious backing board for other finishes.
+   [3] Context: DIVISION 09: FINISHES Code: 09 29 00 Title: Gypsum Board Includes: unfinished and prefinished gypsum board over metal and wood framing; accessories and trim; joint taping and finishing. May include: non-structural metal framing, ceiling suspension, and furring systems. Gypsum and cementitious backing board for other finishes. Also known as: gypsum board: gypsum wallboard: drywall.
+------------------------------------------------------------
+
+Query: 'Ceramic Tile. Description: Applied upto from FFL on interior elevations. . Painted finish above'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 30 13 Title: Ceramic Tiling Includes: ceramic tile: porcelain mosaic tile, glazed wall tile, monocuttura tile, and bicottura tile.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 44 00 Title: Faced Panels Includes: roof and wall panels coated on the exterior surface with aggregate, porcelain enamel, ceramic tile, or quarry tile. Fabricated panel assemblies with faced-panel exterior finish. Roof and wall panels composed of fiber-reinforced cementitious material. Fabricated-faced panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish.
+   [3] Context: DIVISION 09: FINISHES Code: 09 31 13 Title: Thin-Set Ceramic Tiling
+------------------------------------------------------------
+
+Query: 'Interior Latex Wall Paint. Description: Painted finish above ceramic tile (above from FFL)'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 91 23 Title: Interior Painting
+   [2] Context: DIVISION 09: FINISHES Code: 09 70 00 Title: Wall Finishes Includes: wall finishes applied over solid substrates.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 44 00 Title: Faced Panels Includes: roof and wall panels coated on the exterior surface with aggregate, porcelain enamel, ceramic tile, or quarry tile. Fabricated panel assemblies with faced-panel exterior finish. Roof and wall panels composed of fiber-reinforced cementitious material. Fabricated-faced panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish.
+------------------------------------------------------------
+
+Query: 'Metal Stud. Description: 3 metal stud framing. . Used with one layer of gypsum wallboard with painted finish on one side and cementitious backer board with ceramic tile upto from FFL on other side'  [20260727_124252]
+   [1] Context: DIVISION 05: METALS Code: 05 41 00 Title: Structural Metal Stud Framing Includes: cold-formed metal framing intended for structural applications. Also known as: structural: loadbearing.
+   [2] Context: DIVISION 09: FINISHES Code: 09 22 16.13 Title: Non-Structural Metal Stud Framing
+   [3] Context: DIVISION 05: METALS Code: 05 40 00 Title: Cold-Formed Metal Framing Includes: bracing, fasteners, and related accessories for light-gage, load-bearing metal elements. Usually Includes: shop-applied coatings. May include: framing for plaster and gypsum board systems.
+------------------------------------------------------------
+
+Query: 'Gypsum Wallboard. Description: gypsum wallboard with painted finish'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 29 00 Title: Gypsum Board Includes: unfinished and prefinished gypsum board over metal and wood framing; accessories and trim; joint taping and finishing. May include: non-structural metal framing, ceiling suspension, and furring systems. Gypsum and cementitious backing board for other finishes. Also known as: gypsum board: gypsum wallboard: drywall.
+   [2] Context: DIVISION 09: FINISHES Code: 09 29 82 Title: Gypsum Board Fire Protection Also known as: gypsum board: gypsum wallboard: drywall.
+   [3] Context: DIVISION 09: FINISHES Code: 09 20 00 Title: Plaster and Gypsum Board Includes: non-structural metal support assemblies for plaster and gypsum board. Exterior and interior veneer plaster, acoustical plaster, plaster partitions, and plaster fireproofing. Exterior and interior gypsum board, gypsum board assemblies, accessories, and trim. May include: acoustical insulation and sealants.
+------------------------------------------------------------
+
+Query: 'Cementitious Backer Board. Description: cementitious backer board'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 28 13 Title: Cementitious Backing Boards
+   [2] Context: DIVISION 09: FINISHES Code: 09 28 00 Title: Backing Boards and Underlayments Includes: gypsum and cementitious backing board for other finishes.
+   [3] Context: DIVISION 09: FINISHES Code: 09 29 00 Title: Gypsum Board Includes: unfinished and prefinished gypsum board over metal and wood framing; accessories and trim; joint taping and finishing. May include: non-structural metal framing, ceiling suspension, and furring systems. Gypsum and cementitious backing board for other finishes. Also known as: gypsum board: gypsum wallboard: drywall.
+------------------------------------------------------------
+
+Query: 'Metal Stud. Description: metal stud framing. . Used with cementitious backer board and ceramic tile upto bottom of window opening on interior side, and exterior sheathing with brick cladding and exterior siding panel on exterior side'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 22 16.13 Title: Non-Structural Metal Stud Framing
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 44 00 Title: Faced Panels Includes: roof and wall panels coated on the exterior surface with aggregate, porcelain enamel, ceramic tile, or quarry tile. Fabricated panel assemblies with faced-panel exterior finish. Roof and wall panels composed of fiber-reinforced cementitious material. Fabricated-faced panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish.
+------------------------------------------------------------
+
+Query: 'Ceramic Tile. Description: Applied upto bottom of window opening on interior side'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 31 13 Title: Thin-Set Ceramic Tiling
+   [2] Context: DIVISION 09: FINISHES Code: 09 30 13 Title: Ceramic Tiling Includes: ceramic tile: porcelain mosaic tile, glazed wall tile, monocuttura tile, and bicottura tile.
+   [3] Context: DIVISION 09: FINISHES Code: 09 32 13 Title: Mortar-Bed Ceramic Tiling
+------------------------------------------------------------
+
+Query: 'Exterior Sheathing. Description: Exterior sheathing on exterior side'  [20260727_124252]
+   [1] Context: DIVISION 10: SPECIALTIES Code: 10 71 13.29 Title: Side-Hinged Exterior Shutters
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 40 00 Title: Roofing and Siding Panels Includes: siding, wall panels, and roof panels, with or without integral interior panels or insulation. Fabricated panel assemblies, which may include framing, sheathing, insulation, substrates, interior finish, and exterior finish. May include: roof and wall panels that are used with a fabricated engineered structure.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+------------------------------------------------------------
+
+Query: 'Brick Cladding. Description: Applied upto bottom of window opening on exterior side'  [20260727_124252]
+   [1] Context: DIVISION 04: MASONRY Code: 04 21 13 Title: Brick Masonry
+   [2] Context: DIVISION 04: MASONRY Code: 04 21 13.13 Title: Brick Veneer Masonry
+   [3] Context: DIVISION 04: MASONRY Code: 04 42 00 Title: Exterior Stone Cladding Includes: fabricated stone panels mechanically attached to supporting backup or installed within a supporting system.
+------------------------------------------------------------
+
+Query: 'Exterior Siding Panel. Description: Applied for remaining height above brick cladding on exterior side'  [20260727_124252]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 40 00 Title: Roofing and Siding Panels Includes: siding, wall panels, and roof panels, with or without integral interior panels or insulation. Fabricated panel assemblies, which may include framing, sheathing, insulation, substrates, interior finish, and exterior finish. May include: roof and wall panels that are used with a fabricated engineered structure.
+   [3] Context: DIVISION 04: MASONRY Code: 04 42 00 Title: Exterior Stone Cladding Includes: fabricated stone panels mechanically attached to supporting backup or installed within a supporting system.
+------------------------------------------------------------
+
+Query: 'Metal Stud. Description: metal stud framing. . Used with cementitious backer board and ceramic tile upto - from floor on interior side, and exterior sheathing with brick cladding upto - and exterior siding panel for remaining height on exterior side'  [20260727_124252]
+   [1] Context: DIVISION 05: METALS Code: 05 41 00 Title: Structural Metal Stud Framing Includes: cold-formed metal framing intended for structural applications. Also known as: structural: loadbearing.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [3] Context: DIVISION 04: MASONRY Code: 04 42 16 Title: Steel-Stud-Supported Stone Cladding
+------------------------------------------------------------
+
+Query: 'Ceramic Tile. Description: Applied upto - from floor on interior side'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 30 13 Title: Ceramic Tiling Includes: ceramic tile: porcelain mosaic tile, glazed wall tile, monocuttura tile, and bicottura tile.
+   [2] Context: DIVISION 09: FINISHES Code: 09 32 13 Title: Mortar-Bed Ceramic Tiling
+   [3] Context: DIVISION 09: FINISHES Code: 09 35 13 Title: Chemical-Resistant Ceramic Tiling
+------------------------------------------------------------
+
+Query: 'Brick Cladding. Description: Applied upto - on exterior side'  [20260727_124252]
+   [1] Context: DIVISION 04: MASONRY Code: 04 21 13 Title: Brick Masonry
+   [2] Context: DIVISION 04: MASONRY Code: 04 42 00 Title: Exterior Stone Cladding Includes: fabricated stone panels mechanically attached to supporting backup or installed within a supporting system.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+------------------------------------------------------------
+
+Query: 'Metal Stud. Description: metal stud framing. . Used with cementitious backer board and ceramic tile upto from FFL on interior side with painted finish above, and exterior sheathing with exterior siding panel on exterior side'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 22 16.13 Title: Non-Structural Metal Stud Framing
+   [2] Context: DIVISION 09: FINISHES Code: 09 22 16 Title: Non-Structural Metal Framing
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+------------------------------------------------------------
+
+Query: 'Ceramic Tile. Description: Applied upto from FFL on interior side. . Painted finish above'  [20260727_124252]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 44 00 Title: Faced Panels Includes: roof and wall panels coated on the exterior surface with aggregate, porcelain enamel, ceramic tile, or quarry tile. Fabricated panel assemblies with faced-panel exterior finish. Roof and wall panels composed of fiber-reinforced cementitious material. Fabricated-faced panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish.
+   [2] Context: DIVISION 09: FINISHES Code: 09 30 13 Title: Ceramic Tiling Includes: ceramic tile: porcelain mosaic tile, glazed wall tile, monocuttura tile, and bicottura tile.
+   [3] Context: DIVISION 09: FINISHES Code: 09 31 13 Title: Thin-Set Ceramic Tiling
+------------------------------------------------------------
+
+Query: 'Interior Latex Wall Paint. Description: Painted finish above ceramic tile (above from FFL) on interior side'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 91 23 Title: Interior Painting
+   [2] Context: DIVISION 09: FINISHES Code: 09 70 00 Title: Wall Finishes Includes: wall finishes applied over solid substrates.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 44 00 Title: Faced Panels Includes: roof and wall panels coated on the exterior surface with aggregate, porcelain enamel, ceramic tile, or quarry tile. Fabricated panel assemblies with faced-panel exterior finish. Roof and wall panels composed of fiber-reinforced cementitious material. Fabricated-faced panel assemblies, including other components such as structural framing, insulation, flashing, and interior finish.
+------------------------------------------------------------
+
+Query: 'Exterior Siding Panel. Description: Applied on exterior side'  [20260727_124252]
+   [1] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 00 Title: Siding Includes: shaped or unshaped boards or panels used as exterior surface of a wall or soffit. Fabricated panel assemblies with exterior siding and other components such as structural framing, insulation, flashing, and interior.
+   [2] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 40 00 Title: Roofing and Siding Panels Includes: siding, wall panels, and roof panels, with or without integral interior panels or insulation. Fabricated panel assemblies, which may include framing, sheathing, insulation, substrates, interior finish, and exterior finish. May include: roof and wall panels that are used with a fabricated engineered structure.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 46 63 Title: Fabricated Panel Assemblies with Siding
+------------------------------------------------------------
+
+Query: 'Acoustic and Thermal Insulation Batt. Description: Acoustic and thermal insulation batt within metal stud wall cavity. Shown in partition wall type detail sections on C-302'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 81 00 Title: Acoustic Insulation Includes: insulation to provide acoustical isolation. May include: acoustic insulation for plaster and gypsum board assemblies. Also known as: blanket insulation: batt insulation. Board insulation: rigid insulation: semi-rigid insulation. Sprayed insulation: spray-on insulation.
+   [2] Context: DIVISION 09: FINISHES Code: 09 81 16 Title: Acoustic Blanket Insulation Also known as: blanket insulation: batt insulation.
+   [3] Context: DIVISION 07: THERMAL AND MOISTURE PROTECTION Code: 07 21 16 Title: Blanket Insulation Also known as: blanket insulation: batt insulation.
+------------------------------------------------------------
+
+Query: 'Gypsum Wall Board. Description: gypsum wall board. Shown in partition wall type detail sections (e.g. Type A2, B1, B2, B3) on C-302'  [20260727_124252]
+   [1] Context: DIVISION 09: FINISHES Code: 09 29 00 Title: Gypsum Board Includes: unfinished and prefinished gypsum board over metal and wood framing; accessories and trim; joint taping and finishing. May include: non-structural metal framing, ceiling suspension, and furring systems. Gypsum and cementitious backing board for other finishes. Also known as: gypsum board: gypsum wallboard: drywall.
+   [2] Context: DIVISION 09: FINISHES Code: 09 29 82 Title: Gypsum Board Fire Protection Also known as: gypsum board: gypsum wallboard: drywall.
+   [3] Context: DIVISION 09: FINISHES Code: 09 20 00 Title: Plaster and Gypsum Board Includes: non-structural metal support assemblies for plaster and gypsum board. Exterior and interior veneer plaster, acoustical plaster, plaster partitions, and plaster fireproofing. Exterior and interior gypsum board, gypsum board assemblies, accessories, and trim. May include: acoustical insulation and sealants.
+------------------------------------------------------------
+

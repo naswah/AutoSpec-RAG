@@ -17,6 +17,7 @@ load_dotenv(override=True)
 
 MAX_RETRIES = 2
 CATEGORY_OVERRIDE_PATTERN = re.compile(r"^\s*(Door|Window)\s*-\s*\S+", re.IGNORECASE)
+CODE_NAME_PATTERN = re.compile(r"^\s*[A-Za-z]+\s*-?\s*\d+\s*$")
 
 
 def increment_retry_node(state: AgenticState):
@@ -86,31 +87,51 @@ def flatten_nested_categories(materials: list)->list:
 
 def deduplicate_materials(materials: list) -> list:
     """
-    same name + category + csi_division bhayeko lai hataucha
+    Sadharan materials ko lagi: same name + category + csi_division + notes bhayeko items duplicate huncha, ra sabai bhanda dherai 'mentions' bhayeko item matra rakhcha.
+    Code-style names (F-22, Door-1, W1, Window-2, jasto) ko lagi: name + category matra hercha.
+    - Same code + same category bhayo bhane -> duplicate ho, sabai bhanda dherai mentions bhayeko ekutamatra rakhcha.
+    - Same code tara different category bhayo bhane -> duplicate hoina, dubai rakhcha, as it is.
     """
-    seen: set = set()
-    deduplicated = []
+    groups: dict = {}
+    non_dict_items = []
+    order = []
 
     for item in materials:
         if not isinstance(item, dict):
-            deduplicated.append(item)
+            non_dict_items.append(item)
             continue
 
-        name = str(item.get("name") or "").strip().lower()
+        name = str(item.get("name") or "").strip()
         category = str(item.get("category") or "").strip().lower()
-        csi_division = str(item.get("csi_division") or "").strip().lower()
-        note = str(item.get("notes") or "").strip().lower()
 
-        key = (name, category, csi_division, note)
+        name_lower = name.lower()
 
-        if key in seen:
-            continue
+        if CODE_NAME_PATTERN.match(name):
+            # Code-like name (F-22, Door-1, W1, Window-2, etc.): key on name + category only
+            key = (name_lower, category)
+        else:
+            csi_division = str(item.get("csi_division") or "").strip().lower()
+            note = str(item.get("notes") or "").strip().lower()
+            key = (name_lower, category, csi_division, note)
 
-        seen.add(key)
-        deduplicated.append(item)
+        mentions = item.get("mentions")
+        mention_count = len(mentions) if isinstance(mentions, list) else 0
+
+        if key not in groups:
+            groups[key] = item
+            order.append(key)
+        else:
+            existing = groups[key]
+            existing_mentions = existing.get("mentions")
+            existing_count = len(existing_mentions) if isinstance(existing_mentions, list) else 0
+
+            if mention_count > existing_count:
+                groups[key] = item
+
+    deduplicated = [groups[key] for key in order] + non_dict_items
 
     removed = len(materials) - len(deduplicated)
-    print(f"[Deduplication] {removed} duplicate(s) removed. {len(deduplicated)} unique material(s) retained.")
+    print(f"[Deduplication] {removed} duplicate(s) removed (kept the entry with most mentions per group). {len(deduplicated)} unique material(s) retained.")
 
     return deduplicated
 
@@ -242,7 +263,7 @@ if __name__ == "__main__":
     with open(source_file, "r", encoding="utf-8") as f:
         source_data= json.load(f)
  
-    deduplicated_data=deduplicate_materials(source_data)
+    deduplicated_data = deduplicate_materials(source_data)
  
     dedup_output_file= os.path.join(results_folder, f"{pdf_name}_Final_2.json")
     with open(dedup_output_file, "w", encoding="utf-8") as f:
