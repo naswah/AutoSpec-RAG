@@ -56,3 +56,6 @@ Output: Exports the final results into the local/results directory, scale JSON t
 
 ## Output📊
 A structurted JSON with the CSI division, Notes and Descrption of the materials and Category present in the user architectural plan.
+
+### Note
+August 11,2026: Pushed directlty to main branch, dev beanch os now behind.
