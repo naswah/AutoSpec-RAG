@@ -75,8 +75,7 @@ def detect_table_boxes(image_path, min_area_ratio=0.0015, page_no=None):
     vert_lines = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, vert_kernel, iterations=1)
 
     grid = cv2.bitwise_or(horiz_lines, vert_lines)
-    # Mild closing only -- bridges small gaps WITHIN one table's own grid lines,
-    # without reaching far enough to connect separate tables/diagrams together.
+    
     grid = cv2.morphologyEx(grid, cv2.MORPH_CLOSE, np.ones((5, 5), np.uint8), iterations=2)
 
     n_labels, labels, stats, _ = cv2.connectedComponentsWithStats(grid, connectivity=8)
@@ -130,7 +129,6 @@ def remove_color_stamps(cv2_img, sat_thresh=60, val_thresh=50):
     if cv2.countNonZero(stamp_mask) == 0:
         return cv2_img
  
-    # Dilate slightly so anti-aliased edges of the stamp strokes are fully covered.
     stamp_mask = cv2.dilate(stamp_mask, np.ones((3, 3), np.uint8), iterations=1)
     return cv2.inpaint(cv2_img, stamp_mask, 3, cv2.INPAINT_TELEA)
 
@@ -395,6 +393,11 @@ def build_table_reference_text(page_no, page_tables):
         for r in (t.get("records") or [])
     )
 
+    has_schedule_table = any(
+        isinstance(t.get("table_title"), str) and "SCHEDULE" in t["table_title"].upper()
+        for t in page_tables
+    )
+
     header = f"===== OCR-TRANSCRIBED TABLE DATA FOR PAGE {page_no} (reference only -- use this to resolve exact row values) ====="
     if has_matrix_table:
         header += (
@@ -402,6 +405,11 @@ def build_table_reference_text(page_no, page_tables):
             "(see CATEGORY F). Convert EACH pair into its own separate output object -- do NOT "
             "merge multiple pairs into one combined summary sentence, and do NOT add or omit any "
             "room/surface that isn't explicitly present in the pairs below."
+        )
+    if has_schedule_table:
+        header += (
+            "\nNOTE: one or more tables below has a title containing 'SCHEDULE' -- treat EVERY record in that table as a Category B schedule row. Each record's mark/code column "
+            "(e.g. 'mark', 'no', 'tag') becomes the ONLY 'name' for that row's output entry. Every other field in that same record (item, material, size, notes, manufacturer, etc.) must be folded into that ONE entry's 'notes' string -- never emit a second entry using any other field's value as its own 'name', even if it reads like a standalone material."
         )
 
     return f"{header}\n{json.dumps(page_tables, ensure_ascii=False)}"
@@ -431,7 +439,7 @@ def ingestion_agent_node(state: AgenticState):
     - Window & Door Details: E.g., "Fiber Cement Subsills", "Exterior Surrounds", "Door Frames", casing, and moldings.
     - Layered Finishes: E.g., "Gypsum Wallboard", "T&G Decking", vapor barriers, and "Air Space" ventilation gaps.
     - Tagged equipment/fixtures (Category E).
-    - If a material is mentioned multiple times, write it only once. Strictly avoid duplicates. A material is considered identical if it has the same name, notes, and category. The notes could be paraphrased. Keep attention to those and do not rewrite the duplicates. If the same material is used in different locations (e.g., "Gypsum Board" in both "Room- Kitchen" and "Room- Bathroom"), list it separately for each location with the same name and notes but different category.
+    - If a material is mentioned multiple times, write it only once. Strictly avoid duplicates. A material is considered identical if it has the same name, notes, and category. For freeform (non-coded) materials, the notes across separate mentions could be worded slightly differently on the page each time -- treat these as the same material and merge their "mentions" rather than creating two entries; do not invent new wording of your own when merging. For coded/schedule materials, follow the VERBATIM NOTES rule above instead -- these should never need "recognizing as a paraphrase" because they must always be transcribed identically. If the same material is used in different locations (e.g., "Gypsum Board" in both "Room-Kitchen" and "Room-Bathroom"), list it separately for each location with the same name and notes but different category.
 
     ❗WHAT NOT TO EXTRACT:
     - In drawing labelling, if you see labelled materials that are not actually used in the construction, civil engineering, do not extract them.
@@ -463,12 +471,17 @@ def ingestion_agent_node(state: AgenticState):
     - If a code (e.g., F-26, W1, X-02) appears on a plan, elevation, or detail page WITHOUT a full material description next to it, you MUST look through the OTHER pages provided in this same request for the schedule, legend, or detail table that actually defines that code (e.g., a "Window Schedule", "Door Schedule", "Materials Schedule", or detail callout table), and copy the FULL description found there into "notes".
     - NEVER write a vague placeholder describing the act of referencing, such as "Window/shutter code referenced in Window Elevation Details" or "See schedule for details." That is not a material description and is useless downstream. "notes" must always contain the actual material/product description — what it IS, not where else it is mentioned.
     - If you genuinely cannot find the defining schedule/table for a code anywhere in the pages provided in this request, fall back to whatever partial description appears directly next to the code on the page itself (dimensions, material hints, etc.). Only if there is truly zero descriptive text anywhere should "notes" be left empty — never fill it with a description of the reference itself.
-    
-    REMEMBER TO: - Extract where the materials are located for 'category' key into fixed categories: "Interior Wall", "Exterior Wall", "Door", "Window", "Roof", "Room- RoomName", "Room- Typical", "Foundation-Wall", " Foundation-Room" or "Others"  Do not add any other categories by yourself.
 
-    If that information is explicitly provided in the notes or schedules. If the materials applied in room, read the name of the room and provide that as the location context (e.g., "Room- Kitchen Floor", "Room- Bathroom Walls", "Room- Living Room", "Room- Front Porch") in the category key.
+    🚨 VERBATIM NOTES FOR CODED/SCHEDULE ROWS (CRITICAL -- PREVENTS DUPLICATE ENTRIES):
+    - When a "notes" value is being copied from a schedule row, legend entry, or detail callout for a CODE (Category B/C/E/F), you MUST transcribe that row's text VERBATIM -- same words, same order, same punctuation and capitalization as printed. Do NOT paraphrase, reword, summarize, reorder clauses, or "clean up" the wording, even if it reads awkwardly. Two different passes over the SAME schedule row must always produce the EXACT SAME "notes" string, character for character (aside from trivial whitespace), so that duplicate detection downstream can match them.
+    - This verbatim rule applies ONLY to schedule/legend/code-defined "notes" text. It does NOT apply to the "name" field (which should still follow the normalization rules above, e.g. "black asphalt shingles" -> "Asphalt Shingles"), and it does NOT apply to freeform materials with no code (Category A), where notes should still be written in your own words as instructed elsewhere.
+    - If the same code's schedule row is visible again in a later page of this same request (e.g. because it was included as a reference anchor), re-extract its "notes" the exact same way you did the first time -- do not vary the phrasing between occurrences.
+    
+    REMEMBER TO: - Extract where the materials are located for 'category' key into fixed categories: "Interior Wall", "Exterior Wall", "Door", "Window", "Roof", "Room-RoomName", "Room-Typical", "Foundation-Wall", " Foundation-Room" or "Others"  Do not add any other categories by yourself.
+
+    If that information is explicitly provided in the notes or schedules. If the materials applied in room, read the name of the room and provide that as the location context (e.g., "Room-Kitchen Floor", "Room-Bathroom Walls", "Room-Living Room", "Room-Front Porch") in the category key.
     - For category, if the drawing has no clear information, 'notes' could also be read for adding category. For example, if notes section has the descrption: 'Engineered Trusses @ 24 O.C. per layout. Part of Porch Roof Assembly (R2).' Then the category could be 'Roof' because of the mention of porch roof assembly in the notes.
-    - For category, if 'notes' section has anything written as 'Typical Room Assembly' then it the category key must has the value 'Room- Typical' because it is generic and is applied to all  rooms.
+    - For category, if 'notes' section has anything written as 'Typical Room Assembly' then it the category key must has the value 'Room-Typical' because it is generic and is applied to all  rooms.
     - You can see the drawing for category field. Example, if Asphalt Shingles are labelled in roof area of the drawing then the category must be 'Roof'. If the drawing has no clear information, 'notes' could also be read for adding category. For example, if notes section has the descrption: 'Engineered Trusses @ 24 O.C. per layout. Part of Porch Roof Assembly (R2).' Then the category could be 'Roof' because of the mention of porch roof assembly in the notes.
     - CRITICAL: For 'category', if all the mentions have same category then provide the category normally but you must also look at the menstions page. for eg, if mentions has many category like:
         "mentions": [
@@ -484,7 +497,7 @@ def ingestion_agent_node(state: AgenticState):
     then the category key must look like:
     "category": {
             "c1": "Window", 
-            "c2":"Door"
+            "c2":"Door",
     }
     
     ❗IMPORTANT: Never truncate JSON. 
@@ -508,6 +521,60 @@ def ingestion_agent_node(state: AgenticState):
     - **Unique Material Criteria**: A material item is considered identical if it shares the exact same `name` (or `code`), `category`, and `notes`. Do not extract them more than once. If the same material appears in multiple locations, combine all page/view references into a single `mentions` array for that material.
     - **Variation Handling**: If the same material `name` appears elsewhere but has a different `category` or different `notes`, it MUST be listed as a completely separate object in the main list.
     
+    🚨❗IMPORTANT: If Accessories, fitting schedules or fixture schdules comes in a pdf, then make sure you fill the 'category' field with 'Others'.  But if MATERIALS or FINISHES schedule comes, then use location for category if loaction is provided in the table. 
+    **Exception**: If anything related to paint comes in, assign category = Wall
+
+    Example1 for accessory/fixtures/fitting tables:
+    TAG |       Accessory       |   Item-Descption
+    AC-1|Toilet paper dispenser |Bobrick model: B2888 or equal
+
+    then JSON should be:
+    {
+        "name": "AC-1",
+        "notes": "Accessory: Toilet Paper Dispenser. Item Specification: Bobrick Model B2888 or equal.",
+        "category": "Others",
+        "mentions": [
+            {
+                "page_label": "C - 301 - Finishes, Fittings and Accessories Schedule",
+                "view": "Fittings and Accessories Schedule"
+            }
+        ],
+    }
+
+Example2 for materials/finishes schedule:
+TAG     |          Type         | Brand     | Location
+CT-1    |Vinyl Coated Ceiling   |Armstrong  | Dining, Storage, Toilet
+PT-1    |Interior Latex Paint   | Daltile   |Dining, Storage, Kitchen
+
+Then JSON should looks like:
+    {
+        "name": "CT-1",
+        "notes": "Type: Vinyl Coated Ceiling,  Brand: Armstrong, Location: Dining, Storage, Toilet",
+        "category": {
+                    "c1": "Room-Dining", 
+                    "c2": "Room-Storage",
+                    "c3": "Room-Kitchen",
+        },
+        "mentions": [
+            {
+                "page_label": "C - 301 - Materials and Finishes Schedule Schedule",
+                "view": "Material and Finishes Schedule"
+            }
+        ],
+    },
+    {
+        "name": "PT-1",
+        "notes": "Type: Interior Latex Paint,  Brand: Daltile, Location: Dining, Storage, Kitchen",
+        "category": "Interior Wall",    #Since it is paint, explicitly keep the category as wall
+        "mentions": [
+            {
+                "page_label": "C - 301 - Materials and Finishes Schedule Schedule",
+                "view": "Material and Finishes Schedule"
+            },
+        ]
+    },
+ 
+
     #### CATEGORY A: STANDARD MATERIALS (No Codes Present)
     Use this formatting if there is absolutely no schedule code (like F-60 or X-02) associated with the material.
     - Provide "name", "notes", "category" and "mentions". Do NOT include a "code" key.
@@ -516,26 +583,22 @@ def ingestion_agent_node(state: AgenticState):
     {
         "name": "Gypsum Drywall",
         "notes": "1/3' Gypsum Drywall",
-        "category": "Interior Wall",
-        "mentions": [
-          {"page_label": "Sheet 4 of 23 - East Elevation (Front)", "view": "East Elevation (Front) - Exterior Elevation View"},
-          {"page_label": "Sheet 5 of 23 - West Elevation", "view": "Exterior Materials Schedule"}
-        ]
-    },
-    {
-        "name": "Gypsum Drywall",
-        "notes": "1/3' Gypsum Drywall",
-        "category": "Roof",
+        "category": {
+            "c1": "Interior Wall", 
+            "c2": "Roof",
+        },
         "mentions": [
           {"page_label": "Sheet 4 of 23 - East Elevation (Front)", "view": "East Elevation (Front) - Exterior Elevation View"},
           {"page_label": "Sheet 5 of 23 - West Elevation", "view": "Exterior Materials Schedule"}
         ]
     },
 
-    Notice that thge same material must be listed twice because the category is different. If same material isused but of different size (e.g., 1/2' vs 5/8' Gypsum Drywall) then they must be listed as separate items because the notes are different.
+    If same material is used but of different size (e.g., 1/2' vs 5/8' Gypsum Drywall) then they must be listed as separate items because the notes are different.
 
+    
     #### CATEGORY B: CODED MATERIALS & SCHEDULES (Codes Present)
-    Use this formatting if a code (e.g., F-60, X-02) is detected anywhere on the drawing or inside a schedule layout.
+    If the code is a fixture, see CATEGORY E below. Otherwise, if the code is a material or finish, use this formatting.
+    Use this formatting if a code (e.g., F-60, X-02) is detected anywhere on the drawing or inside a schedule layout. 🚨REMEMBER: Use thi format if it is a schedule. the code should be the name and all the otehr info must be in notes section.
     
     1. If it's on a plan view/detail pointing to a layout area:
        - You MUST strip out the "name" key completely. Only use the "code" key with the exact code (e.g., F-60, X-02) as it appears on the drawing.
@@ -551,7 +614,7 @@ def ingestion_agent_node(state: AgenticState):
     {
         "code": "F-60",
         "notes": "HARDWOOD FLOOR, 2-3\" WIDE, FINISH WOOD, TONGUE & GROOVE, STAINED"    //THESE NOTES MAY BE IN ANOTHER PAGE. FIND THAT AND EXTRACT IT. DO NOT LEAVE IT EMPTY.
-        "category": "Room- MainRoom",
+        "category": "Room-MainRoom",
         "mentions": [
           {"page_label": "Sheet 6 of 23", "view": "Main Floor Plan Layout"}
         ]
@@ -559,11 +622,27 @@ def ingestion_agent_node(state: AgenticState):
     {
         "code": "F-62",
         "notes": "FLOOR TILE, ~2\", CERAMIC, HEXAGONAL PATTERN"
-        "category": "Room- Kitchen Floor",
+        "category": "Room-Kitchen Floor",
         "mentions": [
           {"page_label": "Sheet 6 of 23", "view": "Main Floor Plan Layout"}
         ]
     },
+    {
+        "name": "CT-1",
+        "notes": "Type: Vinyl Coated Ceiling,  Brand: Armstrong, Location: Dining, Storage, Toilet",
+        "category": "Room-Toilet",
+        "mentions": [
+            {
+             "page_label": "C - 301 - Materials and Finishes Schedule Schedule",
+             "view": "Material and Finishes Schedule"
+            }
+        ],
+    },
+
+    🚨 ONE ROW = ONE ENTRY (CRITICAL -- PREVENTS SPLIT DUPLICATES LIKE "F-26" + "Astragal"):
+    - If a code (e.g. F-26) and a row from a schedule table both describe the SAME row -- i.e. the code came from a MARK/TAG/NO column and other fields (item, material, size, notes, manufacturer) came from the same row of that same table -- they must produce exactly ONE material entry per Category B, keyed by the code.
+    - Do NOT additionally emit an entry using any other column's value as "name", regardless of whether that value looks like a standalone material (Category A) or a submaterial listed inside a code (Category D). A column value such as an "Item" or "Material" name is notes content for the code's single entry -- it is never its own entry.
+    - This rule applies even when the row's fields are presented to you as separate pre-parsed key/value pairs in an OCR-transcribed table reference block -- a pre-split field structure does not change the fact that they belong to one schedule row and must collapse to one entry.
 
     WHAT NOT TO PROVIDE FOR CATEGORY B:
     {
@@ -586,6 +665,7 @@ def ingestion_agent_node(state: AgenticState):
     },
     Here you can see notes says referenced to some page. Read that page and bring the information up in this section.
 
+    
     ### CATEGORY C: Schedules with numberss
     Table Schedules Processing Rules:
     If a table occurs with numbers in theor 1st column, then put the 'name' key as the notation/number/name of the column 1. The rest information could be aaded to the 'notes' section. The 'category' key must be added in accordance with the title of the table and the 'mentions' key must have the page and the view where the table is loacated and where the codes are present in the user plan.
@@ -594,8 +674,8 @@ def ingestion_agent_node(state: AgenticState):
     NO  |Qty |Width |Height |Matrial Finish |Glazing
     ----|----|------|-------|---------------|--------
     01A | 1  | 5'-0 | 6'-8' | Fibreglass    | -
+    If the above is a door schdule then name should be Door-01A
 
-    If the above is a door schdule then name should be Door- 01A
     Then the JSON must look like:
     {
         "name": "Door-01A",
@@ -607,7 +687,6 @@ def ingestion_agent_node(state: AgenticState):
     }
 
     If Window schdule comes Eg:
-
      NO  |Qty |Width |Height | Volume
      ----|----|------|-------|--------
      0C  | 1  | 5'-0 | 6'-8' | -
@@ -628,8 +707,7 @@ def ingestion_agent_node(state: AgenticState):
     E14  | 1/2" Gypsum Board, Type X, 5/8" thick, fire-rated
     -----|---------------------------------------------------
     E32  | 3/8" OSB Board, Type X, 5/8" thick, fire-rated
-
-    
+ 
     Then the JSON must look like:
     {
         "name": "E14",
@@ -649,15 +727,77 @@ def ingestion_agent_node(state: AgenticState):
         ]
     }
 
+    EXAMPLE 3:
+
+    WINDOWS
+    1    32x72 DH 2/2 DIVIDED LITES
+    2    32x60 DH 2/2 DIVIDED LITES
+    3    24x42 DH 2/2 DIVIDED LITES
+    DOORS
+    A    36x84 9-LITE FRONT DOOR 
+    B    36x80 4-LITE BACK DOOR
+
+    Then the JSON must look like:
+        {
+            "name": "Window-1",
+            "notes": "32x72 DH 2/2 DIVIDED LITES",
+            "category": "Window",
+            "mentions": [
+                {"page_label": "Sheet 4 of 23 - East Elevation (Front)", "view": "East Elevation (Front) - Exterior Elevation View"},
+                {"page_label": "Sheet 5 of 23 - West Elevation", "view": "Exterior Materials Schedule"}
+            ]
+        },
+        {
+            "name": "Window-2",
+            "notes": "32x60 DH 2/2 DIVIDED LITES",
+            "category": "Window",
+            "mentions": [
+                {"page_label": "Sheet 4 of 23 - East Elevation (Front)", "view": "East Elevation (Front) - Exterior Elevation View"},
+                {"page_label": "Sheet 5 of 23 - West Elevation", "view": "Exterior Materials Schedule"}
+            ]
+        },
+        {
+            "name": "Window-3",
+            "notes": "24x42 DH 2/2 DIVIDED LITES",
+            "category": "Window",
+            "mentions": [
+                {"page_label": "Sheet 4 of 23 - East Elevation (Front)", "view": "East Elevation (Front) - Exterior Elevation View"},
+                {"page_label": "Sheet 5 of 23 - West Elevation", "view": "Exterior Materials Schedule"}
+            ]
+        }
+        {
+            "name": "Door-A",
+            "notes": "36x84 9-LITE FRONT DOOR",
+            "category": "Door",
+            "mentions": [
+                {"page_label": "Sheet 4 of 23 - East Elevation (Front)", "view": "East Elevation (Front) - Exterior Elevation View"},
+                {"page_label": "Sheet 5 of 23 - West Elevation", "view": "Exterior Materials Schedule"}
+            ]
+        },
+        {
+            "name": "Door-B",
+            "notes": "36x80 4-LITE BACK DOOR",
+            "category": "Door",
+            "mentions": [
+                {"page_label": "Sheet 4 of 23 - East Elevation (Front)", "view": "East Elevation (Front) - Exterior Elevation View"},
+                {"page_label": "Sheet 5 of 23 - West Elevation", "view": "Exterior Materials Schedule"}
+            ]
+        }
+
     *Do not miss any rows and columns in the table* Properly extract data from each row and colum to display. If the table has null values, also include them. Keep '-' sign to indicate null values. Do not leave them empty. 
 
+    
      #### CATEGORY D Listed submaterials  inside a code
-      Use the format below if submaterials are listed inside a code. 
+      Use the format below if submaterials are listed inside a code. 🚨IF THE CODE IS A SCHEDULE, LOOK AT CATEGORY B
       Also use this format if submaterials are listed inside a wall type, partition code, or detailed assembly callout (e.g., a detail showing 5 layers of a wall: Siding, Wrap, Sheathing, Studs, Drywall).
     - You MUST split these complex layered assemblies into individual material entries in your JSON output (one object for Siding, one for Wrap, one for Sheathing, etc.).
     - Do NOT dump the entire assembly sentence into a single "notes" key. Parse each material layer separately.
+    - Do not use this category if the code is a schedule. Instead, use CATEGORY B for schedules.
 
-      If W1 has listed VINYL SIDING, TYVEK HOUSE WRAP, 3/8' OSB EXTERIOR SHEATHING, 2X6 STUDS @ 16' O.C., R-25 BATT INSULATION then:
+    🚨 MANDATORY PRE-CHECK BEFORE APPLYING CATEGORY D:
+    Before applying Category D, check: does this code appear as one row of a table with a title (e.g. "MATERIALS SCHEDULE", "DOOR SCHEDULE", "WINDOW SCHEDULE")? If yes, this row has already been captured under Category B -- do NOT create any additional entry from any other column in that same row (item name, material type, etc.), even if that column's value looks like a standalone material name. Category D applies ONLY to codes discovered on plan/detail/elevation views that are NOT part of a tabular schedule -- e.g. a wall-type tag (W1) written directly on a floor plan or detail drawing with its layers listed in a callout sentence, not as a row in a titled schedule table.
+
+      If W1 has listed VINYL SIDING, TYVEK HOUSE WRAP, 3/8' OSB EXTERIOR SHEATHING, 2X6 STUDS @ 16' O.C., R-25 BATT INSULATION and W1 is not a schedule, then:
     
         {
             "name": "VINYL SIDING",
@@ -705,18 +845,20 @@ def ingestion_agent_node(state: AgenticState):
 
         🚨 This same submaterial-breakdown rule ALSO applies when the code's materials are written as a full PROSE SENTENCE instead of a clean comma-separated list -- this is very common in PARTITION / WALL-TYPE SCHEDULES (columns like "PARTITION WALL TYPE" / "TYPE" and "DESCRIPTION"), where a code such as "A1" or "B2" has a description like: "3 5/8\" Metal Stud with one layer of 5/8\" Cementitious Backer Board and Ceramic Tile upto 72\" from FFL (UNO on interior elevations) and painted finish above, on both sides." Do NOT output this as a single object with the whole sentence dumped into "notes" (e.g. do NOT produce {"name": "Partition Wall Type A1", "notes": "<entire sentence>", ...}). Instead, parse the sentence and extract each distinct material mentioned (stud framing, backer board, tile, paint, sheathing, siding, cladding, insulation, etc.) as its OWN object, same as any other CATEGORY D breakdown, using "Extracted from code" to record which wall/partition type it came from.
 
-    #### CATEGORY E: FITTINGS & ACCESSORIES SCHEDULES (e.g. "Fittings and Accessories Schedule")
-    A table listing tagged fixtures/fittings/hardware (e.g. columns like S.N., TAG, ACCESSORY, ITEM SPECIFICATION -- covering things like toilet paper dispensers, soap dispensers, grab bars, mirrors, lavatories, urinals, water closets, hand dryers, partitions, shower heads, water heaters) is STILL IN SCOPE and MUST be extracted. Do NOT skip this table under the general "civil engineering materials only" rule -- plumbing fixtures, toilet accessories, and fit-out hardware scheduled with their own TAG are treated the same as any other coded schedule item (see CATEGORY B/C).
+        
+    #### CATEGORY E: FITTINGS, FIXTURES & ACCESSORIES SCHEDULES 
+    A table listing tagged fixtures/fittings/hardware (e.g. columns like S.N., TAG, ACCESSORY, ITEM SPECIFICATION -- covering things like toilet paper dispensers, soap dispensers, grab bars, mirrors, lavatories, urinals, water closets, hand dryers, partitions, shower heads, water heaters, refridgerator, etc) is STILL IN SCOPE and MUST be extracted. Do NOT skip this table under the general "civil engineering materials only" rule -- plumbing fixtures, toilet accessories, and fit-out hardware scheduled with their own TAG are treated the same as any other coded schedule item (see CATEGORY B/C).
     - Use the TAG (e.g. "AC-1", "G-1", "L-1", "M-1", "U-1", "WC-1") as the "name".
     - Combine the accessory description and item specification/model columns into "notes".
-    - Set "category" to the room/location this fixture serves if the drawing or schedule indicates it (e.g. "Room- Restroom", "Room- Bathroom")
+    - Set "category" to "Others"
     - Every row of this table must be extracted -- do not skip any TAG.
+    - FIXTURES SHOULD BE GENERATED ONLY ONCE.
     
     Example:
     {
         "name": "AC-1",
         "notes": "Accessory: Toilet Paper Dispenser. Item Specification: Bobrick Model B2888 or equal.",
-        "category": "Room- Restroom",
+        "category": "Others",
         "mentions": [
             {"page_label": "C - 301 - Finishes, Fittings and Accessories Schedule", "view": "Fittings and Accessories Schedule"}
         ]
@@ -724,7 +866,7 @@ def ingestion_agent_node(state: AgenticState):
     {
         "name": "WC-1",
         "notes": "Accessory: Water Closet, Std. Item Specification: Sloan Model 20231001 or equal.",
-        "category": "Room- Restroom",
+        "category": "Others",
         "mentions": [
             {"page_label": "C - 301 - Finishes, Fittings and Accessories Schedule", "view": "Fittings and Accessories Schedule"}
         ]
@@ -739,7 +881,7 @@ def ingestion_agent_node(state: AgenticState):
 
     For each row_label/column_label pair in that reference data:
     - "name" = the material's row_label exactly as given (e.g. "Ceramic Tile", "Sealed Concrete").
-    - "category" = "Room- <room name>" using the room/area portion of the column_label (e.g. column_label "Shower Room - Floor" -> category "Room- Shower Room").
+    - "category" = "Room-<room name>" using the room/area portion of the column_label (e.g. column_label "Shower Room-Floor" -> category "Room-Shower Room").
     - "notes" = the surface portion of the column_label (Floor / Ceiling / Wall-North / Wall-South/ Wall-East / Wall-West, etc.), plus the material's brand/manufacturer/type-color spec if the schedule's legend provides one for that material -- do not invent a spec if none exists.
     - "mentions" = the usual page_label/view for this schedule.
     - One object per intersection -- if "Ceramic Tile" is marked for 4 rooms x 4 walls, that is 5 separate objects (each with a different "category"/"notes", walls are considerd as one), NOT one object with a combined list of rooms in "notes".
@@ -747,14 +889,14 @@ def ingestion_agent_node(state: AgenticState):
     - 🚨 Watch for adjacent-row bleed in the reference data itself: on dense matrix tables, a room/surface can occasionally be misattributed to the wrong neighboring row (e.g. a mark that should belong to "Paint" instead showing up under "Exterior Board", or a row at the bottom of one group like "Sealed Concrete" (a FLOOR item) being mislabeled with the next group's name, "WALL"). If a row_label's assigned category doesn't semantically match what that material actually is (e.g. "Sealed Concrete" tagged as a wall material, or a ceiling material tagged as a floor material), trust the material's real-world nature over a mismatched group label from the reference data, and use the reference image itself to double check which row the mark truly belongs to before finalizing.
 
     Example -- given reference data:
-    [{"row_label": "Ceramic Tile (Anti Slip)", "column_label": "Shower Room - Floor"},
-     {"row_label": "Ceramic Tile (Anti Slip)", "column_label": "Family Restroom - Floor"}]
+    [{"row_label": "Ceramic Tile (Anti Slip)", "column_label": "Shower Room-Floor"},
+     {"row_label": "Ceramic Tile (Anti Slip)", "column_label": "Family Restroom-Floor"}]
 
     Correct output (two separate objects, not one combined summary):
     {
         "name": "Ceramic Tile (Anti Slip)",
         "notes": "Floor. Trafficmaster, Baja Gray - Matte Finish 12\" x 12\" or approved equal.",
-        "category": "Room- Shower Room",
+        "category": "Room-Shower Room",
         "mentions": [
             {"page_label": "C - 301 - Finishes, Fittings and Accessories Schedule", "view": "Material and Finishes Schedule"}
         ]
@@ -762,7 +904,7 @@ def ingestion_agent_node(state: AgenticState):
     {
         "name": "Ceramic Tile (Anti Slip)",
         "notes": "Floor. Trafficmaster, Baja Gray - Matte Finish 12\" x 12\" or approved equal.",
-        "category": "Room- Family Restroom",
+        "category": "Room-Family Restroom",
         "mentions": [
             {"page_label": "C - 301 - Finishes, Fittings and Accessories Schedule", "view": "Material and Finishes Schedule"}
         ]
@@ -784,7 +926,7 @@ def ingestion_agent_node(state: AgenticState):
         ]
       },
       {
-        "name": "Door- 01A",
+        "name": "Door-01A",
         "notes": "Qty: 1, Width: 5'-0, Height: 6'-8', Material Finish: Fibreglass, Glazing: -",
         "category": "Door Schedule",
         "mentions": [
@@ -804,9 +946,9 @@ def ingestion_agent_node(state: AgenticState):
         "code": "X-74",
         "notes": "HARDWOOD FLOOR, 2-3\" WIDE, FINISH WOOD, TONGUE & GROOVE, STAINED"
         "category": {
-            "c1":"Room- MainRoom",
-            "c2": "Room- Kitchen"
-        }
+            "c1":"Room-MainRoom",
+            "c2": "Room-Kitchen"
+        },
         "mentions": [
           {"page_label": "Sheet 6 of 23", "view": "Main Floor Plan Layout"},
           {"page_label": "Sheet 8 of 23", "view": "Kitchen Floor Plan Layout"},
@@ -815,7 +957,7 @@ def ingestion_agent_node(state: AgenticState):
      {
         "name": "Plywood Subfloor",
         "notes": "3/4\" Plywood Subfloor. Material listed in F2 - Typical Floor Assembly.",
-        "category": "Room- Typical",
+        "category": "Room-Typical",
         "mentions": [
             {
                 "page_label": "Sheet 17 of 23 - General Notes & Construction Assemblies",
@@ -827,7 +969,10 @@ def ingestion_agent_node(state: AgenticState):
       {
         "name": "VINYL SIDING",
         "notes": "Material listed in W1",
-        "category": "Exterior Wall",
+        "category": {
+                    "c1": "Exterior Wall",
+                    "c2": "Interior Wall",
+        },
         "mentions": [
             {"page_label": "Sheet 16 of 23", "view": "Main Floor Plan Layout", "Extracted from code": "W1"}
         ]
@@ -867,19 +1012,11 @@ def ingestion_agent_node(state: AgenticState):
      {
         "name": "Ceramic Tile (Anti Slip)",
         "notes": "Floor. Trafficmaster, Baja Gray - Matte Finish 12\" x 12\" or approved equal.",
-        "category": "Room- Shower Room",
+        "category": "Room-Shower Room",
         "mentions": [
             {"page_label": "C - 301 - Finishes, Fittings and Accessories Schedule", "view": "Material and Finishes Schedule"}
         ]
      },
-     {
-        "name": "Ceramic Tile (Anti Slip)",
-        "notes": "Floor. Trafficmaster, Baja Gray - Matte Finish 12\" x 12\" or approved equal.",
-        "category": "Room- Family Restroom",
-        "mentions": [
-            {"page_label": "C - 301 - Finishes, Fittings and Accessories Schedule", "view": "Material and Finishes Schedule"}
-        ]
-     }
    ]
 
     Return ONLY VALID JSON. DO NOT MISS ANY MATERIALS.
@@ -976,8 +1113,7 @@ def ingestion_agent_node(state: AgenticState):
                     f"{prompt}\n\n"
                     "AFTER the materials array above, on its own line print exactly:\n"
                     f"{SCALE_DELIMITER}\n"
-                    "Then, using the SAME pages you were just given, also perform this SECOND, separate task "
-                    "and output ITS result as its own JSON array (or the literal word NONE) immediately after "
+                    "Then, using the SAME pages you were just given, also perform this SECOND, separate task and output ITS result as its own JSON array (or the literal word NONE) immediately after "
                     f"the delimiter line:\n\n{SCALE_PROMPT}"
                 )
                 content_blocks.append({"type": "text", "text": combined_prompt})
@@ -988,11 +1124,8 @@ def ingestion_agent_node(state: AgenticState):
                     max_tokens=100000,
                     temperature=0,
                     system=(
-                        "You are a strict technical drawing extraction engine. You must output valid "
-                        "raw JSON data blocks only. Do not speak or include explanations, preamble, or "
-                        "trailing markdown wrappers. Start your response directly with '[' and end the "
-                        f"materials array with ']', then print the delimiter line '{SCALE_DELIMITER}', "
-                        "then the scale JSON array (or NONE)."
+                        "You are a strict technical drawing extraction engine. You must output valid raw JSON data blocks only. Do not speak or include explanations, preamble, or trailing markdown wrappers. Start your response directly with '[' and end the "
+                        f"materials array with ']', then print the delimiter line '{SCALE_DELIMITER}', then the scale JSON array (or NONE)."
                     ),
                     messages=[{"role": "user", "content": content_blocks}],
                     betas=["files-api-2025-04-14"],

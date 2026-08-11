@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
-INPUT_PATH = r"D:\qtakeoffai-AI\qtakeoff-ai-AI\local\results\American Farmhouse 201225 full_Final_2.json"
+INPUT_PATH = r"D:\qtakeoffai-AI\qtakeoff-ai-AI\local\results\GastoniaDeli__Final_2.json"
 
 RESULTS_FOLDER = os.path.join("local", "results")
 
