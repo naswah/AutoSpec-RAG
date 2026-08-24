@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
-INPUT_PATH = r"D:\qtakeoffai-AI\qtakeoff-ai-AI\local\results\GastoniaDeli__Final_2.json"
+INPUT_PATH = r"D:\qtakeoffai-AI\qtakeoff-ai-AI\local\results\REQUIRED_Final_2.json"
 
 RESULTS_FOLDER = os.path.join("local", "results")
 
@@ -209,18 +209,21 @@ def dedupe_paraphrases(materials: list, exclude_indices: set):
     return to_remove, merge_group_count
 
 
-def dedupe_code_names(materials: list):
-    """Materials whose name is a mark/tag code (e.g. Door-D1, Window-01,
-    F-XX, W1) are normally left alone by the other passes. But if the same
-    code appears more than once WITHIN THE SAME CATEGORY, only one
-    occurrence should survive - duplicates are removed, keeping the one
-    with the most mentions (ties broken by first occurrence).
+def mention_views(item: dict) -> frozenset:
 
-    Note: codes are keyed by (name, category), not name alone - a code
-    like F-60 can legitimately repeat across different categories/rooms
-    (e.g. the same flooring material listed for Living Room, Dining,
-    Bedroom, etc.), and those are distinct entries that must NOT be
-    collapsed together."""
+    mentions = item.get("mentions")
+    if not isinstance(mentions, list):
+        return frozenset()
+    views = set()
+    for m in mentions:
+        if isinstance(m, dict):
+            views.add(normalize(m.get("view")))
+        else:
+            views.add(normalize(m))
+    return frozenset(views)
+
+
+def dedupe_code_names(materials: list):
 
     groups: dict = {}
     order = []
@@ -233,7 +236,7 @@ def dedupe_code_names(materials: list):
         if not is_code_name(name):
             continue  # only handle code/mark names here
 
-        key = (normalize(name), normalize(item.get("category")))
+        key = (normalize(name), normalize(item.get("category")), mention_views(item))
         if key not in groups:
             groups[key] = []
             order.append(key)
