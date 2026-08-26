@@ -226,7 +226,7 @@ def extract_table_json_array(text):
     return json.loads(text[start:end + 1])
 
 
-def call_claude_table_vision(client, image_b64, media_type, prompt, model="claude-sonnet-4-6", max_tokens=8000):
+def call_claude_table_vision(client, image_b64, media_type, prompt, model="claude-sonnet-5", max_tokens=8000):
 
     response = client.messages.create(
         model=model,
@@ -1627,21 +1627,17 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
 
                 combined_prompt = (
                     f"{prompt}\n\n"
-                    "AFTER the materials array above, on its own line print exactly:\n"
-                    f"{SCALE_DELIMITER}\n"
-                    "Then, using the SAME pages you were just given, also perform this SECOND, separate task and output ITS result as its own JSON array (or the literal word NONE) immediately after "
-                    f"the delimiter line:\n\n{SCALE_PROMPT}"
+                    "AFTER the materials array above, on its own line print exactly:\n" f"{SCALE_DELIMITER}\n" "Then, using the SAME pages you were just given, also perform this SECOND, separate task and output ITS result as its own JSON array (or the literal word NONE) immediately after " f"the delimiter line:\n\n{SCALE_PROMPT}"
                 )
                 content_blocks.append({"type": "text", "text": combined_prompt})
 
                 text_chunks = []
                 with client.beta.messages.stream(
-                    model="claude-sonnet-4-6",
+                    model="claude-sonnet-5",
                     max_tokens=100000,
                     temperature=0,
                     system=(
-                        "You are a strict technical drawing extraction engine. You must output valid raw JSON data blocks only. Do not speak or include explanations, preamble, or trailing markdown wrappers. Start your response directly with '[' and end the "
-                        f"materials array with ']', then print the delimiter line '{SCALE_DELIMITER}', then the scale JSON array (or NONE)."
+                        "You are a strict technical drawing extraction engine. You must output valid raw JSON data blocks only. Do not speak or include explanations, preamble, or trailing markdown wrappers. Start your response directly with '[' and end the " f"materials array with ']', then print the delimiter line '{SCALE_DELIMITER}', then the scale JSON array (or NONE)."
                     ),
                     messages=[{"role": "user", "content": content_blocks}],
                     betas=["files-api-2025-04-14"],
