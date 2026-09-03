@@ -231,7 +231,6 @@ def call_claude_table_vision(client, image_b64, media_type, prompt, model="claud
     response = client.messages.create(
         model=model,
         max_tokens=max_tokens,
-        temperature=0,
         messages=[
             {
                 "role": "user",
@@ -543,6 +542,7 @@ def build_table_reference_text(page_no, page_tables):
         header += (
             "\nNOTE: one or more tables below has a title containing 'SCHEDULE' -- treat EVERY record in that table as a Category B schedule row. Each record's mark/code column "
             "(e.g. 'mark', 'no', 'tag') becomes the ONLY 'name' for that row's output entry. Every other field in that same record (item, material, size, notes, manufacturer, etc.) must be folded into that ONE entry's 'notes' string -- never emit a second entry using any other field's value as its own 'name', even if it reads like a standalone material."
+            "\n🚨 Do NOT drop the record's 'item' field just because a 'material' field is also present in the same record -- they are different questions (what it's called vs. what it's made of, e.g. item='BRICK' vs material='SMOOTH BRICK') and BOTH must appear in 'notes', each labeled with its own field name."
         )
 
     return f"{header}\n{json.dumps(page_tables, ensure_ascii=False)}"
@@ -641,8 +641,24 @@ def ingestion_agent_node(state: AgenticState):
             "c2": "Door",
     }
 
-    In standards and materials schedule, Looks at the following rules if 'LOCATION' is provided:
+    - Try to include the name of material in the 'name' key whenver possible. 
+    Excample 1:
+    "name": "Asphalt Shingles",
+    "notes": "Black asphalt shingles, 25-year warranty", #here, as you can see the name is also included in the notes section. This is important for downstream processing and for clarity.
+    If it is already mentioned in the notes section, then you can skip it.
 
+    Example 2:
+    "name": "Beadboard Trim",
+    "notes": "Beadboard Trim, VW Mariposa 2229",
+    Instread of just providing the model number in notes, also include the name of the material in the notes section for clarity and downstream processing.
+
+    - Use the name of table when necessary for report_notes for example,
+        (Beam Schedule)
+        "name": "B3",
+        "notes": "Type Mark: B3, Size: 3-2x14, Material: SPRUCE PINE FIR",
+        "report_notes": "Beam B3, 2x14, Spruce Pine Fir", # State marck name as well.
+    
+    In standards and materials schedule, Looks at the following rules if 'LOCATION' is provided:
     🚨🚨🚨 CRITICAL -- STANDARD MATERIALS & FINISHES SCHEDULE WITH NO 'LOCATION' COLUMN AT ALL (this is a very common layout -- do NOT mishandle it):
     Some "STANDARD MATERIALS & FINISHES SCHEDULE" tables list only TAG / TYPE / BRAND-MANUFACTURER / STYLE-COLOR-SIZE-FINISH, with NO Location/room column whatsoever. When you encounter this:
     - 🚫 DO NOT default every row in that schedule to a single generic category like "Wall" just because Location is missing. This is a critical failure mode: FL-1 (a granite FLOOR tile), CT-1 (a ceiling tile), and WB-1 (a wall base) are physically different elements and must never all collapse into the same "Wall" category.
@@ -1088,7 +1104,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     
     #### CATEGORY B: CODED MATERIALS & SCHEDULES (Codes Present)
     If the code is a fixture, see CATEGORY E below. Otherwise, if the code is a material or finish, use this formatting.
-    Use this formatting if a code (e.g., F-60, X-02) is detected anywhere on the drawing or inside a schedule layout. 🚨REMEMBER: Use this format if it is a schedule. the code should be the name and all the otehr info must be in notes section.
+    Use this formatting if a code (e.g., F-60, X-02) is detected anywhere on the drawing or inside a schedule layout. 🚨REMEMBER: Use this format if it is a schedule. the code should be the name and all the otehr info must be in notes section. Try to inclde name of material in notes.
     
     1. If it's on a plan view/detail pointing to a layout area:
        - You MUST strip out the "name" key completely. Only use the "code" key with the exact code (e.g., F-60, X-02) as it appears on the drawing.
@@ -1129,6 +1145,28 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         ],
     },
 
+    🚨 NEVER DROP THE "ITEM" (OR EQUIVALENT NAME/TYPE/DESCRIPTION)or any COLUMN FROM "notes" (CRITICAL):
+    - This rule applies to EVERY schedule table regardless of how many columns it has (4, 8, 15+) -- it is not limited to the Item/Material example below, which is only ONE illustration of the general rule.
+    - A schedule row commonly has BOTH an "Item"/"Type"/"Description" column (what the thing is called, e.g. "BRICK", "PORCH DECKING", "CROWN MOLDING") AND a separate "Material" column (what it's made of, e.g. "SMOOTH BRICK", "PAINTED WOOD", "ROT-RESISTANT"). These are NOT the same value and NEITHER may be dropped for looking similar to the other -- both must appear in "notes", each labeled with its own original column header.
+    - Fold EVERY column from the row into "notes", NO MATTER HOW MANY there are, in the SAME left-to-right order they appear in the table, each one labeled with its own header text exactly as printed (e.g. "ITEM:", "SIZE:", "MATERIAL:", "NOTES:", "MANUFACTURER/MODEL:", or whatever headers that specific table actually has). Do not skip any column just because a later column looks related to it in meaning -- every distinct column answers a distinct question and a downstream reader needs all of them.
+    - Before finalizing each row's "notes" string, count the number of columns in that table's header row and count the number of labeled segments you produced for this row -- they must match. If they don't match, you dropped a column; go back and find which one.
+
+    🚨 EXPAND PAGE-LEVEL ABBREVIATION LEGENDS IN "notes" (CRITICAL -- e.g. "VW" = "VINTAGE WOODWORKS"):
+    - Pages sometimes print a short legend line near a list, table, or option group defining what an abbreviation/prefix used in that section stands for, e.g. "(NOTE: VW = \"VINTAGE WOODWORKS\")" printed above a list of items like "VW COCKATOO 1194", "VW MARIPOSA 2229", "VW RILEY 1551". Whenever a manufacturer/model value uses an abbreviated prefix like this, you MUST resolve it and write the FULL name into "notes" -- do not leave the bare abbreviation unexpanded.
+    - Format it as: "Manufacturer: <Full Name> (<Abbreviation>), Model: <model number/name>". Example: "VW MARIPOSA 2229" with legend "VW = VINTAGE WOODWORKS" becomes "Manufacturer: Vintage Woodworks (VW), Model: Mariposa 2229" in "notes".
+    - This legend may appear on a DIFFERENT page than the specific mention of the abbreviated code (e.g. the legend is on the options-list page, but the code also appears on a detail/elevation page). Search ALL pages provided in this same request for a "<ABBR> = <FULL NAME>" style legend before leaving any abbreviation unexpanded, the same way you would cross-reference a schedule code.
+    - NEVER invent or guess an expansion. Only expand an abbreviation when its defining legend text is actually visible on one of the pages provided in this request. If no legend is found anywhere in this request, keep the abbreviation as-is in "notes" rather than fabricating a full name.
+
+    Example (MARK | ITEM | SIZE | MATERIAL | NOTES | MANUFACTURER/MODEL row from a Materials Schedule):
+    {
+        "code": "F-00",
+        "notes": "ITEM: BRICK, SIZE: -, MATERIAL: SMOOTH BRICK, NOTES: SOLID RED COLOR, SAND-FACED, AVOID WIRE CUT OR \"EXTRUDED\" LOOK, MANUFACTURER/MODEL: OLD CAROLINA BRICK COMPANY",
+        "category": "Wall-Foundation",
+        "mentions": [
+          {"page_label": "A5.0", "view": "Materials Schedule"}
+        ]
+    },
+
     🚨 ONE ROW = ONE ENTRY (CRITICAL -- PREVENTS SPLIT DUPLICATES LIKE "F-26" + "Astragal"):
     - If a code (e.g. F-26) and a row from a schedule table both describe the SAME row -- i.e. the code came from a MARK/TAG/NO column and other fields (item, material, size, notes, manufacturer) came from the same row of that same table -- they must produce exactly ONE material entry per Category B, keyed by the code.
     - Do NOT additionally emit an entry using any other column's value as "name", regardless of whether that value looks like a standalone material (Category A) or a submaterial listed inside a code (Category D). A column value such as an "Item" or "Material" name is notes content for the code's single entry -- it is never its own entry.
@@ -1158,7 +1196,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     
     ### CATEGORY C: Schedules with numberss
     Table Schedules Processing Rules:
-    If a table occurs with numbers in theor 1st column, then put the 'name' key as the notation/number/name of the column 1. The rest information could be aaded to the 'notes' section. The 'category' key must be added in accordance with the title of the table and the 'mentions' key must have the page and the view where the table is loacated and where the codes are present in the user plan.
+    If a table occurs with numbers in theor 1st column, then put the 'name' key as the notation/number/name of the column 1. The rest information could be aaded to the 'notes' section. The 'category' key must be added in accordance with the title of the table and the 'mentions' key must have the page and the view where the table is loacated and where the codes are present in the user plan. 
 
     EXAMPLE 1:
     NO  |Qty |Width |Height |Matrial Finish |Glazing
@@ -1290,7 +1328,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     
      #### CATEGORY D Listed submaterials  inside a code
       Use the format below if submaterials are listed inside a code. 🚨IF THE CODE IS A SCHEDULE, LOOK AT CATEGORY B
-      Also use this format if submaterials are listed inside a wall type, partition code, or detailed assembly callout (e.g., a detail showing 5 layers of a wall: Siding, Wrap, Sheathing, Studs, Drywall).
+      Also use this format if submaterials are listed inside a wall type, partition code, or detailed assembly callout (e.g., a detail showing 5 layers of a wall: Siding, Wrap, Sheathing, Studs, Drywall). Try to inclde name of material in notes.
       🚨 This includes FINISH callouts written inline as part of the assembly description, not just physical layers -- e.g. if a wall-type detail says "5/8\" Gypsum Wall Board (both sides) WITH PAINTED FINISH", the phrase "with painted finish" means "Paint" must ALSO be extracted as its own submaterial object for that code (e.g. {"name": "Paint", "category": "Wall-P3", "notes": "Painted finish. Used in P3 Non-Rated Partition assembly.", "mentions": [...code P3...]}), in addition to the Gypsum Wall Board object. Do not drop finish/coating callouts just because they're phrased as an adjective clause ("with painted finish") rather than a listed layer -- if a finish is named as part of that code's assembly text, it is a submaterial of that code just like the studs or insulation are.
     - You MUST split these complex layered assemblies into individual material entries in your JSON output (one object for Siding, one for Wrap, one for Sheathing, etc.).
     - Do NOT dump the entire assembly sentence into a single "notes" key. Parse each material layer separately.
@@ -1303,7 +1341,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     
         {
             "name": "VINYL SIDING",
-            "notes": "Material listed in W1",
+            "notes": "Vinyl Siding, Material listed in W1",
             "category": "Wall-Exterior",
             "mentions": [
                 {"page_label": "Sheet 16 of 23", "view": "Main Floor Plan Layout", "Extracted from code": "W1"}
@@ -1311,7 +1349,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         },
         {
             "name": "TYVEK HOUSE WRAP", 
-            "notes": "Material listed in W1",
+            "notes": "Tyvek House Wrap, Material listed in W1",
             "category": "Wall-Exterior",
             "mentions": [
                 {"page_label": "Sheet 16 of 23", "view": "Main Floor Plan Layout", "Extracted from code": "W1"}
@@ -1319,7 +1357,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         },
         {
             "name": "3/8' OSB EXTERIOR SHEATHING", 
-            "notes": "Material listed in W1, 3/8' thickness is mentioned in the notes of W1"
+            "notes": "3/8' osb exterior sheathing, Material listed in W1",
             "category": "Wall-Exterior",
             "mentions": [
                 {"page_label": "Sheet 16 of 23", "view": "Main Floor Plan Layout", "Extracted from code": "W1"}
@@ -1327,7 +1365,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         },
         {
             "name": "2X6 STUDS @ 16' O.C.", 
-            "notes": "Material listed in W1, 2X6 size and 16' O.C. spacing is mentioned in the notes of W1"
+            "notes": "2X6 size STUDS, 16'o.c. spacing, Material listed in W1",
             "category": "Wall-Foundation",
             "mentions": [             
                 {"page_label": "Sheet 16 of 23", "view": "Main Floor Plan Layout", "Extracted from code": "W1"},
@@ -1335,7 +1373,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         },
         {
             "name": "R-25 BATT INSULATION", 
-            "notes": "Material listed in W1, R-25 insulation value and batt type is mentioned in the notes of W1"
+            "notes": "R-25 BATT INSULATION, Material listed in W1",
             "category": "Wall-Exterior",
             "mentions": [ 
                 {"page_label": "Sheet 16 of 23", "view": "Main Floor Plan Layout", "Extracted from code": "W1"},
@@ -1432,7 +1470,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     [
       {
         "name": "Asphalt Shingles",
-        "notes": "Black colored roof covering material, referenced as exterior material no. 1",
+        "notes": "Black asphalt shingles, referenced as exterior material no. 1",
         "category": "Roof",
         "mentions": [
           {"page_label": "Sheet 4 of 23 - East Elevation (Front)", "view": "East Elevation (Front) - Exterior Elevation View"},
@@ -1495,7 +1533,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
       },
      {
         "name": "TYVEK HOUSE WRAP", 
-        "notes": "Material listed in W1",
+        "notes": "Tyvek House Wrap, Material listed in W1",
         "category": "Wall-Exterior",
         "mentions": [
             {"page_label": "Sheet 16 of 23", "view": "Main Floor Plan Layout", "Extracted from code": "W1"}
@@ -1503,7 +1541,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
      },
      {
         "name": "3/8' OSB EXTERIOR SHEATHING", 
-        "notes": "Material listed in W1, 3/8' thickness is mentioned in the notes of W1",
+        "notes": "Material listed in W1, 3/8' thickness osb exterior sheathing",
         "category": "Wall-Exterior",
         "mentions": [
             {"page_label": "Sheet 16 of 23", "view": "Main Floor Plan Layout", "Extracted from code": "W1"}
@@ -1511,7 +1549,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
      },
      {
         "name": "2X6 STUDS @ 16' O.C.", 
-        "notes": "Material listed in W1, 2X6 size and 16' O.C. spacing is mentioned in the notes of W1",
+        "notes": "Material listed in W1, 2X6 size STUDS and 16' o.c spacing is mentioned in the notes of W1",
         "category": "Wall-Exterior",
         "mentions": [             
             {"page_label": "Sheet 16 of 23", "view": "Main Floor Plan Layout", "Extracted from code": "W1"},
@@ -1527,7 +1565,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
      },
      {
         "name": "Ceramic Tile (Anti Slip)",
-        "notes": "Floor. Trafficmaster, Baja Gray - Matte Finish 12\" x 12\" or approved equal.",
+        "notes": "Ceramic Tile (Anti Slip), Floor. Trafficmaster, Baja Gray - Matte Finish 12\" x 12\" or approved equal.",
         "category": "Room-Shower Room",
         "mentions": [
             {"page_label": "C - 301 - Finishes, Fittings and Accessories Schedule", "view": "Material and Finishes Schedule"}
@@ -1635,7 +1673,6 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
                 with client.beta.messages.stream(
                     model="claude-sonnet-5",
                     max_tokens=100000,
-                    temperature=0,
                     system=(
                         "You are a strict technical drawing extraction engine. You must output valid raw JSON data blocks only. Do not speak or include explanations, preamble, or trailing markdown wrappers. Start your response directly with '[' and end the " f"materials array with ']', then print the delimiter line '{SCALE_DELIMITER}', then the scale JSON array (or NONE)."
                     ),

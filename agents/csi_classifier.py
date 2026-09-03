@@ -134,9 +134,8 @@
 #     async with llm_semaphore:
 #         try:
 #             response = await async_anthropic_client.messages.create(
-#                 model="claude-sonnet-4-6",
+#                 model="claude-sonnet-5",
 #                 max_tokens=1000,
-#                 temperature=0.0,
 #                 system=(
 #                     "You are a strict technical automation engine. "
 #                     "You must output a valid flat raw JSON object with no additional text or markdown decoration. "
@@ -540,17 +539,17 @@ async def classify_query_task(
     async with llm_semaphore:
         try:
             response = await async_anthropic_client.messages.create(
-                model="claude-sonnet-4-6",
+                model="claude-sonnet-5",
                 max_tokens=1000,
-                temperature=0.0,
                 system=(
-                    "You are a strict technical automation engine. "
-                    "You must output a valid flat raw JSON object with no additional text or markdown decoration. "
-                    "Do not explain anything. Begin directly with your JSON payload structure."
+                    "You are a strict technical automation engine. You must output a valid flat raw JSON object with no additional text or markdown decoration. Do not explain anything. Begin directly with your JSON payload structure."
                 ),
                 messages=[{"role": "user", "content": prompt}],
             )
-            raw_text = response.content[0].text.strip()
+            raw_text = "".join(
+                block.text for block in response.content
+                if getattr(block, "type", None) == "text"
+            ).strip()
             result = safe_parse_json(raw_text)
             candidate = str(result.get("csi_division", "00 00 00")).strip()
 
