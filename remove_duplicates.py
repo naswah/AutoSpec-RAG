@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
-INPUT_PATH = r"D:\qtakeoffai-AI\qtakeoff-ai-AI\local\results\GAMEDAY COMPILED FINAL_12302024_SIGNED & SEALED_FLAT_Final_2.json"
+INPUT_PATH = r"D:\qtakeoffai-AI\qtakeoff-ai-AI\local\results\Caroline - Blueprints and Renderings_Final_2.json"
 
 RESULTS_FOLDER = os.path.join("local", "results")
 
@@ -454,11 +454,12 @@ def ask_claude_for_report_notes(items_with_idx: list) -> dict:
     - Location handling: If explicit "Location:" field is provided in ROOMS/SPACES (e.g. "Location: LOBBY, FOYER PERIPHERY, PRAYER HALL, DEITY PEDESTALS, NICHES", or plain "kitchen, bedroom, hallway") — if that field lists more than one room/space, drop the whole location field from "report_notes" entirely; if it lists only one room/space, keep it.
     * This does NOT apply to structural components/locations mentioned in ordinary prose (as opposed to a room list) — see the rule of thumb above. Keep every such structural location, no matter how many appear.
     - For doors and windows specifically, do NOT include frame type/frame material or other framing construction details in "report_notes" (e.g. drop "Frame Type: HM", "Frame Material: Steel frame") — keep the door/window's own size, material, finish, and hardware instead.
-    - Remove all the reference phrases "from legend", "as per legend", "per legend", "installed per manufacturer instructions", etc from report_notes as they are not related to the material itself. Also, do not user a key inside the report_notes eg:
+    - Remove all the reference phrases "from legend", "as per legend", "per legend", "as per plan", "as per detail", "as per schedule", "as per manufactuing plan", "installed per manufacturer instructions", etc from report_notes as they are not related to the material itself. Also, do not user a key inside the report_notes eg:
     
     "report_notes": "Description: water sizk, blue colour at bathroom"
     should be
     "report_notes": "Water sink, blue color, at bathroom"    #bathroom is kept as there is only a single location in the notes section.
+    Here, the descrption key is removed from report_notes.
 
     - Do not include any drawing numbers in the report_notes key.
     - Keeping all other meaningful spec information intact: size, thickness, type, and strength (as well as spacing, grade, and finish if present).
@@ -568,7 +569,7 @@ def ask_claude_for_report_notes(items_with_idx: list) -> dict:
 
 
 def add_report_notes(materials: list) -> None:
-    """ Swaps report_notes and notes: places the original text into 'report_notes' and the cleaned/shortened text into 'notes'. """
+    """ Renames 'notes' to 'estimation_notes' (keeps original text) and sets 'report_notes' to the cleaned/shortened text. """
     indices = [i for i, item in enumerate(materials) if isinstance(item, dict)]
 
     report_notes_map = {}
@@ -588,16 +589,16 @@ def add_report_notes(materials: list) -> None:
             if k == "report_notes":
                 continue
             if k == "notes":
-                # Swap target: 'notes' gets the shortened value, 'report_notes' gets the original long value
-                new_item["notes"] = cleaned_notes_value
-                new_item["report_notes"] = original_notes
+                # 'estimation_notes' keeps the original text, 'report_notes' gets the shortened value
+                new_item["estimation_notes"] = original_notes
+                new_item["report_notes"] = cleaned_notes_value
                 inserted = True
             else:
                 new_item[k] = v
-        
+
         if not inserted:
-            new_item["notes"] = cleaned_notes_value
-            new_item["report_notes"] = original_notes
+            new_item["estimation_notes"] = original_notes
+            new_item["report_notes"] = cleaned_notes_value
 
         materials[idx] = new_item
 

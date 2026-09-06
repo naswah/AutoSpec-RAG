@@ -657,6 +657,11 @@ def ingestion_agent_node(state: AgenticState):
         "name": "B3",
         "notes": "Type Mark: B3, Size: 3-2x14, Material: SPRUCE PINE FIR",
         "report_notes": "Beam B3, 2x14, Spruce Pine Fir", # State marck name as well.
+
+    -  If a material has other material details then do not include them in the notes section. For example, if a material has a note like "Concrete slab on grade, 4" thick, on 4" closed cell XPS, on 6" minimum compacted gravel", then the name of the material is "Concrete Slab" and the notes section should not include the name of the material along with size and thickness if present. Example:
+        "name": "Concrete Slab",
+        "notes": "Concrete slab on grade, 4\" thick, on 4\" closed cell XPS, on 6\" minimum compacted gravel", ❌ as it includes the name of other materials in the notes section, drop them.
+        "notes": "Concrete slab on grade, 4\" thick", ✅
     
     In standards and materials schedule, Looks at the following rules if 'LOCATION' is provided:
     🚨🚨🚨 CRITICAL -- STANDARD MATERIALS & FINISHES SCHEDULE WITH NO 'LOCATION' COLUMN AT ALL (this is a very common layout -- do NOT mishandle it):
