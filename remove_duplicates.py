@@ -6,12 +6,12 @@ from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
-INPUT_PATH = r"D:\qtakeoffai-AI\qtakeoff-ai-AI\local\results\Caroline - Blueprints and Renderings_Final_2.json"
+INPUT_PATH = r"D:\qtakeoffai-AI\qtakeoff-ai-AI\local\results\try_Final_2.json"
 
 RESULTS_FOLDER = os.path.join("local", "results")
 
 BATCH_MAX_ITEMS = 40
-REPORT_NOTES_BATCH_MAX_ITEMS = 40
+NOTES_BATCH_MAX_ITEMS = 40
 
 client = Anthropic(api_key=os.getenv("CLAUDE_API_KEY"))
 
@@ -92,7 +92,7 @@ def ask_claude_for_paraphrase_duplicates(items_with_idx: list) -> list:
         local_list.append({
             "id": local_pos,
             "name": item.get("name", ""),
-            "notes": item.get("notes", "")
+            "estimation_notes": item.get("estimation_notes", "")
         })
 
     prompt = f"""You are comparing construction material entries that all share the same category.
@@ -101,14 +101,14 @@ def ask_claude_for_paraphrase_duplicates(items_with_idx: list) -> list:
 
     {json.dumps(local_list, indent=2, ensure_ascii=False)}
 
-    Your task: identify which entries describe the SAME underlying material, where the "name" and/or "notes" are just paraphrases, synonyms, or reworded versions of each other (not genuinely different materials).
+    Your task: identify which entries describe the SAME underlying material, where the "name" and/or "estimation_notes" are just paraphrases, synonyms, or reworded versions of each other (not genuinely different materials).
 
     Rules:
     - Only group entries together if they clearly refer to the same material, just worded differently.
     - Do NOT group entries that describe genuinely different materials, even if related.
     - Singletons (materials with no duplicate) should NOT appear in your output at all.
     - Each id can belong to at most one group.
-    - For each group, decide which single id should be KEPT: prefer the entry whose "notes" contain concrete numerical information (dimensions, thickness, sizes, etc). If more than one entry has numerical info, or none of them do, keep whichever entry has the more complete/detailed information overall.
+    - For each group, decide which single id should be KEPT: prefer the entry whose "estimation_notes" contain concrete numerical information (dimensions, thickness, sizes, etc). If more than one entry has numerical info, or none of them do, keep whichever entry has the more complete/detailed information overall.
 
     Respond with ONLY a JSON array of objects, no other text, no markdown formatting, no code fences, in this exact format:
     [{{"ids": [<id>, <id>, ...], "keep_id": <id>}}, ...]
@@ -154,9 +154,9 @@ def ask_claude_for_paraphrase_duplicates(items_with_idx: list) -> list:
         if keep_idx is None or keep_idx not in orig_ids:
           
             item_by_orig_idx = {oi: it for oi, it in items_with_idx}
-            numeric_ids = [i for i in orig_ids if has_numeric_info(item_by_orig_idx[i].get("notes", ""))]
+            numeric_ids = [i for i in orig_ids if has_numeric_info(item_by_orig_idx[i].get("estimation_notes", ""))]
             candidates = numeric_ids if numeric_ids else orig_ids
-            keep_idx = max(candidates, key=lambda i: len(item_by_orig_idx[i].get("notes", "") or ""))
+            keep_idx = max(candidates, key=lambda i: len(item_by_orig_idx[i].get("estimation_notes", "") or ""))
 
         orig_groups.append({"ids": orig_ids, "keep_idx": keep_idx})
 
@@ -361,14 +361,14 @@ def _extract_measurements(text: str) -> set:
     return {_normalize_measurement_text(m).lower() for m in _MEASUREMENT_RE.findall(text)}
 
 
-def measurements_dropped(orig_notes: str, report_notes: str) -> bool:
+def measurements_dropped(orig_notes: str, notes_value: str) -> bool:
   
     orig_tokens = _extract_measurements(orig_notes)
     if not orig_tokens:
         return False
-    report_notes_lower = _normalize_measurement_text(report_notes).lower()
+    notes_lower = _normalize_measurement_text(notes_value).lower()
     for token in orig_tokens:
-        if token not in report_notes_lower:
+        if token not in notes_lower:
             return True
     return False
 
@@ -376,12 +376,12 @@ def measurements_dropped(orig_notes: str, report_notes: str) -> bool:
 _STRIP_WORDS_RE = re.compile(r"\b(assembly|assemblies|detail|details)\b", re.IGNORECASE)
 
 
-def clean_report_notes(report_notes: str) -> str:
+def clean_notes(notes_value: str) -> str:
 
-    if not report_notes:
-        return report_notes
+    if not notes_value:
+        return notes_value
 
-    cleaned = _STRIP_WORDS_RE.sub("", report_notes)
+    cleaned = _STRIP_WORDS_RE.sub("", notes_value)
 
     # Tidy up leftover punctuation/whitespace from removed words
     cleaned = re.sub(r"\s{2,}", " ", cleaned) # collapse double spaces
@@ -398,20 +398,20 @@ _HEIGHT_SEGMENT_RE = re.compile(r",\s*[^,]*\bheight\b[^,]*", re.IGNORECASE)
 _LEADING_HEIGHT_SEGMENT_RE = re.compile(r"^\s*[^,]*\bheight\b[^,]*,?\s*", re.IGNORECASE)
 
 
-def _strip_ceiling_height_from_report_notes(orig_notes: str, report_notes: str) -> str:
-    """Ceiling height is a room dimension, never a material spec — even for a ceiling material itself. If the original notes mention "ceiling height", make sure no leftover height segment survives in report_notes, regardless of what Claude decided to keep."""
+def _strip_ceiling_height_from_notes(orig_notes: str, notes_value: str) -> str:
+    """Ceiling height is a room dimension, never a material spec — even for a ceiling material itself. If the original notes mention "ceiling height", make sure no leftover height segment survives in notes_value, regardless of what Claude decided to keep."""
     if "ceiling height" not in (orig_notes or "").lower():
-        return report_notes
-    if not report_notes:
-        return report_notes
+        return notes_value
+    if not notes_value:
+        return notes_value
 
-    cleaned = _HEIGHT_SEGMENT_RE.sub("", report_notes)
+    cleaned = _HEIGHT_SEGMENT_RE.sub("", notes_value)
     cleaned = _LEADING_HEIGHT_SEGMENT_RE.sub("", cleaned)
     cleaned = cleaned.strip().rstrip(",").strip()
-    return cleaned or report_notes
+    return cleaned or notes_value
 
 
-def ask_claude_for_report_notes(items_with_idx: list) -> dict:
+def ask_claude_for_notes(items_with_idx: list) -> dict:
    
     if not items_with_idx:
         return {}
@@ -420,29 +420,32 @@ def ask_claude_for_report_notes(items_with_idx: list) -> dict:
     for local_pos, (orig_idx, item) in enumerate(items_with_idx):
         local_list.append({
             "id": local_pos,
-            "notes": item.get("notes", "")
+            "estimation_notes": item.get("estimation_notes", "")
         })
 
-    prompt = f"""You are cleaning up "notes" fields for construction material entries.
+    prompt = f"""You are cleaning up "estimation_notes" fields for construction material entries.
 
     Here is a list of entries (id, notes):
     {json.dumps(local_list, indent=2, ensure_ascii=False)}
 
-    Your task: for each entry, produce a shorter version of "notes" called "report_notes" by:
+    Your task: for each entry, produce a shorter version of "estimation_notes" called "notes" by:
     - Removing any reference to a code, mark, or tag (e.g. "Door-D1", "Window-02", "per mark W1", "type A3", "ref: F-12", "wall types B1 and B2", "wall type B1"). These codes identify a specific drawing element, not a material property — drop them entirely along with connecting words like "of" that only existed to introduce them.
     - "Brick veneer up to 4' height on exterior side of wall types B1 and B2." → drop "wall types B1 and B2" (a code reference), rewrite as terse catalog phrase → "Brick veneer, up to 4' height, exterior side"
     - Removing any mention of the count/quantity/number of that material (e.g. "3 units", "qty: 5", "x4", "5 pieces", "count: 2", "each 12.5 ft.").
-    - KEEPING model numbers exactly as written if present but if the model name is present, capitalize the name of model. Example if notes has: AMANA MODEL as model name then the report_notes must be Amana Model.(e.g. "AMANA MODEL 7184596" should be Amana Model 7184596, "SERIN WIRE MODEL HS10-OMP" should be Serin Wire Model HS10-OMP) — do NOT remove these. You may drop a trailing "OR EQUAL" / "or approved equal" qualifier since it adds no information on its own.
+    - KEEPING model numbers exactly as written if present but if the model name is present, capitalize the name of model. Example if notes has: AMANA MODEL as model name then the notes_value must be Amana Model.(e.g. "AMANA MODEL 7184596" should be Amana Model 7184596, "SERIN WIRE MODEL HS10-OMP" should be Serin Wire Model HS10-OMP) — do NOT remove these. You may drop a trailing "OR EQUAL" / "or approved equal" qualifier since it adds no information on its own.
+    Example:
+    "estimation_notes": "Qty: 1, Description: REFRIGERATOR, Item Specification: AMANA MODEL 7184596, OR EQUAL",
+    "notes": "Refrigerator, Amana Model 7184596",
 
     ***CRITICAL***: If the note comes with locations at exterior wall, doors and windows then just add at exterior wall in the note. Exclude doors and windows. Example:
-        - "Fiber cement lap siding at exterior wall assembly, at window and door head/sill and jamb details" is in notes sections so the "report_notes" must have: "Fiber cement lap siding at exterior wall" 
+        - "Fiber cement lap siding at exterior wall assembly, at window and door head/sill and jamb details" is in notes sections so the "notes" must have: "Fiber cement lap siding at exterior wall" 
         but if doors and windows come alone without exterior wall, then keep it
         - "Fiber cement lap siding at window and door head/sill and jamb details" → drop only the drafting-callout part ("head/sill and jamb details") → "Fiber cement lap siding, at window and door"
     - Removing any reference to construction drawing details/callouts rather than the material itself — e.g. "sill detail", "jamb detail", "head detail", "lintel detail", "window and door head/sill and jamb details", "elevation detail", "plan detail", "pipe penetration detail", "to follow corner boards", "window lintel and jamb details", "niche detail conditions". These are drafting references, not material specs, and should be dropped entirely (along with any connecting words like "at", "per", "see" that only existed to introduce them).
     Example: 
     - "Fiber cement lap siding at window and door head/sill and jamb details" → drop only the drafting-callout part ("head/sill and jamb details") → "Fiber cement lap siding, at window and door"
 
-    * IMPORTANT — do NOT over-strip: only drop the drafting-callout phrase itself. If the same sentence also names a real building location/component (e.g. "exterior wall", "window and door", "slab-on-grade", "roof edge", "metal stud-brick wall"), KEEP that location and only remove the callout part. The word "assembly"/"assemblies" attached to a location is handled separately (by code, not you) — leave it in report_notes exactly as written; do not delete the location just because "assembly" follows it.
+    * IMPORTANT — do NOT over-strip: only drop the drafting-callout phrase itself. If the same sentence also names a real building location/component (e.g. "exterior wall", "window and door", "slab-on-grade", "roof edge", "metal stud-brick wall"), KEEP that location and only remove the callout part. The word "assembly"/"assemblies" attached to a location is handled separately (by code, not you) — leave it in notes_value exactly as written; do not delete the location just because "assembly" follows it.
 
         - "EXT SHEATHING W/ BUILDING WRAP at window and door details, exterior wall assembly" → keep only "exterior wall assembly"  → "Exterior sheathing with building wrap, at  exterior wall"
         - "Batt insulation used at exterior wall assemblies at window lintel and window jamb details at metal stud-brick wall" → keep "exterior wall" AND "metal stud-brick wall" (both are real locations), drop only "window lintel and window jamb details" → "Batt insulation, at exterior wall assemblies, metal stud-brick wall"
@@ -450,54 +453,58 @@ def ask_claude_for_report_notes(items_with_idx: list) -> dict:
 
     * Rule of thumb: words like "head", "head details", "sill", "sill details", "jamb", "jamb details", "lintel", "elevation", "plan", describe a drawing VIEW/callout and should always be dropped. Words like "exterior wall", "window and door" / "doors and windows", "slab-on-grade", "roof edge", "metal stud-brick wall" name a physical LOCATION/component and should always be kept, even when a drawing-view word or "detail(s)" immediately follows them. When SEVERAL such locations/components appear together in one entry (not a "Location:" room list — see below), keep ALL of them; they describe different parts of the same assembly the material touches, not interchangeable alternatives.
 
-    - Removing any field/segment of "notes" whose value is empty, blank, "-", "N/A", "NA", or similar (e.g. if notes contains "Glazing: -" or "Glazing: N/A", drop that whole "Glazing: ..." segment — don't write "Glazing:" with nothing after it).
-    - Location handling: If explicit "Location:" field is provided in ROOMS/SPACES (e.g. "Location: LOBBY, FOYER PERIPHERY, PRAYER HALL, DEITY PEDESTALS, NICHES", or plain "kitchen, bedroom, hallway") — if that field lists more than one room/space, drop the whole location field from "report_notes" entirely; if it lists only one room/space, keep it.
+    - Removing any field/segment of "estimation_notes" whose value is empty, blank, "-", "N/A", "NA", or similar (e.g. if notes contains "Glazing: -" or "Glazing: N/A", drop that whole "Glazing: ..." segment — don't write "Glazing:" with nothing after it).
+    - Location handling: If explicit "Location:" field is provided in ROOMS/SPACES (e.g. "Location: LOBBY, FOYER PERIPHERY, PRAYER HALL, DEITY PEDESTALS, NICHES", or plain "kitchen, bedroom, hallway") — if that field lists more than one room/space, drop the whole location field from "notes" entirely; if it lists only one room/space, keep it.
     * This does NOT apply to structural components/locations mentioned in ordinary prose (as opposed to a room list) — see the rule of thumb above. Keep every such structural location, no matter how many appear.
-    - For doors and windows specifically, do NOT include frame type/frame material or other framing construction details in "report_notes" (e.g. drop "Frame Type: HM", "Frame Material: Steel frame") — keep the door/window's own size, material, finish, and hardware instead.
-    - Remove all the reference phrases "from legend", "as per legend", "per legend", "as per plan", "as per detail", "as per schedule", "as per manufactuing plan", "installed per manufacturer instructions", etc from report_notes as they are not related to the material itself. Also, do not user a key inside the report_notes eg:
+    - For doors and windows specifically, do NOT include frame type/frame material or other framing construction details in "notes" (e.g. drop "Frame Type: HM", "Frame Material: Steel frame") — keep the door/window's own size, material, finish, and hardware instead.
+    - Remove all the reference phrases "from legend", "as per legend", "per legend", "as per plan", "as per detail", "as per schedule", "as per manufactuing plan", "installed per manufacturer instructions", etc from notes_value as they are not related to the material itself. Also, do not user a key inside the notes_value eg:
     
-    "report_notes": "Description: water sizk, blue colour at bathroom"
+    "notes": "Description: water sizk, blue colour at bathroom"
     should be
-    "report_notes": "Water sink, blue color, at bathroom"    #bathroom is kept as there is only a single location in the notes section.
-    Here, the descrption key is removed from report_notes.
+    "notes": "Water sink, blue color, at bathroom"    #bathroom is kept as there is only a single location in the notes section.
+    Here, the descrption key is removed from notes_value.
 
-    - Do not include any drawing numbers in the report_notes key.
+    - Do not include any drawing numbers in the notes_value key.
     - Keeping all other meaningful spec information intact: size, thickness, type, and strength (as well as spacing, grade, and finish if present).
-    - Do not include any other mesaurements except Size and thickness of the material. If data comes such that "20m above the wall" or '90" above ceiling' or '10" below the floor' 'under the ground', etc then remove these measurements as they are not related to the material itself. Remember to just include SIZE of material or/and THICKNESS of material in report_notes.
+    - Do not include any other mesaurements except Size and thickness of the material. If data comes such that "20m above the wall" or '90" above ceiling' or '10" below the floor' 'under the ground', etc then remove these measurements as they are not related to the material itself. Remember to just include SIZE of material or/and THICKNESS of material in notes_value.
     Example: "Bottom rail on PT block, porch ornament railing, less than 30\" to ground" → drop the installation-height phrase "less than 30\" to ground" entirely (it describes WHERE the rail sits, not its size) → "Bottom rail on PT block, porch ornament railing"
-    -  Remove core/code requirement callouts from report_notes — phrases that state WHY a material is mandated (a regulatory or performance requirement) rather than describing the material itself. These are not a material property, drop them entirely along with connecting words like "per" or "as required by" that only existed to introduce them.
+    -  Remove core/code requirement callouts from notes_value — phrases that state WHY a material is mandated (a regulatory or performance requirement) rather than describing the material itself. These are not a material property, drop them entirely along with connecting words like "per" or "as required by" that only existed to introduce them.
     Trigger phrases include (not exhaustive): "per code", "per code requirement", "code-required", "as required by code", "meets code", "per fire code", "per building code", "required per IBC/IRC/ADA", "to satisfy code requirement".
     Example: "Gypsum board sheathing, fire-rated, below winder stairs, per code fire-blocking requirement" → drop "per code fire-blocking requirement" (states a regulatory reason, not a material spec) → "Fire-rated gypsum board sheathing, below winder stairs"
     * Do NOT drop a real material property just because it's near a code reference — e.g. "fire-rated" and "below winder stairs" both describe the material/its location and must be kept; only the "per code ... requirement" clause itself is removed. 
-    - If there is a spcial note inside the 'notes' then do not include it in report_notes if they are not a part of the material.
-    - If there are any clauses related to climate, weather, or environmental conditions (e.g. as per the weather, as per climate, as per the environmental conditions, etc) then remove them from report_notes as they are not related to the material itself.
-    - If all the information in notes are references, them copy the name of the material in report_notes and remove all the references. For example, if notes has:
+    - If there is a spcial note inside the 'estimation_notes' then do not include it in notes_value if they are not a part of the material.
+    - If there are any clauses related to climate, weather, or environmental conditions (e.g. as per the weather, as per climate, as per the environmental conditions, etc) then remove them from notes_value as they are not related to the material itself.
+    - If all the information in notes are references, them copy the name of the material in notes_value and remove all the references. For example, if notes has:
     
     "name": "Water sink",
-    "notes":"Reference: Drawing 1/A-101" then the report_notes should be 
-    "report_notes":"Water sink"(same as name) as notes only have reference.
+    "estimation_notes":"Reference: Drawing 1/A-101" then the notes_value should be 
+    "notes":"Water sink"(same as name) as notes only have reference.
 
-    - Use the name of table when necessary for report_notes for example,
+    - Use the name of table when necessary for notes for example,
     
         "name": "B3",
-        "notes": "Type Mark: B3, Size: 3-2x14, Material: SPRUCE PINE FIR",
-        "report_notes": "Beam B3, 2x14, Spruce Pine Fir", # State marck name as well.
+        "estimation_notes": "Type Mark: B3, Size: 3-2x14, Material: SPRUCE PINE FIR",
+        "notes": "Beam B3, 2x14, Spruce Pine Fir", # State marck name as well.
 
-    ⚠️ Do not add "note" inside report_notes. Instead, privide the note in a descriptive way. Eg for incorrect and correct ways:
-    "report_notes": "Bargeboard running trim, Vintage Woodworks (VW), Mariposa 2229. Note: bargeboard shapes can be easy to custom cut.", ❌
-    "report_notes": "Bargeboard running trim, Vintage Woodworks (VW), Mariposa 2229 whose shapes can be easy to custom cut.", ✅
+    ⚠️ Do not add "note" inside notes_value. Instead, privide the note in a descriptive way. Eg for incorrect and correct ways:
+    "notes": "Bargeboard running trim, Vintage Woodworks (VW), Mariposa 2229. Note: bargeboard shapes can be easy to custom cut.", ❌
+    "notes": "Bargeboard running trim, Vintage Woodworks (VW), Mariposa 2229 whose shapes can be easy to custom cut.", ✅
 
     - If the extra information is provided which is not related to the material itself, then remove it. For example,
-
+    Example 1:
         "name": "Vinyl Plank",
-        "notes": "Floor material: Vinyl Plank, Clean finish. 9'-0\" ceiling height room. Provide wood shoe moulding at vinyl plank flooring; Greenguard certified vinyl plank required.",
-        -> here, the material is Vinyl Plank and ceiling height is not related to the material so you can exclude the information related to ceiling height in report_notes
-        "report_notes": "Vinyl plank flooring, clean finish, Greenguard certified, with wood shoe moulding",
+        "estimation_notes": "Floor material: Vinyl Plank, Clean finish. 9'-0\" ceiling height room. Provide wood shoe moulding at vinyl plank flooring; Greenguard certified vinyl plank required.",
+        -> here, the material is Vinyl Plank and ceiling height is not related to the material so you can exclude the information related to ceiling height in notes_value
+        "notes": "Vinyl plank flooring, clean finish, Greenguard certified, with wood shoe moulding",
 
-    "notes": "Qty: 1, Description: REFRIGERATOR, Item Specification: AMANA MODEL 7184596, OR EQUAL",
-    "report_notes": "Refrigerator, Amana Model 7184596",
+    Example 2:
+    "name": "Metal Stud (6\")",
+    "estimation_notes": "6\" METAL STUD framing. Referenced in Wall Type B1: EXTERIOR WALL 6\" METAL STUD WITH ONE LAYER OF 5/8\" GYPSUM WALLBOARD AND FRP PANEL ON ONE SIDE AND OTHER SIDE WITH EXTERIOR SHEATHING WITH BRICK VENEER UPTO 4' AND REMAINING HEIGHT OF WALL WITH EXTERIOR SIDING PANEL, and Wall Type B2: EXTERIOR WALL 6\" METAL STUD WITH ONE LAYER OF 5/8\" GYPSUM WALLBOARD AND WALL FINISH ON ONE SIDE AND OTHER SIDE WITH EXTERIOR SHEATHING WITH BRICK VENEER UPTO 4' AND REMAINING HEIGHT OF WALL WITH EXTERIOR SIDING PANEL."
+    "notes": "Metal stud, 6\"",          #all other infomation is not related to the material itself so it is removed from notes_value. All references are also removed.
 
-    STYLE — write "report_notes" as a terse, comma-separated catalog phrase, in the same compact style used by RSMeans-type cost-database descriptions. NOT a full sentence: no "The", no subject/verb narrative, no trailing period. Lead with the core item/material type, then add comma-separated modifiers (size, thickness, type, strength, single location if present) in natural left-to-right order. Keep inch marks as the " symbol exactly as written in the original "notes" — do NOT spell out the word "inch". Examples of the target style:
+    - If nothing can be extracted from the notes section, then use the name of the material as notes_value.
+
+    STYLE — write "notes" as a terse, comma-separated catalog phrase, in the same compact style used by RSMeans-type cost-database descriptions. NOT a full sentence: no "The", no subject/verb narrative, no trailing period. Lead with the core item/material type, then add comma-separated modifiers (size, thickness, type, strength, single location if present) in natural left-to-right order. Keep inch marks as the " symbol exactly as written in the original "estimation_notes" — do NOT spell out the word "inch". Examples of the target style:
     "Welded wire mesh, below 4\" slab"
     "Vapor barrier, 6 mil"
     "Wood framing, 2x10 @ 16\" o.c., SPF"
@@ -517,14 +524,14 @@ def ask_claude_for_report_notes(items_with_idx: list) -> dict:
     "Hand sink, Serin Wire Model HS10-OMP"
     "Steel door, 3'-3\" W x 8'-0\" H x 0'-1 3/4\" T, steel material, painted finish, satin chrome hardware"
 
-    - If the original "notes" is already terse and matches this style, "report_notes" should be identical (or nearly identical) to "notes" — just trimmed of any code/count/reference-to-detail/empty-field/multi-location if present. "Already terse" means the original is short comma-separated fragments, NOT a full grammatical sentence — if "notes" reads as a sentence (has words like "on", "of", "at", verbs, articles like "the"/"a", or ends in a period), it does NOT qualify as already-terse and MUST be rewritten into the comma-separated catalog style, not just have its trailing period removed.
-    - Do NOT invent or add any new information that isn't already in "notes".
-    - If "notes" is empty, "report_notes" should also be an empty string.
+    - If the original "estimation_notes" is already terse and matches this style, "notes" should be identical (or nearly identical) to "estimation_notes" — just trimmed of any code/count/reference-to-detail/empty-field/multi-location if present. "Already terse" means the original is short comma-separated fragments, NOT a full grammatical sentence — if "estimation_notes" reads as a sentence (has words like "on", "of", "at", verbs, articles like "the"/"a", or ends in a period), it does NOT qualify as already-terse and MUST be rewritten into the comma-separated catalog style, not just have its trailing period removed.
+    - Do NOT invent or add any new information that isn't already in "estimation_notes".
+    - If "estimation_notes" is empty, "notes" should also be an empty string.
 
-    CRITICAL — never drop measurements or strength values. Any dimension, thickness, spacing, or size expressed in inches, feet, mil, mm, cm, gauge, or fraction form (e.g. 3/4", 1/2" dia., 4", 16" o.c., 6 mil, R-30, R-13) and any strength/grade value (e.g. 3000 psi, Grade 60, #SPF, 15 Amp, 1-1/2 CY) MUST be carried over into "report_notes" exactly as written. These are never "counts" — only remove an actual quantity-of-items count (e.g. "3 units", "qty: 5", "x4 doors") and only remove a code/mark/tag reference (e.g. "Door-D1", "per mark W1"). When in doubt about whether a number is a count vs. a measurement, treat it as a measurement and keep it.
+    CRITICAL — never drop measurements or strength values. Any dimension, thickness, spacing, or size expressed in inches, feet, mil, mm, cm, gauge, or fraction form (e.g. 3/4", 1/2" dia., 4", 16" o.c., 6 mil, R-30, R-13) and any strength/grade value (e.g. 3000 psi, Grade 60, #SPF, 15 Amp, 1-1/2 CY) MUST be carried over into "notes" exactly as written. These are never "counts" — only remove an actual quantity-of-items count (e.g. "3 units", "qty: 5", "x4 doors") and only remove a code/mark/tag reference (e.g. "Door-D1", "per mark W1"). When in doubt about whether a number is a count vs. a measurement, treat it as a measurement and keep it.
 
     Respond with ONLY a JSON array of objects, no other text, no markdown formatting, no code fences, in this exact format:
-    [{{"id": <id>, "report_notes": "<shortened notes>"}}, ...]
+    [{{"id": <id>, "notes": "<shortened notes>"}}, ...]
 
     You must include every id from the input list exactly once."""
 
@@ -545,60 +552,60 @@ def ask_claude_for_report_notes(items_with_idx: list) -> dict:
     try:
         parsed = json.loads(text)
     except json.JSONDecodeError:
-        print(f"  [Warning] Could not parse Claude response for report_notes, keeping original notes. Raw response: {text[:200]}")
+        print(f"  [Warning] Could not parse Claude response for notes, keeping original notes. Raw response: {text[:200]}")
         return result_map
 
-    orig_notes_by_idx = {orig_idx: item.get("notes", "") for orig_idx, item in items_with_idx}
+    orig_notes_by_idx = {orig_idx: item.get("estimation_notes", "") for orig_idx, item in items_with_idx}
 
     for entry in parsed:
         try:
             local_id = entry["id"]
-            report_notes = entry["report_notes"]
+            notes_value = entry["notes"]
         except (KeyError, TypeError):
             continue
         if 0 <= local_id < len(items_with_idx):
             orig_idx = items_with_idx[local_id][0]
             orig_notes = orig_notes_by_idx.get(orig_idx, "")
-            report_notes = _strip_ceiling_height_from_report_notes(orig_notes, report_notes)
-            if measurements_dropped(orig_notes, report_notes):
+            notes_value = _strip_ceiling_height_from_notes(orig_notes, notes_value)
+            if measurements_dropped(orig_notes, notes_value):
                 print(f"  [Safety] Measurement/strength token dropped for idx {orig_idx}; keeping original notes.")
-                report_notes = orig_notes
-            result_map[orig_idx] = clean_report_notes(report_notes)
+                notes_value = orig_notes
+            result_map[orig_idx] = clean_notes(notes_value)
 
     return result_map
 
 
-def add_report_notes(materials: list) -> None:
-    """ Renames 'notes' to 'estimation_notes' (keeps original text) and sets 'report_notes' to the cleaned/shortened text. """
+def add_notes(materials: list) -> None:
+    """ Adds a 'notes' key (cleaned/shortened text) right after 'estimation_notes' for each material. """
     indices = [i for i, item in enumerate(materials) if isinstance(item, dict)]
 
-    report_notes_map = {}
-    for start in range(0, len(indices), REPORT_NOTES_BATCH_MAX_ITEMS):
-        chunk_indices = indices[start:start + REPORT_NOTES_BATCH_MAX_ITEMS]
+    notes_map = {}
+    for start in range(0, len(indices), NOTES_BATCH_MAX_ITEMS):
+        chunk_indices = indices[start:start + NOTES_BATCH_MAX_ITEMS]
         items_with_idx = [(i, materials[i]) for i in chunk_indices]
-        report_notes_map.update(ask_claude_for_report_notes(items_with_idx))
+        notes_map.update(ask_claude_for_notes(items_with_idx))
 
     for idx in indices:
         item = materials[idx]
-        original_notes = item.get("notes", "")
-        cleaned_notes_value = report_notes_map.get(idx, clean_report_notes(original_notes))
+        original_notes = item.get("estimation_notes", "")
+        cleaned_notes_value = notes_map.get(idx, clean_notes(original_notes))
 
         new_item = {}
         inserted = False
         for k, v in item.items():
-            if k == "report_notes":
-                continue
             if k == "notes":
-                # 'estimation_notes' keeps the original text, 'report_notes' gets the shortened value
+                continue
+            if k == "estimation_notes":
+                # 'estimation_notes' keeps the original text, 'notes' gets the shortened value
                 new_item["estimation_notes"] = original_notes
-                new_item["report_notes"] = cleaned_notes_value
+                new_item["notes"] = cleaned_notes_value
                 inserted = True
             else:
                 new_item[k] = v
 
         if not inserted:
             new_item["estimation_notes"] = original_notes
-            new_item["report_notes"] = cleaned_notes_value
+            new_item["notes"] = cleaned_notes_value
 
         materials[idx] = new_item
 
@@ -636,9 +643,9 @@ def main():
 
     final_materials = [item for idx, item in enumerate(materials) if idx not in to_remove]
 
-    print("Generating shortened 'report_notes' for each material (via Claude Haiku)...")
-    add_report_notes(final_materials)
-    print("Done generating 'report_notes'.")
+    print("Generating shortened 'notes' for each material (via Claude Haiku)...")
+    add_notes(final_materials)
+    print("Done generating 'notes'.")
 
     os.makedirs(RESULTS_FOLDER, exist_ok=True)
     pdf_name = get_pdf_name(INPUT_PATH)
