@@ -245,7 +245,7 @@ def call_claude_table_vision(client, image_b64, media_type, prompt, model="claud
 
 
 def flag_possible_row_bleed(records, page_no, region_idx, table_label,
-                             distinctive_keys=("location", "notes")):
+                             distinctive_keys=("location", "estimation_notes")):
    
     if not records or not isinstance(records, list):
         return
@@ -441,7 +441,7 @@ def merge_duplicate_materials(items):
         key = (
             str(item.get("name", item.get("code", ""))).strip().lower(),
             str(item.get("category", "")).strip().lower(),
-            str(item.get("notes", "")).strip().lower(),
+            str(item.get("estimation_notes", "")).strip().lower(),
             mention_codes,
         )
         if key not in merged:
@@ -541,8 +541,8 @@ def build_table_reference_text(page_no, page_tables):
     if has_schedule_table:
         header += (
             "\nNOTE: one or more tables below has a title containing 'SCHEDULE' -- treat EVERY record in that table as a Category B schedule row. Each record's mark/code column "
-            "(e.g. 'mark', 'no', 'tag') becomes the ONLY 'name' for that row's output entry. Every other field in that same record (item, material, size, notes, manufacturer, etc.) must be folded into that ONE entry's 'notes' string -- never emit a second entry using any other field's value as its own 'name', even if it reads like a standalone material."
-            "\n🚨 Do NOT drop the record's 'item' field just because a 'material' field is also present in the same record -- they are different questions (what it's called vs. what it's made of, e.g. item='BRICK' vs material='SMOOTH BRICK') and BOTH must appear in 'notes', each labeled with its own field name."
+            "(e.g. 'mark', 'no', 'tag') becomes the ONLY 'name' for that row's output entry. Every other field in that same record (item, material, size, notes, manufacturer, etc.) must be folded into that ONE entry's 'estimation_notes' string -- never emit a second entry using any other field's value as its own 'name', even if it reads like a standalone material."
+            "\n🚨 Do NOT drop the record's 'item' field just because a 'material' field is also present in the same record -- they are different questions (what it's called vs. what it's made of, e.g. item='BRICK' vs material='SMOOTH BRICK') and BOTH must appear in 'estimation_notes', each labeled with its own field name."
         )
 
     return f"{header}\n{json.dumps(page_tables, ensure_ascii=False)}"
@@ -562,17 +562,17 @@ def ingestion_agent_node(state: AgenticState):
 
     WHAT TO EXTRACT:
     Only extract actual physical materials or products used in CIVIL ENGINEERING. For example:
-    - If a note mentions an exterior wall made of "8' Concrete Foundation Wall, 4000 PSI", extract "Concrete Foundation Wall" for name and "8' Concrete Foundation Wall, 4000 PSI" for notes, "Wall-Foundation" for category. 
+    - If a note mentions an exterior wall made of "8' Concrete Foundation Wall, 4000 PSI", extract "Concrete Foundation Wall" for name and "8' Concrete Foundation Wall, 4000 PSI" for estimation_notes, "Wall-Foundation" for category. 
     - Instead of extracting "Front Porch", look for specific material callouts inside that porch zone (e.g. "CMU Block foundation", "Cast-in-place Concrete Slab").
-    - Instead of extracting "Interior Partition Walls", look for the actual materials: "5/8" Type X Gypsum Board"(For name key, write Gypsum Board and for notes, add the sizes), "2x4 Wood Studs"(For name key, write Wood Studs and for notes, add the size), or "Light-Gauge Metal Stud Framing".
+    - Instead of extracting "Interior Partition Walls", look for the actual materials: "5/8" Type X Gypsum Board"(For name key, write Gypsum Board and for estimation_notes, add the sizes), "2x4 Wood Studs"(For name key, write Wood Studs and for estimation_notes, add the size), or "Light-Gauge Metal Stud Framing".
     - Do not take dimensions as codes.
-    - If the material name is 'black asphalt shingles' then write the name of material as 'Asphalt Shingles'. Mention the color and other specifications in the 'notes' section.
+    - If the material name is 'black asphalt shingles' then write the name of material as 'Asphalt Shingles'. Mention the color and other specifications in the 'estimation_notes' section.
     - Structural & Framing Materials: E.g., "2x12 Joists", "4x12 Glulam Beam", "Lookout Rafter", "Chamfered 5x5 Post", wood studs, headers, and plates.
     - Exterior Trim & Roof Components: E.g., "Fascia Board", "Frieze Board", "Shed Roof assemblies", gutters, drip edges.
     - Window & Door Details: E.g., "Fiber Cement Subsills", "Exterior Surrounds", "Door Frames", casing, and moldings.
     - Layered Finishes: E.g., "Gypsum Wallboard", "T&G Decking", vapor barriers, and "Air Space" ventilation gaps.
     - Tagged equipment/fixtures (Category E).
-    - If a material is mentioned multiple times, write it only once. Strictly avoid duplicates. A material is considered identical if it has the same name, notes, and category. For freeform (non-coded) materials, the notes across separate mentions could be worded slightly differently on the page each time -- treat these as the same material and merge their "mentions" rather than creating two entries; do not invent new wording of your own when merging. For coded/schedule materials, follow the VERBATIM NOTES rule above instead -- these should never need "recognizing as a paraphrase" because they must always be transcribed identically. If the same material is used in different locations (e.g., "Gypsum Board" in both "Room-Kitchen" and "Room-Bathroom"), list it separately for each location with the same name and notes but different category.
+    - If a material is mentioned multiple times, write it only once. Strictly avoid duplicates. A material is considered identical if it has the same name, estimation_notes, and category. For freeform (non-coded) materials, the estimation_notes across separate mentions could be worded slightly differently on the page each time -- treat these as the same material and merge their "mentions" rather than creating two entries; do not invent new wording of your own when merging. For coded/schedule materials, follow the VERBATIM NOTES rule above instead -- these should never need "recognizing as a paraphrase" because they must always be transcribed identically. If the same material is used in different locations (e.g., "Gypsum Board" in both "Room-Kitchen" and "Room-Bathroom"), list it separately for each location with the same name and estimation_notes but different category.
 
     ❗WHAT NOT TO EXTRACT:
     - In drawing labelling, if you see labelled materials that are not actually used in the construction, civil engineering, do not extract them.
@@ -580,7 +580,7 @@ def ingestion_agent_node(state: AgenticState):
     Example:
      {
         "name": "3/4\" Air Space",
-        "notes": "3/4\" air space between siding and sheathing, at window and door details",
+        "estimation_notes": "3/4\" air space between siding and sheathing, at window and door details",
         "category": "Wall-Exterior",
         "mentions": [
             {
@@ -601,14 +601,14 @@ def ingestion_agent_node(state: AgenticState):
 
     🚨 CROSS-PAGE CODE RESOLUTION (CRITICAL):
     You are being given MULTIPLE PAGES from the same drawing set in this single request. Each image is preceded by a marker like "===== INTERNAL PAGE INDEX 7 =====". That marker is ONLY for you to keep track of which image you are looking at while reading — for the actual "page_label" field, always read the real sheet number/title printed in the page's own title block, exactly as you did before.
-    - If a code (e.g., F-26, W1, X-02) appears on a plan, elevation, or detail page WITHOUT a full material description next to it, you MUST look through the OTHER pages provided in this same request for the schedule, legend, or detail table that actually defines that code (e.g., a "Window Schedule", "Door Schedule", "Materials Schedule", or detail callout table), and copy the FULL description found there into "notes".
-    - NEVER write a vague placeholder describing the act of referencing, such as "Window/shutter code referenced in Window Elevation Details" or "See schedule for details." That is not a material description and is useless downstream. "notes" must always contain the actual material/product description — what it IS, not where else it is mentioned.
-    - If you genuinely cannot find the defining schedule/table for a code anywhere in the pages provided in this request, fall back to whatever partial description appears directly next to the code on the page itself (dimensions, material hints, etc.). Only if there is truly zero descriptive text anywhere should "notes" be left empty — never fill it with a description of the reference itself.
+    - If a code (e.g., F-26, W1, X-02) appears on a plan, elevation, or detail page WITHOUT a full material description next to it, you MUST look through the OTHER pages provided in this same request for the schedule, legend, or detail table that actually defines that code (e.g., a "Window Schedule", "Door Schedule", "Materials Schedule", or detail callout table), and copy the FULL description found there into "estimation_notes".
+    - NEVER write a vague placeholder describing the act of referencing, such as "Window/shutter code referenced in Window Elevation Details" or "See schedule for details." That is not a material description and is useless downstream. "estimation_notes" must always contain the actual material/product description — what it IS, not where else it is mentioned.
+    - If you genuinely cannot find the defining schedule/table for a code anywhere in the pages provided in this request, fall back to whatever partial description appears directly next to the code on the page itself (dimensions, material hints, etc.). Only if there is truly zero descriptive text anywhere should "estimation_notes" be left empty — never fill it with a description of the reference itself.
 
     🚨 VERBATIM NOTES FOR CODED/SCHEDULE ROWS (CRITICAL -- PREVENTS DUPLICATE ENTRIES):
-    - When a "notes" value is being copied from a schedule row, legend entry, or detail callout for a CODE (Category B/C/E/F), you MUST transcribe that row's text VERBATIM -- same words, same order, same punctuation and capitalization as printed. Do NOT paraphrase, reword, summarize, reorder clauses, or "clean up" the wording, even if it reads awkwardly. Two different passes over the SAME schedule row must always produce the EXACT SAME "notes" string, character for character (aside from trivial whitespace), so that duplicate detection downstream can match them.
-    - This verbatim rule applies ONLY to schedule/legend/code-defined "notes" text. It does NOT apply to the "name" field (which should still follow the normalization rules above, e.g. "black asphalt shingles" -> "Asphalt Shingles"), and it does NOT apply to freeform materials with no code (Category A), where notes should still be written in your own words as instructed elsewhere.
-    - If the same code's schedule row is visible again in a later page of this same request (e.g. because it was included as a reference anchor), re-extract its "notes" the exact same way you did the first time -- do not vary the phrasing between occurrences.
+    - When a "estimation_notes" value is being copied from a schedule row, legend entry, or detail callout for a CODE (Category B/C/E/F), you MUST transcribe that row's text VERBATIM -- same words, same order, same punctuation and capitalization as printed. Do NOT paraphrase, reword, summarize, reorder clauses, or "clean up" the wording, even if it reads awkwardly. Two different passes over the SAME schedule row must always produce the EXACT SAME "estimation_notes" string, character for character (aside from trivial whitespace), so that duplicate detection downstream can match them.
+    - This verbatim rule applies ONLY to schedule/legend/code-defined "estimation_notes" text. It does NOT apply to the "name" field (which should still follow the normalization rules above, e.g. "black asphalt shingles" -> "Asphalt Shingles"), and it does NOT apply to freeform materials with no code (Category A), where notes should still be written in your own words as instructed elsewhere.
+    - If the same code's schedule row is visible again in a later page of this same request (e.g. because it was included as a reference anchor), re-extract its "estimation_notes" the exact same way you did the first time -- do not vary the phrasing between occurrences.
     
     REMEMBER TO: - Extract where the materials are located for 'category' key into fixed categories: "Wall-Interior", "Wall-Exterior", "Wall-WallName", "Wall", "Door", "Window", "Roof", "Room-RoomName", "Room-Typical", "Wall-Foundation", "Room-Foundation" or "Others"  Do not add any other categories by yourself.
 
@@ -617,13 +617,13 @@ def ingestion_agent_node(state: AgenticState):
     - If the document does NOT use any wall-type coding system anywhere, do NOT use "Wall" —  default to "Wall-Interior" or "Wall-Exterior" based on location/context instead.
     - If a specific wall-type code/name IS identifiable, use "Wall-<WallTypeName>" — never   "Wall" or "Wall-Interior"/"Wall-Exterior" in that case.
 
-    If that information is explicitly provided in the notes or schedules. If the materials applied in room, read the name of the room and provide that as the location context (e.g., "Room-Kitchen Floor", "Room-Storage Area", "Room-Living Room", "Room-Front Porch") in the category key.
+    If that information is explicitly provided in the estimation_notes or schedules. If the materials applied in room, read the name of the room and provide that as the location context (e.g., "Room-Kitchen Floor", "Room-Storage Area", "Room-Living Room", "Room-Front Porch") in the category key.
     
-    🚨 EXCEPTION TO THE ABOVE (apply this FIRST, before defaulting to Room-RoomName): this "read the room name -> Room-X" default does NOT apply to materials that are inherently WALL, FLOOR, WALL-BASE, or CEILING functional elements (e.g. Paint, Rubber Base Cove, Ceramic Tile, Gypsum Board, wall panels) even when their notes say "Applied in: <room names>" or come from a room-by-room Finishes Schedule matrix. Materials on the WALL row of a Finishes Schedule/Room Tag Legend matrix -- regardless of how many rooms they're applied in or how their notes are worded -- must go through the WALL RULE. 
+    🚨 EXCEPTION TO THE ABOVE (apply this FIRST, before defaulting to Room-RoomName): this "read the room name -> Room-X" default does NOT apply to materials that are inherently WALL, FLOOR, WALL-BASE, or CEILING functional elements (e.g. Paint, Rubber Base Cove, Ceramic Tile, Gypsum Board, wall panels) even when their estimation_notes say "Applied in: <room names>" or come from a room-by-room Finishes Schedule matrix. Materials on the WALL row of a Finishes Schedule/Room Tag Legend matrix -- regardless of how many rooms they're applied in or how their estimation_notes are worded -- must go through the WALL RULE. 
 
-    - For category, if the drawing has no clear information, 'notes' could also be read for adding category. For example, if notes section has the descrption: 'Engineered Trusses @ 24 O.C. per layout. Part of Porch Roof Assembly (R2).' Then the category could be 'Roof' because of the mention of porch roof assembly in the notes.
-    - For category, if 'notes' section has anything written as 'Typical Room Assembly' then it the category key must has the value 'Room-Typical' because it is generic and is applied to all  rooms.
-    - You can see the drawing for category field. Example, if Asphalt Shingles are labelled in roof area of the drawing then the category must be 'Roof'. If the drawing has no clear information, 'notes' could also be read for adding category. For example, if notes section has the descrption: 'Engineered Trusses @ 24 O.C. per layout. Part of Porch Roof Assembly (R2).' Then the category could be 'Roof' because of the mention of porch roof assembly in the notes.
+    - For category, if the drawing has no clear information, 'estimation_notes' could also be read for adding category. For example, if estimation_notes section has the descrption: 'Engineered Trusses @ 24 O.C. per layout. Part of Porch Roof Assembly (R2).' Then the category could be 'Roof' because of the mention of porch roof assembly in the estimation_notes.
+    - For category, if 'estimation_notes' section has anything written as 'Typical Room Assembly' then it the category key must has the value 'Room-Typical' because it is generic and is applied to all  rooms.
+    - You can see the drawing for category field. Example, if Asphalt Shingles are labelled in roof area of the drawing then the category must be 'Roof'. If the drawing has no clear information, 'estimation_notes' could also be read for adding category. For example, if estimation_notes section has the descrption: 'Engineered Trusses @ 24 O.C. per layout. Part of Porch Roof Assembly (R2).' Then the category could be 'Roof' because of the mention of porch roof assembly in the estimation_notes.
     - CRITICAL: For 'category', if all the mentions have same category then provide the category normally but you must also look at the menstions page. for eg, if mentions has many category like:
         "mentions": [
             {
@@ -644,24 +644,19 @@ def ingestion_agent_node(state: AgenticState):
     - Try to include the name of material in the 'name' key whenver possible. 
     Excample 1:
     "name": "Asphalt Shingles",
-    "notes": "Black asphalt shingles, 25-year warranty", #here, as you can see the name is also included in the notes section. This is important for downstream processing and for clarity.
+    "estimation_notes": "Black asphalt shingles, 25-year warranty", #here, as you can see the name is also included in the notes section. This is important for downstream processing and for clarity.
     If it is already mentioned in the notes section, then you can skip it.
 
     Example 2:
     "name": "Beadboard Trim",
-    "notes": "Beadboard Trim, VW Mariposa 2229",
+    "estimation_notes": "Beadboard Trim, VW Mariposa 2229",
     Instread of just providing the model number in notes, also include the name of the material in the notes section for clarity and downstream processing.
 
     - Use the name of table when necessary for report_notes for example,
         (Beam Schedule)
         "name": "B3",
-        "notes": "Type Mark: B3, Size: 3-2x14, Material: SPRUCE PINE FIR",
+        "estimation_notes": "Type Mark: B3, Size: 3-2x14, Material: SPRUCE PINE FIR",
         "report_notes": "Beam B3, 2x14, Spruce Pine Fir", # State marck name as well.
-
-    -  If a material has other material details then do not include them in the notes section. For example, if a material has a note like "Concrete slab on grade, 4" thick, on 4" closed cell XPS, on 6" minimum compacted gravel", then the name of the material is "Concrete Slab" and the notes section should not include the name of the material along with size and thickness if present. Example:
-        "name": "Concrete Slab",
-        "notes": "Concrete slab on grade, 4\" thick, on 4\" closed cell XPS, on 6\" minimum compacted gravel", ❌ as it includes the name of other materials in the notes section, drop them.
-        "notes": "Concrete slab on grade, 4\" thick", ✅
     
     In standards and materials schedule, Looks at the following rules if 'LOCATION' is provided:
     🚨🚨🚨 CRITICAL -- STANDARD MATERIALS & FINISHES SCHEDULE WITH NO 'LOCATION' COLUMN AT ALL (this is a very common layout -- do NOT mishandle it):
@@ -721,7 +716,7 @@ STEP 2 — ROOM-TYPICAL RULE (for FLOOR/CEILING materials and any non-wall-funct
 
         SELF-CHECK before finalizing: list out the full FLOOR excluded-room set and the full CEILING excluded-room set explicitly and separately, then confirm that (a) NONE of the floor-set rooms appear in the exploded category list of any plain-Typical FLOOR material, (b) NONE of the ceiling-set rooms appear in the exploded category list of any plain-Typical CEILING material, and (c) a room excluded from one set (e.g. Kitchen excluded from CEILING because of a ceiling override) still correctly APPEARS in the opposite surface's explosion (e.g. Kitchen still appears in the FLOOR material's exploded list) unless Kitchen also has its own separate floor override. If a schedule has room-specific Typical rows for both, say, Kitchen (ceiling) and Bar (floor), then a plain-Typical ceiling material's explosion must omit Kitchen but still include Bar, and a plain-Typical floor material's explosion must omit Bar but still include Kitchen.
 
-    2c. Separately: if the 'notes' field contains the phrase "Typical Room Assembly" (generic,  applies to all rooms), category = "Room-Typical" as a literal single value, following the same 2a availability check before attempting any explosion.
+    2c. Separately: if the 'estimation_notes' field contains the phrase "Typical Room Assembly" (generic,  applies to all rooms), category = "Room-Typical" as a literal single value, following the same 2a availability check before attempting any explosion.
     Example:
       If there are 5 rooms in a plan: Kitchen, Dining, Restroom, UtilityRoom and Bedroom
     
@@ -733,7 +728,7 @@ STEP 2 — ROOM-TYPICAL RULE (for FLOOR/CEILING materials and any non-wall-funct
             Then JSON should be:
             {
             "name": "APC-1",
-                    "notes": "Type: Acoustic Panel; Ceiling,Colour: Black, Location: Typical",
+                    "estimation_notes": "Type: Acoustic Panel; Ceiling,Colour: Black, Location: Typical",
                     "category": {
                         "c1": "Room-Restroom",
                         "c2": "Room-Dining",
@@ -749,7 +744,7 @@ STEP 2 — ROOM-TYPICAL RULE (for FLOOR/CEILING materials and any non-wall-funct
             },
             {
                 "name": "APC-2",
-                        "notes": "Type: Acoustic Panel; Ceiling,Colour: White, Location: Kitchen Typical",
+                        "estimation_notes": "Type: Acoustic Panel; Ceiling,Colour: White, Location: Kitchen Typical",
                         "category": "Room-Kitchen",     #Since Kitche Typical is given
                         "mentions": [
                             {
@@ -760,7 +755,7 @@ STEP 2 — ROOM-TYPICAL RULE (for FLOOR/CEILING materials and any non-wall-funct
             },
             {
                 "name": "TP-1",
-                        "notes": "Type: Shutter,Colour: Natural, Location: Restroom, Dining, Storage",
+                        "estimation_notes": "Type: Shutter,Colour: Natural, Location: Restroom, Dining, Storage",
                         "category": {
                             "c1": "Room-Restroom",
                             "c2": "Room-Dining"
@@ -780,7 +775,7 @@ STEP 2 — ROOM-TYPICAL RULE (for FLOOR/CEILING materials and any non-wall-funct
             C-1 and C-2 are FLOOR-functional materials, so they feed and consult only the FLOOR excluded-room set -- they are entirely independent of the CEILING excluded-room set built from APC-2 (Kitchen-Typical) above. The FLOOR excluded-room set for this schedule is {Bar} (from C-2 only) -- Kitchen is NOT in the floor set, because APC-2's "Kitchen-Typical" override was for a ceiling material, not a floor material. So C-1's explosion (a plain-Typical FLOOR material) omits ONLY Bar, and correctly still includes Kitchen (Kitchen has no floor-specific override, only a ceiling one):
             {
                 "name": "C-1",
-                "notes": "Type: Concrete Floor, Colour: Grey, Location: Typical",
+                "estimation_notes": "Type: Concrete Floor, Colour: Grey, Location: Typical",
                 "category": {
                     "c1": "Room-Kitchen",  // included -- Kitchen's Typical override (APC-2) was for the CEILING, not the floor, so it does not exclude Kitchen from this FLOOR material's explosion
                     "c2": "Room-Restroom",
@@ -794,7 +789,7 @@ STEP 2 — ROOM-TYPICAL RULE (for FLOOR/CEILING materials and any non-wall-funct
             },
             {
                 "name": "C-2",
-                "notes": "Type: Sealed Concrete, Colour: Grey, Location: Bar Typical",
+                "estimation_notes": "Type: Sealed Concrete, Colour: Grey, Location: Bar Typical",
                 "category": "Room-Bar",   // room-specific Typical -> single-room category directly, same pattern as APC-2/Kitchen
                 "mentions": [
                     {"page_label": "C - 202 - Finishes Plan and Schedule", "view": "Standard Materials & Finishes Schedule"}
@@ -802,7 +797,7 @@ STEP 2 — ROOM-TYPICAL RULE (for FLOOR/CEILING materials and any non-wall-funct
             },
             // Note by contrast: APC-1 (a CEILING material, shown further above) correctly omits Kitchen from ITS explosion, because APC-2's Kitchen-Typical override is a ceiling override and therefore belongs to the CEILING exclusion set that APC-1 consults. APC-1 does not consult the FLOOR exclusion set, so Bar (a floor-only exclusion) does not affect APC-1's explosion at all -- APC-1's explosion still includes Bar.
 
- — GENERAL FALLBACK (lowest precedence, only if Steps 1-2 don't apply or the drawing gives no clear location/category information): Infer category from context in the 'notes' field or from the drawing itself. E.g. if notes mention "Part of Porch Roof Assembly (R2)" -> category = "Roof". If Asphalt Shingles are labeled in the roof area of the drawing -> category = "Roof".
+ — GENERAL FALLBACK (lowest precedence, only if Steps 1-2 don't apply or the drawing gives no clear location/category information): Infer category from context in the 'estimation_notes' field or from the drawing itself. E.g. if notes mention "Part of Porch Roof Assembly (R2)" -> category = "Roof". If Asphalt Shingles are labeled in the roof area of the drawing -> category = "Roof".
 
     🚨🚨🚨WALL RULE (TAKES PRECEDENCE OVER the generic Wall-Interior/Wall-Exterior fallback used elsewhere in this prompt, including the Room Tag Legend override and the MATERIALS/FINISHES schedule wall handling below):
      - If the drawing gives the wall a specific type name/code (e.g. "P1", "P2", "P3", "Wall-01", "W1", or any other wall-type mark/tag), DO NOT categorize it as "Wall-Interior" or "Wall-Exterior". Instead, set the category to: "Wall-<WallTypeName>" using the exact wall-type name/code as it appears on the drawing. Examples:
@@ -829,7 +824,7 @@ STEP 2 — ROOM-TYPICAL RULE (for FLOOR/CEILING materials and any non-wall-funct
      Example (bare numeric/alphanumeric wall-tag codes inside diamond symbols, per a "WALL ASSEMBLY" legend where the sheet's Plan Symbols key defines the diamond shape as "WALL TAG"):
      {
         "name": "Concrete Wall",
-        "notes": "8\" CONCRETE WALL. Wall assembly tagged 0A: 8\" concrete wall, 1.5\" R7.5 rigid insulation, 1-5/8\" light gage galvanized furring channel @16\" O.C., 1/2\" stucco or G.W.B.",
+        "estimation_notes": "8\" CONCRETE WALL. Wall assembly tagged 0A: 8\" concrete wall, 1.5\" R7.5 rigid insulation, 1-5/8\" light gage galvanized furring channel @16\" O.C., 1/2\" stucco or G.W.B.",
         "category": "Wall-0A",
         "mentions": [
             {"page_label": "A006 - Roof Plan", "view": "Wall Assembly Legend"}
@@ -837,7 +832,7 @@ STEP 2 — ROOM-TYPICAL RULE (for FLOOR/CEILING materials and any non-wall-funct
      },
      {
         "name": "Rigid Insulation",
-        "notes": "1.5\" R7.5 RIGID INSULATION. Wall assembly tagged 0A.",
+        "estimation_notes": "1.5\" R7.5 RIGID INSULATION. Wall assembly tagged 0A.",
         "category": "Wall-0A",
         "mentions": [
             {"page_label": "A006 - Roof Plan", "view": "Wall Assembly Legend"}
@@ -845,7 +840,7 @@ STEP 2 — ROOM-TYPICAL RULE (for FLOOR/CEILING materials and any non-wall-funct
      },
      {
         "name": "Wood Stud",
-        "notes": "2x6 @16\" WOOD STUD. Wall assembly tagged 1: siding grey blue, building wrap, 15/32\" OSB sheathing, R-20 insulation, 2x6 @16\" wood stud, 1/2\" gypsum board, sheetrock.",
+        "estimation_notes": "2x6 @16\" WOOD STUD. Wall assembly tagged 1: siding grey blue, building wrap, 15/32\" OSB sheathing, R-20 insulation, 2x6 @16\" wood stud, 1/2\" gypsum board, sheetrock.",
         "category": "Wall-1",
         "mentions": [
             {"page_label": "A006 - Roof Plan", "view": "Wall Assembly Legend"}
@@ -854,7 +849,7 @@ STEP 2 — ROOM-TYPICAL RULE (for FLOOR/CEILING materials and any non-wall-funct
      Example: If Gypsumboard is provided in both wall type Wall-01 and Wall-02 then, JSON shold look like:
      {
         "name": "Gypsumboard",
-        "notes": "Gypsumboard in each side",
+        "estimation_notes": "Gypsumboard in each side",
         "category": {
             "c1": "Wall-01",
             "c2": "Wall-02",
@@ -896,8 +891,8 @@ STEP 2 — ROOM-TYPICAL RULE (for FLOOR/CEILING materials and any non-wall-funct
     ### EXTRACTION & DE-DUPLICATION RULES
     To avoid data duplication, your output must group multiple page or view references of the exact same material together inside a "mentions" array.
 
-    - **Unique Material Criteria**: A material item is considered identical if it shares the exact same `name` (or `code`), `category`, and `notes`. Do not extract them more than once. If the same material appears in multiple locations, combine all page/view references into a single `mentions` array for that material.
-    - **Variation Handling**: If the same material `name` appears elsewhere but has a different `category` and different `notes`, it MUST be listed as a completely separate object in the main list.
+    - **Unique Material Criteria**: A material item is considered identical if it shares the exact same `name` (or `code`), `category`, and `estimation_notes`. Do not extract them more than once. If the same material appears in multiple locations, combine all page/view references into a single `mentions` array for that material.
+    - **Variation Handling**: If the same material `name` appears elsewhere but has a different `category` and different `estimation_notes`, it MUST be listed as a completely separate object in the main list.
 
     **If Lighting, Electrical, Plumbing and Mechnical Schedule comes, IGNORE them.***
     
@@ -964,13 +959,13 @@ For Room ledgend, look at the drawing properly. Every separate Room Tag box on t
     (b) Do NOT stop after finding one box that contains a given tag code. The SAME tag code (e.g. FL-1, FL-4, CT-1) commonly appears in the Room Tag boxes of MULTIPLE different rooms across the whole sheet. You must scan every single Room Tag box on every page before finalizing a tag's category -- treat this as a full-sheet search per tag, not a "first match wins" search. If you already found FL-1 in one room's box, keep looking for it in every other room's box too.
     (c) When the SAME room-name text appears MORE THAN ONCE on the plan (e.g. a mirrored/symmetric layout with two separate "PRIEST ROOM" boxes on opposite sides of the sheet), both instances are the SAME room and should normally carry the SAME tag set -- read each occurrence's own box independently to confirm, but do not "invent" a different room name for the second occurrence based on what a nearby, differently-named room happens to contain. If a second box's own printed tags genuinely differ from the first same-named box, re-examine both boxes' room-name text specifically before concluding they differ -- a misread digit or word is far more likely than two genuinely different rooms sharing a name.
     (d) Self-check before finalizing output: for every distinct room-name label visible anywhere on the plan (including repeated/mirrored ones), list out that room's own 4 rows (or however many rows its box has) directly from that box, independently of any other room's box -- then confirm every tag from that box appears in your final category output for that exact room name. Do not skip a room just because a same-shaped box nearby was already processed.
-    (e) A tag box on the plan with NO room-name text printed anywhere near it (a bare tag in a corridor, walkway, or step area with only a dashed leader line and no adjacent room label) still belongs to whatever named room/zone's floor area it physically sits inside, based on the wall/boundary lines on the plan -- do not silently drop these mentions, and do not guess a room name from a different, unrelated part of the sheet. If you truly cannot determine which room such a floating tag belongs to after checking the boundary lines, keep the mention but note the uncertainty in "notes" rather than omitting it.
+    (e) A tag box on the plan with NO room-name text printed anywhere near it (a bare tag in a corridor, walkway, or step area with only a dashed leader line and no adjacent room label) still belongs to whatever named room/zone's floor area it physically sits inside, based on the wall/boundary lines on the plan -- do not silently drop these mentions, and do not guess a room name from a different, unrelated part of the sheet. If you truly cannot determine which room such a floating tag belongs to after checking the boundary lines, keep the mention but note the uncertainty in "estimation_notes" rather than omitting it.
     (f) A dashed "EXTENT OF <tag>" annotation is a boundary/coverage indicator for a tag already captured on that same room's box -- it is NOT a new tag mention and does NOT create a new room category; ignore it for categorization purposes (it only confirms where that tag's material physically extends within the room already identified).
 
 Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finishes schedule Location column for these tags) -- a box reading "PRIEST ROOM" with rows FL-3 / WB-1 / PT-1 / CT-1 next to it:
     {
         "name": "FL-3",
-        "notes": "Room Tag: Floor row, Room: Priest Room",  # Add the note from the table
+        "estimation_notes": "Room Tag: Floor row, Room: Priest Room",  # Add the note from the table
         "category": "Room-Priest Room",   # FLOOR row -> Room-<RoomName>, room name read directly off the plan next to this Room Tag box
         "mentions": [
             {"page_label": "C - 202 - Finishes Plan and Schedule", "view": "Finishes Plan"}
@@ -978,7 +973,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     },
     {
         "name": "CT-1",
-        "notes": "Room Tag: Ceiling row, Room: Priest Room", # Add note from the table
+        "estimation_notes": "Room Tag: Ceiling row, Room: Priest Room", # Add note from the table
         "category": "Room-Priest Room",   # CEILING row -> SAME Room-<RoomName> treatment as FLOOR, using the same room name
         "mentions": [
             {"page_label": "C - 202 - Finishes Plan and Schedule", "view": "Finishes Plan"}
@@ -986,7 +981,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     },
     {
         "name": "WB-1",
-        "notes": "Room Tag: Wall Base row, Room: Priest Room", # Add note from the table
+        "estimation_notes": "Room Tag: Wall Base row, Room: Priest Room", # Add note from the table
         "category": "Wall",   # WALL BASE row -> goes through the WALL RULE (Wall-<code> / "Wall" / Wall-Interior-Exterior), NOT Room-Priest Room
         "mentions": [
             {"page_label": "C - 202 - Finishes Plan and Schedule", "view": "Finishes Plan"}
@@ -994,7 +989,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     },
     {
         "name": "PT-1",
-        "notes": "Room Tag: Wall row, Room: Priest Room", # Add note from the table
+        "estimation_notes": "Room Tag: Wall row, Room: Priest Room", # Add note from the table
         "category": "Wall",   # WALL row -> also goes through the WALL RULE, same as Wall Base
         "mentions": [
             {"page_label": "C - 202 - Finishes Plan and Schedule", "view": "Finishes Plan"}
@@ -1010,7 +1005,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     Example when the Room Tag box is next to a non-room ZONE (platform/furniture label) and only has ONE row -- e.g. three separate boxes on the plan each simply reading "PEDESTAL" with a single "FL-1" line inside (no Wall Base/Wall/Ceiling rows at all), plus a 4-row box reading "DEITIES PLATFORM" listing FL-2 / WB-3 / PT-2,PT-3 / CT-2:
     {
         "name": "FL-1",
-        "notes": "Room Tag: Floor row, Zone: Pedestal",
+        "estimation_notes": "Room Tag: Floor row, Zone: Pedestal",
         "category": "Room-Pedestal",   # lone FLOOR-prefixed tag in a 1-row box -> still Room-<Label>, using the printed zone label "PEDESTAL" even though it is not an enclosed room
         "mentions": [
             {"page_label": "C - 202 - Finishes Plan and Schedule", "view": "Finishes Plan"},
@@ -1020,37 +1015,37 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     },
     {
         "name": "FL-2",
-        "notes": "Room Tag: Floor row, Zone: Deities Platform",
+        "estimation_notes": "Room Tag: Floor row, Zone: Deities Platform",
         "category": "Room-Deities Platform",   # FLOOR row of the DEITIES PLATFORM box
         "mentions": [{"page_label": "C - 202 - Finishes Plan and Schedule", "view": "Finishes Plan"}]
     },
     {
         "name": "CT-2",
-        "notes": "Room Tag: Ceiling row, Zone: Deities Platform",
+        "estimation_notes": "Room Tag: Ceiling row, Zone: Deities Platform",
         "category": "Room-Deities Platform",   # CEILING row -> same zone label as the Floor row above
         "mentions": [{"page_label": "C - 202 - Finishes Plan and Schedule", "view": "Finishes Plan"}]
     },
     {
         "name": "WB-3",
-        "notes": "Room Tag: Wall Base row, Zone: Deities Platform",
+        "estimation_notes": "Room Tag: Wall Base row, Zone: Deities Platform",
         "category": "Wall",   # WALL BASE row -> WALL RULE, never "Room-Deities Platform"
         "mentions": [{"page_label": "C - 202 - Finishes Plan and Schedule", "view": "Finishes Plan"}]
     },
     {
         "name": "PT-2",
-        "notes": "Room Tag: Wall row, Zone: Deities Platform",
+        "estimation_notes": "Room Tag: Wall row, Zone: Deities Platform",
         "category": "Wall",   # WALL row -> WALL RULE
         "mentions": [{"page_label": "C - 202 - Finishes Plan and Schedule", "view": "Finishes Plan"}]
     },
     {
         "name": "PT-3",
-        "notes": "Room Tag: Wall row, Zone: Deities Platform",
+        "estimation_notes": "Room Tag: Wall row, Zone: Deities Platform",
         "category": "Wall",   # also listed on the WALL row (multiple tags can share a row, e.g. "PT-2, PT-3") -> WALL RULE
         "mentions": [{"page_label": "C - 202 - Finishes Plan and Schedule", "view": "Finishes Plan"}]
     },
 
      🚨 IMPORTANT — this Room Tag Legend override is NOT limited to coded materials (WB-, CT-, PT-, etc). It applies equally to plain-named, non-coded materials whenever the material's function matches one of the legend rows (FLOOR / WALL BASE / WALL / CEILING). Judge this by what the material physically IS, not by its code format:
-    - If a material is inherently a wall-surface material (e.g. "FRP" / Fiber Reinforced Plastic panels, "Stainless Steel Wall Panels", ceramic wall tile, wainscot, wall cladding, paneling) -- it belongs on the WALL row of the Room Tag Legend regardless of what the "Location" field says (e.g. "Location: Kitchen"). Do NOT fall back to "Room-Kitchen" in this case. The Location text stays in "notes" for reference, but does not drive "category" once the material-type identifies it as a wall item.
+    - If a material is inherently a wall-surface material (e.g. "FRP" / Fiber Reinforced Plastic panels, "Stainless Steel Wall Panels", ceramic wall tile, wainscot, wall cladding, paneling) -- it belongs on the WALL row of the Room Tag Legend regardless of what the "Location" field says (e.g. "Location: Kitchen"). Do NOT fall back to "Room-Kitchen" in this case. The Location text stays in "estimation_notes" for reference, but does not drive "category" once the material-type identifies it as a wall item.
       Then apply the WALL RULE precedence to decide the actual category value:
         1. If a specific wall-type name/code (e.g. "P1", "Wall-01") applies to that wall -- use "Wall-WallName" ONLY.
         2. If no wall-type name/code exists for THIS wall, but the drawing set uses a wall-type coding system somewhere -- use plain "Wall" ONLY (do not guess interior/exterior).
@@ -1060,7 +1055,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     Example A (drawing set has NO wall-type coding system anywhere -- generic interior/exterior fallback applies):
     {
         "name": "FRP",
-        "notes": "Type: FIBER REINFORCED PLASTIC, Style/Color/Size/Finish: 4'-0\" X 10'-0\" PANELS - WHITE COMMERCIAL GRADE OR APPROVED EQUAL, Location: KITCHEN",
+        "estimation_notes": "Type: FIBER REINFORCED PLASTIC, Style/Color/Size/Finish: 4'-0\" X 10'-0\" PANELS - WHITE COMMERCIAL GRADE OR APPROVED EQUAL, Location: KITCHEN",
         "category": {
             "c1": "Wall-Interior",
             "c2": "Wall-Exterior", # FRP is inherently a wall-panel material, so it maps to the WALL row of the Room Tag Legend regardless of Location: Kitchen. No wall-type name/code (like P1, Wall-01) was found ANYWHERE in this ENTIRE drawing set, so both generic categories are given. If this drawing set had a wall-type coding system anywhere (even for other walls), the category would instead be "Wall-WallName" (if this wall has its own code) or plain "Wall" (if it doesn't) -- never this Interior/Exterior guess.
@@ -1076,7 +1071,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     Example B (drawing set DOES use wall-type codes elsewhere in the set, e.g. a P1/P2/P3 partition-type legend, but THIS material's row/mark cannot be tied to a specific one of those codes):
     {
         "name": "Rubber Base Cove",
-        "notes": "Type: Rubber Base Cove, Location: Reception",
+        "estimation_notes": "Type: Rubber Base Cove, Location: Reception",
         "category": "Wall",   # NOT "Wall-Interior". This drawing set has a P1/P2/P3 wall-type coding system elsewhere (e.g. a Rated Partition legend), so guessing interior/exterior from the room name is not allowed. Since this occurrence (from a room-by-room Finishes Schedule matrix) cannot be tied to a specific P1/P2/P3 code, use plain "Wall" instead.
         "mentions": [
             {
@@ -1088,12 +1083,12 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
 
     #### CATEGORY A: STANDARD MATERIALS (No Codes Present)
     Use this formatting if there is absolutely no schedule code (like F-60 or X-02) associated with the material.
-    - Provide "name", "notes", "category" and "mentions". Do NOT include a "code" key.
+    - Provide "name", "estimation_notes", "category" and "mentions". Do NOT include a "code" key.
 
     Example:
     {
         "name": "Gypsum Drywall",
-        "notes": "1/3' Gypsum Drywall",
+        "estimation_notes": "1/3' Gypsum Drywall",
         "category": {
             "c1": "Wall-Interior", 
             "c2": "Roof",
@@ -1104,27 +1099,27 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         ]
     },
 
-    If same material is used but of different size (e.g., 1/2' vs 5/8' Gypsum Drywall) then they must be listed as separate items because the notes are different.
+    If same material is used but of different size (e.g., 1/2' vs 5/8' Gypsum Drywall) then they must be listed as separate items because the estimation_notes are different.
 
     
     #### CATEGORY B: CODED MATERIALS & SCHEDULES (Codes Present)
     If the code is a fixture, see CATEGORY E below. Otherwise, if the code is a material or finish, use this formatting.
-    Use this formatting if a code (e.g., F-60, X-02) is detected anywhere on the drawing or inside a schedule layout. 🚨REMEMBER: Use this format if it is a schedule. the code should be the name and all the otehr info must be in notes section. Try to inclde name of material in notes.
+    Use this formatting if a code (e.g., F-60, X-02) is detected anywhere on the drawing or inside a schedule layout. 🚨REMEMBER: Use this format if it is a schedule. the code should be the name and all the otehr info must be in estimation_notes section. Try to inclde name of material in estimation_notes.
     
     1. If it's on a plan view/detail pointing to a layout area:
        - You MUST strip out the "name" key completely. Only use the "code" key with the exact code (e.g., F-60, X-02) as it appears on the drawing.
-         - The "notes" key should include the full material description as it appears in the note or schedule.
+         - The "estimation_notes" key should include the full material description as it appears in the note or schedule.
 
     2. DETECTING FULL SCHEDULES & TABLES (e.g., MATERIALS SCHEDULE, FIXTURE & EQUIPMENT SCHEDULE):
        - If the page contains large master index tables, extract EVERY single row of the table (schedule) systematically.
-       - Map row column values directly to the 'notes' key.
+       - Map row column values directly to the 'estimation_notes' key.
        - Use the schedule title or row category as the 'category' key.
        - The codes and its respective scehdule category may be repeated across multiple pages, so you must group them together as mentioned in the de-duplication rules above.
 
     Example:
     {
         "code": "F-60",
-        "notes": "HARDWOOD FLOOR, 2-3\" WIDE, FINISH WOOD, TONGUE & GROOVE, STAINED"    //THESE NOTES MAY BE IN ANOTHER PAGE. FIND THAT AND EXTRACT IT. DO NOT LEAVE IT EMPTY.
+        "estimation_notes": "HARDWOOD FLOOR, 2-3\" WIDE, FINISH WOOD, TONGUE & GROOVE, STAINED"    //THESE NOTES MAY BE IN ANOTHER PAGE. FIND THAT AND EXTRACT IT. DO NOT LEAVE IT EMPTY.
         "category": "Room-MainRoom",
         "mentions": [
           {"page_label": "Sheet 6 of 23", "view": "Main Floor Plan Layout"}
@@ -1132,7 +1127,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     },
     {
         "code": "F-62",
-        "notes": "FLOOR TILE, ~2\", CERAMIC, HEXAGONAL PATTERN"
+        "estimation_notes": "FLOOR TILE, ~2\", CERAMIC, HEXAGONAL PATTERN"
         "category": "Room-Kitchen Floor",
         "mentions": [
           {"page_label": "Sheet 6 of 23", "view": "Main Floor Plan Layout"}
@@ -1140,7 +1135,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     },
     {
         "name": "CT-1",
-        "notes": "Type: Vinyl Coated Ceiling,  Brand: Armstrong, Location: Dining, Storage, Toilet",
+        "estimation_notes": "Type: Vinyl Coated Ceiling,  Brand: Armstrong, Location: Dining, Storage, Toilet",
         "category": "Room-Toilet",
         "mentions": [
             {
@@ -1150,22 +1145,22 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         ],
     },
 
-    🚨 NEVER DROP THE "ITEM" (OR EQUIVALENT NAME/TYPE/DESCRIPTION)or any COLUMN FROM "notes" (CRITICAL):
+    🚨 NEVER DROP THE "ITEM" (OR EQUIVALENT NAME/TYPE/DESCRIPTION)or any COLUMN FROM "estimation_notes" (CRITICAL):
     - This rule applies to EVERY schedule table regardless of how many columns it has (4, 8, 15+) -- it is not limited to the Item/Material example below, which is only ONE illustration of the general rule.
-    - A schedule row commonly has BOTH an "Item"/"Type"/"Description" column (what the thing is called, e.g. "BRICK", "PORCH DECKING", "CROWN MOLDING") AND a separate "Material" column (what it's made of, e.g. "SMOOTH BRICK", "PAINTED WOOD", "ROT-RESISTANT"). These are NOT the same value and NEITHER may be dropped for looking similar to the other -- both must appear in "notes", each labeled with its own original column header.
-    - Fold EVERY column from the row into "notes", NO MATTER HOW MANY there are, in the SAME left-to-right order they appear in the table, each one labeled with its own header text exactly as printed (e.g. "ITEM:", "SIZE:", "MATERIAL:", "NOTES:", "MANUFACTURER/MODEL:", or whatever headers that specific table actually has). Do not skip any column just because a later column looks related to it in meaning -- every distinct column answers a distinct question and a downstream reader needs all of them.
-    - Before finalizing each row's "notes" string, count the number of columns in that table's header row and count the number of labeled segments you produced for this row -- they must match. If they don't match, you dropped a column; go back and find which one.
+    - A schedule row commonly has BOTH an "Item"/"Type"/"Description" column (what the thing is called, e.g. "BRICK", "PORCH DECKING", "CROWN MOLDING") AND a separate "Material" column (what it's made of, e.g. "SMOOTH BRICK", "PAINTED WOOD", "ROT-RESISTANT"). These are NOT the same value and NEITHER may be dropped for looking similar to the other -- both must appear in "estimation_notes", each labeled with its own original column header.
+    - Fold EVERY column from the row into "estimation_notes", NO MATTER HOW MANY there are, in the SAME left-to-right order they appear in the table, each one labeled with its own header text exactly as printed (e.g. "ITEM:", "SIZE:", "MATERIAL:", "NOTES:", "MANUFACTURER/MODEL:", or whatever headers that specific table actually has). Do not skip any column just because a later column looks related to it in meaning -- every distinct column answers a distinct question and a downstream reader needs all of them.
+    - Before finalizing each row's "estimation_notes" string, count the number of columns in that table's header row and count the number of labeled segments you produced for this row -- they must match. If they don't match, you dropped a column; go back and find which one.
 
-    🚨 EXPAND PAGE-LEVEL ABBREVIATION LEGENDS IN "notes" (CRITICAL -- e.g. "VW" = "VINTAGE WOODWORKS"):
-    - Pages sometimes print a short legend line near a list, table, or option group defining what an abbreviation/prefix used in that section stands for, e.g. "(NOTE: VW = \"VINTAGE WOODWORKS\")" printed above a list of items like "VW COCKATOO 1194", "VW MARIPOSA 2229", "VW RILEY 1551". Whenever a manufacturer/model value uses an abbreviated prefix like this, you MUST resolve it and write the FULL name into "notes" -- do not leave the bare abbreviation unexpanded.
-    - Format it as: "Manufacturer: <Full Name> (<Abbreviation>), Model: <model number/name>". Example: "VW MARIPOSA 2229" with legend "VW = VINTAGE WOODWORKS" becomes "Manufacturer: Vintage Woodworks (VW), Model: Mariposa 2229" in "notes".
+    🚨 EXPAND PAGE-LEVEL ABBREVIATION LEGENDS IN "estimation_notes" (CRITICAL -- e.g. "VW" = "VINTAGE WOODWORKS"):
+    - Pages sometimes print a short legend line near a list, table, or option group defining what an abbreviation/prefix used in that section stands for, e.g. "(NOTE: VW = \"VINTAGE WOODWORKS\")" printed above a list of items like "VW COCKATOO 1194", "VW MARIPOSA 2229", "VW RILEY 1551". Whenever a manufacturer/model value uses an abbreviated prefix like this, you MUST resolve it and write the FULL name into "estimation_notes" -- do not leave the bare abbreviation unexpanded.
+    - Format it as: "Manufacturer: <Full Name> (<Abbreviation>), Model: <model number/name>". Example: "VW MARIPOSA 2229" with legend "VW = VINTAGE WOODWORKS" becomes "Manufacturer: Vintage Woodworks (VW), Model: Mariposa 2229" in "estimation_notes".
     - This legend may appear on a DIFFERENT page than the specific mention of the abbreviated code (e.g. the legend is on the options-list page, but the code also appears on a detail/elevation page). Search ALL pages provided in this same request for a "<ABBR> = <FULL NAME>" style legend before leaving any abbreviation unexpanded, the same way you would cross-reference a schedule code.
-    - NEVER invent or guess an expansion. Only expand an abbreviation when its defining legend text is actually visible on one of the pages provided in this request. If no legend is found anywhere in this request, keep the abbreviation as-is in "notes" rather than fabricating a full name.
+    - NEVER invent or guess an expansion. Only expand an abbreviation when its defining legend text is actually visible on one of the pages provided in this request. If no legend is found anywhere in this request, keep the abbreviation as-is in "estimation_notes" rather than fabricating a full name.
 
     Example (MARK | ITEM | SIZE | MATERIAL | NOTES | MANUFACTURER/MODEL row from a Materials Schedule):
     {
         "code": "F-00",
-        "notes": "ITEM: BRICK, SIZE: -, MATERIAL: SMOOTH BRICK, NOTES: SOLID RED COLOR, SAND-FACED, AVOID WIRE CUT OR \"EXTRUDED\" LOOK, MANUFACTURER/MODEL: OLD CAROLINA BRICK COMPANY",
+        "estimation_notes": "ITEM: BRICK, SIZE: -, MATERIAL: SMOOTH BRICK, NOTES: SOLID RED COLOR, SAND-FACED, AVOID WIRE CUT OR \"EXTRUDED\" LOOK, MANUFACTURER/MODEL: OLD CAROLINA BRICK COMPANY",
         "category": "Wall-Foundation",
         "mentions": [
           {"page_label": "A5.0", "view": "Materials Schedule"}
@@ -1180,7 +1175,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     WHAT NOT TO PROVIDE FOR CATEGORY B:
     {
         "code": "F-26",
-        "notes": "Window/shutter code referenced in Window Elevation Details and Optional Window Shutters details",
+        "estimation_notes": "Window/shutter code referenced in Window Elevation Details and Optional Window Shutters details",
         "category": {
             "c1": "Window", 
             "c2":"Door"
@@ -1201,7 +1196,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     
     ### CATEGORY C: Schedules with numberss
     Table Schedules Processing Rules:
-    If a table occurs with numbers in theor 1st column, then put the 'name' key as the notation/number/name of the column 1. The rest information could be aaded to the 'notes' section. The 'category' key must be added in accordance with the title of the table and the 'mentions' key must have the page and the view where the table is loacated and where the codes are present in the user plan. 
+    If a table occurs with numbers in theor 1st column, then put the 'name' key as the notation/number/name of the column 1. The rest information could be aaded to the 'estimation_notes' section. The 'category' key must be added in accordance with the title of the table and the 'mentions' key must have the page and the view where the table is loacated and where the codes are present in the user plan. 
 
     EXAMPLE 1:
     NO  |Qty |Width |Height |Matrial Finish |Glazing
@@ -1213,7 +1208,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     Then the JSON must look like:
     {
         "name": "Door-01A",
-        "notes": "Qty: 1, Width: 5'-0, Height: 6'-8', Material Finish: Fibreglass, Glazing: -",
+        "estimation_notes": "Qty: 1, Width: 5'-0, Height: 6'-8', Material Finish: Fibreglass, Glazing: -",
         "category": "Door Schedule",
         "mentions": [
             {"page_label": "Sheet 4 of 23 - Schedules", "view": "Door Schedule"},
@@ -1221,7 +1216,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     },
     {
         "name": "Door-103",
-        "notes": "Qty: 2, Width:  7'-0, Height:  8'-6', Material Finish: HM, Glazing: -",
+        "estimation_notes": "Qty: 2, Width:  7'-0, Height:  8'-6', Material Finish: HM, Glazing: -",
         "category": "Door Schedule",
         "mentions": [
             {"page_label": "Sheet 4 of 23 - Schedules", "view": "Door Schedule"},
@@ -1236,7 +1231,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
      Then the JSON must look like:
     {
         "name": "Window-0C",
-        "notes": "Qty: 1, Width: 5'-0, Height: 6'-8', Volume: -",
+        "estimation_notes": "Qty: 1, Width: 5'-0, Height: 6'-8', Volume: -",
         "category": "Window Schedule",
         "mentions": [
             {"page_label": "Sheet 4 of 23 - Schedules", "view": "Window Schedule"},
@@ -1255,7 +1250,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     Then the JSON must look like:
     {
         "name": "E14",
-        "notes": "1/2\" Gypsum Board, Type X, 5/8\" thick, fire-rated",
+        "estimation_notes": "1/2\" Gypsum Board, Type X, 5/8\" thick, fire-rated",
         "category": "Wall-Interior",
         "mentions": [
             {"page_label": "Sheet 4 of 23 - East Elevation (Front)", "view": "East Elevation (Front) - Exterior Elevation View"},
@@ -1264,7 +1259,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     },
     {
         "name": "E32",
-        "notes": "3/8\" OSB Board, Type X, 5/8\" thick, fire-rated",
+        "estimation_notes": "3/8\" OSB Board, Type X, 5/8\" thick, fire-rated",
         "category": "Wall-Interior",
         "mentions": [
             {"page_label": "Sheet 4 of 23 - East Elevation (Front)", "view": "East Elevation (Front) - Exterior Elevation View"},
@@ -1284,7 +1279,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     Then the JSON must look like:
         {
             "name": "Window-1",
-            "notes": "32x72 DH 2/2 DIVIDED LITES, Count 2",
+            "estimation_notes": "32x72 DH 2/2 DIVIDED LITES, Count 2",
             "category": "Window",
             "mentions": [
                 {"page_label": "Sheet 4 of 23 - East Elevation (Front)", "view": "East Elevation (Front) - Exterior Elevation View"},
@@ -1293,7 +1288,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         },
         {
             "name": "Window-2",
-            "notes": "32x60 DH 2/2 DIVIDED LITES",
+            "estimation_notes": "32x60 DH 2/2 DIVIDED LITES",
             "category": "Window",
             "mentions": [
                 {"page_label": "Sheet 4 of 23 - East Elevation (Front)", "view": "East Elevation (Front) - Exterior Elevation View"},
@@ -1302,7 +1297,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         },
         {
             "name": "Window-3",
-            "notes": "24x42 DH 2/2 DIVIDED LITES, Count 3",
+            "estimation_notes": "24x42 DH 2/2 DIVIDED LITES, Count 3",
             "category": "Window",
             "mentions": [
                 {"page_label": "Sheet 4 of 23 - East Elevation (Front)", "view": "East Elevation (Front) - Exterior Elevation View"},
@@ -1311,7 +1306,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         }
         {
             "name": "Door-A",
-            "notes": "36x84 9-LITE FRONT DOOR",
+            "estimation_notes": "36x84 9-LITE FRONT DOOR",
             "category": "Door",
             "mentions": [
                 {"page_label": "Sheet 4 of 23 - East Elevation (Front)", "view": "East Elevation (Front) - Exterior Elevation View"},
@@ -1320,7 +1315,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         },
         {
             "name": "Door-B",
-            "notes": "36x80 4-LITE BACK DOOR",
+            "estimation_notes": "36x80 4-LITE BACK DOOR",
             "category": "Door",
             "mentions": [
                 {"page_label": "Sheet 4 of 23 - East Elevation (Front)", "view": "East Elevation (Front) - Exterior Elevation View"},
@@ -1334,9 +1329,9 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
      #### CATEGORY D Listed submaterials  inside a code
       Use the format below if submaterials are listed inside a code. 🚨IF THE CODE IS A SCHEDULE, LOOK AT CATEGORY B
       Also use this format if submaterials are listed inside a wall type, partition code, or detailed assembly callout (e.g., a detail showing 5 layers of a wall: Siding, Wrap, Sheathing, Studs, Drywall). Try to inclde name of material in notes.
-      🚨 This includes FINISH callouts written inline as part of the assembly description, not just physical layers -- e.g. if a wall-type detail says "5/8\" Gypsum Wall Board (both sides) WITH PAINTED FINISH", the phrase "with painted finish" means "Paint" must ALSO be extracted as its own submaterial object for that code (e.g. {"name": "Paint", "category": "Wall-P3", "notes": "Painted finish. Used in P3 Non-Rated Partition assembly.", "mentions": [...code P3...]}), in addition to the Gypsum Wall Board object. Do not drop finish/coating callouts just because they're phrased as an adjective clause ("with painted finish") rather than a listed layer -- if a finish is named as part of that code's assembly text, it is a submaterial of that code just like the studs or insulation are.
+      🚨 This includes FINISH callouts written inline as part of the assembly description, not just physical layers -- e.g. if a wall-type detail says "5/8\" Gypsum Wall Board (both sides) WITH PAINTED FINISH", the phrase "with painted finish" means "Paint" must ALSO be extracted as its own submaterial object for that code (e.g. {"name": "Paint", "category": "Wall-P3", "estimation_notes": "Painted finish. Used in P3 Non-Rated Partition assembly.", "mentions": [...code P3...]}), in addition to the Gypsum Wall Board object. Do not drop finish/coating callouts just because they're phrased as an adjective clause ("with painted finish") rather than a listed layer -- if a finish is named as part of that code's assembly text, it is a submaterial of that code just like the studs or insulation are.
     - You MUST split these complex layered assemblies into individual material entries in your JSON output (one object for Siding, one for Wrap, one for Sheathing, etc.).
-    - Do NOT dump the entire assembly sentence into a single "notes" key. Parse each material layer separately.
+    - Do NOT dump the entire assembly sentence into a single "estimation_notes" key. Parse each material layer separately.
     - Do not use this category if the code is a schedule. Instead, use CATEGORY B for schedules.
 
     🚨 MANDATORY PRE-CHECK BEFORE APPLYING CATEGORY D:
@@ -1346,7 +1341,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     
         {
             "name": "VINYL SIDING",
-            "notes": "Vinyl Siding, Material listed in W1",
+            "estimation_notes": "Vinyl Siding, Material listed in W1",
             "category": "Wall-Exterior",
             "mentions": [
                 {"page_label": "Sheet 16 of 23", "view": "Main Floor Plan Layout", "Extracted from code": "W1"}
@@ -1354,7 +1349,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         },
         {
             "name": "TYVEK HOUSE WRAP", 
-            "notes": "Tyvek House Wrap, Material listed in W1",
+            "estimation_notes": "Tyvek House Wrap, Material listed in W1",
             "category": "Wall-Exterior",
             "mentions": [
                 {"page_label": "Sheet 16 of 23", "view": "Main Floor Plan Layout", "Extracted from code": "W1"}
@@ -1362,7 +1357,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         },
         {
             "name": "3/8' OSB EXTERIOR SHEATHING", 
-            "notes": "3/8' osb exterior sheathing, Material listed in W1",
+            "estimation_notes": "3/8' osb exterior sheathing, Material listed in W1",
             "category": "Wall-Exterior",
             "mentions": [
                 {"page_label": "Sheet 16 of 23", "view": "Main Floor Plan Layout", "Extracted from code": "W1"}
@@ -1370,7 +1365,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         },
         {
             "name": "2X6 STUDS @ 16' O.C.", 
-            "notes": "2X6 size STUDS, 16'o.c. spacing, Material listed in W1",
+            "estimation_notes": "2X6 size STUDS, 16'o.c. spacing, Material listed in W1",
             "category": "Wall-Foundation",
             "mentions": [             
                 {"page_label": "Sheet 16 of 23", "view": "Main Floor Plan Layout", "Extracted from code": "W1"},
@@ -1378,7 +1373,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         },
         {
             "name": "R-25 BATT INSULATION", 
-            "notes": "R-25 BATT INSULATION, Material listed in W1",
+            "estimation_notes": "R-25 BATT INSULATION, Material listed in W1",
             "category": "Wall-Exterior",
             "mentions": [ 
                 {"page_label": "Sheet 16 of 23", "view": "Main Floor Plan Layout", "Extracted from code": "W1"},
@@ -1386,7 +1381,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         },
     ]
 
-    Do not add any extra json for codes W1 if the materials are already listed in the schedule. Only add the code W1 with the schedule category and notes if there is no material breakdown listed in the schedule. If there  is a material breakdown then do not add W1 code as a separate item. Only add the materials listed under W1 as separate items with their respective categories and notes. TAKE NOTES OF CATEGORY B AND C properly.
+    Do not add any extra json for codes W1 if the materials are already listed in the schedule. Only add the code W1 with the schedule category and estimation_notes if there is no material breakdown listed in the schedule. If there  is a material breakdown then do not add W1 code as a separate item. Only add the materials listed under W1 as separate items with their respective categories and estimation_notes. TAKE NOTES OF CATEGORY B AND C properly.
 
     
     🚨 GENERIC-VS-WALL-TYPE DUPLICATE CHECK (CRITICAL):
@@ -1395,13 +1390,13 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     - If the SAME product does NOT itself appear tied to a wall-type code, but the document uses a wall-type coding system SOMEWHERE (for other materials/walls), do NOT create a "Wall-Interior"/"Wall-Exterior" object for it either -- use plain category "Wall" instead. Guessing interior vs. exterior from the room/location name is only allowed when the whole document has no wall-type coding system at all.
     - Only create a standalone "Wall-Interior"/"Wall-Exterior" object for a generically-sourced material when NO wall-type/partition coding system exists ANYWHERE in the entire document, for any wall. This is the same "no wall-type name/code exists" condition already described in the WALL RULE -- apply it across the WHOLE document, not just within the single page/table you are currently reading.
 
-        🚨 This same submaterial-breakdown rule ALSO applies when the code's materials are written as a full PROSE SENTENCE instead of a clean comma-separated list -- this is very common in PARTITION / WALL-TYPE SCHEDULES (columns like "PARTITION WALL TYPE" / "TYPE" and "DESCRIPTION"), where a code such as "A1" or "B2" has a description like: "3 5/8\" Metal Stud with one layer of 5/8\" Cementitious Backer Board and Ceramic Tile upto 72\" from FFL (UNO on interior elevations) and painted finish above, on both sides." Do NOT output this as a single object with the whole sentence dumped into "notes" (e.g. do NOT produce {"name": "Partition Wall Type A1", "notes": "<entire sentence>", ...}). Instead, parse the sentence and extract each distinct material mentioned (stud framing, backer board, tile, paint, sheathing, siding, cladding, insulation, etc.) as its OWN object, same as any other CATEGORY D breakdown, using "Extracted from code" to record which wall/partition type it came from.
+        🚨 This same submaterial-breakdown rule ALSO applies when the code's materials are written as a full PROSE SENTENCE instead of a clean comma-separated list -- this is very common in PARTITION / WALL-TYPE SCHEDULES (columns like "PARTITION WALL TYPE" / "TYPE" and "DESCRIPTION"), where a code such as "A1" or "B2" has a description like: "3 5/8\" Metal Stud with one layer of 5/8\" Cementitious Backer Board and Ceramic Tile upto 72\" from FFL (UNO on interior elevations) and painted finish above, on both sides." Do NOT output this as a single object with the whole sentence dumped into "estimation_notes" (e.g. do NOT produce {"name": "Partition Wall Type A1", "estimation_notes": "<entire sentence>", ...}). Instead, parse the sentence and extract each distinct material mentioned (stud framing, backer board, tile, paint, sheathing, siding, cladding, insulation, etc.) as its OWN object, same as any other CATEGORY D breakdown, using "Extracted from code" to record which wall/partition type it came from.
 
         
     #### CATEGORY E: FITTINGS, FIXTURES & ACCESSORIES SCHEDULES 
     A table listing tagged fixtures/fittings/hardware (e.g. columns like S.N., TAG, ACCESSORY, ITEM SPECIFICATION -- covering things like toilet paper dispensers, soap dispensers, grab bars, mirrors, lavatories, urinals, water closets, hand dryers, partitions, shower heads, water heaters, refridgerator, etc) is STILL IN SCOPE and MUST be extracted. Do NOT skip this table under the general "civil engineering materials only" rule -- plumbing fixtures, toilet accessories, and fit-out hardware scheduled with their own TAG are treated the same as any other coded schedule item (see CATEGORY B/C).
     - Use the TAG (e.g. "AC-1", "G-1", "L-1", "M-1", "U-1", "WC-1") as the "name".
-    - Combine the accessory description and item specification/model columns into "notes".
+    - Combine the accessory description and item specification/model columns into "estimation_notes".
     - Set "category" to "Others"
     - Every row of this table must be extracted -- do not skip any TAG.
     - FIXTURES SHOULD BE GENERATED ONLY ONCE.
@@ -1409,7 +1404,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     Example:
     {
         "name": "AC-1",
-        "notes": "Accessory: Toilet Paper Dispenser. Item Specification: Bobrick Model B2888 or equal.",
+        "estimation_notes": "Accessory: Toilet Paper Dispenser. Item Specification: Bobrick Model B2888 or equal.",
         "category": "Others",
         "mentions": [
             {"page_label": "C - 301 - Finishes, Fittings and Accessories Schedule", "view": "Fittings and Accessories Schedule"}
@@ -1417,7 +1412,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     },
     {
         "name": "WC-1",
-        "notes": "Accessory: Water Closet, Std. Item Specification: Sloan Model 20231001 or equal.",
+        "estimation_notes": "Accessory: Water Closet, Std. Item Specification: Sloan Model 20231001 or equal.",
         "category": "Others",
         "mentions": [
             {"page_label": "C - 301 - Finishes, Fittings and Accessories Schedule", "view": "Fittings and Accessories Schedule"}
@@ -1434,9 +1429,9 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     For each row_label/column_label pair in that reference data:
     - "name" = the material's row_label exactly as given (e.g. "Ceramic Tile", "Sealed Concrete").
     - "category" = "Room-<room name>" using the room/area portion of the column_label (e.g. column_label "Shower Room-Floor" -> category "Room-Shower Room").
-    - "notes" = the surface portion of the column_label (Floor / Ceiling / Wall-North / Wall-South/ Wall-East / Wall-West, etc.), plus the material's brand/manufacturer/type-color spec if the schedule's legend provides one for that material -- do not invent a spec if none exists.
+    - "estimation_notes" = the surface portion of the column_label (Floor / Ceiling / Wall-North / Wall-South/ Wall-East / Wall-West, etc.), plus the material's brand/manufacturer/type-color spec if the schedule's legend provides one for that material -- do not invent a spec if none exists.
     - "mentions" = the usual page_label/view for this schedule.
-    - One object per intersection -- if "Ceramic Tile" is marked for 4 rooms x 4 walls, that is 5 separate objects (each with a different "category"/"notes", walls are considerd as one), NOT one object with a combined list of rooms in "notes".
+    - One object per intersection -- if "Ceramic Tile" is marked for 4 rooms x 4 walls, that is 5 separate objects (each with a different "category"/"estimation_notes", walls are considerd as one), NOT one object with a combined list of rooms in "estimation_notes".
     - Do not add a room/surface that is not present in the row_label/column_label reference data, and do not omit one that is present. Match the reference data exactly, one-to-one.
     - 🚨 Watch for adjacent-row bleed in the reference data itself: on dense matrix tables, a room/surface can occasionally be misattributed to the wrong neighboring row (e.g. a mark that should belong to "Paint" instead showing up under "Exterior Board", or a row at the bottom of one group like "Sealed Concrete" (a FLOOR item) being mislabeled with the next group's name, "WALL"). If a row_label's assigned category doesn't semantically match what that material actually is (e.g. "Sealed Concrete" tagged as a wall material, or a ceiling material tagged as a floor material), trust the material's real-world nature over a mismatched group label from the reference data, and use the reference image itself to double check which row the mark truly belongs to before finalizing.
     - Anything related to Wall must be kept inside "wall" category regardless of the location of the room. IF ANY OTHER MATERIAL LIE IN THE WALL ROW OR COLUMN OF THE TABLE, AUTOMATICALLY SET THE CATEGORY TO WALL.
@@ -1450,7 +1445,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     Correct output (two separate objects, not one combined summary):
     {
         "name": "Ceramic Tile (Anti Slip)",
-        "notes": "Floor. Trafficmaster, Baja Gray - Matte Finish 12\" x 12\" or approved equal.",
+        "estimation_notes": "Floor. Trafficmaster, Baja Gray - Matte Finish 12\" x 12\" or approved equal.",
         "category": {
         "c1": "Room-Family Restroom",
         "c2": "Room-Shower Room",
@@ -1461,7 +1456,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     },
     {
         "name": "Ceramic Tile",
-        "notes": "Wall. Trafficmaster, Baja Gray - Matte Finish 12\" x 12\" or approved equal.",
+        "estimation_notes": "Wall. Trafficmaster, Baja Gray - Matte Finish 12\" x 12\" or approved equal.",
         "category":"Wall"   #You may use wall-interior or wall-Exterior if the pdf is follwing that approach.
         "mentions": [
             {"page_label": "C - 301 - Finishes, Fittings and Accessories Schedule", "view": "Material and Finishes Schedule"}
@@ -1475,7 +1470,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     [
       {
         "name": "Asphalt Shingles",
-        "notes": "Black asphalt shingles, referenced as exterior material no. 1",
+        "estimation_notes": "Black asphalt shingles, referenced as exterior material no. 1",
         "category": "Roof",
         "mentions": [
           {"page_label": "Sheet 4 of 23 - East Elevation (Front)", "view": "East Elevation (Front) - Exterior Elevation View"},
@@ -1485,7 +1480,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
       },
       {
         "name": "Door-01A",
-        "notes": "Qty: 1, Width: 5'-0, Height: 6'-8', Material Finish: Fibreglass, Glazing: -",
+        "estimation_notes": "Qty: 1, Width: 5'-0, Height: 6'-8', Material Finish: Fibreglass, Glazing: -",
         "category": "Door Schedule",
         "mentions": [
             {"page_label": "Sheet 4 of 23 - East Elevation (Front)", "view": "Door Schedule"},
@@ -1494,7 +1489,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
       },
       {
         "name": "E32",
-        "notes": "3/8\" OSB Board, Type X, 5/8\" thick, fire-rated",
+        "estimation_notes": "3/8\" OSB Board, Type X, 5/8\" thick, fire-rated",
         "category": "Wall-Interior",
         "mentions": [
             {"page_label": "Sheet 4 of 23 - East Elevation (Front)", "view": "East Elevation (Front) - Exterior Elevation View"},
@@ -1502,7 +1497,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
       },
       {
         "code": "X-74",
-        "notes": "HARDWOOD FLOOR, 2-3\" WIDE, FINISH WOOD, TONGUE & GROOVE, STAINED"
+        "estimation_notes": "HARDWOOD FLOOR, 2-3\" WIDE, FINISH WOOD, TONGUE & GROOVE, STAINED"
         "category": {
             "c1": "Room-MainRoom",
             "c2": "Room-Kitchen"
@@ -1515,7 +1510,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     },
      {
         "name": "Plywood Subfloor",
-        "notes": "3/4\" Plywood Subfloor. Material listed in F2 - Typical Floor Assembly.",
+        "estimation_notes": "3/4\" Plywood Subfloor. Material listed in F2 - Typical Floor Assembly.",
         "category": "Room-Typical",
         "mentions": [
             {
@@ -1527,7 +1522,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     },
       {
         "name": "VINYL SIDING",
-        "notes": "Material listed in W1",
+        "estimation_notes": "Material listed in W1",
         "category": {
                     "c1": "Wall-Exterior",
                     "c2": "Wall-Interior",
@@ -1538,7 +1533,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
       },
      {
         "name": "TYVEK HOUSE WRAP", 
-        "notes": "Tyvek House Wrap, Material listed in W1",
+        "estimation_notes": "Tyvek House Wrap, Material listed in W1",
         "category": "Wall-Exterior",
         "mentions": [
             {"page_label": "Sheet 16 of 23", "view": "Main Floor Plan Layout", "Extracted from code": "W1"}
@@ -1546,7 +1541,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
      },
      {
         "name": "3/8' OSB EXTERIOR SHEATHING", 
-        "notes": "Material listed in W1, 3/8' thickness osb exterior sheathing",
+        "estimation_notes": "Material listed in W1, 3/8' thickness osb exterior sheathing",
         "category": "Wall-Exterior",
         "mentions": [
             {"page_label": "Sheet 16 of 23", "view": "Main Floor Plan Layout", "Extracted from code": "W1"}
@@ -1554,7 +1549,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
      },
      {
         "name": "2X6 STUDS @ 16' O.C.", 
-        "notes": "Material listed in W1, 2X6 size STUDS and 16' o.c spacing is mentioned in the notes of W1",
+        "estimation_notes": "Material listed in W1, 2X6 size STUDS and 16' o.c spacing is mentioned in the notes of W1",
         "category": "Wall-Exterior",
         "mentions": [             
             {"page_label": "Sheet 16 of 23", "view": "Main Floor Plan Layout", "Extracted from code": "W1"},
@@ -1562,7 +1557,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
      },
      {
         "name": "R-25 BATT INSULATION", 
-        "notes": "Material listed in W1, R-25 insulation value and batt type is mentioned in the notes of W1"
+        "estimation_notes": "Material listed in W1, R-25 insulation value and batt type is mentioned in the notes of W1"
         "category": "Wall-Exterior",
         "mentions": [ 
             {"page_label": "Sheet 16 of 23", "view": "Main Floor Plan Layout", "Extracted from code": "W1"},
@@ -1570,7 +1565,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
      },
      {
         "name": "Ceramic Tile (Anti Slip)",
-        "notes": "Ceramic Tile (Anti Slip), Floor. Trafficmaster, Baja Gray - Matte Finish 12\" x 12\" or approved equal.",
+        "estimation_notes": "Ceramic Tile (Anti Slip), Floor. Trafficmaster, Baja Gray - Matte Finish 12\" x 12\" or approved equal.",
         "category": "Room-Shower Room",
         "mentions": [
             {"page_label": "C - 301 - Finishes, Fittings and Accessories Schedule", "view": "Material and Finishes Schedule"}

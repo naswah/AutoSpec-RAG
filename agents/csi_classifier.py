@@ -64,7 +64,7 @@
 #     raw_name = item.get("name") or item.get("code") or ""
 #     cleaned_name = clean_material_text(str(raw_name))
 
-#     notes = item.get("notes", "")
+#     notes = item.get("estimation_notes", "")
 #     notes = strip_reference_boilerplate(notes) if isinstance(notes, str) else ""
 #     cleaned_notes = clean_material_text(notes) if isinstance(notes, str) else ""
 
@@ -442,7 +442,7 @@ REFERENCE_BOILERPLATE_PATTERN = re.compile(
 
 TOP_K_CHUNKS = 3
 
-# Rate limiting semaphore to avoid API congestion
+# Rate limiting avoid API congestion
 MAX_CONCURRENT_LLM_CALLS = 8
 llm_semaphore = asyncio.Semaphore(MAX_CONCURRENT_LLM_CALLS)
 
@@ -466,16 +466,24 @@ def clean_material_text(text: str) -> str:
 
 
 def build_query_and_context(item: dict):
-    raw_name = item.get("name") or item.get("code") or ""
-    cleaned_name = clean_material_text(str(raw_name))
+    has_name = bool(str(item.get("name") or "").strip())
+    has_code = bool(str(item.get("code") or "").strip())
 
-    notes = item.get("notes", "")
-    notes = strip_reference_boilerplate(notes) if isinstance(notes, str) else ""
-    cleaned_notes = clean_material_text(notes) if isinstance(notes, str) else ""
-
-    if cleaned_name:
-        query = f"{cleaned_name}. Description: {cleaned_notes}".strip()
+    if has_name:
+        # Schema has "name": use ONLY the name for the vector DB query.
+        cleaned_name = clean_material_text(str(item.get("name")))
+        query = cleaned_name or "construction material specification"
+    elif has_code:
+        # Schema has "code" (no "name"): use ONLY estimation_notes as context.
+        notes = item.get("estimation_notes", "")
+        notes = strip_reference_boilerplate(notes) if isinstance(notes, str) else ""
+        cleaned_notes = clean_material_text(notes) if isinstance(notes, str) else ""
+        query = cleaned_notes or "construction material specification"
     else:
+        # Neither "name" nor "code" present: fall back to estimation_notes if available.
+        notes = item.get("estimation_notes", "")
+        notes = strip_reference_boilerplate(notes) if isinstance(notes, str) else ""
+        cleaned_notes = clean_material_text(notes) if isinstance(notes, str) else ""
         query = cleaned_notes or "construction material specification"
 
     category = item.get("category", "")
