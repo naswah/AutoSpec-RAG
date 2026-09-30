@@ -1,15 +1,3 @@
-"""
-Pipeline paths.
-
-Defaults are resolved RELATIVE TO THIS REPO so the pipeline runs unchanged on any
-machine (dev laptop, the qtakeoff-ai-backend server, CI). Each can still be
-overridden with an AUTOSPEC_* environment variable for non-standard deployments.
-
-Note: when driven by the backend (runner.py), PDF_PATH / OUTPUT_BASE / RESULTS are
-supplied per-run as CLI args, so the values here are only used for manual `python
-main.py` runs and as harmless fallbacks.
-"""
-
 import os
 from pathlib import Path
 

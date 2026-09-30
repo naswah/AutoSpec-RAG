@@ -1,12 +1,13 @@
 import os
 import re
 import json
+import sys
 from anthropic import Anthropic
 from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
-INPUT_PATH = r"D:\qtakeoffai-AI\qtakeoff-ai-AI\local\results\try_Final_2.json"
+DEFAULT_INPUT_PATH = r"D:\qtakeoffai-AI\qtakeoff-ai-AI\local\results\REQUIRED_Final.json"
 
 RESULTS_FOLDER = os.path.join("local", "results")
 
@@ -82,6 +83,152 @@ def merge_mentions(materials: list, indices: list) -> list:
     return merged
 
 
+def ask_claude_for_material_names(items_with_idx: list) -> dict:
+    if not items_with_idx:
+        return {}
+
+    local_list = []
+    for local_pos, (orig_idx, item) in enumerate(items_with_idx):
+        local_list.append({
+            "id": local_pos,
+            "code": item.get("code", ""),
+            "estimation_notes": item.get("estimation_notes", "")
+        })
+
+    prompt = f"""You are extracting product/material names from construction schedule entries.
+
+    Here is a list of entries (id, code, estimation_notes). The "code" field is just a mark/tag (e.g. "B3", "W1", "FL-1", "Door-D1") and NOT a usable name.
+
+    {json.dumps(local_list, indent=2, ensure_ascii=False)}
+
+    "estimation_notes" is built from a schedule table row and generally contains several labeled fields separated by commas (e.g. "ITEM: ..., SIZE: ..., MATERIAL: ..., NOTES: ..., MANUFACTURER/MODEL: ..."
+    or "TYPE: ..., BRAND/MANUFACTURER: ..., STYLE/COLOR/SIZE/FINISH: ..."). The exact field labels vary between schedules/PDFs, but the underlying structure is always the same:
+
+    - ONE field tells you WHAT KIND OF PRODUCT this is — the core noun / category of the thing itself. This field is commonly labeled "ITEM", "TYPE", "PRODUCT", "DESCRIPTION", or similar (e.g. "NATURAL STONE - GRANITE", "CERAMIC TILE", "RUBBER COVE BASE", "BRICK", "EXT OPENING CASING"). This is the anchor noun of the name — NEVER drop or replace it.
+    - The OTHER fields (commonly labeled "MATERIAL", "BRAND/MANUFACTURER", "STYLE/COLOR/SIZE/FINISH", "NOTES", "MANUFACTURER/MODEL", "SIZE", etc.) describe or qualify that product — a material composition, brand, finish, color, or style.
+
+    First identify which labeled field in each entry's "estimation_notes" is the "what kind of product" field (the anchor noun), then build a short, clean name in the form "<anchor noun>".
+
+    Examples:
+    - "ITEM: BRICK, MATERIAL: SMOOTH BRICK" -> "Brick (F-30)" #Here the code reference is F-30, so we add it in the name to make it unique. If there is no code reference, then we do not add it in the name.
+    - "ITEM: EXT OPENING CASING, MATERIAL: FIBER CEMENT" -> "Ext Opening Casing"
+    - "TYPE: NATURAL STONE - GRANITE, STYLE/COLOR/SIZE/FINISH: UBATUBA GRANITE - 24\\" X 24\\" POLISHED" -> "Ubatuba Granite"
+    - "TYPE: CERAMIC TILE, STYLE/COLOR/SIZE/FINISH: PORTLAND STONE BEIGE - ANTI SLIP" -> "Ceramic Tile"
+    - "TYPE: RUBBER COVE BASE, STYLE/COLOR/SIZE/FINISH: TAUPE - 6\\" HIGH" -> "Rubber Cove Base"
+    - "ITEM: 01, DESCRRPTION: 56mm wide Wooden Door, MATERIAL: SOLID WOOD, STYLE/COLOR/SIZE/FINISH: OAK - NATURAL FINISH" -> "Wooden Door" # If they are just numbers, do not put them in name
+    - "ITEM: 05, Description: Sealing Gasket- 6mm THK Rubber Pipe, DRAWAING NUMBER: AAD-M 22-30-003" -> "Sealing Gasket"
+    - "NOTE: C1, DESCRIPTION: Wall Cabinet, 12" depp, Plywood with adjustable shelves" -> "Wall Cabinet (C1)"  # If code is present, put them in name
+    - "TYPE MARK: B4, SIZE: 3-2x14, MATERIAL: SPRUCE PINE FIR" -> "Spruce Pine Fir Beam (B4)"
+    - "NOTE: GB, DESCRIPTION: Optional Accessible Grab Bar" -> "Grab Bar (GB)"
+    - "NOTE: C7, Description:Toe Kick" -> "Toe Kick (C7)"
+    - "Foundation Size: F2.0, Length: 2'-0\", Width: 2'-0\", Thickness: 12\", Reinforcement: (3) #4 BOTT. EW" -> "Foundation (F2.0)" 
+
+    Remember this does not apply for Door and Window Schedule. If door and Window schedule are present, the names must be Door-Doorname and Window-Windowname.
+    Do not add the code two/ three times in name. Just add it once.
+
+    Rules:
+    - The name should be a short noun phrase (a few words), NOT a full sentence.
+    - The anchor "what kind of product" noun MUST appear in the name — never output just a material/brand/style/finish value alone with the product type dropped.
+    - Do NOT include the mark/tag/code itself in the name.
+    - If no field can be identified as the "what kind of product" field, fall back to whatever descriptive text is available (do not fabricate). If nothing usable can be extracted at all, use the "code" value.
+
+    Respond with ONLY a JSON array of objects, no other text, no markdown formatting, no code fences,
+    in this exact format:
+    [{{"id": <id>, "name": "<extracted name>"}}, ...]
+
+    You must include every id from the input list exactly once."""
+
+    response = client.messages.create(
+        model="claude-haiku-4-5-20251001",
+        max_tokens=5000,
+        messages=[{"role": "user", "content": prompt}]
+    )
+
+    text = "".join(
+        block.text for block in response.content if getattr(block, "type", None) == "text"
+    ).strip()
+
+    text = re.sub(r"^```(?:json)?", "", text.strip())
+    text = re.sub(r"```$", "", text.strip()).strip()
+
+    result_map = {}
+    try:
+        parsed = json.loads(text)
+    except json.JSONDecodeError:
+        print(f"  [Warning] Could not parse Claude response for code->name, falling back to 'code' value. Raw response: {text[:200]}")
+        return result_map
+
+    for entry in parsed:
+        try:
+            local_id = entry["id"]
+            name_value = entry["name"]
+        except (KeyError, TypeError):
+            continue
+        if 0 <= local_id < len(items_with_idx):
+            orig_idx = items_with_idx[local_id][0]
+            result_map[orig_idx] = str(name_value).strip()
+
+    return result_map
+
+
+def normalize_code_to_name(materials: list) -> None:
+    """For every item whose schema has 'code' instead of 'name':
+    1. Extract the material name from 'estimation_notes' via Claude.
+    2. Put that extracted name as the value of the 'code' key.
+    3. Append 'REFERENCE: <initial code>' to 'estimation_notes' so the original code isn't lost.
+    4. Rename the 'code' key to 'name'.
+    Modifies `materials` in place.
+    """
+
+    indices = [
+        i for i, item in enumerate(materials)
+        if isinstance(item, dict) and "code" in item and not str(item.get("name", "")).strip()
+    ]
+
+    if not indices:
+        return
+
+    name_map = {}
+    for start in range(0, len(indices), BATCH_MAX_ITEMS):
+        chunk_indices = indices[start:start + BATCH_MAX_ITEMS]
+        items_with_idx = [(i, materials[i]) for i in chunk_indices]
+        name_map.update(ask_claude_for_material_names(items_with_idx))
+
+    for idx in indices:
+        item = materials[idx]
+        original_code = str(item.get("code", "")).strip()
+        extracted_name = name_map.get(idx, "").strip() or original_code
+
+        # Bake the original mark/tag into the name itself, e.g. "Astragal (F-30)".
+        # dedupe_materials() groups purely on (name, category) -- without the
+        # code baked in, two schedule rows that happen to get the same generic
+        # descriptive name look identical to the dedup logic and one gets
+        # silently deleted. Baking the code in guarantees every row's name is
+        # unique per mark.
+        display_name = f"{extracted_name} ({original_code})" if original_code else extracted_name
+
+        original_notes = str(item.get("estimation_notes", "") or "").strip()
+        reference_tag = f"referenced from {original_code}" if original_code else ""
+        if reference_tag:
+            new_notes = f"{original_notes}, {reference_tag}".strip(", ").strip() if original_notes else reference_tag
+        else:
+            new_notes = original_notes
+
+        new_item = {}
+        for k, v in item.items():
+            if k == "code":
+                new_item["name"] = display_name
+            elif k == "estimation_notes":
+                new_item["estimation_notes"] = new_notes
+            else:
+                new_item[k] = v
+
+        if "estimation_notes" not in new_item and new_notes:
+            new_item["estimation_notes"] = new_notes
+
+        materials[idx] = new_item
+
+
 def ask_claude_for_paraphrase_duplicates(items_with_idx: list) -> list:
 
     if len(items_with_idx) < 2:
@@ -106,6 +253,7 @@ def ask_claude_for_paraphrase_duplicates(items_with_idx: list) -> list:
     Rules:
     - Only group entries together if they clearly refer to the same material, just worded differently.
     - Do NOT group entries that describe genuinely different materials, even if related.
+    - Some "name" values end with a mark/tag code in parentheses, e.g. "Beam (B1)", "Astragal (F-30)". If two entries have DIFFERENT codes in parentheses, NEVER group them together -- even if the rest of the name and estimation_notes look identical or near-identical. Each distinct code represents a separate schedule entry that must be preserved on its own, regardless of how similar the wording is.
     - Singletons (materials with no duplicate) should NOT appear in your output at all.
     - Each id can belong to at most one group.
     - For each group, decide which single id should be KEPT: prefer the entry whose "estimation_notes" contain concrete numerical information (dimensions, thickness, sizes, etc). If more than one entry has numerical info, or none of them do, keep whichever entry has the more complete/detailed information overall.
@@ -290,6 +438,13 @@ def dedupe_materials(materials: list):
 
         duplicate_group_count += 1
         best_idx = max(indices, key=lambda i: mention_count(materials[i]))
+
+        # Combine every mention from every duplicate in this group onto the
+        # survivor before deleting the rest, so location/view/page data from
+        # the removed rows isn't silently lost -- only the row itself goes,
+        # not the evidence of where it appeared.
+        materials[best_idx]["mentions"] = merge_mentions(materials, indices)
+
         for i in indices:
             if i != best_idx:
                 to_remove.add(i)
@@ -503,6 +658,19 @@ def ask_claude_for_notes(items_with_idx: list) -> dict:
     "notes": "Metal stud, 6\"",          #all other infomation is not related to the material itself so it is removed from notes_value. All references are also removed.
 
     - If nothing can be extracted from the notes section, then use the name of the material as notes_value.
+    - If any substitue value comes in the notes section, then remove it from notes_value as it is not related to the material itself. For example,
+    {{
+        "name": "Threaded Rod",
+        "estimation_notes": "5/8\" threaded rods may be substituted for bent rebar and anchor bolts, grout all cells with threaded rods solid",
+        "notes": "Threaded rods, 5/8\"",  ✅ The substitute part is removed for notes section.
+        "category": "Wall-Foundation",
+        "mentions": [
+            {{
+                "page_label": "S-302 - Typical Details 2",
+                "view": "Masonary Stem Wall Details for Walls 48\" Long or Less"
+            }}
+        ],
+    }},
 
     STYLE — write "notes" as a terse, comma-separated catalog phrase, in the same compact style used by RSMeans-type cost-database descriptions. NOT a full sentence: no "The", no subject/verb narrative, no trailing period. Lead with the core item/material type, then add comma-separated modifiers (size, thickness, type, strength, single location if present) in natural left-to-right order. Keep inch marks as the " symbol exactly as written in the original "estimation_notes" — do NOT spell out the word "inch". Examples of the target style:
     "Welded wire mesh, below 4\" slab"
@@ -611,14 +779,28 @@ def add_notes(materials: list) -> None:
 
 
 def main():
-    if not INPUT_PATH:
-        raise ValueError("Please set INPUT_PATH at the top of check.py to the *_Final_2.json file path.")
+    if len(sys.argv) > 1:
+        input_path = sys.argv[1]
+    else:
+        input_path = DEFAULT_INPUT_PATH
 
-    print(f"Reading: {INPUT_PATH}")
-    with open(INPUT_PATH, "r", encoding="utf-8") as f:
+    if not input_path:
+        raise ValueError(
+            "No input file provided. Pass a file path as a command-line argument, e.g. `python remove_duplicates.py path/to/file.json`, or set DEFAULT_INPUT_PATH at the top of this script."
+        )
+
+    if not os.path.isfile(input_path):
+        raise FileNotFoundError(f"Input file not found: {input_path}")
+
+    print(f"Reading: {input_path}")
+    with open(input_path, "r", encoding="utf-8") as f:
         materials = json.load(f)
 
     print(f"Loaded {len(materials)} material(s).")
+
+    print("Converting 'code'-only entries to 'name' (via Claude Haiku)...")
+    normalize_code_to_name(materials)
+    print("Done converting 'code' -> 'name'.")
 
     to_remove, duplicate_group_count = dedupe_materials(materials)
 
@@ -648,8 +830,8 @@ def main():
     print("Done generating 'notes'.")
 
     os.makedirs(RESULTS_FOLDER, exist_ok=True)
-    pdf_name = get_pdf_name(INPUT_PATH)
-    output_file = os.path.join(RESULTS_FOLDER, f"{pdf_name}_Final_3.json")
+    pdf_name = get_pdf_name(input_path)
+    output_file = os.path.join(RESULTS_FOLDER, f"{pdf_name}_Final_2.json")
 
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(final_materials, f, indent=4, ensure_ascii=False)

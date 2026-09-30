@@ -46,9 +46,8 @@ def summary_agent_node(state: AgenticState):
         print(f"Extracting all detailed plan data from sheet {page_no}...")
         try:
             response = client.messages.create(
-                model="claude-sonnet-4-6",
+                model="claude-sonnet-5",
                 max_tokens=3500, 
-                temperature=0.1,  
                 system="You are a precise architectural description engine. Write comprehensive, fully expanded technical descriptions of construction drawings. Do not summarize or skip small details—write out everything observed. Start directly with your findings.",
                 messages=[
                     {

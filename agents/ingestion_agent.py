@@ -556,6 +556,46 @@ def ingestion_agent_node(state: AgenticState):
     valid_pages = pdf_to_image(state["pdf_path"], state["output_base"])
     results = []
     scale_results= []
+
+    for page in valid_pages:
+        try:
+            image_b64, media_type = encode_cv2_image_b64(cv2.imread(page["local_path"]))
+            scale_response = call_claude_table_vision(
+                client=client,
+                image_b64=image_b64,
+                media_type=media_type,
+                prompt=SCALE_PROMPT
+            )
+            
+            scale_str = scale_response.strip()
+            if scale_str and scale_str != "NONE":
+                try:
+                    parsed_scale = json.loads(scale_str)
+                    if isinstance(parsed_scale, list) and len(parsed_scale) > 0:
+                        scale_results.extend(parsed_scale)
+                except json.JSONDecodeError:
+                    pass
+        except Exception as e:
+            print(f"[Scale Detection] Page {page.get('page_no')}: failed with {e}")
+
+    # Step 2: TERMINATION CHECK - If scale_results is empty, terminate process immediately
+        if not scale_results:
+            print("[Agent 1: Ingestion] Terminating process: Scale JSON is empty (no scale found). Skipping further Claude calls.")
+
+            pdf_name = os.path.splitext(os.path.basename(state["pdf_path"]))[0]
+            os.makedirs(SCALE_PATH, exist_ok=True)
+            scale_json_path = os.path.join(SCALE_PATH, f"{pdf_name}_scale.json")
+            with open(scale_json_path, "w", encoding="utf-8") as f:
+                json.dump([], f, indent=4)
+
+            return {
+                "valid_pages": valid_pages,
+                "extracted_materials": [],
+                "scale_report_path": scale_json_path,
+                "status": "terminated_empty_scale",
+            }
+
+    print(f"[Agent 1: Ingestion] Found {len(scale_results)} scale entry/entries. Proceeding to material extraction...")
     
     prompt = """
     Your role is a professional construction material estimator. Analyze this architectural drawing and extract building materials used in CIVIL ENGINEERING and structural construction materials and schedule references. Read the rules below and provide only the VALID JSON output strictly following the specified format.
@@ -577,6 +617,7 @@ def ingestion_agent_node(state: AgenticState):
     ❗WHAT NOT TO EXTRACT:
     - In drawing labelling, if you see labelled materials that are not actually used in the construction, civil engineering, do not extract them.
     - Do not extract 'Air Space' as a material. It is a gap between two materials.
+    - Do not extract "blocking" as it isnt a material.
     Example:
      {
         "name": "3/4\" Air Space",
@@ -592,7 +633,24 @@ def ingestion_agent_node(state: AgenticState):
                 "view": "Exterior Door Head & Sill"
             }
         ],
-    }, This is not valid so do not extract it.
+    },
+    {
+        "name": "Blocking",
+        "estimation_notes": "Full-height blocking above/below braced wall, cont. along length of braced wall panel",
+        "category": "Wall",
+        "mentions": [
+            {
+                "page_label": "S-302 - Typical Details 2",
+                "view": "Braced Wall Panel Connection When Perpendicular to Floor/Ceiling Framing"
+            },
+            {
+                "page_label": "S-302 - Typical Details 2",
+                "view": "Braced Wall Panel Connection When Parallel to Floor/Ceiling Framing"
+            }
+        ],
+    },
+    This is not valid so do not extract it.
+    Extract only the actual materials.
 
     ⚠️ Even if a material is not listed in a high-level Schedule (e.g., if it is only labeled on a typical section detail or elevation callout, such as a "2x10 wood mantle" or a "Double Wall Chimney Connector"), you MUST extract it as an individual material.
     
@@ -654,7 +712,7 @@ def ingestion_agent_node(state: AgenticState):
 
     - Use the name of table when necessary for report_notes for example,
         (Beam Schedule)
-        "name": "B3",
+        "code": "B3",
         "estimation_notes": "Type Mark: B3, Size: 3-2x14, Material: SPRUCE PINE FIR",
         "report_notes": "Beam B3, 2x14, Spruce Pine Fir", # State marck name as well.
     
@@ -727,7 +785,7 @@ STEP 2 — ROOM-TYPICAL RULE (for FLOOR/CEILING materials and any non-wall-funct
         
             Then JSON should be:
             {
-            "name": "APC-1",
+            "code": "APC-1",
                     "estimation_notes": "Type: Acoustic Panel; Ceiling,Colour: Black, Location: Typical",
                     "category": {
                         "c1": "Room-Restroom",
@@ -743,7 +801,7 @@ STEP 2 — ROOM-TYPICAL RULE (for FLOOR/CEILING materials and any non-wall-funct
                     ]
             },
             {
-                "name": "APC-2",
+                "code": "APC-2",
                         "estimation_notes": "Type: Acoustic Panel; Ceiling,Colour: White, Location: Kitchen Typical",
                         "category": "Room-Kitchen",     #Since Kitche Typical is given
                         "mentions": [
@@ -754,7 +812,7 @@ STEP 2 — ROOM-TYPICAL RULE (for FLOOR/CEILING materials and any non-wall-funct
                         ]
             },
             {
-                "name": "TP-1",
+                "code": "TP-1",
                         "estimation_notes": "Type: Shutter,Colour: Natural, Location: Restroom, Dining, Storage",
                         "category": {
                             "c1": "Room-Restroom",
@@ -774,7 +832,7 @@ STEP 2 — ROOM-TYPICAL RULE (for FLOOR/CEILING materials and any non-wall-funct
                 C-2   |Sealed Concrete |Grey  | Bar-Typical
             C-1 and C-2 are FLOOR-functional materials, so they feed and consult only the FLOOR excluded-room set -- they are entirely independent of the CEILING excluded-room set built from APC-2 (Kitchen-Typical) above. The FLOOR excluded-room set for this schedule is {Bar} (from C-2 only) -- Kitchen is NOT in the floor set, because APC-2's "Kitchen-Typical" override was for a ceiling material, not a floor material. So C-1's explosion (a plain-Typical FLOOR material) omits ONLY Bar, and correctly still includes Kitchen (Kitchen has no floor-specific override, only a ceiling one):
             {
-                "name": "C-1",
+                "code": "C-1",
                 "estimation_notes": "Type: Concrete Floor, Colour: Grey, Location: Typical",
                 "category": {
                     "c1": "Room-Kitchen",  // included -- Kitchen's Typical override (APC-2) was for the CEILING, not the floor, so it does not exclude Kitchen from this FLOOR material's explosion
@@ -788,7 +846,7 @@ STEP 2 — ROOM-TYPICAL RULE (for FLOOR/CEILING materials and any non-wall-funct
                 ]
             },
             {
-                "name": "C-2",
+                "code": "C-2",
                 "estimation_notes": "Type: Sealed Concrete, Colour: Grey, Location: Bar Typical",
                 "category": "Room-Bar",   // room-specific Typical -> single-room category directly, same pattern as APC-2/Kitchen
                 "mentions": [
@@ -964,7 +1022,7 @@ For Room ledgend, look at the drawing properly. Every separate Room Tag box on t
 
 Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finishes schedule Location column for these tags) -- a box reading "PRIEST ROOM" with rows FL-3 / WB-1 / PT-1 / CT-1 next to it:
     {
-        "name": "FL-3",
+        "code": "FL-3",
         "estimation_notes": "Room Tag: Floor row, Room: Priest Room",  # Add the note from the table
         "category": "Room-Priest Room",   # FLOOR row -> Room-<RoomName>, room name read directly off the plan next to this Room Tag box
         "mentions": [
@@ -972,7 +1030,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         ]
     },
     {
-        "name": "CT-1",
+        "code": "CT-1",
         "estimation_notes": "Room Tag: Ceiling row, Room: Priest Room", # Add note from the table
         "category": "Room-Priest Room",   # CEILING row -> SAME Room-<RoomName> treatment as FLOOR, using the same room name
         "mentions": [
@@ -980,7 +1038,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         ]
     },
     {
-        "name": "WB-1",
+        "code": "WB-1",
         "estimation_notes": "Room Tag: Wall Base row, Room: Priest Room", # Add note from the table
         "category": "Wall",   # WALL BASE row -> goes through the WALL RULE (Wall-<code> / "Wall" / Wall-Interior-Exterior), NOT Room-Priest Room
         "mentions": [
@@ -988,7 +1046,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         ]
     },
     {
-        "name": "PT-1",
+        "code": "PT-1",
         "estimation_notes": "Room Tag: Wall row, Room: Priest Room", # Add note from the table
         "category": "Wall",   # WALL row -> also goes through the WALL RULE, same as Wall Base
         "mentions": [
@@ -1004,7 +1062,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
 
     Example when the Room Tag box is next to a non-room ZONE (platform/furniture label) and only has ONE row -- e.g. three separate boxes on the plan each simply reading "PEDESTAL" with a single "FL-1" line inside (no Wall Base/Wall/Ceiling rows at all), plus a 4-row box reading "DEITIES PLATFORM" listing FL-2 / WB-3 / PT-2,PT-3 / CT-2:
     {
-        "name": "FL-1",
+        "code": "FL-1",
         "estimation_notes": "Room Tag: Floor row, Zone: Pedestal",
         "category": "Room-Pedestal",   # lone FLOOR-prefixed tag in a 1-row box -> still Room-<Label>, using the printed zone label "PEDESTAL" even though it is not an enclosed room
         "mentions": [
@@ -1014,31 +1072,31 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         ]   # three separate PEDESTAL boxes on the plan all resolve to the same "Room-Pedestal" category -- one mention per box instance
     },
     {
-        "name": "FL-2",
+        "code": "FL-2",
         "estimation_notes": "Room Tag: Floor row, Zone: Deities Platform",
         "category": "Room-Deities Platform",   # FLOOR row of the DEITIES PLATFORM box
         "mentions": [{"page_label": "C - 202 - Finishes Plan and Schedule", "view": "Finishes Plan"}]
     },
     {
-        "name": "CT-2",
+        "code": "CT-2",
         "estimation_notes": "Room Tag: Ceiling row, Zone: Deities Platform",
         "category": "Room-Deities Platform",   # CEILING row -> same zone label as the Floor row above
         "mentions": [{"page_label": "C - 202 - Finishes Plan and Schedule", "view": "Finishes Plan"}]
     },
     {
-        "name": "WB-3",
+        "code": "WB-3",
         "estimation_notes": "Room Tag: Wall Base row, Zone: Deities Platform",
         "category": "Wall",   # WALL BASE row -> WALL RULE, never "Room-Deities Platform"
         "mentions": [{"page_label": "C - 202 - Finishes Plan and Schedule", "view": "Finishes Plan"}]
     },
     {
-        "name": "PT-2",
+        "code": "PT-2",
         "estimation_notes": "Room Tag: Wall row, Zone: Deities Platform",
         "category": "Wall",   # WALL row -> WALL RULE
         "mentions": [{"page_label": "C - 202 - Finishes Plan and Schedule", "view": "Finishes Plan"}]
     },
     {
-        "name": "PT-3",
+        "code": "PT-3",
         "estimation_notes": "Room Tag: Wall row, Zone: Deities Platform",
         "category": "Wall",   # also listed on the WALL row (multiple tags can share a row, e.g. "PT-2, PT-3") -> WALL RULE
         "mentions": [{"page_label": "C - 202 - Finishes Plan and Schedule", "view": "Finishes Plan"}]
@@ -1134,7 +1192,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         ]
     },
     {
-        "name": "CT-1",
+        "code": "CT-1",
         "estimation_notes": "Type: Vinyl Coated Ceiling,  Brand: Armstrong, Location: Dining, Storage, Toilet",
         "category": "Room-Toilet",
         "mentions": [
@@ -1198,7 +1256,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     Table Schedules Processing Rules:
     If a table occurs with numbers in theor 1st column, then put the 'name' key as the notation/number/name of the column 1. The rest information could be aaded to the 'estimation_notes' section. The 'category' key must be added in accordance with the title of the table and the 'mentions' key must have the page and the view where the table is loacated and where the codes are present in the user plan. 
 
-    EXAMPLE 1:
+    EXAMPLE 1: (Door Schedule)
     NO  |Qty |Width |Height |Matrial Finish |Glazing
     ----|----|------|-------|---------------|--------
     01A | 1  | 5'-0 | 6'-8' | Fibreglass    | -
@@ -1223,7 +1281,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
             ]
     }
 
-    If Window schdule comes Eg:
+    If Window schdule comes Eg: (Window Schedule)
      NO  |Qty |Width |Height | Volume
      ----|----|------|-------|--------
      0C  | 1  | 5'-0 | 6'-8' | -
@@ -1238,7 +1296,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         ]
     }
 
-    For Door and Window, Add the keyword "Door" or "Window" in the name.
+    Strictly Follow: For Door and Window schedules, add the keyword "Door" or "Window" in the name like "Door-Doorname" or "Window-Windowname" (as shown in the example).
 
     EXAMPLE 2:
     Note | Description
@@ -1249,7 +1307,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
  
     Then the JSON must look like:
     {
-        "name": "E14",
+        "code": "E14",
         "estimation_notes": "1/2\" Gypsum Board, Type X, 5/8\" thick, fire-rated",
         "category": "Wall-Interior",
         "mentions": [
@@ -1258,7 +1316,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         ]
     },
     {
-        "name": "E32",
+        "code": "E32",
         "estimation_notes": "3/8\" OSB Board, Type X, 5/8\" thick, fire-rated",
         "category": "Wall-Interior",
         "mentions": [
@@ -1395,7 +1453,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         
     #### CATEGORY E: FITTINGS, FIXTURES & ACCESSORIES SCHEDULES 
     A table listing tagged fixtures/fittings/hardware (e.g. columns like S.N., TAG, ACCESSORY, ITEM SPECIFICATION -- covering things like toilet paper dispensers, soap dispensers, grab bars, mirrors, lavatories, urinals, water closets, hand dryers, partitions, shower heads, water heaters, refridgerator, etc) is STILL IN SCOPE and MUST be extracted. Do NOT skip this table under the general "civil engineering materials only" rule -- plumbing fixtures, toilet accessories, and fit-out hardware scheduled with their own TAG are treated the same as any other coded schedule item (see CATEGORY B/C).
-    - Use the TAG (e.g. "AC-1", "G-1", "L-1", "M-1", "U-1", "WC-1") as the "name".
+    - Use the TAG (e.g. "AC-1", "G-1", "L-1", "M-1", "U-1", "WC-1") as the "code".
     - Combine the accessory description and item specification/model columns into "estimation_notes".
     - Set "category" to "Others"
     - Every row of this table must be extracted -- do not skip any TAG.
@@ -1403,7 +1461,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
     
     Example:
     {
-        "name": "AC-1",
+        "code": "AC-1",
         "estimation_notes": "Accessory: Toilet Paper Dispenser. Item Specification: Bobrick Model B2888 or equal.",
         "category": "Others",
         "mentions": [
@@ -1411,7 +1469,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         ]
     },
     {
-        "name": "WC-1",
+        "code": "WC-1",
         "estimation_notes": "Accessory: Water Closet, Std. Item Specification: Sloan Model 20231001 or equal.",
         "category": "Others",
         "mentions": [
@@ -1488,7 +1546,7 @@ Example when ONLY the Room Tag Legend is present on the plan (no Materials/Finis
         ]
       },
       {
-        "name": "E32",
+        "code": "E32",
         "estimation_notes": "3/8\" OSB Board, Type X, 5/8\" thick, fire-rated",
         "category": "Wall-Interior",
         "mentions": [
