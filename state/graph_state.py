@@ -11,3 +11,5 @@ class AgenticState(TypedDict):
     retry_count: int                          
     error_log: List[str]
     plan_summary: str
+    status: str
+    scale_report_path: str

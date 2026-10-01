@@ -3,7 +3,7 @@ from state.graph_state import AgenticState
 
 
 def validator_agent_node(state: AgenticState):
-    print(f"\n=== [Agent 3: Quality Validator] Checking Format Compliance ===")
+    print(f"\n=== [Agent 5: Quality Validator] Checking Format Compliance ===")
     specifications = state["final_specifications"]
     errors = []
 

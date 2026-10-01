@@ -8,7 +8,7 @@ import pytesseract
 from config import OCR_PATH
 
 EXCLUDE_KEYWORDS = [
-    "accessibility", "cover page","cover sheet", "title sheet", "delta", "project summary", "site plan", "plot plan", "mechanical", "electrical plan", "project information", "plumbing plan", "mechanical notes", "mechanical plan", "fire protection", "lighting plan", "power plan", "life safety plan", "water piping", "sanitary", "specifications", "vent piping", "cover page", "building data sheet", "building code summary", "abbreviations", "symbols", "construction notes", "waste", "water supply", "plumbing calculations", "mechanical equiptments specifications", "mechanical details","electical roof plan", "plumbing general notes and sheet index", "water supply", "plumbing", "gas floor plan", "cover sheet and index of drawings", "elec", "hvac plan", "hvac", "sanitary and vent", "piping plan", 
+    "accessibility", "cover page","cover sheet", "title sheet", "delta", "project summary", "site plan", "plot plan", "mechanical", "electrical plan", "project information", "plumbing plan", "mechanical notes", "mechanical plan", "fire protection", "lighting plan", "power plan", "life safety plan", "water piping", "sanitary", "specifications", "vent piping", "cover page", "building data sheet", "building code summary", "abbreviations", "symbols", "construction notes", "waste", "water supply", "plumbing calculations", "mechanical equiptments specifications", "mechanical details","electical roof plan", "plumbing general notes and sheet index", "water supply", "plumbing", "gas floor plan", "cover sheet and index of drawings", "elec",
 ]
 
 pytesseract.pytesseract.tesseract_cmd = OCR_PATH
@@ -18,8 +18,8 @@ def is_page_excluded(page):
     width, height = rect.width, rect.height
     
     zones = [
-        #fitz.Rect(0, height * 0.85, width, height),   #bottom title block
-        fitz.Rect(width * 0.85, 0, width, height)  #right title block
+        fitz.Rect(0, height * 0.85, width, height),   #bottom title block
+        #fitz.Rect(width * 0.85, 0, width, height)  #right title block
     ]
     
     for i, zone in enumerate(zones):
@@ -108,3 +108,88 @@ def pdf_to_image(pdf_path, output_base):
         
     doc.close()
     return filtered_data
+
+
+#Plan-type detection (floor plans / elevations)
+MIN_PLAN_COUNT = 2
+
+_LEVEL = r"(1st|2nd|3rd|[4-9]th|first|second|third|fourth|fifth|ground|basement|main|upper|lower|loft|attic|roof|top)"
+FLOOR_RE = re.compile(_LEVEL + r"(floor|level)")
+
+_DIRECTION = r"(front|rear|back|left|right|north|south|east|west|side)"
+ELEVATION_DIR_RE = re.compile(_DIRECTION + r"(?:side)?elevation")
+
+# Title block zones as fractions of the page: (x0, y0, x1, y1)
+BOTTOM_ZONE = (0.0, 0.85, 1.0, 1.0)
+RIGHT_ZONE = (0.85, 0.0, 1.0, 1.0)
+
+
+def _ocr_zone(page, frac, rotate=0):
+    """OCR one zone of the page. Returns whitespace/punctuation-stripped lowercase text."""
+    rect = page.rect
+    x0, y0, x1, y1 = frac
+    zone = fitz.Rect(rect.width * x0, rect.height * y0, rect.width * x1, rect.height * y1)
+    pix = page.get_pixmap(matrix=fitz.Matrix(2, 2), clip=zone)
+    img = Image.open(BytesIO(pix.tobytes("png")))
+    if rotate:
+        img = img.rotate(rotate, expand=True)  # for vertically printed title blocks
+    raw = pytesseract.image_to_string(img).lower()
+    return re.sub(r"[^a-z0-9]", "", raw)
+
+
+def _find_plans(dense_texts):
+    """Search each zone's text separately (so words don't join across zones) and merge the results."""
+    levels, directions, has_elevation_word = set(), set(), False
+    for dense in dense_texts:
+        levels |= {m.group(1) for m in FLOOR_RE.finditer(dense)}
+        directions |= {m.group(1) for m in ELEVATION_DIR_RE.finditer(dense)}
+        has_elevation_word = has_elevation_word or "elevation" in dense
+
+    levels = {{"1st": "first", "2nd": "second", "3rd": "third"}.get(l, l) for l in levels}
+    directions = {"rear" if d == "back" else d for d in directions}
+    if not directions and has_elevation_word:
+        directions = {"generic"}
+    return levels, directions
+
+
+def _scan_title_blocks(page):
+    # Pass 1: bottom strip and right strip, text as printed
+    texts = [_ocr_zone(page, BOTTOM_ZONE), _ocr_zone(page, RIGHT_ZONE)]
+    levels, directions = _find_plans(texts)
+    if levels or directions:
+        return levels, directions
+
+    # Pass 2 (only if pass 1 found nothing): title blocks on the right are often printed vertically, so retry the right strip rotated both ways.
+    texts = [_ocr_zone(page, RIGHT_ZONE, rotate=90), _ocr_zone(page, RIGHT_ZONE, rotate=270)]
+    return _find_plans(texts)
+
+
+def count_floor_and_elevation_plans(pdf_path):
+    doc = fitz.open(pdf_path)
+    floor_count, elevation_count = 0, 0
+    details = []
+
+    for i in range(len(doc)):
+        levels, directions = _scan_title_blocks(doc[i])
+
+        floor_count += len(levels)
+        elevation_count += len(directions)
+
+        if levels or directions:
+            details.append({"page": i + 1, "floors": sorted(levels), "elevations": sorted(directions)})
+            print(f"[PLAN COUNT] Page {i+1}: floors={sorted(levels)}, elevations={sorted(directions)}")
+
+    doc.close()
+    return {
+        "floor_plans": floor_count,
+        "elevation_plans": elevation_count,
+        "total": floor_count + elevation_count,
+        "details": details,
+    }
+
+
+def is_valid_architectural_pdf(pdf_path):
+    result = count_floor_and_elevation_plans(pdf_path)
+    print(f"[PLAN COUNT] Floor plans: {result['floor_plans']}, "
+          f"Elevations: {result['elevation_plans']}, Total: {result['total']}")
+    return result["total"] >= MIN_PLAN_COUNT, result
